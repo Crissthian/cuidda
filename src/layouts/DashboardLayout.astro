@@ -1,0 +1,438 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Cuidda | Sistema médico",
+  description = "Sistema médico Cuidda",
+} = Astro.props;
+
+import "../styles/global.css";
+
+interface MenuNode {
+  id: string;
+  label: string;
+  href: string;
+  icon?: string;
+  children?: MenuNode[];
+}
+
+const menu: MenuNode[] = [
+  {
+    id: "asistencial",
+    label: "Asistencial",
+    href: "/asistencial",
+    icon: "fa-user-doctor",
+    children: [
+      { id: "admision", label: "Admisión", href: "/asistencial/admision" },
+      { id: "triaje", label: "Triaje", href: "/asistencial/triaje" },
+      {
+        id: "consulta-medica",
+        label: "Consulta Médica",
+        href: "/asistencial/consulta-medica",
+      },
+      { id: "consulta-odonto", label: "Consulta Odonto", href: "#" },
+      {
+        id: "parte-diario",
+        label: "Parte Diario",
+        href: "/asistencial/parte-diario",
+      },
+      { id: "pacientes", label: "Pacientes", href: "#" },
+    ],
+  },
+  {
+    id: "ocupacional",
+    label: "Ocupacional",
+    href: "/ocupacional",
+    icon: "fa-stethoscope",
+    children: [
+      {
+        id: "cotizaciones",
+        label: "Generador de cotizaciones",
+        href: "/ocupacional/generador-de-cotizaciones",
+      },
+      {
+        id: "contratos",
+        label: "Creación de contratos",
+        href: "/ocupacional/creacion-de-contratos",
+      },
+      { id: "filiacion", label: "Filiación", href: "/ocupacional/filiacion" },
+      {
+        id: "atencion-paciente",
+        label: "Atención al paciente",
+        href: "/ocupacional/atencion-al-paciente",
+        children: [
+          {
+            id: "ap-triaje",
+            label: "Triaje",
+            href: "/ocupacional/atencion-al-paciente/triaje",
+          },
+          {
+            id: "ap-laboratorio",
+            label: "Laboratorio",
+            href: "/ocupacional/atencion-al-paciente/laboratorio",
+          },
+          {
+            id: "ap-radiologia",
+            label: "Radiología",
+            href: "/ocupacional/atencion-al-paciente/radiologia",
+          },
+          {
+            id: "ap-cardiologia",
+            label: "Cardiología",
+            href: "/ocupacional/atencion-al-paciente/cardiologia",
+          },
+          {
+            id: "ap-medicina",
+            label: "Medicina",
+            href: "/ocupacional/atencion-al-paciente/medicina",
+          },
+          {
+            id: "ap-oftalmologia",
+            label: "Oftalmología",
+            href: "/ocupacional/atencion-al-paciente/oftalmologia",
+          },
+          {
+            id: "ap-otorrino",
+            label: "Otorrinolaringología",
+            href: "/ocupacional/atencion-al-paciente/otorrinolaringologia",
+          },
+          {
+            id: "ap-espirometria",
+            label: "Espirometría",
+            href: "/ocupacional/atencion-al-paciente/espirometria",
+          },
+          {
+            id: "ap-odontologia",
+            label: "Odontología",
+            href: "/ocupacional/atencion-al-paciente/odontologia",
+          },
+          {
+            id: "ap-psicologia",
+            label: "Psicología",
+            href: "/ocupacional/atencion-al-paciente/psicologia",
+          },
+        ],
+      },
+      {
+        id: "auditoria",
+        label: "Auditoría de resultados",
+        href: "/ocupacional/auditoria",
+      },
+    ],
+  },
+  { id: "citas", label: "Citas", href: "/citas", icon: "fa-calendar-check" },
+  {
+    id: "farmacia",
+    label: "Farmacia",
+    href: "/farmacia",
+    icon: "fa-pills",
+    children: [
+      {
+        id: "compras",
+        label: "Compras",
+        href: "/farmacia/compras",
+        children: [
+          {
+            id: "registro-medicamentos",
+            label: "Registro de medicamentos",
+            href: "/farmacia/compras/registro-medicamentos",
+          },
+          {
+            id: "registro-compras",
+            label: "Registro de compras",
+            href: "/farmacia/compras/registro-compras",
+          },
+        ],
+      },
+      {
+        id: "ventas",
+        label: "Ventas",
+        href: "/farmacia/ventas",
+        children: [
+          {
+            id: "venta-externa",
+            label: "Venta Externa",
+            href: "/farmacia/ventas/venta-externa",
+          },
+          {
+            id: "venta-interna",
+            label: "Venta Interna",
+            href: "/farmacia/ventas/venta-interna",
+          },
+        ],
+      },
+      { id: "inventario", label: "Inventario", href: "/farmacia/inventario" },
+      { id: "informes", label: "Informes", href: "/farmacia/informes" },
+    ],
+  },
+  {
+    id: "examenes",
+    label: "Exámenes Auxiliares",
+    href: "/examenes-auxiliares",
+    icon: "fa-x-ray",
+    children: [
+      {
+        id: "laboratorio",
+        label: "Laboratorio",
+        href: "/examenes-auxiliares/laboratorio",
+      },
+      {
+        id: "otros-examenes",
+        label: "Otros exámenes",
+        href: "/examenes-auxiliares/otros-examenes",
+      },
+      { id: "procedimientos", label: "Procedimientos", href: "#" },
+    ],
+  },
+  {
+    id: "hospitalizacion",
+    label: "Hospitalización",
+    href: "/hospitalizacion",
+    icon: "fa-bed-pulse",
+    children: [
+      { id: "ingresos", label: "Ingresos", href: "#" },
+      { id: "camas", label: "Camas Disponibles", href: "#" },
+    ],
+  },
+  {
+    id: "vigilancia",
+    label: "Vigilancia Médica",
+    href: "/vigilancia-medica",
+    icon: "fa-ambulance",
+  },
+];
+
+const currentPath = Astro.url.pathname;
+const isActive = (path: string) =>
+  path !== "#" && (currentPath === path || currentPath.startsWith(`${path}/`));
+
+const linkClass = (path: string) =>
+  isActive(path)
+    ? "text-brand font-semibold"
+    : "text-text-secondary hover:text-brand";
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>{title}</title>
+  </head>
+  <body class="bg-surface-light text-xs antialiased">
+    <div class="flex h-dvh w-dvw flex-col overflow-hidden bg-surface-light">
+      <!-- NAVBAR: persiste en todas las páginas -->
+      <header
+        class="flex h-21 shrink-0 items-center justify-between bg-brand px-6 text-white"
+        role="banner"
+      >
+        <a href="/home" class="flex items-center gap-2">
+          <img
+            src="/logo-cuidda.png"
+            alt="Cuidda"
+            class="h-16 w-auto object-contain brightness-0 invert"
+            width="120"
+            height="32"
+          />
+        </a>
+
+        <nav class="flex items-center gap-6" aria-label="Usuario">
+          <button
+            type="button"
+            class="relative flex h-8 w-8 items-center justify-center rounded-full bg-white/10 hover:bg-white/20"
+            aria-label="Notificaciones"
+          >
+            <i class="fa-regular fa-bell text-sm" aria-hidden="true"></i>
+            <span
+              class="absolute right-1 top-1 h-2 w-2 rounded-full bg-warning"
+              aria-hidden="true"></span>
+          </button>
+          <div class="flex flex-col text-right leading-none">
+            <span class="text-xs font-semibold">Nombre y Apellidos</span>
+            <span class="text-[10px] opacity-80">ADMINISTRADOR</span>
+          </div>
+          <button
+            type="button"
+            id="btn-logout"
+            class="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 hover:bg-white/20"
+            aria-label="Cerrar sesión"
+          >
+            <i class="fa-solid fa-right-from-bracket text-sm" aria-hidden="true"
+            ></i>
+          </button>
+        </nav>
+      </header>
+
+      <div class="flex flex-1 overflow-hidden">
+        <!-- SIDEBAR: persiste en todas las páginas -->
+        <aside
+          class="flex w-72 shrink-0 flex-col overflow-y-auto bg-surface-light px-6 py-10 text-sm"
+          aria-label="Navegación principal"
+        >
+          <nav class="flex flex-col gap-1" aria-label="Menú">
+            {
+              menu.map((item) => (
+                <div>
+                  <div class="menu-item flex w-full items-center gap-2 rounded-lg px-2 py-2 hover:bg-white">
+                    <span class="flex size-10 shrink-0 place-content-center rounded-lg bg-muted-20">
+                      <i
+                        class={`fa-solid ${item.icon} p-2.5 text-lg ${isActive(item.href) ? "text-brand" : "text-muted"}`}
+                        aria-hidden="true"
+                      />
+                    </span>
+                    <a
+                      href={item.href}
+                      class={`flex-1 ${linkClass(item.href)}`}
+                    >
+                      {item.label}
+                    </a>
+                    {item.children && (
+                      <button
+                        type="button"
+                        data-menu-toggle={`submenu-${item.id}`}
+                        aria-controls={`submenu-${item.id}`}
+                        aria-expanded={isActive(item.href)}
+                        class="flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center text-muted hover:text-brand"
+                        aria-label={`Alternar submenu de ${item.label}`}
+                      >
+                        <i
+                          class={`chevron fa-solid fa-chevron-down text-[10px] ${isActive(item.href) ? "rotate-0" : "-rotate-90"}`}
+                          aria-hidden="true"
+                        />
+                      </button>
+                    )}
+                  </div>
+
+                  {item.children && (
+                    <div
+                      id={`submenu-${item.id}`}
+                      class={`submenu ml-4 mt-1 space-y-1 ${isActive(item.href) ? "open" : ""}`}
+                    >
+                      {item.children.map((sub) => (
+                        <div>
+                          {sub.children ? (
+                            <div class="flex w-full items-center rounded pl-8 pr-2 py-1.5 hover:bg-white">
+                              <a
+                                href={sub.href}
+                                class={`flex-1 ${linkClass(sub.href)}`}
+                              >
+                                {sub.label}
+                              </a>
+                              <button
+                                type="button"
+                                data-menu-toggle={`submenu-${sub.id}`}
+                                aria-controls={`submenu-${sub.id}`}
+                                aria-expanded={isActive(sub.href)}
+                                class="flex h-6 w-6 shrink-0 cursor-pointer items-center justify-center text-muted hover:text-brand"
+                                aria-label={`Alternar submenu de ${sub.label}`}
+                              >
+                                <i
+                                  class={`chevron fa-solid fa-chevron-down text-[9px] ${isActive(sub.href) ? "rotate-0" : "-rotate-90"}`}
+                                  aria-hidden="true"
+                                />
+                              </button>
+                            </div>
+                          ) : (
+                            <a
+                              href={sub.href}
+                              class={`block rounded py-1.5 pl-8 pr-2 transition hover:bg-white ${linkClass(sub.href)}`}
+                            >
+                              {sub.label}
+                            </a>
+                          )}
+
+                          {sub.children && (
+                            <div
+                              id={`submenu-${sub.id}`}
+                              class={`submenu space-y-1 ${isActive(sub.href) ? "open" : ""}`}
+                            >
+                              {sub.children.map((leaf) => (
+                                <a
+                                  href={leaf.href}
+                                  class={`block rounded py-1.5 pl-12 pr-2 text-[11px] transition hover:bg-white ${linkClass(leaf.href)}`}
+                                >
+                                  {leaf.label}
+                                </a>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))
+            }
+          </nav>
+        </aside>
+
+        <!-- CONTENIDO -->
+        <main
+          class="flex flex-1 flex-col overflow-hidden bg-white"
+          id="main-content"
+        >
+          <slot />
+        </main>
+      </div>
+    </div>
+
+    <style>
+      .submenu {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .submenu.open {
+        max-height: 62.5rem;
+      }
+
+      .chevron {
+        transition: rotate 0.3s ease;
+      }
+    </style>
+
+    <script>
+      document
+        .querySelectorAll<HTMLButtonElement>("[data-menu-toggle]")
+        .forEach((btn) => {
+          const target = document.getElementById(
+            btn.getAttribute("data-menu-toggle") ?? "",
+          );
+          const chevron = btn.querySelector(".chevron");
+          if (!target) return;
+
+          const apply = (open: boolean) => {
+            target.classList.toggle("open", open);
+            btn.setAttribute("aria-expanded", String(open));
+            chevron?.classList.toggle("-rotate-90", !open);
+            chevron?.classList.toggle("rotate-0", open);
+          };
+
+          apply(target.classList.contains("open"));
+          btn.addEventListener("click", () =>
+            apply(!target.classList.contains("open")),
+          );
+        });
+
+      const btnLogout = document.getElementById("btn-logout");
+      btnLogout?.addEventListener("click", () => {
+        try {
+          localStorage.clear();
+        } catch {}
+        window.location.href = "/";
+      });
+    </script>
+  </body>
+</html>
