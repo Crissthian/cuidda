@@ -1,43 +1,81 @@
-# Astro Starter Kit: Minimal
+# Cuidda — Sistema médico Lm
+
+Prototipo funcional (sin backend) del **Sistema médico Lm - Cuidda**, construido
+con [Astro](https://astro.build) sobre datos de ejemplo deterministas. El
+objetivo es demostrar el flujo completo del programa —navegación, estados de
+carga/vacío/error y validaciones— antes de conectar servicios reales.
+
+## Origen del diseño (Figma)
+
+Diseño de referencia: **Sistema médico Lm - Cuidda** (archivo Figma, páginas
+`Cover`, `Page 1`, `Page 2`). El archivo define 39 pantallas que conforman el
+recorrido del usuario:
+
+| Módulo | Pantallas |
+| --- | --- |
+| Acceso | LOGIN - Perfil médico, Menú principal |
+| Panel general | 1. Tablero general, 2. Estudio línea base |
+| Seguridad y salud ocupacional | 3. EMOS y trabajadores, 4. Matriz IPERC, 5. Monitoreos |
+| Protocolos médicos | 6. Protocolos médicos 1, 2.1, 2.2, 2.3, 2.4 |
+| Planificación | 7. Plan anual, 8–10. Programas de salud (1–4) |
+| Capacitación y riesgos | 11. Capacitaciones, 12. Accidentes e incidentes, 13. Estratificación, 14. Ausentismo y morbilidad |
+| Consultas y terceros | 15. Contratistas, 16. Consultas técnicas S.O. (1–3) |
+| Administración | 17. Perfiles y permisos, 18. Firmas |
+
+Componentes y estados reutilizables identificados en el diseño: `Mensaje
+cargado`, `Mensaje enviado`, `Cargar documento (1–4)`, `Nueva consulta`,
+`Componente botón`, `Atrás`. Estos deben modelarse en el prototipo como estados
+de UI (carga, envío, adjuntos) y no como llamadas reales a servicios.
+
+## Stack y dependencias (`package.json`)
+
+- **Runtime:** Node.js `>=22.12.0`.
+- **Framework:** `astro` `^7.2.8` (única dependencia de producción). Todas las
+  páginas se construyen con componentes `.astro` renderizados en servidor;
+  se añade JavaScript de cliente solo cuando la interacción lo exige.
+- **Gestor de paquetes:** `pnpm` (ver `pnpm-workspace.yaml` y
+  `pnpm-lock.yaml`).
+- **Scripts disponibles:**
+
+  | Comando | Acción |
+  | --- | --- |
+  | `pnpm install` | Instala dependencias |
+  | `pnpm dev` | Levanta el servidor de desarrollo en `http://localhost:4321` |
+  | `pnpm build` | Genera el sitio de producción en `./dist/` |
+  | `pnpm preview` | Sirve el build de producción localmente |
+  | `pnpm astro ...` | Ejecuta comandos del CLI de Astro (`astro add`, `astro check`, etc.) |
+
+No hay dependencias de backend, base de datos ni autenticación real: al no
+tener paquetes de servidor/cliente HTTP, persistencia o auth en
+`package.json`, el prototipo debe simular esas capas con módulos de datos
+locales y deterministas (ver [AGENTS.md](./AGENTS.md)).
+
+## Desarrollo
 
 ```sh
-pnpm create astro@latest -- --template minimal
+pnpm install
+pnpm dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+La app corre localmente en `http://localhost:4321`.
 
-## 🚀 Project Structure
+## Validación
 
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+```sh
+pnpm build
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Principios del prototipo
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+- Construir recorridos completos (login → menú → módulo → confirmación) en
+  lugar de pantallas aisladas.
+- Usar datos de fixture locales y deterministas mientras no exista backend.
+- Cubrir estados normal, vacío, carga, validación y error cuando la pantalla
+  de Figma los contempla (p. ej. `Mensaje cargado`, `Mensaje enviado`,
+  `Cargar documento`).
+- Mantener límites claros entre componentes de UI (`src/components/`) y datos
+  de dominio (fixtures/`src/`) para que el prototipo pueda evolucionar a una
+  aplicación real sin reescribir páginas.
 
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Para la guía de implementación, consulta [AGENTS.md](./AGENTS.md) e invoca el
+skill `full-program-prototype` al crear o extender un flujo del producto.
