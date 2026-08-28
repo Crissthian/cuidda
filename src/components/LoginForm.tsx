@@ -1,7 +1,7 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import { useAuthStore } from "@/lib/authStore";
 import { loginSchema, type LoginFormData } from "@/lib/loginSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 
 const VALID_USERNAME = "admin";
 const VALID_PASSWORD = "pass123";
@@ -35,7 +35,7 @@ export default function LoginForm() {
 
   return (
     <section
-      className="relative flex w-1/2 flex-col items-center justify-center overflow-hidden bg-linear-to-b from-[#0ed28a] via-[#0cb3a6] via-45% to-[#0a66c2] to-90% px-8 lg:px-16"
+      className="relative flex w-1/2 flex-col items-center justify-center  bg-linear-to-b from-[#0ed28a] via-[#0cb3a6] via-45% to-[#0a66c2] to-90% px-8 lg:px-16"
       aria-label="Formulario de acceso"
     >
       <div className="flex w-full max-w-130 flex-col items-center rounded-4xl border border-white/15 bg-white/10 px-8 py-10 shadow-[0_8px_32px_rgba(0,0,0,0.08)] backdrop-blur-[6px] lg:px-12 lg:py-12">

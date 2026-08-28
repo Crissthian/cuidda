@@ -253,6 +253,11 @@ Cada skill tiene su propio `SKILL.md` con instrucciones específicas.
 | Estilos     | `src/styles/`     | `.css`            |
 | Utilidades  | `src/lib/`        | `.ts`             |
 
+### Imports — Alias `@`
+
+- Usar **siempre** alias `@/*` → `src/*` (`tsconfig.json` + `astro.config.mjs`). No usar relativos `../../`, `./`.
+- Ej: `import DashboardLayout from "@/layouts/DashboardLayout.astro"` en lugar de `from "../../layouts/..."`.
+
 ### Tailwind CSS v4
 
 - Usar `@theme` para variables CSS custom

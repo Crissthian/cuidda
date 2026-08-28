@@ -1,5 +1,6 @@
 ---
 import DashboardGeneral from "@/components/vigilancia/DashboardGeneral";
+import VigilanciaPagePlaceholder from "@/components/vigilancia/VigilanciaPagePlaceholder.astro";
 import DashboardLayout from "@/layouts/DashboardLayout.astro";
 ---
 
@@ -7,7 +8,17 @@ import DashboardLayout from "@/layouts/DashboardLayout.astro";
   title="Vigilancia Médica | Cuidda"
   description="Módulo de vigilancia médica"
 >
-  <div class="flex-1 overflow-y-auto px-6 py-6">
-    <DashboardGeneral client:load />
-  </div>
+  <VigilanciaPagePlaceholder
+    title="Dashboard General"
+    icon="fa-stethoscope"
+    description="Estado consolidado del sistema de vigilancia: población, aptitud, grupos de riesgo, cumplimiento de programas y hallazgos priorizados."
+    buttons={[
+      {
+        state: true,
+        icon: "fa-download",
+        text: "EXPORTAR INFORME",
+      },
+    ]}
+  />
+  <DashboardGeneral client:load />
 </DashboardLayout>
