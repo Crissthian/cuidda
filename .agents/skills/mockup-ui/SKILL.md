@@ -27,6 +27,23 @@ Esta skill guía al agente en la maquetación y desarrollo de interfaces visuale
 - **Formato Estándar de Fila**:
   - Asignar una altura fija o predecible a las filas de la tabla.
   - Usar cabeceras en mayúsculas con texto pequeño y opaco (`text-gray-500 font-semibold uppercase tracking-wider`).
+- **Mapas con Bordes Divisorios**:
+  - Cuando un array se renderice con `.map()` como filas de una tabla maquetada, colocar los bordes divisorios en el contenedor de las filas usando `divide-y divide-dashed divide-border-subtle`.
+  - Mantener cada elemento del mapa enfocado en su layout (`grid` o `flex`) y en su espaciado, sin añadir `border-t` a las filas cuando ya se utiliza `divide-y` en el contenedor.
+  - En Astro, usar el siguiente patrón para tablas estáticas o listas de referencia:
+    ```astro
+    <div class="divide-y divide-border-subtle divide-dashed">
+      {
+        items.map((item) => (
+          <div class="grid grid-cols-[1.1fr_1.4fr] gap-2 px-3 py-3 text-xs">
+            <span class="text-text-secondary">{item.label}</span>
+            <span class="text-brand">{item.value}</span>
+          </div>
+        ))
+      }
+    </div>
+    ```
+  - Usar `border-t border-dashed border-border-subtle/40` en cada fila únicamente cuando se necesite controlar de forma independiente el borde o el primer elemento (`first:border-t-0`); no combinar ambos patrones para evitar líneas duplicadas.
 
 ---
 

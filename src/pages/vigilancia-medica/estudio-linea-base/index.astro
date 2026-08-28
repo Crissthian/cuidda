@@ -1,22 +1,26 @@
 ---
 import VigilanciaPagePlaceholder from "@/components/vigilancia/VigilanciaPagePlaceholder.astro";
+import EstudioLineaBaseContent from "@/components/estudio-linea-base/EstudioLineaBaseContent";
 import DashboardLayout from "@/layouts/DashboardLayout.astro";
 ---
 
 <DashboardLayout
-  title="Estudio de línea base"
-  description="Módulo de estudio de línea base"
+  title="Estudio de línea base | Cuidda"
+  description="Antecedentes e información base del sistema de vigilancia"
 >
   <VigilanciaPagePlaceholder
     title="Estudio de línea base"
-    icon="fa-magnifying-glass-chart"
-    description="Análisis inicial de condiciones de salud y seguridad en el puesto de trabajo."
+    icon="fa-file-lines"
+    description="Antecedentes, estructura, información sensible y objetivos de la empresa. Esta base alimenta el motor de validación que cruza factores de riesgo, IPERC, monitoreos y hallazgos médicos."
     buttons={[
       {
         state: true,
-        icon: "fa-file-import",
+        icon: "fa-upload",
         text: "CARGAR DOCUMENTO",
       },
     ]}
   />
+  <div class="flex-1 overflow-y-auto py-6">
+    <EstudioLineaBaseContent client:load />
+  </div>
 </DashboardLayout>

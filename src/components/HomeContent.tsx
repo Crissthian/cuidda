@@ -11,7 +11,7 @@ export default function HomeContent() {
       {/* Contenido principal: texto a la izquierda, ilustración a la derecha */}
       <div className="relative flex flex-1 items-center  px-10">
         {/* Fondo decorativo superior claro */}
-        <div className="relative z-10 flex w-200 shrink-0 flex-col gap-4 pb-12 ms-40">
+        <div className="relative z-10 flex w-200 shrink-0 flex-col gap-4 pb-2 ms-24">
           <h1 id="home-title" className="text-8xl font-semibold leading-none">
             <span className="text-brand ">¡Hola</span>{" "}
             <span className="text-success">{username}!</span>
@@ -45,7 +45,7 @@ export default function HomeContent() {
           <img
             src="/imagen-index.png"
             alt="Profesional de salud saludando con laptop"
-            className="absolute z-10 h-auto w-362.5 select-none -bottom-6 -right-14.5 drop-shadow-sm"
+            className="absolute z-10 h-auto w-362.5 select-none -bottom-6 -right-10 drop-shadow-sm"
             decoding="async"
           />
         </div>
