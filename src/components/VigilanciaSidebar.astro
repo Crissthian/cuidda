@@ -13,6 +13,11 @@ interface Section {
   items: Item[];
 }
 
+const currentPath = Astro.url.pathname;
+const isActive = (path: string) =>
+  path !== "#" &&
+  (currentPath === path || currentPath.startsWith(`${path}/`));
+
 const sections: Section[] = [
   {
     id: "inicio",
@@ -23,7 +28,6 @@ const sections: Section[] = [
         label: "Dashboard General",
         icon: "fa-table-columns",
         href: "/vigilancia-medica",
-        active: true,
       },
     ],
   },
@@ -35,31 +39,31 @@ const sections: Section[] = [
         id: "estudio-linea-base",
         label: "Estudio de línea base",
         icon: "fa-magnifying-glass-chart",
-        href: "#",
+        href: "/vigilancia-medica/estudio-linea-base",
       },
       {
         id: "emos-trabajadores",
         label: "EMOs y trabajadores",
         icon: "fa-users",
-        href: "#",
+        href: "/vigilancia-medica/emos-y-trabajadores",
       },
       {
         id: "matriz-iperc",
         label: "Matriz IPERC",
         icon: "fa-shield-halved",
-        href: "#",
+        href: "/vigilancia-medica/matriz-iperc",
       },
       {
         id: "monitoreos",
         label: "Monitoreos",
         icon: "fa-file-waveform",
-        href: "#",
+        href: "/vigilancia-medica/monitoreos",
       },
       {
         id: "protocolos-medicos",
         label: "Protocolos médicos",
         icon: "fa-book-medical",
-        href: "#",
+        href: "/vigilancia-medica/protocolos-medicos",
       },
     ],
   },
@@ -71,43 +75,43 @@ const sections: Section[] = [
         id: "plan-anual",
         label: "Plan Anual",
         icon: "fa-file-medical",
-        href: "#",
+        href: "/vigilancia-medica/plan-anual",
       },
       {
         id: "programas-salud",
         label: "Programas de salud",
         icon: "fa-user-shield",
-        href: "#",
+        href: "/vigilancia-medica/programas-de-salud",
       },
       {
         id: "capacitaciones",
         label: "Capacitaciones",
         icon: "fa-chalkboard-user",
-        href: "#",
+        href: "/vigilancia-medica/capacitaciones",
       },
       {
         id: "accidentes-incidentes",
         label: "Accidentes e incidentes",
         icon: "fa-person-falling-burst",
-        href: "#",
+        href: "/vigilancia-medica/accidentes-e-incidentes",
       },
       {
         id: "estratificacion",
         label: "Estratificación",
         icon: "fa-triangle-exclamation",
-        href: "#",
+        href: "/vigilancia-medica/estratificacion",
       },
       {
         id: "ausentismos-morbilidad",
         label: "Ausentismos / Morbilidad",
         icon: "fa-calendar-xmark",
-        href: "#",
+        href: "/vigilancia-medica/ausentismos-morbilidad",
       },
       {
         id: "contratistas",
         label: "Contratistas",
         icon: "fa-truck",
-        href: "#",
+        href: "/vigilancia-medica/contratistas",
       },
     ],
   },
@@ -119,7 +123,7 @@ const sections: Section[] = [
         id: "consultas-tecnicas",
         label: "Consultas técnicas S.O.",
         icon: "fa-laptop-medical",
-        href: "#",
+        href: "/vigilancia-medica/consultas-tecnicas",
       },
     ],
   },
@@ -131,13 +135,13 @@ const sections: Section[] = [
         id: "perfiles-permisos",
         label: "Perfiles y permisos",
         icon: "fa-key",
-        href: "#",
+        href: "/vigilancia-medica/perfiles-y-permisos",
       },
       {
         id: "firmas",
         label: "Firmas",
         icon: "fa-signature",
-        href: "#",
+        href: "/vigilancia-medica/firmas",
       },
     ],
   },
@@ -148,7 +152,7 @@ const sections: Section[] = [
   class="flex w-75 shrink-0 flex-col overflow-y-auto bg-surface-light px-6 py-10"
   aria-label="Navegación de Vigilancia Médica"
 >
-  <div class="flex items-center gap-3">
+  <div class="flex items-center gap-3 me-2">
     <span class="flex size-12 shrink-0 place-content-center rounded-xl">
       <i
         class="fa-solid fa-laptop-medical p-3 text-xl text-brand"
@@ -168,28 +172,31 @@ const sections: Section[] = [
 
   {
     sections.map((section) => (
-      <section class="mt-6">
+      <section class="mt-2">
         <h2 class="px-2 text-xs font-normal text-muted">{section.label}</h2>
         <nav class="mt-2 flex flex-col gap-1" aria-label={section.label}>
-          {section.items.map((item) => (
-            <a
-              href={item.href}
-              aria-current={item.active ? "page" : undefined}
-              class={`flex items-center gap-3 rounded-lg px-2 py-1 transition hover:bg-white ${
-                item.active
-                  ? "font-semibold text-brand"
-                  : "text-text-secondary hover:text-brand"
-              }`}
-            >
-              <i
-                class={`fa-solid ${item.icon} w-5 shrink-0 text-center text-sm ${
-                  item.active ? "text-brand" : "text-text-secondary"
+          {section.items.map((item) => {
+            const active = isActive(item.href);
+            return (
+              <a
+                href={item.href}
+                aria-current={active ? "page" : undefined}
+                class={`flex items-center gap-3 rounded-lg px-2 py-1 transition hover:bg-white ${
+                  active
+                    ? "font-semibold text-brand"
+                    : "text-text-secondary hover:text-brand"
                 }`}
-                aria-hidden="true"
-              />
-              <span class="flex-1">{item.label}</span>
-            </a>
-          ))}
+              >
+                <i
+                  class={`fa-solid ${item.icon} w-5 shrink-0 text-center text-sm ${
+                    active ? "text-brand" : "text-text-secondary"
+                  }`}
+                  aria-hidden="true"
+                />
+                <span class="flex-1">{item.label}</span>
+              </a>
+            );
+          })}
         </nav>
       </section>
     ))
