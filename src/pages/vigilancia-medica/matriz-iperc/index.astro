@@ -1,12 +1,27 @@
 ---
+import MatrizIpercContent from "@/components/matriz-iperc/MatrizIpercContent";
 import VigilanciaPagePlaceholder from "@/components/vigilancia/VigilanciaPagePlaceholder.astro";
 import DashboardLayout from "@/layouts/DashboardLayout.astro";
 ---
 
-<DashboardLayout title="Matriz IPERC" description="Módulo de matriz IPERC">
-  <VigilanciaPagePlaceholder
-    title="Matriz IPERC"
-    icon="fa-shield-halved"
-    description="Identificación de peligros y evaluación de riesgos por puesto de trabajo."
-  />
+<DashboardLayout
+  title="Matriz IPERC"
+  description="Módulo de identificación de peligros, evaluación de riesgos y controles"
+>
+  <div class="flex flex-1 flex-col overflow-y-auto">
+    <VigilanciaPagePlaceholder
+      title="Identificación de Peligros, Evaluación de Riesgos y Controles"
+      icon="fa-shield-halved"
+      description="Matriz IPERC por proceso con población expuesta y vínculo directo al protocolo médico y al programa de vigilancia que corresponde a cada agente."
+      buttons={[
+        {
+          icon: "fa-plus",
+          text: "Nueva Matriz",
+        },
+      ]}
+    />
+    <div class="pt-6">
+      <MatrizIpercContent client:load />
+    </div>
+  </div>
 </DashboardLayout>

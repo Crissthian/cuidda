@@ -1,15 +1,27 @@
 ---
+import EmosTrabajadoresContent from "@/components/emos-y-trabajadores/EmosTrabajadoresContent";
 import VigilanciaPagePlaceholder from "@/components/vigilancia/VigilanciaPagePlaceholder.astro";
 import DashboardLayout from "@/layouts/DashboardLayout.astro";
 ---
 
 <DashboardLayout
-  title="EMOs y trabajadores"
+  title="Matriz de salud de los trabajadores"
   description="Módulo de EMOs y trabajadores"
 >
-  <VigilanciaPagePlaceholder
-    title="EMOs y trabajadores"
-    icon="fa-users"
-    description="Gestión de exámenes médicos ocupacionales y registro de trabajadores."
-  />
+  <div class="flex flex-1 flex-col overflow-y-auto">
+    <VigilanciaPagePlaceholder
+      title="Matriz de salud de los trabajadores"
+      icon="fa-users"
+      description="Carga la data de salud como matriz o legajos en PDF. La plataforma filtra según los factores de riesgo definidos por el cliente y clasifica cada trabajador en su grupo de riesgo."
+      buttons={[
+        {
+          icon: "fa-upload",
+          text: "CARGAR MATRIZ  Y LEGAJOS",
+        },
+      ]}
+    />
+    <div class="py-6">
+      <EmosTrabajadoresContent client:load />
+    </div>
+  </div>
 </DashboardLayout>

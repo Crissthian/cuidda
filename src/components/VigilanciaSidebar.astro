@@ -15,8 +15,7 @@ interface Section {
 
 const currentPath = Astro.url.pathname;
 const isActive = (path: string) =>
-  path !== "#" &&
-  (currentPath === path || currentPath.startsWith(`${path}/`));
+  path !== "#" && (currentPath === path || currentPath.startsWith(`${path}/`));
 
 const sections: Section[] = [
   {
@@ -181,7 +180,7 @@ const sections: Section[] = [
               <a
                 href={item.href}
                 aria-current={active ? "page" : undefined}
-                class={`flex items-center gap-3 rounded-lg px-2 py-1 transition hover:bg-white ${
+                class={`flex items-center gap-3 rounded-lg px-2 py-2 transition hover:bg-surface-default ${
                   active
                     ? "font-semibold text-brand"
                     : "text-text-secondary hover:text-brand"
