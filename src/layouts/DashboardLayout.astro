@@ -10,6 +10,7 @@ const {
 } = Astro.props;
 
 import "../styles/global.css";
+import VigilanciaSidebar from "../components/VigilanciaSidebar.astro";
 
 interface MenuNode {
   id: string;
@@ -213,6 +214,8 @@ const linkClass = (path: string) =>
   isActive(path)
     ? "text-brand font-semibold"
     : "text-text-secondary hover:text-brand";
+
+const isVigilancia = isActive("/vigilancia-medica");
 ---
 
 <!doctype html>
@@ -275,107 +278,110 @@ const linkClass = (path: string) =>
       </header>
 
       <div class="flex flex-1 overflow-hidden">
+        {isVigilancia && <VigilanciaSidebar />}
         <!-- SIDEBAR: persiste en todas las páginas -->
-        <aside
-          class="flex w-72 shrink-0 flex-col overflow-y-auto bg-surface-light px-6 py-10 text-sm"
-          aria-label="Navegación principal"
-        >
-          <nav class="flex flex-col gap-1" aria-label="Menú">
-            {
-              menu.map((item) => (
-                <div>
-                  <div class="menu-item flex w-full items-center gap-2 rounded-lg px-2 py-2 hover:bg-white">
-                    <span class="flex size-10 shrink-0 place-content-center rounded-lg bg-muted-20">
-                      <i
-                        class={`fa-solid ${item.icon} p-2.5 text-lg ${isActive(item.href) ? "text-brand" : "text-muted"}`}
-                        aria-hidden="true"
-                      />
-                    </span>
-                    <a
-                      href={item.href}
-                      class={`flex-1 ${linkClass(item.href)}`}
-                    >
-                      {item.label}
-                    </a>
-                    {item.children && (
-                      <button
-                        type="button"
-                        data-menu-toggle={`submenu-${item.id}`}
-                        aria-controls={`submenu-${item.id}`}
-                        aria-expanded={isActive(item.href)}
-                        class="flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center text-muted hover:text-brand"
-                        aria-label={`Alternar submenu de ${item.label}`}
-                      >
+        {
+          !isVigilancia && (
+            <aside
+              class="flex w-75 shrink-0 flex-col overflow-y-auto bg-surface-light px-6 py-10 text-sm"
+              aria-label="Navegación principal"
+            >
+              <nav class="flex flex-col gap-1" aria-label="Menú">
+                {menu.map((item) => (
+                  <div>
+                    <div class="menu-item flex w-full items-center gap-2 rounded-lg px-2 py-2 hover:bg-white">
+                      <span class="flex size-10 shrink-0 place-content-center rounded-lg bg-muted-20">
                         <i
-                          class={`chevron fa-solid fa-chevron-down text-[10px] ${isActive(item.href) ? "rotate-0" : "-rotate-90"}`}
+                          class={`fa-solid ${item.icon} p-2.5 text-lg ${isActive(item.href) ? "text-brand" : "text-muted"}`}
                           aria-hidden="true"
                         />
-                      </button>
-                    )}
-                  </div>
+                      </span>
+                      <a
+                        href={item.href}
+                        class={`flex-1 ${linkClass(item.href)}`}
+                      >
+                        {item.label}
+                      </a>
+                      {item.children && (
+                        <button
+                          type="button"
+                          data-menu-toggle={`submenu-${item.id}`}
+                          aria-controls={`submenu-${item.id}`}
+                          aria-expanded={isActive(item.href)}
+                          class="flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center text-muted hover:text-brand"
+                          aria-label={`Alternar submenu de ${item.label}`}
+                        >
+                          <i
+                            class={`chevron fa-solid fa-chevron-down text-[10px] ${isActive(item.href) ? "rotate-0" : "-rotate-90"}`}
+                            aria-hidden="true"
+                          />
+                        </button>
+                      )}
+                    </div>
 
-                  {item.children && (
-                    <div
-                      id={`submenu-${item.id}`}
-                      class={`submenu ml-4 mt-1 space-y-1 ${isActive(item.href) ? "open" : ""}`}
-                    >
-                      {item.children.map((sub) => (
-                        <div>
-                          {sub.children ? (
-                            <div class="flex w-full items-center rounded pl-8 pr-2 py-1.5 hover:bg-white">
+                    {item.children && (
+                      <div
+                        id={`submenu-${item.id}`}
+                        class={`submenu ml-4 mt-1 space-y-1 ${isActive(item.href) ? "open" : ""}`}
+                      >
+                        {item.children.map((sub) => (
+                          <div>
+                            {sub.children ? (
+                              <div class="flex w-full items-center rounded pl-8 pr-2 py-1.5 hover:bg-white">
+                                <a
+                                  href={sub.href}
+                                  class={`flex-1 ${linkClass(sub.href)}`}
+                                >
+                                  {sub.label}
+                                </a>
+                                <button
+                                  type="button"
+                                  data-menu-toggle={`submenu-${sub.id}`}
+                                  aria-controls={`submenu-${sub.id}`}
+                                  aria-expanded={isActive(sub.href)}
+                                  class="flex h-6 w-6 shrink-0 cursor-pointer items-center justify-center text-muted hover:text-brand"
+                                  aria-label={`Alternar submenu de ${sub.label}`}
+                                >
+                                  <i
+                                    class={`chevron fa-solid fa-chevron-down text-[9px] ${isActive(sub.href) ? "rotate-0" : "-rotate-90"}`}
+                                    aria-hidden="true"
+                                  />
+                                </button>
+                              </div>
+                            ) : (
                               <a
                                 href={sub.href}
-                                class={`flex-1 ${linkClass(sub.href)}`}
+                                class={`block rounded py-1.5 pl-8 pr-2 transition hover:bg-white ${linkClass(sub.href)}`}
                               >
                                 {sub.label}
                               </a>
-                              <button
-                                type="button"
-                                data-menu-toggle={`submenu-${sub.id}`}
-                                aria-controls={`submenu-${sub.id}`}
-                                aria-expanded={isActive(sub.href)}
-                                class="flex h-6 w-6 shrink-0 cursor-pointer items-center justify-center text-muted hover:text-brand"
-                                aria-label={`Alternar submenu de ${sub.label}`}
-                              >
-                                <i
-                                  class={`chevron fa-solid fa-chevron-down text-[9px] ${isActive(sub.href) ? "rotate-0" : "-rotate-90"}`}
-                                  aria-hidden="true"
-                                />
-                              </button>
-                            </div>
-                          ) : (
-                            <a
-                              href={sub.href}
-                              class={`block rounded py-1.5 pl-8 pr-2 transition hover:bg-white ${linkClass(sub.href)}`}
-                            >
-                              {sub.label}
-                            </a>
-                          )}
+                            )}
 
-                          {sub.children && (
-                            <div
-                              id={`submenu-${sub.id}`}
-                              class={`submenu space-y-1 ${isActive(sub.href) ? "open" : ""}`}
-                            >
-                              {sub.children.map((leaf) => (
-                                <a
-                                  href={leaf.href}
-                                  class={`block rounded py-1.5 pl-12 pr-2 text-[11px] transition hover:bg-white ${linkClass(leaf.href)}`}
-                                >
-                                  {leaf.label}
-                                </a>
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ))
-            }
-          </nav>
-        </aside>
+                            {sub.children && (
+                              <div
+                                id={`submenu-${sub.id}`}
+                                class={`submenu space-y-1 ${isActive(sub.href) ? "open" : ""}`}
+                              >
+                                {sub.children.map((leaf) => (
+                                  <a
+                                    href={leaf.href}
+                                    class={`block rounded py-1.5 pl-12 pr-2 text-[11px] transition hover:bg-white ${linkClass(leaf.href)}`}
+                                  >
+                                    {leaf.label}
+                                  </a>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </nav>
+            </aside>
+          )
+        }
 
         <!-- CONTENIDO -->
         <main

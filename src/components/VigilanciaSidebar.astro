@@ -1,0 +1,197 @@
+---
+interface Item {
+  id: string;
+  label: string;
+  icon: string;
+  href: string;
+  active?: boolean;
+}
+
+interface Section {
+  id: string;
+  label: string;
+  items: Item[];
+}
+
+const sections: Section[] = [
+  {
+    id: "inicio",
+    label: "Inicio",
+    items: [
+      {
+        id: "dashboard-general",
+        label: "Dashboard General",
+        icon: "fa-table-columns",
+        href: "/vigilancia-medica",
+        active: true,
+      },
+    ],
+  },
+  {
+    id: "linea-base",
+    label: "Línea base",
+    items: [
+      {
+        id: "estudio-linea-base",
+        label: "Estudio de línea base",
+        icon: "fa-magnifying-glass-chart",
+        href: "#",
+      },
+      {
+        id: "emos-trabajadores",
+        label: "EMOs y trabajadores",
+        icon: "fa-users",
+        href: "#",
+      },
+      {
+        id: "matriz-iperc",
+        label: "Matriz IPERC",
+        icon: "fa-shield-halved",
+        href: "#",
+      },
+      {
+        id: "monitoreos",
+        label: "Monitoreos",
+        icon: "fa-file-waveform",
+        href: "#",
+      },
+      {
+        id: "protocolos-medicos",
+        label: "Protocolos médicos",
+        icon: "fa-book-medical",
+        href: "#",
+      },
+    ],
+  },
+  {
+    id: "gestion-sst",
+    label: "Gestión SST",
+    items: [
+      {
+        id: "plan-anual",
+        label: "Plan Anual",
+        icon: "fa-file-medical",
+        href: "#",
+      },
+      {
+        id: "programas-salud",
+        label: "Programas de salud",
+        icon: "fa-user-shield",
+        href: "#",
+      },
+      {
+        id: "capacitaciones",
+        label: "Capacitaciones",
+        icon: "fa-chalkboard-user",
+        href: "#",
+      },
+      {
+        id: "accidentes-incidentes",
+        label: "Accidentes e incidentes",
+        icon: "fa-person-falling-burst",
+        href: "#",
+      },
+      {
+        id: "estratificacion",
+        label: "Estratificación",
+        icon: "fa-triangle-exclamation",
+        href: "#",
+      },
+      {
+        id: "ausentismos-morbilidad",
+        label: "Ausentismos / Morbilidad",
+        icon: "fa-calendar-xmark",
+        href: "#",
+      },
+      {
+        id: "contratistas",
+        label: "Contratistas",
+        icon: "fa-truck",
+        href: "#",
+      },
+    ],
+  },
+  {
+    id: "consultas",
+    label: "Módulo de consultas",
+    items: [
+      {
+        id: "consultas-tecnicas",
+        label: "Consultas técnicas S.O.",
+        icon: "fa-laptop-medical",
+        href: "#",
+      },
+    ],
+  },
+  {
+    id: "configuracion",
+    label: "Configuración",
+    items: [
+      {
+        id: "perfiles-permisos",
+        label: "Perfiles y permisos",
+        icon: "fa-key",
+        href: "#",
+      },
+      {
+        id: "firmas",
+        label: "Firmas",
+        icon: "fa-signature",
+        href: "#",
+      },
+    ],
+  },
+];
+---
+
+<aside
+  class="flex w-75 shrink-0 flex-col overflow-y-auto bg-surface-light px-6 py-10"
+  aria-label="Navegación de Vigilancia Médica"
+>
+  <div class="flex items-center gap-3">
+    <span class="flex size-12 shrink-0 place-content-center rounded-xl">
+      <i
+        class="fa-solid fa-laptop-medical p-3 text-xl text-brand"
+        aria-hidden="true"></i>
+    </span>
+    <span class="flex-1 text-sm font-semibold leading-tight text-brand">
+      Vigilancia Médica
+    </span>
+    <button
+      type="button"
+      class="flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center text-brand hover:text-primary-hover"
+      aria-label="Alternar menú de Vigilancia Médica"
+    >
+      <i class="fa-solid fa-chevron-down text-xs" aria-hidden="true"></i>
+    </button>
+  </div>
+
+  {
+    sections.map((section) => (
+      <section class="mt-6">
+        <h2 class="px-2 text-xs font-normal text-muted">{section.label}</h2>
+        <nav class="mt-2 flex flex-col gap-1" aria-label={section.label}>
+          {section.items.map((item) => (
+            <a
+              href={item.href}
+              aria-current={item.active ? "page" : undefined}
+              class={`flex items-center gap-3 rounded-lg px-2 py-1 transition hover:bg-white ${
+                item.active
+                  ? "font-semibold text-brand"
+                  : "text-text-secondary hover:text-brand"
+              }`}
+            >
+              <i
+                class={`fa-solid ${item.icon} w-5 shrink-0 text-center text-sm ${
+                  item.active ? "text-brand" : "text-text-secondary"
+                }`}
+                aria-hidden="true"
+              />
+              <span class="flex-1">{item.label}</span>
+            </a>
+          ))}
+        </nav>
+      </section>
+    ))
+  }
+</aside>

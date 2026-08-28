@@ -1,81 +1,85 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 
-@import 'tailwindcss';
+@import "tailwindcss";
 
-@import 'sonner/dist/styles.css';
+@import "sonner/dist/styles.css";
 
 @plugin "daisyui" {
-	themes: false;
+  themes: false;
 }
 
 :root {
-	color: #414d55;
-	scrollbar-color: var(--color-brand) var(--color-surface-light);
+  color: #414d55;
+  scrollbar-color: var(--color-brand) var(--color-surface-light);
 }
 
 input {
-	-webkit-autocomplete: off;
+  -webkit-autocomplete: off;
 }
 
 button,
 select option {
-	transition: 0.3s;
+  transition: 0.3s;
 }
 
 * {
-	box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
-	font-family: Roboto, sans-serif;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+  font-family: Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 button:not([disabled]) {
-	cursor: pointer;
+  cursor: pointer;
 }
 .Toastify__toast-container,
 [data-sonner-toaster] {
-	z-index: 100;
+  z-index: 100;
 }
 
 @theme {
-	/* Colores de superficie */
-	--color-surface-light: #f1f5f8;
-	--color-surface-default: #ffffff;
-	--color-card-bg: #e7e9ef;
+  /* Colores de superficie */
+  --color-surface-light: #f1f5f8;
+  --color-surface-default: #ffffff;
+  --color-card-bg: #e7e9ef;
 
-	/* Colores de texto */
-	--color-text-primary: #414d55;
-	--color-text-secondary: #636d73;
+  /* Colores de texto */
+  --color-text-primary: #414d55;
+  --color-text-secondary: #636d73;
 
-	/* Colores de marca (brand se mantiene) */
-	--color-brand: #0064d2;
-	--color-primary-hover: #0052a3;
+  /* Colores de marca (brand se mantiene) */
+  --color-brand: #0064d2;
+  --color-primary-hover: #0052a3;
 
-	/* Colores de bordes */
-	--color-border-subtle: #a2c0d4;
-	--color-border-default: #a2c0d4;
+  /* Colores de bordes */
+  --color-border-subtle: #a2c0d4;
+  --color-border-default: #a2c0d4;
 
-	/* Colores de acento */
-	--color-accent-muted: #8ea9ba;
+  /* Colores de acento */
+  --color-accent-muted: #8ea9ba;
 
-	/* Colores muted (neutros) */
-	--color-muted: #8993af;
-	--color-muted-80: #8993afcc;
-	--color-muted-50: #8993af80;
-	--color-muted-30: #8993af4d;
-	--color-muted-20: #8993af33;
+  /* Colores muted (neutros) */
+  --color-muted: #8993af;
+  --color-muted-80: #8993afcc;
+  --color-muted-50: #8993af80;
+  --color-muted-30: #8993af4d;
+  --color-muted-20: #8993af33;
 
 	/* Colores de estado */
 	--color-success: #1ee67d;
 	--color-success-dark: #1da906;
 	--color-warning: #ff5b45;
+	--color-risk-purple: #8e3dba;
+	--color-risk-salmon: #fe7e6b;
+	--color-risk-red: #ed0423;
+	--color-violet: #6665dd;
 
 	/* Otros */
-	--color-white-custom: #ffffff;
-	--tw-placeholder-opacity: 1;
-	--aside-width: 350px;
+  --color-white-custom: #ffffff;
+  --tw-placeholder-opacity: 1;
+  --aside-width: 350px;
 }
 
 /* ========== TEMAS ========== */
@@ -84,246 +88,262 @@ button:not([disabled]) {
 
 /* Tema oscuro */
 html.dark {
-	--color-surface-light: #1e293b;
-	--color-surface-default: #0f172a;
-	--color-card-bg: #1e293b;
-	--color-text-primary: #e2e8f0;
-	--color-text-secondary: #94a3b8;
-	--color-brand: #3b82f6;
-	--color-primary-hover: #2563eb;
-	--color-border-subtle: #334155;
-	--color-border-default: #475569;
-	--color-accent-muted: #64748b;
-	--color-muted: #64748b;
-	--color-muted-80: #64748bcc;
-	--color-muted-50: #64748b80;
-	--color-muted-30: #64748b4d;
-	--color-muted-20: #64748b33;
+  --color-surface-light: #1e293b;
+  --color-surface-default: #0f172a;
+  --color-card-bg: #1e293b;
+  --color-text-primary: #e2e8f0;
+  --color-text-secondary: #94a3b8;
+  --color-brand: #3b82f6;
+  --color-primary-hover: #2563eb;
+  --color-border-subtle: #334155;
+  --color-border-default: #475569;
+  --color-accent-muted: #64748b;
+  --color-muted: #64748b;
+  --color-muted-80: #64748bcc;
+  --color-muted-50: #64748b80;
+  --color-muted-30: #64748b4d;
+  --color-muted-20: #64748b33;
 	--color-success: #00ff5e;
 	--color-success-dark: #16a34a;
 	--color-warning: #ff5b45;
+	--color-risk-purple: #8e3dba;
+	--color-risk-salmon: #fe7e6b;
+	--color-risk-red: #ed0423;
+	--color-violet: #6665dd;
 	--color-white-custom: #ebebeb;
 }
 
 html.dark body {
-	background-color: var(--color-surface-default);
-	color: var(--color-text-primary);
+  background-color: var(--color-surface-default);
+  color: var(--color-text-primary);
 }
 
 /* Tema pastel-modern */
 /* Tema Pastel Modern */
 html.pastel-modern {
-	--color-surface-light: #f4eef7;
-	--color-surface-default: #eadff1;
-	--color-card-bg: #f6f1fa;
+  --color-surface-light: #f4eef7;
+  --color-surface-default: #eadff1;
+  --color-card-bg: #f6f1fa;
 
-	--color-text-primary: #46435a;
-	--color-text-secondary: #6a687a;
+  --color-text-primary: #46435a;
+  --color-text-secondary: #6a687a;
 
-	--color-brand: #a56cc1;
-	--color-primary-hover: #8e57aa;
+  --color-brand: #a56cc1;
+  --color-primary-hover: #8e57aa;
 
-	--color-border-subtle: #b3a8c2;
-	--color-border-default: #9d92ac;
+  --color-border-subtle: #b3a8c2;
+  --color-border-default: #9d92ac;
 
-	--color-accent-muted: #b3a8c2;
-	--color-muted: #b3a8c2;
-	--color-muted-80: #b3a8c2cc;
-	--color-muted-50: #b3a8c280;
-	--color-muted-30: #b3a8c24d;
-	--color-muted-20: #b3a8c233;
+  --color-accent-muted: #b3a8c2;
+  --color-muted: #b3a8c2;
+  --color-muted-80: #b3a8c2cc;
+  --color-muted-50: #b3a8c280;
+  --color-muted-30: #b3a8c24d;
+  --color-muted-20: #b3a8c233;
 	--color-success: #55ff85;
 	--color-success-dark: #7fc394;
 	--color-warning: #eb8a7a;
+	--color-risk-purple: #8e3dba;
+	--color-risk-salmon: #fe7e6b;
+	--color-risk-red: #ed0423;
+	--color-violet: #6665dd;
 	--color-white-custom: #faf7fc;
 }
 
 html.pastel-modern body {
-	background-color: var(--color-surface-default);
-	color: var(--color-text-primary);
+  background-color: var(--color-surface-default);
+  color: var(--color-text-primary);
 }
 
 /* Tema Aqua Breeze */
 html.aqua-breeze {
-	--color-surface-light: #f1f9f9;
-	--color-surface-default: #e3f2f2;
-	--color-card-bg: #f6fbfb;
+  --color-surface-light: #f1f9f9;
+  --color-surface-default: #e3f2f2;
+  --color-card-bg: #f6fbfb;
 
-	--color-text-primary: #1f3333;
-	--color-text-secondary: #375050;
+  --color-text-primary: #1f3333;
+  --color-text-secondary: #375050;
 
-	--color-brand: #0088a8;
-	--color-primary-hover: #00708a;
+  --color-brand: #0088a8;
+  --color-primary-hover: #00708a;
 
-	--color-border-subtle: #a6d8d8;
-	--color-border-default: #72bcbc;
+  --color-border-subtle: #a6d8d8;
+  --color-border-default: #72bcbc;
 
-	--color-accent-muted: #6db5b5;
-	--color-muted: #6a9a9a;
-	--color-muted-80: #6a9a9acc;
-	--color-muted-50: #6a9a9a80;
-	--color-muted-30: #6a9a9a4d;
-	--color-muted-20: #6a9a9a33;
+  --color-accent-muted: #6db5b5;
+  --color-muted: #6a9a9a;
+  --color-muted-80: #6a9a9acc;
+  --color-muted-50: #6a9a9a80;
+  --color-muted-30: #6a9a9a4d;
+  --color-muted-20: #6a9a9a33;
 	--color-success: #44dab9;
 	--color-success-dark: #2a9d8f;
 	--color-warning: #ff7f7f;
+	--color-risk-purple: #8e3dba;
+	--color-risk-salmon: #fe7e6b;
+	--color-risk-red: #ed0423;
+	--color-violet: #6665dd;
 	--color-white-custom: #f8ffff;
 }
 
 html.aqua-breeze body {
-	background-color: var(--color-surface-default);
-	color: var(--color-text-primary);
+  background-color: var(--color-surface-default);
+  color: var(--color-text-primary);
 }
 
 ::picker(select),
 select {
-	appearance: base-select;
-	border: none;
-	background-color: var(--color-surface-light);
-	color: var(--color-text-secondary);
+  appearance: base-select;
+  border: none;
+  background-color: var(--color-surface-light);
+  color: var(--color-text-secondary);
 }
 
 .placeholder-gray-100::placeholder {
-	color: rgba(156, 163, 175, var(--tw-placeholder-opacity));
+  color: rgba(156, 163, 175, var(--tw-placeholder-opacity));
 }
 
 select option {
-	padding: 1rem;
-	border-radius: 6px;
+  padding: 1rem;
+  border-radius: 6px;
 }
 
 select::picker-icon {
-	color: var(--color-muted-50);
+  color: var(--color-muted-50);
 }
 
 th.divisor,
 div.divisor {
-	position: relative;
+  position: relative;
 }
 
 th.divisor::after,
 div.divisor::after {
-	content: '';
-	position: absolute;
-	right: 0;
-	top: 50%;
-	transform: translateY(-50%);
-	height: 50%;
-	width: 1px;
-	background-color: var(--color-brand);
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 50%;
+  width: 1px;
+  background-color: var(--color-brand);
 }
 
 th.divisor:last-child::after,
 div.divisor:last-child::after {
-	display: none;
+  display: none;
 }
 
 @layer components {
-	.form-input,
-	.form-select {
-		flex: 2;
-		border-radius: 0.5rem;
-		border: none;
-		padding: 0.5rem 1rem;
-		background-color: var(--color-surface-light);
-		color: var(--color-text-primary);
-		width: 100%;
-		outline: none;
-	}
+  .form-input,
+  .form-select {
+    flex: 2;
+    border-radius: 0.5rem;
+    border: none;
+    padding: 0.5rem 1rem;
+    background-color: var(--color-surface-light);
+    color: var(--color-text-primary);
+    width: 100%;
+    outline: none;
+  }
 
-	.form-label {
-		display: block;
-		font-size: 0.875rem;
-		font-weight: 500;
-		color: var(--color-brand);
-		margin-bottom: 0.5rem;
-	}
+  .form-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-brand);
+    margin-bottom: 0.5rem;
+  }
 
-	.form-select-container {
-		position: relative;
-	}
+  .form-select-container {
+    position: relative;
+  }
 
-	.form-select-icon {
-		position: absolute;
-		right: 1rem;
-		top: 50%;
-		transform: translateY(-50%);
-		color: var(--color-muted);
-		pointer-events: none;
-	}
+  .form-select-icon {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-muted);
+    pointer-events: none;
+  }
 }
 
 .modal-overlay {
-	animation: 0.2s ease-out fadeIn;
+  animation: 0.2s ease-out fadeIn;
 }
 
 #modalContainer {
-	animation: 0.3s ease-out slideIn;
+  animation: 0.3s ease-out slideIn;
 }
 
 @keyframes fadeIn {
-	from {
-		opacity: 0;
-	}
+  from {
+    opacity: 0;
+  }
 
-	to {
-		opacity: 1;
-	}
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slideIn {
-	from {
-		transform: scale(0.95) translateY(-20px);
-		opacity: 0;
-	}
+  from {
+    transform: scale(0.95) translateY(-20px);
+    opacity: 0;
+  }
 
-	to {
-		transform: scale(1) translateY(0);
-		opacity: 1;
-	}
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
 }
 
 @keyframes bellShake {
-	0%,
-	100% {
-		transform: rotate(0deg);
-	}
-	15% {
-		transform: rotate(20deg);
-	}
-	30% {
-		transform: rotate(-18deg);
-	}
-	45% {
-		transform: rotate(14deg);
-	}
-	60% {
-		transform: rotate(-10deg);
-	}
-	75% {
-		transform: rotate(6deg);
-	}
-	90% {
-		transform: rotate(-3deg);
-	}
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  15% {
+    transform: rotate(20deg);
+  }
+  30% {
+    transform: rotate(-18deg);
+  }
+  45% {
+    transform: rotate(14deg);
+  }
+  60% {
+    transform: rotate(-10deg);
+  }
+  75% {
+    transform: rotate(6deg);
+  }
+  90% {
+    transform: rotate(-3deg);
+  }
 }
 
 :focus-visible {
-	outline: 1px solid var(--color-brand);
+  outline: 1px solid var(--color-brand);
 }
 
 /* Transiciones profesionales de Tabs */
 @keyframes tabFadeIn {
-	from {
-		opacity: 0;
-		transform: translateY(6px);
-	}
-	to {
-		opacity: 1;
-		transform: translateY(0);
-	}
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .animate-tab-fade-in {
-	animation: tabFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: tabFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.recharts-surface {
+  overflow: visible;
 }
