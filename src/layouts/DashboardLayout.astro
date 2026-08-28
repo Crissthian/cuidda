@@ -231,6 +231,13 @@ const isVigilancia = isActive("/vigilancia-medica");
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <script is:inline>
+      const initialTheme = localStorage.getItem("cuidda-theme");
+      const initialThemes = ["light", "dark", "pastel-modern", "aqua-breeze"];
+      if (initialTheme && initialThemes.includes(initialTheme)) {
+        document.documentElement.classList.add(initialTheme);
+      }
+    </script>
     <title>{title}</title>
   </head>
   <body class="bg-surface-light text-xs antialiased">
@@ -251,6 +258,28 @@ const isVigilancia = isActive("/vigilancia-medica");
         </a>
 
         <nav class="flex items-center gap-6" aria-label="Usuario">
+          <div
+            class="flex h-9 items-center gap-2 rounded-lg border border-white/20 bg-white/10 px-2.5 shadow-sm transition hover:bg-white/20"
+          >
+            <i
+              class="fa-solid fa-palette text-xs text-white-custom!"
+              aria-hidden="true"></i>
+            <label for="theme-select" class="sr-only">Tema visual</label>
+            <select
+              id="theme-select"
+              class="cursor-pointer border-0 bg-transparent! text-xs font-medium text-white-custom! outline-none focus:ring-0 flex items-center"
+              aria-label="Cambiar tema visual"
+            >
+              <option class="text-text-primary" value="light">Claro</option>
+              <option class="text-text-primary" value="dark">Oscuro</option>
+              <option class="text-text-primary" value="pastel-modern"
+                >Pastel moderno</option
+              >
+              <option class="text-text-primary" value="aqua-breeze"
+                >Aqua breeze</option
+              >
+            </select>
+          </div>
           <button
             type="button"
             class="relative flex h-8 w-8 items-center justify-center rounded-full bg-white/10 hover:bg-white/20"
@@ -384,8 +413,17 @@ const isVigilancia = isActive("/vigilancia-medica");
         }
 
         <!-- CONTENIDO -->
-        <main class="flex flex-1 flex-col bg-white" id="main-content">
+        <main class="flex flex-1 flex-col bg-surface-default" id="main-content">
           <div class="flex-1">
+            <nav
+              class="flex items-center gap-2 text-sm px-10 pt-6"
+              aria-label="Breadcrumb"
+            >
+              <i
+                class="fa-solid fa-house text-text-secondary"
+                aria-hidden="true"></i>
+              <span class="font-semibold text-brand">{title}</span>
+            </nav>
             <slot />
           </div>
         </main>
@@ -405,6 +443,15 @@ const isVigilancia = isActive("/vigilancia-medica");
 
       .chevron {
         transition: rotate 0.3s ease;
+      }
+      #theme-select::picker-icon {
+        color: var(--color-white-custom);
+      }
+
+      #theme-select::picker(select) {
+        margin: 10px -10px 10px 10px;
+        position-area: block-end span-inline-start;
+        border-radius: 0.5rem;
       }
     </style>
 
@@ -430,6 +477,34 @@ const isVigilancia = isActive("/vigilancia-medica");
             apply(!target.classList.contains("open")),
           );
         });
+
+      const themeSelect = document.getElementById(
+        "theme-select",
+      ) as HTMLSelectElement | null;
+      const availableThemes = ["light", "dark", "pastel-modern", "aqua-breeze"];
+      const savedTheme = localStorage.getItem("cuidda-theme");
+      const activeTheme =
+        savedTheme && availableThemes.includes(savedTheme)
+          ? savedTheme
+          : "light";
+
+      const applyTheme = (theme: string) => {
+        document.documentElement.classList.remove(
+          "dark",
+          "pastel-modern",
+          "aqua-breeze",
+        );
+        if (theme !== "light") {
+          document.documentElement.classList.add(theme);
+        }
+        if (themeSelect) themeSelect.value = theme;
+        localStorage.setItem("cuidda-theme", theme);
+      };
+
+      applyTheme(activeTheme);
+      themeSelect?.addEventListener("change", (event) => {
+        applyTheme((event.target as HTMLSelectElement).value);
+      });
 
       const btnLogout = document.getElementById("btn-logout");
       btnLogout?.addEventListener("click", () => {

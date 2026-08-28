@@ -35,7 +35,7 @@ export const kpis = [
     value: "63",
     sub: "9 pendientes de comité",
     subColor: "text-success",
-    icon: "fa-people-group",
+    icon: "fa-user-doctor",
     iconBg: "bg-risk-red/10",
     iconColor: "text-risk-red",
   },
@@ -132,19 +132,57 @@ export const casosPriorizados = [
 ] as const;
 
 export const hallazgosFrecuentes = [
-  { id: 1, label: "Hipoacusia inducida por ruido", value: 96, delta: "+8%", pct: 34 },
+  {
+    id: 1,
+    label: "Hipoacusia inducida por ruido",
+    value: 96,
+    delta: "+8%",
+    pct: 34,
+  },
   { id: 2, label: "Sobrepeso / obesidad", value: 284, delta: "+3%", pct: 100 },
   { id: 3, label: "Dislipidemia", value: 173, delta: "-2%", pct: 61 },
-  { id: 4, label: "Trastorno musculoesquelético", value: 141, delta: "+5%", pct: 50 },
+  {
+    id: 4,
+    label: "Trastorno musculoesquelético",
+    value: 141,
+    delta: "+5%",
+    pct: 50,
+  },
   { id: 5, label: "Hipertensión arterial", value: 88, delta: "0%", pct: 31 },
-  { id: 6, label: "Alteración espirométrica", value: 47, delta: "+11%", pct: 17 },
+  {
+    id: 6,
+    label: "Alteración espirométrica",
+    value: 47,
+    delta: "+11%",
+    pct: 17,
+  },
 ] as const;
 
 export const avanceProgramas = [
-  { id: 1, label: "Conservación auditiva", actividades: "1/4 ACTIVIDADES", pct: 30 },
-  { id: 2, label: "Protección respiratoria", actividades: "2/3 ACTIVIDADES", pct: 65 },
-  { id: 3, label: "Ergonomía y espalda sana", actividades: "1/4 ACTIVIDADES", pct: 28 },
-  { id: 4, label: "Salud mental y fatiga", actividades: "2/3 ACTIVIDADES", pct: 70 },
+  {
+    id: 1,
+    label: "Conservación auditiva",
+    actividades: "1/4 ACTIVIDADES",
+    pct: 30,
+  },
+  {
+    id: 2,
+    label: "Protección respiratoria",
+    actividades: "2/3 ACTIVIDADES",
+    pct: 65,
+  },
+  {
+    id: 3,
+    label: "Ergonomía y espalda sana",
+    actividades: "1/4 ACTIVIDADES",
+    pct: 28,
+  },
+  {
+    id: 4,
+    label: "Salud mental y fatiga",
+    actividades: "2/3 ACTIVIDADES",
+    pct: 70,
+  },
   { id: 5, label: "Cardiometabólico", actividades: "1/4 ACTIVIDADES", pct: 25 },
 ] as const;
 

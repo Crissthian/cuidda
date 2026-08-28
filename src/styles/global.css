@@ -67,16 +67,16 @@ button:not([disabled]) {
   --color-muted-30: #8993af4d;
   --color-muted-20: #8993af33;
 
-	/* Colores de estado */
-	--color-success: #1ee67d;
-	--color-success-dark: #1da906;
-	--color-warning: #ff5b45;
-	--color-risk-purple: #8e3dba;
-	--color-risk-salmon: #fe7e6b;
-	--color-risk-red: #ed0423;
-	--color-violet: #6665dd;
+  /* Colores de estado */
+  --color-success: #1ee67d;
+  --color-success-dark: #1da906;
+  --color-warning: #ff5b45;
+  --color-risk-purple: #8e3dba;
+  --color-risk-salmon: #fe7e6b;
+  --color-risk-red: #ed0423;
+  --color-violet: #6665dd;
 
-	/* Otros */
+  /* Otros */
   --color-white-custom: #ffffff;
   --tw-placeholder-opacity: 1;
   --aside-width: 350px;
@@ -103,14 +103,14 @@ html.dark {
   --color-muted-50: #64748b80;
   --color-muted-30: #64748b4d;
   --color-muted-20: #64748b33;
-	--color-success: #00ff5e;
-	--color-success-dark: #16a34a;
-	--color-warning: #ff5b45;
-	--color-risk-purple: #8e3dba;
-	--color-risk-salmon: #fe7e6b;
-	--color-risk-red: #ed0423;
-	--color-violet: #6665dd;
-	--color-white-custom: #ebebeb;
+  --color-success: #00ff5e;
+  --color-success-dark: #16a34a;
+  --color-warning: #ff5b45;
+  --color-risk-purple: #8e3dba;
+  --color-risk-salmon: #fe7e6b;
+  --color-risk-red: #ed0423;
+  --color-violet: #6665dd;
+  --color-white-custom: #ebebeb;
 }
 
 html.dark body {
@@ -140,14 +140,14 @@ html.pastel-modern {
   --color-muted-50: #b3a8c280;
   --color-muted-30: #b3a8c24d;
   --color-muted-20: #b3a8c233;
-	--color-success: #55ff85;
-	--color-success-dark: #7fc394;
-	--color-warning: #eb8a7a;
-	--color-risk-purple: #8e3dba;
-	--color-risk-salmon: #fe7e6b;
-	--color-risk-red: #ed0423;
-	--color-violet: #6665dd;
-	--color-white-custom: #faf7fc;
+  --color-success: #55ff85;
+  --color-success-dark: #7fc394;
+  --color-warning: #eb8a7a;
+  --color-risk-purple: #8e3dba;
+  --color-risk-salmon: #fe7e6b;
+  --color-risk-red: #ed0423;
+  --color-violet: #6665dd;
+  --color-white-custom: #faf7fc;
 }
 
 html.pastel-modern body {
@@ -176,14 +176,14 @@ html.aqua-breeze {
   --color-muted-50: #6a9a9a80;
   --color-muted-30: #6a9a9a4d;
   --color-muted-20: #6a9a9a33;
-	--color-success: #44dab9;
-	--color-success-dark: #2a9d8f;
-	--color-warning: #ff7f7f;
-	--color-risk-purple: #8e3dba;
-	--color-risk-salmon: #fe7e6b;
-	--color-risk-red: #ed0423;
-	--color-violet: #6665dd;
-	--color-white-custom: #f8ffff;
+  --color-success: #44dab9;
+  --color-success-dark: #2a9d8f;
+  --color-warning: #ff7f7f;
+  --color-risk-purple: #8e3dba;
+  --color-risk-salmon: #fe7e6b;
+  --color-risk-red: #ed0423;
+  --color-violet: #6665dd;
+  --color-white-custom: #f8ffff;
 }
 
 html.aqua-breeze body {

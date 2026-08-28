@@ -8,18 +8,6 @@ export default function HomeContent() {
       className="relative flex h-full w-full flex-col "
       aria-labelledby="home-title"
     >
-      {/* Breadcrumb */}
-      <nav
-        className="flex items-center gap-2 px-10 pt-6 text-sm"
-        aria-label="Breadcrumb"
-      >
-        <i
-          className="fa-solid fa-house text-sm text-text-secondary"
-          aria-hidden="true"
-        />
-        <span className="font-semibold text-brand">Home</span>
-      </nav>
-
       {/* Contenido principal: texto a la izquierda, ilustración a la derecha */}
       <div className="relative flex flex-1 items-center  px-10">
         {/* Fondo decorativo superior claro */}
@@ -49,7 +37,7 @@ export default function HomeContent() {
             src="/fondo_index.svg"
             alt=""
             aria-hidden="true"
-            className="pointer-events-none absolute bottom-0 right-0 h-auto w-215 max-w-full select-none object-contain object-bottom-right"
+            className="pointer-events-none absolute bottom-0 -right-14.5 h-auto w-215 max-w-full select-none object-contain object-bottom-right"
             width="976"
             height="716"
             decoding="async"
@@ -57,7 +45,7 @@ export default function HomeContent() {
           <img
             src="/imagen-index.png"
             alt="Profesional de salud saludando con laptop"
-            className="absolute z-10 h-auto w-362.5 select-none -bottom-6 right-0 drop-shadow-sm"
+            className="absolute z-10 h-auto w-362.5 select-none -bottom-6 -right-14.5 drop-shadow-sm"
             decoding="async"
           />
         </div>

@@ -9,9 +9,9 @@ import ProximosHitos from "@/components/vigilancia/ProximosHitos";
 
 export default function DashboardGeneral() {
   return (
-    <div className="flex flex-col gap-5 px-14 pt-6 text-xs">
+    <div className="flex flex-col gap-5 px-10 pt-6 text-xs">
       <DashboardFilters />
-      <div className="max-h-170 flex flex-col gap-6 overflow-y-scroll px-1 pt-1">
+      <div className="max-h-165 flex flex-col gap-6 overflow-y-scroll px-1 pt-1">
         <KpiCards />
 
         <div className="grid grid-cols-12 gap-6">
