@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useAuthStore } from "../lib/authStore";
-import { loginSchema, type LoginFormData } from "../lib/loginSchema";
+import { useAuthStore } from "@/lib/authStore";
+import { loginSchema, type LoginFormData } from "@/lib/loginSchema";
 
 const VALID_USERNAME = "admin";
 const VALID_PASSWORD = "pass123";

@@ -1,4 +1,4 @@
-import { useAuthStore } from "../lib/authStore";
+import { useAuthStore } from "@/lib/authStore";
 
 export default function HomeContent() {
   const username = useAuthStore((state) => state.username) ?? "Elmer";
