@@ -68,11 +68,9 @@ export default function LoginForm() {
                 placeholder="USUARIO:"
                 aria-required="true"
                 aria-invalid={Boolean(errors.usuario)}
-                aria-describedby={
-                  errors.usuario ? "usuario-error" : undefined
-                }
+                aria-describedby={errors.usuario ? "usuario-error" : undefined}
                 {...register("usuario")}
-                className="bg-transparent text-sm font-medium text-text-secondary placeholder:font-semibold placeholder:text-accent-muted focus:outline-none!"
+                className="bg-transparent text-sm font-medium text-text-secondary placeholder:font-semibold placeholder:text-accent-muted focus:outline-none! w-10/12"
               />
             </div>
             <p
@@ -106,7 +104,7 @@ export default function LoginForm() {
                   errors.password ? "password-error" : undefined
                 }
                 {...register("password")}
-                className="bg-transparent text-sm font-medium text-text-secondary placeholder:font-semibold placeholder:text-accent-muted focus:outline-none!"
+                className="bg-transparent text-sm font-medium text-text-secondary placeholder:font-semibold placeholder:text-accent-muted focus:outline-none! w-10/12"
               />
             </div>
             <p
