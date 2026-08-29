@@ -1,12 +1,31 @@
 ---
+import MonitoreosContent from "@/components/monitoreos/MonitoreosContent";
 import VigilanciaPagePlaceholder from "@/components/vigilancia/VigilanciaPagePlaceholder.astro";
 import DashboardLayout from "@/layouts/DashboardLayout.astro";
 ---
 
-<DashboardLayout title="Monitoreos" description="Módulo de monitoreos">
-  <VigilanciaPagePlaceholder
-    title="Monitoreos"
-    icon="fa-file-waveform"
-    description="Monitoreo de agentes físicos, químicos y biológicos en el ambiente laboral."
-  />
+<DashboardLayout
+  title="Monitoreos específicos según riesgo"
+  description="Módulo de monitoreos específicos según riesgo"
+>
+  <div class="flex flex-1 flex-col overflow-y-auto bg-surface-default">
+    <VigilanciaPagePlaceholder
+      title="Monitoreos específicos según riesgo"
+      icon="fa-file-waveform"
+      description="Resultados de los monitoreos que sustentan los programas de vigilancia. Los valores que exceden el LMP disparan acciones en el programa médico correspondiente."
+      buttons={[
+        {
+          icon: "fa-upload",
+          text: "CARGAR INFORME",
+        },
+        {
+          icon: "fa-calendar-days",
+          text: "PROGRAMAR MONITOREO",
+        },
+      ]}
+    />
+    <div class="pt-6">
+      <MonitoreosContent client:load />
+    </div>
+  </div>
 </DashboardLayout>

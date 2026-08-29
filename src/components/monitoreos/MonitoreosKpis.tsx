@@ -1,10 +1,10 @@
-import { kpisMatriz } from "@/lib/matrizData";
+import { kpisMonitoreos } from "@/lib/monitoreosData";
 
-export default function MatrizKpis() {
+export default function MonitoreosKpis() {
   return (
-    <section aria-label="Indicadores Matriz IPERC">
+    <section aria-label="Indicadores de monitoreos">
       <div className="grid grid-cols-4 gap-6">
-        {kpisMatriz.map((kpi) => (
+        {kpisMonitoreos.map((kpi) => (
           <div
             key={kpi.id}
             className="flex items-center gap-4 rounded-xl bg-surface-default px-6 py-5 shadow-sm shadow-border-default"
@@ -22,7 +22,9 @@ export default function MatrizKpis() {
               <span className="py-1 text-2xl font-bold leading-none text-brand">
                 {kpi.value}
               </span>
-              <span className="text-[11px] text-success">{kpi.sub}</span>
+              {kpi.sub && (
+                <span className="text-[11px] text-success">{kpi.sub}</span>
+              )}
             </div>
           </div>
         ))}

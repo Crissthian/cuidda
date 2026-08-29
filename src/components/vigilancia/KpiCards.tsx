@@ -13,7 +13,7 @@ export default function KpiCards() {
               className={`flex size-12 shrink-0 items-center justify-center rounded-lg ${kpi.iconBg}`}
               aria-hidden="true"
             >
-              <i className={`fa-solid ${kpi.icon} text-lg ${kpi.iconColor}`} />
+              <i className={`fa-solid ${kpi.icon} text-2xl ${kpi.iconColor}`} />
             </span>
             <div className="flex flex-col">
               <span className="whitespace-break-spaces text-sm font-medium leading-tight text-text-secondary">

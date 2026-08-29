@@ -1,19 +1,16 @@
-import MatrizIpercTable from "@/components/matriz-iperc/MatrizIpercTable";
-import MatrizKpis from "@/components/matriz-iperc/MatrizKpis";
+import MonitoreosKpis from "@/components/monitoreos/MonitoreosKpis";
+import ResultadosMonitoreoTable from "@/components/monitoreos/ResultadosMonitoreoTable";
 
-export default function MatrizIpercContent() {
+export default function MonitoreosContent() {
   return (
-    <div
-      className="flex flex-col gap-6 text-xs p-0.5"
-      aria-label="Matriz IPERC 001"
-    >
+    <div className="flex flex-col gap-6 p-0.5 text-xs">
       <div className="flex items-center gap-3 w-4/12">
-        <label htmlFor="m-sede" className="sr-only">
+        <label htmlFor="mon-sede" className="sr-only">
           Sede
         </label>
         <select
-          id="m-sede"
-          className="form-select h-8 w-48 rounded-lg bg-surface-light text-xs text-muted"
+          id="mon-sede"
+          className="form-select h-8 w-48 rounded-lg bg-surface-light px-3 text-xs text-muted"
           defaultValue=""
         >
           <option value="" disabled>
@@ -30,8 +27,8 @@ export default function MatrizIpercContent() {
           BUSCAR
         </button>
       </div>
-      <MatrizKpis />
-      <MatrizIpercTable />
+      <MonitoreosKpis />
+      <ResultadosMonitoreoTable />
     </div>
   );
 }
