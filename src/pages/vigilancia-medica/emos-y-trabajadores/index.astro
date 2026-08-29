@@ -1,5 +1,6 @@
 ---
 import EmosTrabajadoresContent from "@/components/emos-y-trabajadores/EmosTrabajadoresContent";
+import EmosModalHost from "@/components/emos-y-trabajadores/EmosModalHost";
 import VigilanciaPagePlaceholder from "@/components/vigilancia/VigilanciaPagePlaceholder.astro";
 import DashboardLayout from "@/layouts/DashboardLayout.astro";
 ---
@@ -16,12 +17,13 @@ import DashboardLayout from "@/layouts/DashboardLayout.astro";
       buttons={[
         {
           icon: "fa-upload",
-          text: "CARGAR MATRIZ  Y LEGAJOS",
+          text: "CARGAR MATRIZ Y LEGAJOS",
         },
       ]}
     />
     <div class="py-6">
       <EmosTrabajadoresContent client:load />
     </div>
+    <EmosModalHost client:load />
   </div>
 </DashboardLayout>
