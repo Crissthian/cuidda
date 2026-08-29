@@ -43,6 +43,7 @@ const {
             state !== false && (
               <button
                 type="button"
+                data-modal-trigger={text === "CARGAR DOCUMENTO" ? "cargar-documento" : undefined}
                 class={`flex h-10 items-center gap-2 rounded-lg px-4 text-xs font-semibold shadow-sm hover:bg-muted-30 ${classes.join(" ")}`}
               >
                 <i class={`fa-solid ${icon} text-[11px]`} aria-hidden="true" />

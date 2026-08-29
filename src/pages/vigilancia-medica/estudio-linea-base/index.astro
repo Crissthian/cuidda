@@ -1,6 +1,7 @@
 ---
 import VigilanciaPagePlaceholder from "@/components/vigilancia/VigilanciaPagePlaceholder.astro";
 import EstudioLineaBaseContent from "@/components/estudio-linea-base/EstudioLineaBaseContent";
+import EstudioLineaBaseModalHost from "@/components/estudio-linea-base/EstudioLineaBaseModalHost";
 import DashboardLayout from "@/layouts/DashboardLayout.astro";
 ---
 
@@ -23,4 +24,5 @@ import DashboardLayout from "@/layouts/DashboardLayout.astro";
   <div class="flex-1 overflow-y-auto py-6">
     <EstudioLineaBaseContent client:load />
   </div>
+  <EstudioLineaBaseModalHost client:load />
 </DashboardLayout>
