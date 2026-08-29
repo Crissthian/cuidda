@@ -1,5 +1,6 @@
 ---
 import VigilanciaPagePlaceholder from "@/components/vigilancia/VigilanciaPagePlaceholder.astro";
+import ProtocolosContent from "@/components/protocolos/ProtocolosContent";
 import DashboardLayout from "@/layouts/DashboardLayout.astro";
 ---
 
@@ -7,12 +8,20 @@ import DashboardLayout from "@/layouts/DashboardLayout.astro";
   title="Protocolos médicos"
   description="Módulo de protocolos médicos"
 >
-  <VigilanciaPagePlaceholder
-    title="Protocolos médicos"
-    icon="fa-book-medical"
-    description="Módulo protocolos médicos del sistema de vigilancia médica ocupacional CUIDDA."
-  />
-  <div class="pt-6">
-    <!-- maquetar aca -->
+  <div class="flex flex-1 flex-col overflow-y-auto bg-surface-default">
+    <VigilanciaPagePlaceholder
+      title="Protocolos médicos"
+      icon="fa-book-medical"
+      description="Módulo protocolos médicos del sistema de vigilancia médica ocupacional CUIDDA."
+      buttons={[
+        {
+          icon: "fa-upload",
+          text: "CARGAR PROTOCOLO",
+        },
+      ]}
+    />
+    <div class="pt-6">
+      <ProtocolosContent client:load />
+    </div>
   </div>
 </DashboardLayout>

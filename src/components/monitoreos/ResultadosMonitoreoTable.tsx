@@ -49,7 +49,7 @@ export default function ResultadosMonitoreoTable() {
               <span className="text-text-secondary">{row.lmp}</span>
               <span className="flex justify-center self-center">
                 <span
-                  className={`rounded-full w-full h-5 mx-10 text-center px-3 py-1 text-[10px] font-bold ${row.estadoClass}`}
+                  className={`rounded-full w-full h-5 mx-8 text-center px-3 py-1 text-[10px] font-bold ${row.estadoClass}`}
                 >
                   {row.estado}
                 </span>
