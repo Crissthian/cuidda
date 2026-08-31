@@ -22,7 +22,7 @@ export default function MatrizKpis() {
               <span className="py-1 text-2xl font-bold leading-none text-brand">
                 {kpi.value}
               </span>
-              <span className="text-[11px] text-success">{kpi.sub}</span>
+              <span className="text-xs text-success">{kpi.sub}</span>
             </div>
           </div>
         ))}

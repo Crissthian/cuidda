@@ -1,13 +1,13 @@
-import { kpisMonitoreos } from "@/lib/monitoreosData";
+import { kpisPlanAnual } from "@/lib/planAnualData";
 
-export default function MonitoreosKpis() {
+export default function PlanAnualKpis() {
   return (
-    <section aria-label="Indicadores de monitoreos">
+    <section aria-label="Indicadores plan anual">
       <div className="grid grid-cols-4 gap-6">
-        {kpisMonitoreos.map((kpi) => (
+        {kpisPlanAnual.map((kpi) => (
           <div
             key={kpi.id}
-            className="flex items-center gap-4 rounded-xl bg-surface-default px-6 py-5 shadow-sm shadow-border-default"
+            className="flex items-center gap-4 rounded-xl bg-surface-default p-5 shadow-sm shadow-border-subtle"
           >
             <span
               className={`flex size-14 shrink-0 items-center justify-center rounded-lg ${kpi.iconBg}`}
@@ -22,9 +22,7 @@ export default function MonitoreosKpis() {
               <span className="py-1 text-2xl font-bold leading-none text-brand">
                 {kpi.value}
               </span>
-              {kpi.sub && (
-                <span className="text-xs text-success">{kpi.sub}</span>
-              )}
+              <span className="text-xs text-success">{kpi.sub}</span>
             </div>
           </div>
         ))}

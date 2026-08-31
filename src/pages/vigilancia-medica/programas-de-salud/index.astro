@@ -1,5 +1,6 @@
 ---
 import VigilanciaPagePlaceholder from "@/components/vigilancia/VigilanciaPagePlaceholder.astro";
+import ProgramasContent from "@/components/programas/ProgramasContent";
 import DashboardLayout from "@/layouts/DashboardLayout.astro";
 ---
 
@@ -7,9 +8,20 @@ import DashboardLayout from "@/layouts/DashboardLayout.astro";
   title="Programas de salud"
   description="Módulo de programas de salud"
 >
-  <VigilanciaPagePlaceholder
-    title="Programas de salud"
-    icon="fa-user-shield"
-    description="Programas de promoción y prevención de la salud de los trabajadores."
-  />
+  <div class="flex flex-1 flex-col overflow-y-auto">
+    <VigilanciaPagePlaceholder
+      title="Programas de salud"
+      icon="fa-user-shield"
+      description="Seguimiento de programas ocupacionales, preventivos y subprogramas para población sensible."
+      buttons={[
+        {
+          icon: "fa-plus",
+          text: "NUEVO PROGRAMA",
+        },
+      ]}
+    />
+    <div class="pb-6">
+      <ProgramasContent client:load />
+    </div>
+  </div>
 </DashboardLayout>

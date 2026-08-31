@@ -23,7 +23,7 @@ export default function PerfilEvaluacionCard() {
       </p>
 
       <div
-        className="mt-4 flex gap-2 rounded-lg bg-surface-light p-2"
+        className="mt-4 flex gap-2 rounded-lg bg-muted-20 p-2"
         role="tablist"
         aria-label="Tipos de evaluación"
       >

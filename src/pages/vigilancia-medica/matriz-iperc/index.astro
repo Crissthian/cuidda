@@ -8,20 +8,18 @@ import DashboardLayout from "@/layouts/DashboardLayout.astro";
   title="Matriz IPERC"
   description="Módulo de identificación de peligros, evaluación de riesgos y controles"
 >
-  <div class="flex flex-1 flex-col overflow-y-auto">
-    <VigilanciaPagePlaceholder
-      title="Identificación de Peligros, Evaluación de Riesgos y Controles"
-      icon="fa-shield-halved"
-      description="Matriz IPERC por proceso con población expuesta y vínculo directo al protocolo médico y al programa de vigilancia que corresponde a cada agente."
-      buttons={[
-        {
-          icon: "fa-plus",
-          text: "NUEVA MATRIZ",
-        },
-      ]}
-    />
-    <div class="pt-6">
-      <MatrizIpercContent client:load />
-    </div>
+  <VigilanciaPagePlaceholder
+    title="Identificación de Peligros, Evaluación de Riesgos y Controles"
+    icon="fa-shield-halved"
+    description="Matriz IPERC por proceso con población expuesta y vínculo directo al protocolo médico y al programa de vigilancia que corresponde a cada agente."
+    buttons={[
+      {
+        icon: "fa-plus",
+        text: "NUEVA MATRIZ",
+      },
+    ]}
+  />
+  <div class="pt-6">
+    <MatrizIpercContent client:load />
   </div>
 </DashboardLayout>

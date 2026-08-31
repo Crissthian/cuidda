@@ -23,7 +23,7 @@ export default function EmosKpis() {
                 {kpi.value}
               </span>
               {kpi.sub && (
-                <span className="text-[11px] text-success">{kpi.sub}</span>
+                <span className="text-xs text-success">{kpi.sub}</span>
               )}
             </div>
           </div>
