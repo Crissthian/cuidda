@@ -1,4 +1,5 @@
 ---
+import AccidentesContent from "@/components/accidentes/AccidentesContent";
 import VigilanciaPagePlaceholder from "@/components/vigilancia/VigilanciaPagePlaceholder.astro";
 import DashboardLayout from "@/layouts/DashboardLayout.astro";
 ---
@@ -7,9 +8,24 @@ import DashboardLayout from "@/layouts/DashboardLayout.astro";
   title="Accidentes e incidentes"
   description="Módulo de accidentes e incidentes"
 >
-  <VigilanciaPagePlaceholder
-    title="Accidentes e incidentes"
-    icon="fa-person-falling-burst"
-    description="Registro y seguimiento de accidentes e incidentes laborales."
-  />
+  <div class="flex flex-1 flex-col overflow-y-auto">
+    <VigilanciaPagePlaceholder
+      title="Accidentes e incidentes"
+      icon="fa-person-falling-burst"
+      description="Registro de eventos con la información necesaria para el estudio de causa raíz, cruzado con antigüedad del trabajador, puesto y hallazgos médicos previos."
+      buttons={[
+        {
+          icon: "fa-plus",
+          text: "ANÁLISIS DE CAUSA RAÍZ",
+        },
+        {
+          icon: "fa-plus",
+          text: "NUEVO REGISTRO",
+        },
+      ]}
+    />
+    <div class="pb-6">
+      <AccidentesContent client:load />
+    </div>
+  </div>
 </DashboardLayout>
