@@ -11,6 +11,7 @@
 :root {
   color: #414d55;
   scrollbar-color: var(--color-brand) var(--color-surface-light);
+  scrollbar-width: thin;
 }
 
 input {

@@ -11,7 +11,7 @@ export default function DashboardGeneral() {
   return (
     <div className="flex flex-col gap-5 pt-6 text-xs">
       <DashboardFilters />
-      <div className="max-h-165 flex flex-col gap-6 overflow-y-scroll p-0.5">
+      <div className="flex flex-col gap-6 p-0.5">
         <KpiCards />
 
         <div className="grid grid-cols-12 gap-6">

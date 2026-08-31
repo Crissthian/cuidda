@@ -8,7 +8,7 @@ import ValidacionCruzada from "@/components/estudio-linea-base/ValidacionCruzada
 export default function EstudioLineaBaseContent() {
   return (
     <div className="flex flex-col gap-5 text-xs">
-      <div className="max-h-180 overflow-y-scroll p-0.5">
+      <div className="p-0.5">
         <div className="grid grid-cols-2 gap-6 pb-6">
           <FichaEmpresa />
           <InformacionSensible />

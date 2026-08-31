@@ -413,7 +413,10 @@ const isVigilancia = isActive("/vigilancia-medica");
         }
 
         <!-- CONTENIDO -->
-        <main class="flex flex-1 flex-col bg-surface-default" id="main-content">
+        <main
+          class="flex flex-1 flex-col bg-surface-default max-h-max overflow-y-auto"
+          id="main-content"
+        >
           <div class="flex-1 pt-6 px-10">
             <nav
               class="flex items-center gap-2 text-sm"

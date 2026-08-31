@@ -1,4 +1,5 @@
 ---
+import EstratificacionContent from "@/components/vigilancia/EstratificacionContent";
 import VigilanciaPagePlaceholder from "@/components/vigilancia/VigilanciaPagePlaceholder.astro";
 import DashboardLayout from "@/layouts/DashboardLayout.astro";
 ---
@@ -7,9 +8,14 @@ import DashboardLayout from "@/layouts/DashboardLayout.astro";
   title="Estratificación"
   description="Módulo de estratificación"
 >
-  <VigilanciaPagePlaceholder
-    title="Estratificación"
-    icon="fa-triangle-exclamation"
-    description="Clasificación de trabajadores según nivel de riesgo y hallazgos médicos."
-  />
+  <div class="flex flex-1 flex-col overflow-y-auto">
+    <VigilanciaPagePlaceholder
+      title="Estratificación"
+      icon="fa-triangle-exclamation"
+      description="Estructura con la que la plataforma segmenta a cada trabajador según su data y la gravedad de los hallazgos, ubicándolo en los programas específicos de su categoría."
+    />
+    <div class="pb-6">
+      <EstratificacionContent client:load />
+    </div>
+  </div>
 </DashboardLayout>

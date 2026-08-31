@@ -22,7 +22,7 @@ export default function ProgramasContent() {
 
   return (
     <div className="flex flex-col gap-5 text-xs">
-      <div className="max-h-180 overflow-y-auto p-0.5 pb-2">
+      <div className="p-0.5 pb-2">
         {/* KPIs */}
         <div className="grid grid-cols-4 gap-6 pb-6">
           {kpisProgramas.map((kpi) => (
