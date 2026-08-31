@@ -1,12 +1,31 @@
 ---
+import CapacitacionesContent from "@/components/capacitaciones/CapacitacionesContent";
 import VigilanciaPagePlaceholder from "@/components/vigilancia/VigilanciaPagePlaceholder.astro";
 import DashboardLayout from "@/layouts/DashboardLayout.astro";
 ---
 
-<DashboardLayout title="Capacitaciones" description="Módulo de capacitaciones">
-  <VigilanciaPagePlaceholder
-    title="Capacitaciones"
-    icon="fa-chalkboard-user"
-    description="Programas de capacitación en salud y seguridad ocupacional."
-  />
+<DashboardLayout
+  title="Programación de capacitaciones"
+  description="Módulo de capacitaciones"
+>
+  <div class="flex flex-1 flex-col overflow-y-auto">
+    <VigilanciaPagePlaceholder
+      title="Programación de capacitaciones"
+      icon="fa-chalkboard-user"
+      description="Capacitaciones asociadas a cada programa de salud. Aplican a toda la población y se segmentan por grupo de riesgo, con seguimiento de asistencia y cumplimiento."
+      buttons={[
+        {
+          icon: "fa-plus",
+          text: "REGISTRAR CUMPLIMIENTO",
+        },
+        {
+          icon: "fa-calendar",
+          text: "CARGAR PLAN DE CAPACITACIÓN",
+        },
+      ]}
+    />
+    <div class="pb-6">
+      <CapacitacionesContent client:load />
+    </div>
+  </div>
 </DashboardLayout>

@@ -97,7 +97,7 @@ export default function BibliotecaProtocolosTable() {
       </div>
 
       <div className="mt-5 overflow-hidden rounded-lg">
-        <div className="grid grid-cols-[1.2fr_1fr_0.9fr_0.7fr_1.3fr_0.5fr_0.7fr_0.7fr_0.6fr] gap-2 rounded-lg bg-surface-light px-3 py-2 text-[10px] font-semibold uppercase tracking-wider text-muted">
+        <div className="grid grid-cols-[1.2fr_1fr_0.9fr_0.7fr_1.3fr_0.5fr_0.7fr_0.7fr_0.6fr] gap-4 rounded-lg bg-surface-light p-3 text-[10px] font-semibold uppercase tracking-wider text-muted">
           <span>Protocolo</span>
           <span>Empresa</span>
           <span>Área</span>
@@ -113,7 +113,7 @@ export default function BibliotecaProtocolosTable() {
           {protocolos.map((row) => (
             <div
               key={row.id}
-              className="grid grid-cols-[1.2fr_1fr_0.9fr_0.7fr_1.3fr_0.5fr_0.7fr_0.7fr_0.6fr] gap-2 px-3 py-3 text-xs"
+              className="grid grid-cols-[1.2fr_1fr_0.9fr_0.7fr_1.3fr_0.5fr_0.7fr_0.7fr_0.6fr] gap-4 p-3 text-xs"
             >
               <div className="flex flex-col gap-0.5">
                 <span className="font-semibold leading-tight text-text-primary">
