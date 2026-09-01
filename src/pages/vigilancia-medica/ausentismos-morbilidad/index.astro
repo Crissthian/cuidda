@@ -1,4 +1,5 @@
 ---
+import AusentismoMorbilidadContent from "@/components/vigilancia/AusentismoMorbilidadContent";
 import VigilanciaPagePlaceholder from "@/components/vigilancia/VigilanciaPagePlaceholder.astro";
 import DashboardLayout from "@/layouts/DashboardLayout.astro";
 ---
@@ -7,9 +8,20 @@ import DashboardLayout from "@/layouts/DashboardLayout.astro";
   title="Ausentismos / Morbilidad"
   description="Módulo de ausentismos y morbilidad"
 >
-  <VigilanciaPagePlaceholder
-    title="Ausentismos / Morbilidad"
-    icon="fa-calendar-xmark"
-    description="Análisis de ausentismo laboral y patrones de morbilidad."
-  />
+  <div class="flex flex-1 flex-col overflow-y-auto">
+    <VigilanciaPagePlaceholder
+      title="Ausentismos / Morbilidad"
+      icon="fa-calendar-xmark"
+      description="Módulo ausentismo / morbilidad del sistema de vigilancia médica ocupacional CUIDDA."
+      buttons={[
+        {
+          icon: "fa-plus",
+          text: "CARGAR DESCANSOS",
+        },
+      ]}
+    />
+    <div class="pb-6">
+      <AusentismoMorbilidadContent client:load />
+    </div>
+  </div>
 </DashboardLayout>

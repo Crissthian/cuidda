@@ -5,7 +5,7 @@ import PlanAnualKpis from "@/components/plan-anual/PlanAnualKpis";
 export default function PlanAnualContent() {
   return (
     <div className="flex flex-col gap-5 text-xs">
-      <div className="p-0.5 pb-2">
+      <div className="pb-2">
         <div className="flex items-center gap-3 pb-6 w-4/12">
           <label htmlFor="pa-periodo" className="sr-only">
             Periodo

@@ -224,7 +224,7 @@ function GrupoBadge({ grupo }: { grupo: "G1" | "G2" | "G3" }) {
 
 export default function EstratificacionContent() {
   return (
-    <div className="flex flex-col gap-5 p-0.5">
+    <div className="flex flex-col gap-5 px-10">
       {/* ── 3 CARDS SUPERIORES ── */}
       <section
         aria-label="Grupos de estratificación"

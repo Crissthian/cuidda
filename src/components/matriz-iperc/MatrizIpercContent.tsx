@@ -4,7 +4,7 @@ import MatrizKpis from "@/components/matriz-iperc/MatrizKpis";
 export default function MatrizIpercContent() {
   return (
     <div
-      className="flex flex-col gap-6 text-xs p-0.5"
+      className="flex flex-col gap-6 text-xs px-10"
       aria-label="Matriz IPERC 001"
     >
       <div className="flex items-center gap-3 w-4/12">

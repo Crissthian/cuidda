@@ -240,8 +240,8 @@ const isVigilancia = isActive("/vigilancia-medica");
     </script>
     <title>{title}</title>
   </head>
-  <body class="bg-surface-light text-xs antialiased">
-    <div class="flex h-dvh w-dvw flex-col bg-surface-light">
+  <body class="text-xs antialiased">
+    <div class="flex h-dvh w-dvw flex-col">
       <!-- NAVBAR: persiste en todas las páginas -->
       <header
         class="flex h-21 shrink-0 items-center justify-between bg-brand px-6 text-white"
@@ -414,12 +414,12 @@ const isVigilancia = isActive("/vigilancia-medica");
 
         <!-- CONTENIDO -->
         <main
-          class="flex flex-1 flex-col bg-surface-default max-h-max overflow-y-auto"
+          class="flex flex-1 flex-col bg-surface-default overflow-y-auto h-full"
           id="main-content"
         >
-          <div class="flex-1 pt-6 px-10">
+          <div class="flex-1 pt-6">
             <nav
-              class="flex items-center gap-2 text-sm"
+              class="flex items-center gap-2 text-sm px-10"
               aria-label="Breadcrumb"
             >
               <i

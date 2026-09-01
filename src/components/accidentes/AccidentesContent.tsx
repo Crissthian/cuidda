@@ -4,7 +4,7 @@ import RegistroEventosTable from "@/components/accidentes/RegistroEventosTable";
 export default function AccidentesContent() {
   return (
     <div className="flex flex-col gap-5 text-xs">
-      <div className="p-0.5 pb-2">
+      <div className="px-10 pb-2">
         <div className="flex items-center gap-3 pb-6 max-w-6/12">
           <label htmlFor="acc-periodo" className="sr-only">
             Periodo

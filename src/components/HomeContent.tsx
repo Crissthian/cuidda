@@ -5,11 +5,11 @@ export default function HomeContent() {
 
   return (
     <section
-      className="relative flex h-full w-full flex-col "
+      className="relative flex h-[calc(100vh-8rem)] w-full flex-col overflow-hidden"
       aria-labelledby="home-title"
     >
       {/* Contenido principal: texto a la izquierda, ilustración a la derecha */}
-      <div className="relative flex flex-1 items-center  px-10">
+      <div className="relative flex flex-1 items-center px-10">
         {/* Fondo decorativo superior claro */}
         <div className="relative z-10 flex w-200 shrink-0 flex-col gap-4 pb-2 ms-24">
           <h1 id="home-title" className="text-8xl font-semibold leading-none">
@@ -37,7 +37,7 @@ export default function HomeContent() {
             src="/fondo_index.svg"
             alt=""
             aria-hidden="true"
-            className="pointer-events-none absolute bottom-0 -right-14.5 h-auto w-215 max-w-full select-none object-contain object-bottom-right"
+            className="pointer-events-none absolute bottom-0 -right-1 h-auto w-215 max-w-full select-none object-contain object-bottom-right"
             width="976"
             height="716"
             decoding="async"
@@ -45,7 +45,7 @@ export default function HomeContent() {
           <img
             src="/imagen-index.png"
             alt="Profesional de salud saludando con laptop"
-            className="absolute z-10 h-auto w-362.5 select-none -bottom-6 -right-10 drop-shadow-sm"
+            className="absolute z-10 h-auto w-362.5 select-none -bottom-6 -right-1 drop-shadow-sm"
             decoding="async"
           />
         </div>

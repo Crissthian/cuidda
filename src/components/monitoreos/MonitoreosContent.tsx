@@ -3,7 +3,7 @@ import ResultadosMonitoreoTable from "@/components/monitoreos/ResultadosMonitore
 
 export default function MonitoreosContent() {
   return (
-    <div className="flex flex-col gap-6 p-0.5 text-xs">
+    <div className="flex flex-col gap-6 px-10 text-xs">
       <div className="flex items-center gap-3 w-4/12">
         <label htmlFor="mon-sede" className="sr-only">
           Sede

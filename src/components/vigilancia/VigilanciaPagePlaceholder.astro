@@ -16,12 +16,12 @@ interface ButtonProps {
 const {
   title,
   description = "Contenido del módulo pendiente de implementar.",
-  buttons = [],
+  buttons = [] as ButtonProps[],
 } = Astro.props;
 ---
 
 <section
-  class="flex flex-1 flex-row justify-between py-4"
+  class="flex flex-1 flex-row justify-between py-4 px-10"
   aria-labelledby="vigilancia-page-title"
 >
   <div>

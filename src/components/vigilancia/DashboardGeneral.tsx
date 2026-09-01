@@ -9,7 +9,7 @@ import ProximosHitos from "@/components/vigilancia/ProximosHitos";
 
 export default function DashboardGeneral() {
   return (
-    <div className="flex flex-col gap-5 pt-6 text-xs">
+    <div className="flex flex-col gap-5 text-xs px-10">
       <DashboardFilters />
       <div className="flex flex-col gap-6 p-0.5">
         <KpiCards />

@@ -3,7 +3,7 @@ import ProtocolosKpis from "@/components/protocolos/ProtocolosKpis";
 
 export default function ProtocolosContent() {
   return (
-    <div className="flex flex-col gap-6 p-0.5 text-xs">
+    <div className="flex flex-col gap-6 px-10 text-xs">
       <ProtocolosKpis />
       <BibliotecaProtocolosTable />
     </div>
