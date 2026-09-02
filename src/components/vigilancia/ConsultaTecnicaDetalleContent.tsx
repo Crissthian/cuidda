@@ -71,7 +71,6 @@ function DocumentoItem({ nombre }: { nombre: string; archivo: string }) {
 
 export default function ConsultaTecnicaDetalleContent({ consulta }: Props) {
   const isPendiente = consulta.estado === "PENDIENTE";
-  const codigo = `CT-2026-${String(consulta.id).padStart(3, "0")}`;
 
   return (
     <div className="flex flex-col gap-5 px-10 pb-8">

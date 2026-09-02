@@ -1,5 +1,6 @@
 ---
 import ConsultasTecnicasContent from "@/components/vigilancia/ConsultasTecnicasContent";
+import ConsultaTecnicaModalHost from "@/components/vigilancia/ConsultaTecnicaModalHost";
 import VigilanciaPagePlaceholder from "@/components/vigilancia/VigilanciaPagePlaceholder.astro";
 import DashboardLayout from "@/layouts/DashboardLayout.astro";
 ---
@@ -23,5 +24,6 @@ import DashboardLayout from "@/layouts/DashboardLayout.astro";
     <div class="pb-6 px-10">
       <ConsultasTecnicasContent client:load />
     </div>
+    <ConsultaTecnicaModalHost client:load />
   </div>
 </DashboardLayout>
