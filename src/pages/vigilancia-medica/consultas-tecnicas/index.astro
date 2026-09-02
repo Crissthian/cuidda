@@ -1,15 +1,27 @@
 ---
+import ConsultasTecnicasContent from "@/components/vigilancia/ConsultasTecnicasContent";
 import VigilanciaPagePlaceholder from "@/components/vigilancia/VigilanciaPagePlaceholder.astro";
 import DashboardLayout from "@/layouts/DashboardLayout.astro";
 ---
 
 <DashboardLayout
-  title="Consultas técnicas S.O."
+  title="Consultas técnicas"
   description="Módulo de consultas técnicas"
 >
-  <VigilanciaPagePlaceholder
-    title="Consultas técnicas S.O."
-    icon="fa-laptop-medical"
-    description="Consultas técnicas de salud ocupacional y asesoría especializada."
-  />
+  <div class="flex flex-1 flex-col overflow-y-auto">
+    <VigilanciaPagePlaceholder
+      title="Consultas técnicas"
+      icon="fa-laptop-medical"
+      description="Segunda opinión de especialistas Lucemedic"
+      buttons={[
+        {
+          text: "Nueva consulta",
+          icon: "fa-plus",
+        },
+      ]}
+    />
+    <div class="pb-6 px-10">
+      <ConsultasTecnicasContent client:load />
+    </div>
+  </div>
 </DashboardLayout>

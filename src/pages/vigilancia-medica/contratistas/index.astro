@@ -10,6 +10,16 @@ import DashboardLayout from "@/layouts/DashboardLayout.astro";
       title="Contratistas"
       icon="fa-truck"
       description="Módulo contratistas del sistema de vigilancia médica ocupacional CUIDDA."
+      buttons={[
+        {
+          icon: "fa-plus",
+          text: "ACTUALIZAR CUMPLIMIENTO",
+        },
+         {
+          icon: "fa-plus",
+          text: "REGISTRAR CONTRATISTA",
+        }
+      ]}
     />
     <div class="pb-6 px-10">
       <ContratistasContent client:load />

@@ -1,0 +1,70 @@
+---
+import ConsultaTecnicaDetalleContent from "@/components/vigilancia/ConsultaTecnicaDetalleContent";
+import VigilanciaPagePlaceholder from "@/components/vigilancia/VigilanciaPagePlaceholder.astro";
+import DashboardLayout from "@/layouts/DashboardLayout.astro";
+import { consultasTecnicas } from "@/lib/consultasTecnicasData";
+
+export function getStaticPaths() {
+  return consultasTecnicas.map((consulta) => ({
+    params: { id: String(consulta.id) },
+    props: { consulta },
+  }));
+}
+
+const { consulta } = Astro.props;
+const titulo = consulta
+  ? "Detalle de consulta técnica"
+  : "Consulta no encontrada";
+const codigo = consulta
+  ? `CT-2026-${String(consulta.id).padStart(3, "0")}`
+  : "";
+---
+
+<DashboardLayout title={titulo} description="Detalle de consulta técnica">
+  <div class="flex flex-1 flex-col overflow-y-auto bg-surface-default">
+    <div class="px-10 pt-4">
+      <a
+        href="/vigilancia-medica/consultas-tecnicas"
+        class="inline-flex items-center gap-2 text-xs font-medium text-brand hover:text-primary-hover"
+      >
+        <i class="fa-solid fa-arrow-left text-xs" aria-hidden="true"></i>
+        Volver al historial de consultas
+      </a>
+    </div>
+
+    <VigilanciaPagePlaceholder
+      title={consulta ? `Consulta ${codigo}` : "Consulta no encontrada"}
+      icon="fa-laptop-medical"
+      description={consulta
+        ? `${consulta.especialidad} · ${consulta.fechaHora}`
+        : "Registro no disponible"}
+    />
+
+    {
+      consulta ? (
+        <ConsultaTecnicaDetalleContent consulta={consulta} client:load />
+      ) : (
+        <div class="px-10 pb-8">
+          <div class="rounded-xl bg-surface-default p-10 text-center shadow-sm shadow-border-default">
+            <i
+              class="fa-solid fa-triangle-exclamation text-3xl text-muted"
+              aria-hidden="true"
+            />
+            <p class="mt-3 text-sm font-semibold text-text-primary">
+              Consulta no encontrada
+            </p>
+            <p class="mt-1 text-xs text-muted">
+              El registro solicitado no existe o fue retirado.
+            </p>
+            <a
+              href="/vigilancia-medica/consultas-tecnicas"
+              class="mt-5 inline-flex items-center gap-2 rounded-lg bg-brand px-5 py-2 text-xs font-bold text-white hover:bg-primary-hover"
+            >
+              Volver al historial
+            </a>
+          </div>
+        </div>
+      )
+    }
+  </div>
+</DashboardLayout>
