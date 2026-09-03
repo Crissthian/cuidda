@@ -1,4 +1,5 @@
 ---
+import FirmasContent from "@/components/vigilancia/FirmasContent";
 import VigilanciaPagePlaceholder from "@/components/vigilancia/VigilanciaPagePlaceholder.astro";
 import DashboardLayout from "@/layouts/DashboardLayout.astro";
 ---
@@ -7,6 +8,15 @@ import DashboardLayout from "@/layouts/DashboardLayout.astro";
   <VigilanciaPagePlaceholder
     title="Firmas"
     icon="fa-signature"
-    description="Gestión de firmas digitales y validación de documentos médicos."
+    description="Configuración"
+    buttons={[
+      {
+        text: "CONFIGURAR FIRMA",
+        icon: "fa-gear",
+      },
+    ]}
   />
+  <div class="mx-10">
+    <FirmasContent client:load />
+  </div>
 </DashboardLayout>

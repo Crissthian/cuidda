@@ -16,7 +16,7 @@ export default function EmosKpis() {
               <i className={`fa-solid ${kpi.icon} text-2xl ${kpi.iconColor}`} />
             </span>
             <div className="flex flex-col">
-              <span className="text-sm font-medium leading-tight text-text-secondary whitespace-break-spaces">
+              <span className="text-sm leading-tight text-text-secondary whitespace-break-spaces">
                 {kpi.label}
               </span>
               <span className="py-1 text-2xl font-bold leading-none text-brand">
