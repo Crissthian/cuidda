@@ -46,11 +46,13 @@ const {
                 data-modal-trigger={
                   text === "CARGAR DOCUMENTO"
                     ? "cargar-documento"
-                    : text === "CARGAR MATRIZ Y LEGAJOS"
-                      ? "cargar-matriz"
-                      : text === "Nueva consulta"
-                        ? "nueva-consulta"
-                        : undefined
+                    : text === "IMPORTAR PLANILLA"
+                      ? "importar-planilla"
+                      : text === "CARGAR MATRIZ Y LEGAJOS"
+                        ? "cargar-matriz"
+                        : text === "Nueva consulta"
+                          ? "nueva-consulta"
+                          : undefined
                 }
                 class={`flex h-10 items-center gap-2 rounded-lg px-4 text-xs font-semibold shadow-sm hover:bg-muted-30 ${classes.join(" ")}`}
               >

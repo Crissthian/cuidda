@@ -1,16 +1,41 @@
-import { useEffect, useState } from "react";
 import CargarDocumentoModal from "@/components/estudio-linea-base/CargarDocumentoModal";
+import ImportarPlanillaModal from "@/components/estudio-linea-base/ImportarPlanillaModal";
+import { useEffect, useState } from "react";
 
 export default function EstudioLineaBaseModalHost() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isDocumentoOpen, setIsDocumentoOpen] = useState(false);
+  const [isPlanillaOpen, setIsPlanillaOpen] = useState(false);
 
   useEffect(() => {
-    const btn = document.querySelector<HTMLButtonElement>('[data-modal-trigger="cargar-documento"]');
-    if (!btn) return;
-    const handler = () => setIsOpen(true);
-    btn.addEventListener("click", handler);
-    return () => btn.removeEventListener("click", handler);
+    const btnDocumento = document.querySelector<HTMLButtonElement>(
+      '[data-modal-trigger="cargar-documento"]',
+    );
+    const btnPlanilla = document.querySelector<HTMLButtonElement>(
+      '[data-modal-trigger="importar-planilla"]',
+    );
+
+    const handlerDocumento = () => setIsDocumentoOpen(true);
+    const handlerPlanilla = () => setIsPlanillaOpen(true);
+
+    btnDocumento?.addEventListener("click", handlerDocumento);
+    btnPlanilla?.addEventListener("click", handlerPlanilla);
+
+    return () => {
+      btnDocumento?.removeEventListener("click", handlerDocumento);
+      btnPlanilla?.removeEventListener("click", handlerPlanilla);
+    };
   }, []);
 
-  return <CargarDocumentoModal isOpen={isOpen} onClose={() => setIsOpen(false)} />;
+  return (
+    <>
+      <CargarDocumentoModal
+        isOpen={isDocumentoOpen}
+        onClose={() => setIsDocumentoOpen(false)}
+      />
+      <ImportarPlanillaModal
+        isOpen={isPlanillaOpen}
+        onClose={() => setIsPlanillaOpen(false)}
+      />
+    </>
+  );
 }
