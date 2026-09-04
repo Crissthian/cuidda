@@ -1,4 +1,6 @@
+import DocumentoRespaldoModal from "@/components/vigilancia/DocumentoRespaldoModal";
 import type { contratistas } from "@/lib/contratistasData";
+import { useState } from "react";
 
 type Props = { contratista: (typeof contratistas)[number] };
 
@@ -103,6 +105,8 @@ const documentos = [
 ] as const;
 
 export default function ContratistaDetalleContent({ contratista }: Props) {
+  const [isRespaldoOpen, setIsRespaldoOpen] = useState(false);
+
   return (
     <div className="flex flex-col gap-5 px-10 pb-6">
       {/* ── Fila superior ── */}
@@ -118,7 +122,7 @@ export default function ContratistaDetalleContent({ contratista }: Props) {
           >
             Información general
           </h2>
-          <p className="text-[11px] text-muted">Del contratista</p>
+          <p className="text-xs text-muted">Del contratista</p>
           <div className="mt-4 grid grid-cols-2 gap-x-6 gap-y-4">
             <Field label="Razón social" value={`${contratista.empresa} S.A.`} />
             <Field label="Nombre comercial" value={contratista.empresa} />
@@ -162,16 +166,14 @@ export default function ContratistaDetalleContent({ contratista }: Props) {
           >
             Cumplimiento de vigilancia médica
           </h2>
-          <p className="text-[11px] text-muted">
+          <p className="text-xs text-muted">
             Registro manual del cumplimiento declarado o verificado.
           </p>
 
           <div className="px-4 py-2 my-4 shadow-sm shadow-border-default rounded-lg">
-            <p className="text-[11px] font-semibold text-brand">
-              Cumplimiento EMO
-            </p>
+            <p className="text-sm font-semibold text-brand">Cumplimiento EMO</p>
             <p className="text-xl font-bold text-brand">88%</p>
-            <p className="mt-1 text-[11px] text-brand">
+            <p className="mt-1 text-xs text-brand">
               22 de 25 trabajadores con EMO vigente
             </p>
             <div className="mt-2">
@@ -221,7 +223,7 @@ export default function ContratistaDetalleContent({ contratista }: Props) {
         >
           Responsables
         </h2>
-        <p className="text-[11px] text-muted">
+        <p className="text-xs text-muted">
           Contactos para coordinar información pendiente o incumplimientos.
         </p>
         <div className="mt-4 overflow-x-auto">
@@ -285,7 +287,7 @@ export default function ContratistaDetalleContent({ contratista }: Props) {
         >
           Historial de actualizaciones
         </h2>
-        <p className="text-[11px] text-muted">
+        <p className="text-xs text-muted">
           Cada actualización se registra sin sobrescribir la anterior.
         </p>
         <div className="mt-4 overflow-x-auto">
@@ -371,12 +373,13 @@ export default function ContratistaDetalleContent({ contratista }: Props) {
               >
                 Documentos de respaldo
               </h2>
-              <p className="text-[11px] text-muted">
+              <p className="text-xs text-muted">
                 PDF, XLSX, XLS, JPG o PNG remitidos por el contratista.
               </p>
             </div>
             <button
               type="button"
+              onClick={() => setIsRespaldoOpen(true)}
               className="flex shrink-0 items-center gap-2 rounded-lg bg-muted-20 px-4 py-2 text-[10px] font-bold tracking-wide text-muted hover:bg-muted-30"
             >
               <i className="fa-solid fa-plus text-[10px]" aria-hidden="true" />
@@ -445,6 +448,11 @@ export default function ContratistaDetalleContent({ contratista }: Props) {
           </div>
         </section>
       </div>
+
+      <DocumentoRespaldoModal
+        isOpen={isRespaldoOpen}
+        onClose={() => setIsRespaldoOpen(false)}
+      />
     </div>
   );
 }
