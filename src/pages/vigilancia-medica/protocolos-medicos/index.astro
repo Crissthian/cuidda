@@ -1,6 +1,7 @@
 ---
-import VigilanciaPagePlaceholder from "@/components/vigilancia/VigilanciaPagePlaceholder.astro";
 import ProtocolosContent from "@/components/protocolos/ProtocolosContent";
+import ProtocolosModalHost from "@/components/protocolos/ProtocolosModalHost";
+import VigilanciaPagePlaceholder from "@/components/vigilancia/VigilanciaPagePlaceholder.astro";
 import DashboardLayout from "@/layouts/DashboardLayout.astro";
 ---
 
@@ -23,5 +24,6 @@ import DashboardLayout from "@/layouts/DashboardLayout.astro";
     <div>
       <ProtocolosContent client:load />
     </div>
+    <ProtocolosModalHost client:load />
   </div>
 </DashboardLayout>

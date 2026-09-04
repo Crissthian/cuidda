@@ -1,5 +1,6 @@
 ---
 import ProtocoloDetalleContent from "@/components/protocolos/ProtocoloDetalleContent";
+import ProtocolosModalHost from "@/components/protocolos/ProtocolosModalHost";
 import VigilanciaPagePlaceholder from "@/components/vigilancia/VigilanciaPagePlaceholder.astro";
 import DashboardLayout from "@/layouts/DashboardLayout.astro";
 import { protocolos } from "@/lib/protocolosData";
@@ -40,12 +41,12 @@ const titulo = protocolo ? `Detalle de protocolo` : "Protocolo no encontrado";
         {
           icon: "fa-save",
           text: "ACTUALIZAR PROTOCOLO",
-          classes: ["bg-brand text-white hover:bg-brand-hover"],
         },
       ]}
     />
     <div class="max-h-175 overflow-y-auto">
       <ProtocoloDetalleContent protocolo={protocolo} client:load />
     </div>
+    <ProtocolosModalHost client:load />
   </div>
 </DashboardLayout>
