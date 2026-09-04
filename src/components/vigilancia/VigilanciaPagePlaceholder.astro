@@ -18,6 +18,18 @@ const {
   description = "Contenido del módulo pendiente de implementar.",
   buttons = [] as ButtonProps[],
 } = Astro.props;
+
+const modalTriggers: Record<string, string> = {
+  "CARGAR DOCUMENTO": "cargar-documento",
+  "IMPORTAR PLANILLA": "importar-planilla",
+  "NUEVA MATRIZ": "nueva-matriz",
+  "CARGAR MATRIZ Y LEGAJOS": "cargar-matriz",
+  "PROGRAMAR MONITOREO": "programar-monitoreo",
+  "CARGAR INFORME": "cargar-informe",
+  "CARGAR PROTOCOLO": "cargar-protocolo",
+  "ACTUALIZAR PROTOCOLO": "actualizar-protocolo",
+  "Nueva consulta": "nueva-consulta",
+};
 ---
 
 <section
@@ -43,27 +55,7 @@ const {
             state !== false && (
               <button
                 type="button"
-                data-modal-trigger={
-                  text === "CARGAR DOCUMENTO"
-                    ? "cargar-documento"
-                    : text === "IMPORTAR PLANILLA"
-                      ? "importar-planilla"
-                      : text === "NUEVA MATRIZ"
-                        ? "nueva-matriz"
-                        : text === "CARGAR MATRIZ Y LEGAJOS"
-                          ? "cargar-matriz"
-                          : text === "PROGRAMAR MONITOREO"
-                            ? "programar-monitoreo"
-                            : text === "CARGAR INFORME"
-                              ? "cargar-informe"
-                              : text === "CARGAR PROTOCOLO"
-                                ? "cargar-protocolo"
-                                : text === "ACTUALIZAR PROTOCOLO"
-                                  ? "actualizar-protocolo"
-                                  : text === "Nueva consulta"
-                                    ? "nueva-consulta"
-                                    : undefined
-                }
+                data-modal-trigger={modalTriggers[text]}
                 class={`flex h-10 items-center gap-2 rounded-lg px-4 text-xs font-semibold shadow-sm hover:bg-muted-30 ${classes.join(" ")}`}
               >
                 <i class={`fa-solid ${icon} text-[11px]`} aria-hidden="true" />
