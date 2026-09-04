@@ -16,7 +16,12 @@ interface ButtonProps {
 const {
   title,
   description = "Contenido del módulo pendiente de implementar.",
-  buttons = [] as ButtonProps[],
+  buttons = [
+    {
+      icon: "fa-refresh",
+      text: "ACTUALIZAR CUMPLIMIENTO",
+    },
+  ] as ButtonProps[],
 } = Astro.props;
 
 const modalTriggers: Record<string, string> = {
