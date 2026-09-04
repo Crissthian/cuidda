@@ -86,11 +86,10 @@ export const actividadesPlan = [
 ] as const;
 
 export const avanceMensual = [
-  { mes: "Ene", plan: 62, ejec: 58 },
-  { mes: "Feb", plan: 68, ejec: 61 },
-  { mes: "Mar", plan: 72, ejec: 70 },
-  { mes: "Abr", plan: 76, ejec: 69 },
-  { mes: "May", plan: 80, ejec: 74 },
-  { mes: "Jun", plan: 85, ejec: 78 },
-  { mes: "Jul", plan: 85, ejec: 78 },
+  { mes: "Enero", plan: 62, ejec: 58 },
+  { mes: "Febrero", plan: 90, ejec: 60 },
+  { mes: "Marzo", plan: 80, ejec: 70 },
+  { mes: "Abril", plan: 90, ejec: 30 },
+  { mes: "Mayo", plan: 80, ejec: 75 },
+  { mes: "Junio", plan: 95, ejec: 60 },
 ] as const;
