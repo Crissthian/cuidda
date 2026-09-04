@@ -48,7 +48,7 @@ function NuevaConsultaModal({ onClose }: { onClose: () => void }) {
 
   return (
     <div
-      className="modal-overlay fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/40 p-4 backdrop-blur-[2px] sm:items-center sm:p-6"
+      className="modal-overlay fixed inset-0 z-50 flex justify-center overflow-y-auto bg-black/40 p-4 backdrop-blur-[2px] items-center"
       role="dialog"
       aria-modal="true"
       aria-labelledby="nueva-consulta-title"

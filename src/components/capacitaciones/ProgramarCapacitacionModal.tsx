@@ -51,7 +51,7 @@ export default function ProgramarCapacitacionModal({ isOpen, onClose }: Props) {
           onClick={handleClose}
         >
           <div
-            className="relative flex max-h-[90vh] w-full max-w-120 flex-col overflow-hidden rounded-2xl bg-white shadow-xl"
+            className="relative flex max-h-[90vh] w-full max-w-120 flex-col overflow-hidden rounded-2xl bg-surface-default shadow-xl"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close button top right */}

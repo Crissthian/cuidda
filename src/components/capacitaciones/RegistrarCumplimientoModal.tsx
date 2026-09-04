@@ -69,7 +69,7 @@ export default function RegistrarCumplimientoModal({ isOpen, onClose }: Props) {
           onClick={handleCloseUpload}
         >
           <div
-            className="relative flex max-h-[90vh] w-full max-w-120 flex-col overflow-hidden rounded-2xl bg-white shadow-xl"
+            className="relative flex max-h-[90vh] w-full max-w-120 flex-col overflow-hidden rounded-2xl bg-surface-default shadow-xl"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close button top right */}
@@ -101,7 +101,7 @@ export default function RegistrarCumplimientoModal({ isOpen, onClose }: Props) {
 
               {/* Paso 1 */}
               <section
-                className="mt-6 rounded-xl bg-white p-5 shadow-md shadow-border-subtle/30 ring-1 ring-border-subtle/20"
+                className="mt-6 rounded-xl bg-surface-default p-5 shadow-md shadow-border-subtle/30 ring-1 ring-border-subtle/20"
                 aria-labelledby="paso1-cumplimiento-title"
               >
                 <h3
@@ -123,7 +123,7 @@ export default function RegistrarCumplimientoModal({ isOpen, onClose }: Props) {
                     id="tema"
                     value={tema}
                     onChange={(e) => setTema(e.target.value)}
-                    className={`form-select appearance-none pr-10 ${tema ? "text-text-primary" : "text-muted"}`}
+                    className={`form-select appearance-none ${tema ? "text-text-primary" : "text-muted"}`}
                   >
                     <option value="" disabled hidden>
                       Selecciona tema
@@ -134,16 +134,12 @@ export default function RegistrarCumplimientoModal({ isOpen, onClose }: Props) {
                       </option>
                     ))}
                   </select>
-                  <i
-                    className="fa-solid fa-chevron-down form-select-icon text-xs"
-                    aria-hidden="true"
-                  />
                 </div>
               </section>
 
               {/* Paso 2 */}
               <section
-                className="mt-4 rounded-xl bg-white p-5 shadow-md shadow-border-subtle/30 ring-1 ring-border-subtle/20"
+                className="mt-4 rounded-xl bg-surface-default p-5 shadow-md shadow-border-subtle/30 ring-1 ring-border-subtle/20"
                 aria-labelledby="paso2-cumplimiento-title"
               >
                 <h3
@@ -162,7 +158,7 @@ export default function RegistrarCumplimientoModal({ isOpen, onClose }: Props) {
                   className={`mt-4 flex flex-col items-center justify-center rounded-lg border-2 border-dashed px-6 py-8 text-center transition ${
                     isDragActive
                       ? "border-brand bg-brand/5"
-                      : "border-brand/60 bg-white"
+                      : "border-brand/60 bg-surface-default"
                   }`}
                 >
                   <input {...getInputProps()} />
