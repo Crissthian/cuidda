@@ -1,5 +1,6 @@
 ---
 import CapacitacionesContent from "@/components/capacitaciones/CapacitacionesContent";
+import CapacitacionesModalHost from "@/components/capacitaciones/CapacitacionesModalHost";
 import VigilanciaPagePlaceholder from "@/components/vigilancia/VigilanciaPagePlaceholder.astro";
 import DashboardLayout from "@/layouts/DashboardLayout.astro";
 ---
@@ -15,17 +16,18 @@ import DashboardLayout from "@/layouts/DashboardLayout.astro";
       description="Capacitaciones asociadas a cada programa de salud. Aplican a toda la población y se segmentan por grupo de riesgo, con seguimiento de asistencia y cumplimiento."
       buttons={[
         {
-          icon: "fa-plus",
-          text: "REGISTRAR CUMPLIMIENTO",
+          icon: "fa-calendar",
+          text: "PROGRAMAR CAPACITACIÓN",
         },
         {
-          icon: "fa-calendar",
-          text: "CARGAR PLAN DE CAPACITACIÓN",
+          icon: "fa-plus",
+          text: "REGISTRAR CUMPLIMIENTO",
         },
       ]}
     />
     <div class="pb-6">
       <CapacitacionesContent client:load />
     </div>
+    <CapacitacionesModalHost client:load />
   </div>
 </DashboardLayout>

@@ -1,6 +1,7 @@
 ---
-import VigilanciaPagePlaceholder from "@/components/vigilancia/VigilanciaPagePlaceholder.astro";
 import PlanAnualContent from "@/components/plan-anual/PlanAnualContent";
+import PlanAnualModalHost from "@/components/plan-anual/PlanAnualModalHost";
+import VigilanciaPagePlaceholder from "@/components/vigilancia/VigilanciaPagePlaceholder.astro";
 import DashboardLayout from "@/layouts/DashboardLayout.astro";
 ---
 
@@ -23,5 +24,6 @@ import DashboardLayout from "@/layouts/DashboardLayout.astro";
     <div class="pb-6 px-10">
       <PlanAnualContent client:load />
     </div>
+    <PlanAnualModalHost client:load />
   </div>
 </DashboardLayout>
