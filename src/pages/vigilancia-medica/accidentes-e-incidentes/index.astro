@@ -1,5 +1,6 @@
 ---
 import AccidentesContent from "@/components/accidentes/AccidentesContent";
+import AccidentesModalHost from "@/components/accidentes/AccidentesModalHost";
 import VigilanciaPagePlaceholder from "@/components/vigilancia/VigilanciaPagePlaceholder.astro";
 import DashboardLayout from "@/layouts/DashboardLayout.astro";
 ---
@@ -16,16 +17,17 @@ import DashboardLayout from "@/layouts/DashboardLayout.astro";
       buttons={[
         {
           icon: "fa-plus",
-          text: "ANÁLISIS DE CAUSA RAÍZ",
+          text: "NUEVO REGISTRO",
         },
         {
-          icon: "fa-plus",
-          text: "NUEVO REGISTRO",
+          icon: "fa-magnifying-glass",
+          text: "ANÁLISIS DE CAUSA RAÍZ",
         },
       ]}
     />
     <div class="pb-6">
       <AccidentesContent client:load />
     </div>
+    <AccidentesModalHost client:load />
   </div>
 </DashboardLayout>
