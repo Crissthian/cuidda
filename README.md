@@ -11,16 +11,16 @@ Diseño de referencia: **Sistema médico Lm - Cuidda** (archivo Figma, páginas
 `Cover`, `Page 1`, `Page 2`). El archivo define 39 pantallas que conforman el
 recorrido del usuario:
 
-| Módulo | Pantallas |
-| --- | --- |
-| Acceso | LOGIN - Perfil médico, Menú principal |
-| Panel general | 1. Tablero general, 2. Estudio línea base |
-| Seguridad y salud ocupacional | 3. EMOS y trabajadores, 4. Matriz IPERC, 5. Monitoreos |
-| Protocolos médicos | 6. Protocolos médicos 1, 2.1, 2.2, 2.3, 2.4 |
-| Planificación | 7. Plan anual, 8–10. Programas de salud (1–4) |
-| Capacitación y riesgos | 11. Capacitaciones, 12. Accidentes e incidentes, 13. Estratificación, 14. Ausentismo y morbilidad |
-| Consultas y terceros | 15. Contratistas, 16. Consultas técnicas S.O. (1–3) |
-| Administración | 17. Perfiles y permisos, 18. Firmas |
+| Módulo                        | Pantallas                                                                                         |
+| ----------------------------- | ------------------------------------------------------------------------------------------------- |
+| Acceso                        | LOGIN - Perfil médico, Menú principal                                                             |
+| Panel general                 | 1. Tablero general, 2. Estudio línea base                                                         |
+| Seguridad y salud ocupacional | 3. EMOS y trabajadores, 4. Matriz IPERC, 5. Monitoreos                                            |
+| Protocolos médicos            | 6. Protocolos médicos 1, 2.1, 2.2, 2.3, 2.4                                                       |
+| Planificación                 | 7. Plan anual, 8–10. Programas de salud (1–4)                                                     |
+| Capacitación y riesgos        | 11. Capacitaciones, 12. Accidentes e incidentes, 13. Estratificación, 14. Ausentismo y morbilidad |
+| Consultas y terceros          | 15. Contratistas, 16. Consultas técnicas S.O. (1–3)                                               |
+| Administración                | 17. Perfiles y permisos, 18. Firmas                                                               |
 
 Componentes y estados reutilizables identificados en el diseño: `Mensaje
 cargado`, `Mensaje enviado`, `Cargar documento (1–4)`, `Nueva consulta`,
@@ -37,12 +37,12 @@ de UI (carga, envío, adjuntos) y no como llamadas reales a servicios.
   `pnpm-lock.yaml`).
 - **Scripts disponibles:**
 
-  | Comando | Acción |
-  | --- | --- |
-  | `pnpm install` | Instala dependencias |
-  | `pnpm dev` | Levanta el servidor de desarrollo en `http://localhost:4321` |
-  | `pnpm build` | Genera el sitio de producción en `./dist/` |
-  | `pnpm preview` | Sirve el build de producción localmente |
+  | Comando          | Acción                                                               |
+  | ---------------- | -------------------------------------------------------------------- |
+  | `pnpm install`   | Instala dependencias                                                 |
+  | `pnpm dev`       | Levanta el servidor de desarrollo en `http://localhost:4321`         |
+  | `pnpm build`     | Genera el sitio de producción en `./dist/`                           |
+  | `pnpm preview`   | Sirve el build de producción localmente                              |
   | `pnpm astro ...` | Ejecuta comandos del CLI de Astro (`astro add`, `astro check`, etc.) |
 
 No hay dependencias de backend, base de datos ni autenticación real: al no

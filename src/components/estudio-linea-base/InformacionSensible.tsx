@@ -6,7 +6,10 @@ export default function InformacionSensible() {
       className="flex flex-col rounded-xl bg-surface-default p-5 shadow-sm shadow-border-subtle"
       aria-labelledby="sensible-title"
     >
-      <h2 id="sensible-title" className="text-sm font-bold uppercase text-text-primary">
+      <h2
+        id="sensible-title"
+        className="text-sm font-bold uppercase text-text-primary"
+      >
         Información sensible
       </h2>
       <p className="text-muted">Acceso restringido y trazable</p>

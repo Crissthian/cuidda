@@ -1,30 +1,62 @@
 export const fichaEmpresa = [
   { label: "Razón social", value: "UNACEM PERU S.A." },
   { label: "R.U.C.", value: "20608552171" },
-  { label: "Sector y nivel de riesgo", value: "Fabricación de cemento, cal y yeso – Alto riesgo" },
-  { label: "Sedes operativas", value: "Atocongo - Condorcocha - Conchán - Lima" },
+  {
+    label: "Sector y nivel de riesgo",
+    value: "Fabricación de cemento, cal y yeso – Alto riesgo",
+  },
+  {
+    label: "Sedes operativas",
+    value: "Atocongo - Condorcocha - Conchán - Lima",
+  },
   { label: "Trabajadores en planilla", value: "739" },
   { label: "Personal tercerizado", value: "4144" },
   { label: "Contacto SST", value: "Ing. Rosa Villalobos — Jefa SST" },
-  { label: "Responsable médico", value: "Dra. Lizette Cristina Cersso Muro — Médico Ocupacional" },
+  {
+    label: "Responsable médico",
+    value: "Dra. Lizette Cristina Cersso Muro — Médico Ocupacional",
+  },
   { label: "Vigencia del protocolo", value: "2026-12-31" },
 ] as const;
 
 export const informacionSensible = [
   { label: "Exámenes procesados", value: "1,142 archivos" },
-  { label: "Calificaciones de enfermedad ocupacional", value: "12 expedientes" },
+  {
+    label: "Calificaciones de enfermedad ocupacional",
+    value: "12 expedientes",
+  },
   { label: "Actas de comité de reubicación", value: "7 actas" },
   { label: "Convenios y contratos de servicio", value: "4 documentos" },
   { label: "Resultados de monitoreo higiénico", value: "18 informes" },
 ] as const;
 
 export const antecedentes = [
-  { campo: "Actividad económica principal", registro: "Extracción y concentración de cobre (CIIU 0729)" },
-  { campo: "Estructura organizacional", registro: "3 sedes · 14 áreas · 62 puestos tipo · 4 grupos ocupacionales" },
-  { campo: "Régimen de trabajo", registro: "Turnos 14x7 y 5x2 · altura 2,900–3,400 msnm" },
-  { campo: "Antecedentes de enfermedad ocupacional", registro: "12 casos calificados en los últimos 5 años (hipoacusia 9, neumoconiosis 3)" },
-  { campo: "Siniestralidad histórica", registro: "IF 2.1 · IS 48 · 0 fatales en 36 meses" },
-  { campo: "Servicio de salud ocupacional", registro: "Tópico propio + Lucemedic (interno) · EMOs con clínica acreditada" },
+  {
+    campo: "Actividad económica principal",
+    registro: "Extracción y concentración de cobre (CIIU 0729)",
+  },
+  {
+    campo: "Estructura organizacional",
+    registro: "3 sedes · 14 áreas · 62 puestos tipo · 4 grupos ocupacionales",
+  },
+  {
+    campo: "Régimen de trabajo",
+    registro: "Turnos 14x7 y 5x2 · altura 2,900–3,400 msnm",
+  },
+  {
+    campo: "Antecedentes de enfermedad ocupacional",
+    registro:
+      "12 casos calificados en los últimos 5 años (hipoacusia 9, neumoconiosis 3)",
+  },
+  {
+    campo: "Siniestralidad histórica",
+    registro: "IF 2.1 · IS 48 · 0 fatales en 36 meses",
+  },
+  {
+    campo: "Servicio de salud ocupacional",
+    registro:
+      "Tópico propio + Lucemedic (interno) · EMOs con clínica acreditada",
+  },
 ] as const;
 
 export const validacionCruzada = [
@@ -90,8 +122,32 @@ export const objetivos = [
 ] as const;
 
 export const sedesProcesos = [
-  { sede: "Planta Condorcocha", ubicacion: "Junín", procesos: "12", trabajadores: "303", riesgo: "Ruido / polvo" },
-  { sede: "Planta Atocongo", ubicacion: "Lima", procesos: "6", trabajadores: "403", riesgo: "Ergonómico / psicosocial" },
-  { sede: "Terminal portuario Conchán", ubicacion: "Lima", procesos: "3", trabajadores: "33", riesgo: "Manipulación de cargas" },
-  { sede: "Oficinas Villarán", ubicacion: "Lima", procesos: "1", trabajadores: "40", riesgo: "Ergonómico / psicosocial" },
+  {
+    sede: "Planta Condorcocha",
+    ubicacion: "Junín",
+    procesos: "12",
+    trabajadores: "303",
+    riesgo: "Ruido / polvo",
+  },
+  {
+    sede: "Planta Atocongo",
+    ubicacion: "Lima",
+    procesos: "6",
+    trabajadores: "403",
+    riesgo: "Ergonómico / psicosocial",
+  },
+  {
+    sede: "Terminal portuario Conchán",
+    ubicacion: "Lima",
+    procesos: "3",
+    trabajadores: "33",
+    riesgo: "Manipulación de cargas",
+  },
+  {
+    sede: "Oficinas Villarán",
+    ubicacion: "Lima",
+    procesos: "1",
+    trabajadores: "40",
+    riesgo: "Ergonómico / psicosocial",
+  },
 ] as const;

@@ -8,14 +8,25 @@ export default function ProximosHitos() {
     >
       <div className="flex items-center justify-between">
         <div>
-          <h2 id="hitos-title" className="text-sm font-bold uppercase text-text-primary">
+          <h2
+            id="hitos-title"
+            className="text-sm font-bold uppercase text-text-primary"
+          >
             Próximos hitos
           </h2>
-          <p className="text-xs text-muted">Agenda operativa de las siguientes semanas</p>
+          <p className="text-xs text-muted">
+            Agenda operativa de las siguientes semanas
+          </p>
         </div>
-        <a href="#" className="flex items-center gap-1 text-xs font-medium text-brand hover:text-primary-hover">
+        <a
+          href="#"
+          className="flex items-center gap-1 text-xs font-medium text-brand hover:text-primary-hover"
+        >
           Ver total de pendientes
-          <i className="fa-solid fa-up-right-from-square text-[10px]" aria-hidden="true" />
+          <i
+            className="fa-solid fa-up-right-from-square text-[10px]"
+            aria-hidden="true"
+          />
         </a>
       </div>
 
@@ -29,7 +40,9 @@ export default function ProximosHitos() {
               {item.fecha}
             </span>
             <div className="flex flex-col">
-              <span className="text-xs font-medium leading-tight text-text-primary">{item.titulo}</span>
+              <span className="text-xs font-medium leading-tight text-text-primary">
+                {item.titulo}
+              </span>
               <span className="text-[11px] text-muted">{item.subtitulo}</span>
             </div>
           </div>

@@ -1,3 +1,5 @@
+import { contratistas } from "@/lib/contratistasData";
+
 const kpis = [
   {
     id: "empresas",
@@ -30,59 +32,6 @@ const kpis = [
     icon: "fa-file-circle-question",
     iconBg: "bg-risk-red/10",
     iconColor: "text-risk-red",
-  },
-] as const;
-
-const contratistas = [
-  {
-    empresa: "Vigilancia Andina",
-    ruc: "20605277415",
-    servicio: "Seguridad",
-    sede: "Condorcocha",
-    trabajadores: 250,
-    emoVigente: "92%",
-    actualizacion: "15/08/2026",
-    estado: "ACTIVO" as const,
-  },
-  {
-    empresa: "MyH Group",
-    ruc: "20605277415",
-    servicio: "Servicios Generales",
-    sede: "Conchán",
-    trabajadores: 150,
-    emoVigente: "88%",
-    actualizacion: "15/08/2026",
-    estado: "ACTIVO" as const,
-  },
-  {
-    empresa: "HAUG",
-    ruc: "20605277415",
-    servicio: "Mecánica",
-    sede: "Villarán",
-    trabajadores: 130,
-    emoVigente: "61%",
-    actualizacion: "15/08/2026",
-    estado: "ACTIVO" as const,
-  },
-  {
-    empresa: "San Martin CGSA",
-    ruc: "20605277415",
-    servicio: "Perforación",
-    sede: "Condorcocha",
-    trabajadores: 260,
-    emoVigente: "79%",
-    actualizacion: "15/08/2026",
-    estado: "ACTIVO" as const,
-  },
-  {
-    empresa: "ECOTEC",
-    ruc: "20605277415",
-    servicio: "Mantenimiento",
-    sede: "Atocongo",
-    trabajadores: 87,
-    emoVigente: "95%",
-    actualizacion: "15/08/2026",
-    estado: "ACTIVO" as const,
   },
 ] as const;
 
@@ -208,8 +157,8 @@ export default function ContratistasContent() {
                     <EstadoBadge estado={row.estado} />
                   </span>
                   <span role="cell" className="flex justify-center">
-                    <button
-                      type="button"
+                    <a
+                      href={`/vigilancia-medica/contratistas/${row.id}`}
                       className="flex items-center gap-2 rounded-lg bg-muted px-4 py-1 text-[11px] font-bold tracking-wide text-white hover:bg-muted-80"
                     >
                       <i
@@ -217,7 +166,7 @@ export default function ContratistasContent() {
                         aria-hidden="true"
                       />
                       VER
-                    </button>
+                    </a>
                   </span>
                 </div>
               ))}

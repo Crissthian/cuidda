@@ -5,7 +5,9 @@ export default function EmosModalHost() {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    const btn = document.querySelector<HTMLButtonElement>('[data-modal-trigger="cargar-matriz"]');
+    const btn = document.querySelector<HTMLButtonElement>(
+      '[data-modal-trigger="cargar-matriz"]',
+    );
     if (!btn) return;
     const handler = () => setIsOpen(true);
     btn.addEventListener("click", handler);

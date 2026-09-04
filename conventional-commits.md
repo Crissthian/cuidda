@@ -35,17 +35,17 @@ ci(github): agregar workflow de integración continua
 
 Utiliza únicamente el tipo que mejor represente el cambio:
 
-* `feat`: nueva funcionalidad.
-* `fix`: corrección de un error.
-* `refactor`: modificación interna sin cambiar el comportamiento.
-* `perf`: mejora de rendimiento.
-* `test`: creación o modificación de pruebas.
-* `docs`: documentación.
-* `style`: cambios de formato o estilos que no modifican la lógica.
-* `chore`: mantenimiento general.
-* `build`: cambios relacionados con compilación, dependencias o empaquetado.
-* `ci`: cambios en integración o despliegue continuo.
-* `revert`: revertir un commit anterior.
+- `feat`: nueva funcionalidad.
+- `fix`: corrección de un error.
+- `refactor`: modificación interna sin cambiar el comportamiento.
+- `perf`: mejora de rendimiento.
+- `test`: creación o modificación de pruebas.
+- `docs`: documentación.
+- `style`: cambios de formato o estilos que no modifican la lógica.
+- `chore`: mantenimiento general.
+- `build`: cambios relacionados con compilación, dependencias o empaquetado.
+- `ci`: cambios en integración o despliegue continuo.
+- `revert`: revertir un commit anterior.
 
 No utilices `feat` o `fix` si el cambio no corresponde realmente a una funcionalidad nueva o a una corrección.
 
@@ -55,13 +55,13 @@ No utilices `feat` o `fix` si el cambio no corresponde realmente a una funcional
 
 El mensaje debe:
 
-* Estar escrito en **español**.
-* Ser breve y específico.
-* Utilizar verbos en infinitivo.
-* Describir qué se modificó.
-* Evitar explicaciones innecesarias.
-* No terminar con punto.
-* No utilizar mensajes genéricos.
+- Estar escrito en **español**.
+- Ser breve y específico.
+- Utilizar verbos en infinitivo.
+- Describir qué se modificó.
+- Evitar explicaciones innecesarias.
+- No terminar con punto.
+- No utilizar mensajes genéricos.
 
 ### Buenos ejemplos
 
@@ -182,12 +182,12 @@ secrets.*
 
 También evitar:
 
-* Contraseñas.
-* API keys.
-* Tokens.
-* Credenciales de bases de datos.
-* Certificados privados.
-* Información personal sensible.
+- Contraseñas.
+- API keys.
+- Tokens.
+- Credenciales de bases de datos.
+- Certificados privados.
+- Información personal sensible.
 
 Si un archivo sensible aparece modificado, detener el proceso y advertirlo antes de realizar el commit.
 
@@ -197,14 +197,14 @@ Si un archivo sensible aparece modificado, detener el proceso y advertirlo antes
 
 Antes de confirmar el commit, comprobar:
 
-* Que los cambios correspondan al objetivo.
-* Que no existan modificaciones accidentales.
-* Que no haya código de depuración.
-* Que no haya `console.log` innecesarios.
-* Que no existan comentarios temporales.
-* Que no se hayan incluido archivos generados.
-* Que no se hayan introducido secretos.
-* Que no se hayan sobrescrito cambios realizados por el usuario.
+- Que los cambios correspondan al objetivo.
+- Que no existan modificaciones accidentales.
+- Que no haya código de depuración.
+- Que no haya `console.log` innecesarios.
+- Que no existan comentarios temporales.
+- Que no se hayan incluido archivos generados.
+- Que no se hayan introducido secretos.
+- Que no se hayan sobrescrito cambios realizados por el usuario.
 
 Si existen cambios ajenos al objetivo, no incluirlos.
 
@@ -234,10 +234,10 @@ Adaptar los comandos al proyecto.
 
 Si una validación falla:
 
-* No ocultar el error.
-* No eliminar pruebas para hacerlas pasar.
-* No modificar código no relacionado únicamente para evitar el error.
-* Informar claramente del problema.
+- No ocultar el error.
+- No eliminar pruebas para hacerlas pasar.
+- No modificar código no relacionado únicamente para evitar el error.
+- Informar claramente del problema.
 
 ---
 

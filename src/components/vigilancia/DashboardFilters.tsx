@@ -1,6 +1,9 @@
 export default function DashboardFilters() {
   return (
-    <section className="flex items-center gap-3" aria-label="Filtros del dashboard">
+    <section
+      className="flex items-center gap-3"
+      aria-label="Filtros del dashboard"
+    >
       <div className="flex flex-1 items-center gap-6">
         <label htmlFor="f-periodo" className="sr-only">
           Periodo

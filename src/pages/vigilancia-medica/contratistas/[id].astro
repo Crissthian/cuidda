@@ -1,0 +1,50 @@
+---
+import ContratistaDetalleContent from "@/components/vigilancia/ContratistaDetalleContent";
+import VigilanciaPagePlaceholder from "@/components/vigilancia/VigilanciaPagePlaceholder.astro";
+import DashboardLayout from "@/layouts/DashboardLayout.astro";
+import { contratistas } from "@/lib/contratistasData";
+
+type Contratista = (typeof contratistas)[number];
+
+interface Props {
+  contratista: Contratista;
+}
+
+export function getStaticPaths() {
+  return contratistas.map((contratista) => ({
+    params: { id: String(contratista.id) },
+    props: { contratista },
+  }));
+}
+
+const { contratista } = Astro.props;
+const titulo = contratista
+  ? "Detalle de contratista"
+  : "Contratista no encontrado";
+---
+
+<DashboardLayout title={titulo} description="Detalle del contratista">
+  <div class="relative flex flex-1 flex-col bg-surface-default">
+    <div class="flex items-center gap-4 pt-4 px-10">
+      <a
+        href="/vigilancia-medica/contratistas"
+        class="flex items-center gap-2 text-xs font-medium text-brand hover:text-primary-hover"
+      >
+        <i class="fa-solid fa-arrow-left text-xs" aria-hidden="true"></i>
+        Volver a contratistas
+      </a>
+    </div>
+    <VigilanciaPagePlaceholder
+      title={contratista?.empresa.toUpperCase() ?? "CONTRATISTA"}
+      icon="fa-truck"
+      description={"Contratista"}
+    />
+    {
+      contratista ? (
+        <ContratistaDetalleContent contratista={contratista} client:load />
+      ) : (
+        <p class="px-10 text-sm text-muted">Contratista no encontrado.</p>
+      )
+    }
+  </div>
+</DashboardLayout>

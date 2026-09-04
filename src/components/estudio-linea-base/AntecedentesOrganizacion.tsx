@@ -6,7 +6,10 @@ export default function AntecedentesOrganizacion() {
       className="flex flex-col rounded-xl bg-surface-default p-5 shadow-sm shadow-border-subtle"
       aria-labelledby="antecedentes-title"
     >
-      <h2 id="antecedentes-title" className="text-sm font-bold uppercase text-text-primary">
+      <h2
+        id="antecedentes-title"
+        className="text-sm font-bold uppercase text-text-primary"
+      >
         Antecedentes de la organización
       </h2>
       <p className="text-xs text-muted">Insumo del motor de validación</p>
@@ -18,9 +21,15 @@ export default function AntecedentesOrganizacion() {
         </div>
         <div className="divide-y divide-dashed divide-border-subtle">
           {antecedentes.map((row) => (
-            <div key={row.campo} className="grid grid-cols-[1.1fr_1.4fr] gap-4 p-3 text-xs">
+            <div
+              key={row.campo}
+              className="grid grid-cols-[1.1fr_1.4fr] gap-4 p-3 text-xs"
+            >
               <span className="flex items-start gap-2 text-text-secondary">
-                <i className="fa-regular fa-building mt-0.5 text-xs text-muted" aria-hidden="true" />
+                <i
+                  className="fa-regular fa-building mt-0.5 text-xs text-muted"
+                  aria-hidden="true"
+                />
                 {row.campo}
               </span>
               <span className="text-brand">{row.registro}</span>
