@@ -1,5 +1,6 @@
 ---
 import ContratistaDetalleContent from "@/components/vigilancia/ContratistaDetalleContent";
+import ContratistaDetalleModalHost from "@/components/vigilancia/ContratistaDetalleModalHost";
 import VigilanciaPagePlaceholder from "@/components/vigilancia/VigilanciaPagePlaceholder.astro";
 import DashboardLayout from "@/layouts/DashboardLayout.astro";
 import { contratistas } from "@/lib/contratistasData";
@@ -46,5 +47,6 @@ const titulo = contratista
         <p class="px-10 text-sm text-muted">Contratista no encontrado.</p>
       )
     }
+    <ContratistaDetalleModalHost client:load />
   </div>
 </DashboardLayout>
