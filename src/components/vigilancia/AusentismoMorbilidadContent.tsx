@@ -76,7 +76,7 @@ export default function AusentismoMorbilidadContent() {
       {/* ── TABLA AUSENTISMO / MORBILIDAD ── */}
       <section
         aria-labelledby="ausentismo-title"
-        className="rounded-xl bg-surface-default p-5 shadow-sm shadow-border-default"
+        className="rounded-xl bg-surface-default p-5 shadow-sm shadow-border-default max-w-9/12"
       >
         <h2
           id="ausentismo-title"
@@ -93,7 +93,7 @@ export default function AusentismoMorbilidadContent() {
           >
             {/* header */}
             <div
-              className="grid grid-cols-4 gap-0 rounded-lg bg-surface-light px-4 py-3 text-[11px] font-bold uppercase tracking-wider text-muted"
+              className="grid grid-cols-[400px_1fr_1fr_1fr] gap-0 rounded-lg bg-surface-light px-4 py-3 text-[11px] font-bold uppercase tracking-wider text-muted"
               role="row"
             >
               <span role="columnheader">Causa</span>
@@ -107,7 +107,7 @@ export default function AusentismoMorbilidadContent() {
                 <div
                   key={row.causa}
                   role="row"
-                  className="grid grid-cols-4 items-center gap-0 border-b border-dashed border-border-default px-4 py-4 transition-colors hover:bg-surface-light/50 last:border-b-0"
+                  className="grid grid-cols-[400px_1fr_1fr_1fr] items-center gap-0 border-b border-dashed border-border-default px-4 py-4 transition-colors hover:bg-surface-light/50 last:border-b-0"
                 >
                   <span
                     role="cell"

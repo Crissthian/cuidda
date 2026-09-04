@@ -1,5 +1,6 @@
 ---
 import ContratistasContent from "@/components/vigilancia/ContratistasContent";
+import ContratistasModalHost from "@/components/vigilancia/ContratistasModalHost";
 import VigilanciaPagePlaceholder from "@/components/vigilancia/VigilanciaPagePlaceholder.astro";
 import DashboardLayout from "@/layouts/DashboardLayout.astro";
 ---
@@ -13,16 +14,13 @@ import DashboardLayout from "@/layouts/DashboardLayout.astro";
       buttons={[
         {
           icon: "fa-plus",
-          text: "ACTUALIZAR CUMPLIMIENTO",
-        },
-         {
-          icon: "fa-plus",
           text: "REGISTRAR CONTRATISTA",
-        }
+        },
       ]}
     />
     <div class="pb-6 px-10">
       <ContratistasContent client:load />
     </div>
+    <ContratistasModalHost client:load />
   </div>
 </DashboardLayout>
