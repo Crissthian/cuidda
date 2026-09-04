@@ -21,7 +21,7 @@ export default function SuccessModal({
       onClick={onClose}
     >
       <div
-        className="flex w-full max-w-[420px] flex-col items-center gap-5 rounded-2xl bg-white px-10 py-12 shadow-xl"
+        className="flex w-full max-w-[420px] flex-col items-center gap-5 rounded-2xl bg-surface-default px-10 py-12 shadow-xl"
         onClick={(e) => e.stopPropagation()}
       >
         <span

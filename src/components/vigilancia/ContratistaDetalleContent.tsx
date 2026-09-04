@@ -380,7 +380,7 @@ export default function ContratistaDetalleContent({ contratista }: Props) {
             <button
               type="button"
               onClick={() => setIsRespaldoOpen(true)}
-              className="flex shrink-0 items-center gap-2 rounded-lg bg-muted-20 px-4 py-2 text-[10px] font-bold tracking-wide text-muted hover:bg-muted-30"
+              className="flex shrink-0 items-center gap-2 rounded-lg bg-muted-20 px-4 py-2.5 text-xs font-bold tracking-wide text-muted hover:bg-muted-30"
             >
               <i className="fa-solid fa-plus text-[10px]" aria-hidden="true" />
               CARGAR DOCUMENTO
