@@ -48,11 +48,17 @@ const {
                     ? "cargar-documento"
                     : text === "IMPORTAR PLANILLA"
                       ? "importar-planilla"
-                      : text === "CARGAR MATRIZ Y LEGAJOS"
-                        ? "cargar-matriz"
-                        : text === "Nueva consulta"
-                          ? "nueva-consulta"
-                          : undefined
+                      : text === "NUEVA MATRIZ"
+                        ? "nueva-matriz"
+                        : text === "CARGAR MATRIZ Y LEGAJOS"
+                          ? "cargar-matriz"
+                          : text === "PROGRAMAR MONITOREO"
+                            ? "programar-monitoreo"
+                            : text === "CARGAR INFORME"
+                              ? "cargar-informe"
+                              : text === "Nueva consulta"
+                                ? "nueva-consulta"
+                                : undefined
                 }
                 class={`flex h-10 items-center gap-2 rounded-lg px-4 text-xs font-semibold shadow-sm hover:bg-muted-30 ${classes.join(" ")}`}
               >

@@ -1,5 +1,6 @@
 ---
 import MatrizIpercContent from "@/components/matriz-iperc/MatrizIpercContent";
+import MatrizIpercModalHost from "@/components/matriz-iperc/MatrizIpercModalHost";
 import VigilanciaPagePlaceholder from "@/components/vigilancia/VigilanciaPagePlaceholder.astro";
 import DashboardLayout from "@/layouts/DashboardLayout.astro";
 ---
@@ -22,4 +23,5 @@ import DashboardLayout from "@/layouts/DashboardLayout.astro";
   <div>
     <MatrizIpercContent client:load />
   </div>
+  <MatrizIpercModalHost client:load />
 </DashboardLayout>

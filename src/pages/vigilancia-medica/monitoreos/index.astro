@@ -1,5 +1,6 @@
 ---
 import MonitoreosContent from "@/components/monitoreos/MonitoreosContent";
+import MonitoreosModalHost from "@/components/monitoreos/MonitoreosModalHost";
 import VigilanciaPagePlaceholder from "@/components/vigilancia/VigilanciaPagePlaceholder.astro";
 import DashboardLayout from "@/layouts/DashboardLayout.astro";
 ---
@@ -27,5 +28,6 @@ import DashboardLayout from "@/layouts/DashboardLayout.astro";
     <div>
       <MonitoreosContent client:load />
     </div>
+    <MonitoreosModalHost client:load />
   </div>
 </DashboardLayout>

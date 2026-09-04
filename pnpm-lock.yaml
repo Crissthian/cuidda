@@ -94,28 +94,6 @@ importers:
         specifier: ^0.14.1
         version: 0.14.1
 
-  packages/app:
-    dependencies:
-      '@cuidda/types':
-        specifier: workspace:*
-        version: link:../types
-      '@cuidda/ui':
-        specifier: workspace:*
-        version: link:../ui
-      '@cuidda/utils':
-        specifier: workspace:*
-        version: link:../utils
-
-  packages/types: {}
-
-  packages/ui:
-    dependencies:
-      '@cuidda/types':
-        specifier: workspace:*
-        version: link:../types
-
-  packages/utils: {}
-
 packages:
 
   '@astrojs/check@0.9.10':
