@@ -137,7 +137,7 @@ export default function LoginForm() {
         </form>
       </div>
 
-      <div className="mt-14 flex flex-col items-center gap-2 text-white">
+      <div className="mt-20 flex flex-col items-center gap-2 text-white">
         <div className="flex items-center gap-2">
           <span
             className="flex size-12 items-center justify-center"
@@ -158,6 +158,9 @@ export default function LoginForm() {
           Si no puedes acceder, comunícate con nosotros y<br />
           nuestro equipo técnico te ayudará a la brevedad posible.
         </p>
+      </div>
+      <div className="absolute bottom-24">
+        <img src="/logo-lucemedic.png" alt="" />
       </div>
     </section>
   );
