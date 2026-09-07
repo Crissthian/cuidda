@@ -106,15 +106,15 @@ export default function EspecialidadMedico() {
         </div>
       </div>
       <div>
-        <div className="flex items-center">
-          <div className="flex flex-col mr-20">
+        <div className="flex items-center gap-2">
+          <div className="flex flex-col">
             <label className="mb-2 block text-sm font-medium text-brand">
               N.º de documento
             </label>
             <input
               type="text"
               readOnly={mode === "actualizar"}
-              className={`rounded-lg border-none px-4 py-2 bg-surface-light uppercase ${mode === "actualizar" ? "cursor-not-allowed opacity-70" : ""}`}
+              className={`rounded-lg w-50 border-none px-4 py-3 bg-surface-light uppercase ${mode === "actualizar" ? "cursor-not-allowed opacity-70" : ""}`}
               {...register("atencion.numero_documento")}
             />
           </div>
@@ -126,7 +126,7 @@ export default function EspecialidadMedico() {
               disabledReason ||
               (yaTieneComprobante ? "Ver comprobante" : "Generar comprobante")
             }
-            className="rounded-lg bg-brand px-6 py-2 mr-2 font-semibold text-white transition-colors hover:text-success self-end disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:text-white"
+            className="rounded-lg bg-brand text-sm px-6 py-2.5 mr-2 font-semibold text-white transition-colors hover:text-success self-end disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:text-white"
           >
             {yaTieneComprobante ? "Ver comprobante" : "Generar comprobante"}
           </button>

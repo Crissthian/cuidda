@@ -1,15 +1,6 @@
 ---
 export interface Props {
-  /**
-   * Si no se pasa, se usa Astro.url.pathname
-   * Ej: "/asistencial/admision"
-   */
   path?: string;
-
-  /**
-   * Mapeo para renombrar segmentos o poner iconos
-   * Ej: { asistencial: { label: "Asistencial", icon: "fa-solid fa-user-doctor" } }
-   */
   labels?: Record<string, { label?: string; icon?: string }>;
 }
 
@@ -17,15 +8,24 @@ const { path, labels = {} } = Astro.props;
 
 // 1. Obtener la ruta
 const pathname = path ?? Astro.url.pathname; // /asistencial/admision
-const segments = pathname.split("/").filter(Boolean); // ["asistencial","admision"]
+const rawSegments = pathname.split("/").filter(Boolean); // ["asistencial","admision"]
+const segments =
+  rawSegments.length > 0 && rawSegments[0].toLowerCase() === "home"
+    ? rawSegments.slice(1)
+    : rawSegments;
 
 // 2. Generar crumbs
+const homePrefix =
+  rawSegments.length > 0 && rawSegments[0].toLowerCase() === "home"
+    ? "/home"
+    : "";
 const crumbs = segments.map((slug, idx) => {
   const isLast = idx === segments.length - 1;
   const human =
     labels[slug]?.label ?? slug.charAt(0).toUpperCase() + slug.slice(1);
   const icon = labels[slug]?.icon;
-  const href = "/" + segments.slice(0, idx + 1).join("/");
+  const href =
+    homePrefix + "/" + segments.slice(0, idx + 1).join("/");
   return { slug, human, href, isLast, icon };
 });
 ---
@@ -38,11 +38,14 @@ const crumbs = segments.map((slug, idx) => {
         pathname === "/home" || pathname === "/" ? (
           <a href="/home">
             <i class="fas fa-home text-brand" aria-hidden="true" />
-            <span class="text-brand font-semibold">Home</span>
+            <span class="text-brand font-semibold"> Home</span>
           </a>
         ) : (
           <a href="/home">
-            <i class="fas fa-home" aria-hidden="true" /> <span>Home</span>
+            <>
+              <i class="fas fa-home" aria-hidden="true" />
+              <span> Home</span>
+            </>
           </a>
         )
       }

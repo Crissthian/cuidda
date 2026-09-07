@@ -27,14 +27,14 @@ export default function HeaderActions({
     <div className="grid grid-cols-2 items-center gap-x-12 gap-y-3 px-6">
       <div className="w-full">
         <div className="flex items-center gap-3">
-          <div className="w-1/2 flex justify-between">
+          <div className="w-1/2 flex justify-between gap-4">
             <span className="text-lg font-semibold text-brand w-2/5 place-content-center">
               N.º de admisión
             </span>
 
             <input
               type="text"
-              className="rounded-lg px-4 py-2 text-xl font-bold text-brand appearance-none w-42 text-center transition-colors outline-brand border-brand bg-muted-30"
+              className="rounded-lg px-4 py-1 text-xl font-bold text-brand appearance-none w-3/5 text-center transition-colors outline-brand border-brand bg-muted-30"
               value={cdg_ate || ""}
               readOnly={!isSearchMode}
               onChange={(e) => setValue("atencion.cdg_ate", e.target.value)}

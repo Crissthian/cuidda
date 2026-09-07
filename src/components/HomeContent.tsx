@@ -5,7 +5,7 @@ export default function HomeContent() {
 
   return (
     <section
-      className="relative flex h-[calc(100vh-8rem)] w-full flex-col overflow-hidden"
+      className="relative flex h-[calc(100vh-9rem)] w-full flex-col overflow-hidden"
       aria-labelledby="home-title"
     >
       {/* Contenido principal: texto a la izquierda, ilustración a la derecha */}

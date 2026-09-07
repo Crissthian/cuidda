@@ -140,7 +140,6 @@ function AdmisionFormInner() {
                     enabled
                     onSelectionChange={handleExamenesChange}
                     initialExamenes={examenesLaboratorio}
-                    readOnly={mode === "actualizar"}
                   />
                 </Suspense>
               </div>

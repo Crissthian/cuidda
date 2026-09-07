@@ -81,7 +81,7 @@ export default function HuellaFirma() {
   };
 
   return (
-    <div className="flex flex-row gap-6 mt-6 max-w-6/12">
+    <div className="flex flex-row gap-6 mt-6 max-w-8/12">
       <div className="flex-1">
         <div
           onClick={

@@ -148,7 +148,10 @@ export default function ExamenesList({
         const data = examenesLaboratorioMock.slice(0, 4);
         syncExamenes(data);
         setLastFetchMode("interno");
-        setSelectedIds(data.map((item) => item.id_examen));
+        const idsDisponibles = new Set(data.map((item) => item.id_examen));
+        setSelectedIds((current) =>
+          current.filter((id) => idsDisponibles.has(id)),
+        );
         setIsLoading(false);
       }, 400);
     },
@@ -156,7 +159,7 @@ export default function ExamenesList({
   );
 
   const toggleSelection = (idExamen: number) => {
-    if (readOnly || origen === "interno") return;
+    if (readOnly) return;
     setSelectedIds((current) =>
       current.includes(idExamen)
         ? current.filter((id) => id !== idExamen)
@@ -228,7 +231,6 @@ export default function ExamenesList({
                 className="peer sr-only"
                 checked={origen === "externo"}
                 onChange={() => setOrigen("externo")}
-                disabled={readOnly}
               />
               <div className="rounded-lg px-4 py-1.5 text-xs font-bold text-text-secondary transition-all peer-checked:bg-brand peer-checked:text-surface-default peer-checked:shadow-sm ring-1 ring-transparent peer-checked:ring-border-default/50">
                 Externo
@@ -244,7 +246,6 @@ export default function ExamenesList({
                 className="peer sr-only"
                 checked={origen === "interno"}
                 onChange={() => setOrigen("interno")}
-                disabled={readOnly}
               />
               <div className="rounded-lg px-4 py-1.5 text-xs font-bold text-text-secondary transition-all peer-checked:bg-brand peer-checked:text-surface-default peer-checked:shadow-sm ring-1 ring-transparent peer-checked:ring-border-default/50">
                 Interno
@@ -360,7 +361,7 @@ export default function ExamenesList({
             !error &&
             examenes.map((examen) => {
               const isSelected = selectedIds.includes(examen.id_examen);
-              const isRowReadOnly = readOnly || origen === "interno";
+              const isRowReadOnly = readOnly;
 
               return (
                 <label
@@ -372,8 +373,9 @@ export default function ExamenesList({
                     <input
                       type="checkbox"
                       checked={isSelected}
+                      disabled={readOnly}
                       onChange={() => toggleSelection(examen.id_examen)}
-                      disabled={isRowReadOnly}
+                      onClick={(event) => event.stopPropagation()}
                       className="checkbox size-5 rounded-md border-brand checked:bg-brand checked:text-surface-light bg-surface-light disabled:opacity-60"
                     />
                   </span>

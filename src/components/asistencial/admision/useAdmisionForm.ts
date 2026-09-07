@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { calcularEdad } from "@/lib/fechaUtils";
 import { emptyAdmisionInput, type AdmisionInput } from "./admision.types";
 import { useAdmision } from "./AdmisionContext";
 
@@ -54,11 +55,16 @@ export function useAdmisionForm() {
         sede: "001",
         procedencia: "001",
         planilla: "001",
+        ruc_cliente: "20123456789",
+        nombre_empresa: "UNACEM S.A.A.",
         especialidad: "010",
         dni_paciente: "4412896",
         nombre_paciente: "LUIS QUISPE RAMOS",
         dni_patrocinador: "4412896",
         nombre_patrocinador: "LUIS QUISPE RAMOS",
+        codigo_medico: "001",
+        nombre_medico: "DR. CARLOS PEREZ GOMEZ",
+        motivo_consulta: "EXAMEN MEDICO OCUPACIONAL PERIODICO",
       },
       paciente: {
         ...emptyAdmisionInput.paciente,
@@ -68,6 +74,8 @@ export function useAdmisionForm() {
         apellido: "QUISPE RAMOS",
         nombre: "LUIS",
         sexo: "001",
+        fecha_nacimiento: "1985-03-14",
+        edad: calcularEdad("1985-03-14").toString(),
         estado_civil: "002",
         grado_instruccion: "004",
         telefono: "987654321",
