@@ -1,0 +1,10 @@
+---
+import HistoriaClinicaContainer from "@/components/asistencial/pacientes/HistoriaClinicaContainer";
+import DashboardLayout from "@/layouts/DashboardLayout.astro";
+---
+
+<DashboardLayout title="Historia Clínica" description="Historia clínica del paciente">
+  <section class="px-6 pb-6">
+    <HistoriaClinicaContainer client:only="react" />
+  </section>
+</DashboardLayout>

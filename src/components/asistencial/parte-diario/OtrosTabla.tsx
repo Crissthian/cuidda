@@ -94,7 +94,7 @@ export default function OtrosTabla() {
           </label>
           <select
             id="sede-select"
-            className="form-input py-2.5"
+            className="form-input"
             value={filters.sede}
             onChange={(e) => setFilters({ ...filters, sede: e.target.value })}
           >
@@ -116,7 +116,7 @@ export default function OtrosTabla() {
           <input
             id="fecha-inicio"
             type="date"
-            className="form-input py-2.5"
+            className="form-input"
             value={filters.fechaInicio}
             onChange={(e) =>
               setFilters({ ...filters, fechaInicio: e.target.value })
@@ -134,7 +134,7 @@ export default function OtrosTabla() {
           <input
             id="fecha-fin"
             type="date"
-            className="form-input py-2.5"
+            className="form-input"
             value={filters.fechaFin}
             onChange={(e) => setFilters({ ...filters, fechaFin: e.target.value })}
             min={filters.fechaInicio || undefined}
@@ -171,19 +171,19 @@ export default function OtrosTabla() {
       <div className="overflow-x-auto">
         {/* Cabecera */}
         <div
-          className="grid bg-surface-light text-xs uppercase text-center items-center"
+          className="grid w-full min-w-300 bg-surface-light text-xs uppercase text-center"
           style={{ gridTemplateColumns: GRID_COLUMNS }}
         >
-          <div className="p-2.5 divisor">FECHA DE ATENCIÓN</div>
-          <div className="p-2.5 divisor">HORA DE ATENCIÓN</div>
-          <div className="p-2.5 divisor">DNI</div>
-          <div className="p-2.5 divisor">APELLIDOS Y NOMBRES</div>
-          <div className="p-2.5 divisor">EDAD</div>
-          <div className="p-2.5 divisor">ÁREA DE ATENCIÓN</div>
-          <div className="p-2.5 divisor">DETALLE DE ATENCIÓN</div>
-          <div className="p-2.5 divisor">CELULAR</div>
-          <div className="p-2.5 divisor">COSTO</div>
-          <div className="p-2.5 divisor">NRO DE COMPROBANTE</div>
+          <div className="p-2 divisor">FECHA DE ATENCIÓN</div>
+          <div className="p-2 divisor">HORA DE ATENCIÓN</div>
+          <div className="p-2 divisor">DNI</div>
+          <div className="p-2 divisor">APELLIDOS Y NOMBRES</div>
+          <div className="p-2 divisor">EDAD</div>
+          <div className="p-2 divisor">ÁREA DE ATENCIÓN</div>
+          <div className="p-2 divisor">DETALLE DE ATENCIÓN</div>
+          <div className="p-2 divisor">CELULAR</div>
+          <div className="p-2 divisor">COSTO</div>
+          <div className="p-2 divisor">NRO DE COMPROBANTE</div>
         </div>
 
         {/* Cuerpo */}
@@ -191,7 +191,7 @@ export default function OtrosTabla() {
           Array.from({ length: 8 }).map((_, rowIdx) => (
             <div
               key={rowIdx}
-              className="grid border-b-2"
+              className={rowIdx < 7 ? "grid w-full border-b-2" : "grid w-full"}
               style={{
                 gridTemplateColumns: GRID_COLUMNS,
                 borderColor: "var(--color-surface-light)",
@@ -215,24 +215,23 @@ export default function OtrosTabla() {
           data.map((row, index) => (
             <div
               key={index}
-              className="grid text-sm text-text-primary hover:bg-surface-light"
+              className={`grid w-full text-sm text-text-primary ${index < data.length - 1 ? "border-b-2" : ""}`}
               style={{
                 gridTemplateColumns: GRID_COLUMNS,
                 borderColor: "var(--color-surface-light)",
                 borderStyle: "dashed",
-                borderBottomWidth: index < data.length - 1 ? 2 : 0,
               }}
             >
-              <div className="p-2.5 text-center">{row.fechaAtencion}</div>
-              <div className="p-2.5 text-center">{row.horaAtencion}</div>
-              <div className="p-2.5 text-center">{row.dni}</div>
-              <div className="p-2.5 text-left ">{row.apellidosNombres}</div>
-              <div className="p-2.5 text-center">{row.edad}</div>
-              <div className="p-2.5 text-center">{row.areaAtencion}</div>
-              <div className="p-2.5 text-left">{row.detalleAtencion}</div>
-              <div className="p-2.5 text-center">{row.celular}</div>
-              <div className="p-2.5 text-center">{row.costo}</div>
-              <div className="p-2.5 text-center">{row.nroComprobante}</div>
+              <div className="p-2 text-center">{row.fechaAtencion}</div>
+              <div className="p-2 text-center">{row.horaAtencion}</div>
+              <div className="p-2 text-center">{row.dni}</div>
+              <div className="p-2 text-left ">{row.apellidosNombres}</div>
+              <div className="p-2 text-center">{row.edad}</div>
+              <div className="p-2 text-center">{row.areaAtencion}</div>
+              <div className="p-2 text-left">{row.detalleAtencion}</div>
+              <div className="p-2 text-center">{row.celular}</div>
+              <div className="p-2 text-center">{row.costo}</div>
+              <div className="p-2 text-center">{row.nroComprobante}</div>
             </div>
           ))
         )}

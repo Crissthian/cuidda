@@ -19,7 +19,7 @@ interface TablaEmpresasProps {
 }
 
 const GRID_COLUMNS =
-  "60px 250px 120px 120px 380px 80px 110px 120px 120px 260px 360px 140px 140px";
+  "60px 220px 160px 120px 380px 80px 110px 120px 110px 260px 360px 140px 140px";
 const PAGE_SIZE = 20;
 
 /**
@@ -62,7 +62,7 @@ export default function TablaEmpresas({
           </label>
           <select
             id="sede-select"
-            className="form-input py-2.5"
+            className="form-input "
             value={filters.sede}
             onChange={(e) => setFilters({ ...filters, sede: e.target.value })}
           >
@@ -85,7 +85,7 @@ export default function TablaEmpresas({
             id="empresa-input"
             type="text"
             placeholder="Empresa"
-            className="form-input py-2.5"
+            className="form-input "
             value={filters.empresa}
             onChange={(e) =>
               setFilters({ ...filters, empresa: e.target.value })
@@ -102,7 +102,7 @@ export default function TablaEmpresas({
           <input
             id="fecha-inicio"
             type="date"
-            className="form-input py-2.5"
+            className="form-input "
             value={filters.fechaInicio}
             onChange={(e) =>
               setFilters({ ...filters, fechaInicio: e.target.value })
@@ -119,7 +119,7 @@ export default function TablaEmpresas({
           <input
             id="fecha-fin"
             type="date"
-            className="form-input py-2.5"
+            className="form-input "
             value={filters.fechaFin}
             onChange={(e) =>
               setFilters({ ...filters, fechaFin: e.target.value })
@@ -156,22 +156,22 @@ export default function TablaEmpresas({
       <div className="overflow-x-auto">
         {/* Cabecera */}
         <div
-          className="grid bg-surface-light text-xs uppercase text-center text-text-primary items-center"
+          className="grid w-full min-w-400 bg-surface-light text-xs uppercase text-center"
           style={{ gridTemplateColumns: GRID_COLUMNS }}
         >
-          <div className="p-2.5 h-12 flex items-center text-center justify-center divisor">N°</div>
-          <div className="p-2.5 h-12 flex items-center text-center indent-4 divisor text-ellipsis">EMPRESA</div>
-          <div className="p-2.5 h-12 flex items-center text-center justify-center divisor">FECHA DE ATENCIÓN</div>
-          <div className="p-2.5 h-12 flex items-center text-center justify-center divisor">HORA DE ATENCIÓN</div>
-          <div className="p-2.5 h-12 flex items-center text-center indent-4 divisor">APELLIDOS Y NOMBRES</div>
-          <div className="p-2.5 h-12 flex items-center text-center justify-center divisor">EDAD</div>
-          <div className="p-2.5 h-12 flex items-center text-center justify-center divisor">CÓDIGO</div>
-          <div className="p-2.5 h-12 flex items-center text-center justify-center divisor">PROCEDENCIA</div>
-          <div className="p-2.5 h-12 flex items-center text-center justify-center divisor">PLANILLA</div>
-          <div className="p-2.5 h-12 flex items-center text-center justify-center divisor">DIAGNÓSTICO</div>
-          <div className="p-2.5 h-12 flex items-center bg-surface-light justify-center text-center divisor">TRATAMIENTO</div>
-          <div className="p-2.5 h-12 flex items-center bg-surface-light justify-center text-left divisor">FIRMA PACIENTE</div>
-          <div className="p-2.5 h-12 flex items-center bg-surface-light justify-center text-left divisor">FIRMA MÉDICO</div>
+          <div className="p-2 text-text-primary text-center divisor">N°</div>
+          <div className="p-2 text-text-primary text-center divisor">EMPRESA</div>
+          <div className="p-2 text-text-primary text-center divisor">FECHA DE ATENCIÓN</div>
+          <div className="p-2 text-text-primary text-center divisor">HORA DE ATENCIÓN</div>
+          <div className="p-2 text-text-primary text-center divisor">APELLIDOS Y NOMBRES</div>
+          <div className="p-2 text-text-primary text-center divisor">EDAD</div>
+          <div className="p-2 text-text-primary text-center divisor">CÓDIGO</div>
+          <div className="p-2 text-text-primary text-center divisor">PROCEDENCIA</div>
+          <div className="p-2 text-text-primary text-center divisor">PLANILLA</div>
+          <div className="p-2 text-text-primary text-center divisor">DIAGNÓSTICO</div>
+          <div className="p-2 text-text-primary text-center divisor">TRATAMIENTO</div>
+          <div className="p-2 text-text-primary text-left divisor">FIRMA PACIENTE</div>
+          <div className="p-2 text-text-primary text-left divisor">FIRMA MÉDICO</div>
         </div>
 
         {/* Cuerpo */}
@@ -179,7 +179,7 @@ export default function TablaEmpresas({
           Array.from({ length: 8 }).map((_, rowIdx) => (
             <div
               key={rowIdx}
-              className="grid border-b-2"
+              className={rowIdx < 7 ? "grid w-full border-b-2" : "grid w-full"}
               style={{
                 gridTemplateColumns: GRID_COLUMNS,
                 borderColor: "var(--color-surface-light)",
@@ -203,29 +203,26 @@ export default function TablaEmpresas({
           data.map((row, index) => (
             <div
               key={index}
-              className="grid text-sm text-text-primary hover:bg-surface-light"
+              className={`grid w-full text-sm text-text-primary ${index < data.length - 1 ? "border-b-2" : ""}`}
               style={{
                 gridTemplateColumns: GRID_COLUMNS,
                 borderColor: "var(--color-surface-light)",
                 borderStyle: "dashed",
-                borderBottomWidth: index < data.length - 1 ? 2 : 0,
               }}
             >
-              <div className="p-2.5 text-center">{row.id}</div>
-              <div className="p-2.5 text-left indent-4">{row.empresa}</div>
-              <div className="p-2.5 text-center">{row.fechaAtencion}</div>
-              <div className="p-2.5 text-center">{row.horaAtencion}</div>
-              <div className="p-2.5 text-left indent-4">
-                {row.apellidosNombres}
-              </div>
-              <div className="p-2.5 text-center">{row.edad}</div>
-              <div className="p-2.5 text-center">{row.codigo}</div>
-              <div className="p-2.5 text-center">{row.procedencia}</div>
-              <div className="p-2.5 text-center">{row.planilla}</div>
-              <div className="p-2.5 text-left">{row.diagnostico}</div>
-              <div className="p-2.5 text-left">{row.tratamiento}</div>
-              <div className="p-2.5 text-left"></div>
-              <div className="p-2.5 text-left"></div>
+              <div className="p-2 text-center">{row.id}</div>
+              <div className="p-2 text-left indent-4">{row.empresa}</div>
+              <div className="p-2 text-center">{row.fechaAtencion}</div>
+              <div className="p-2 text-center">{row.horaAtencion}</div>
+              <div className="p-2 text-left indent-4">{row.apellidosNombres}</div>
+              <div className="p-2 text-center">{row.edad}</div>
+              <div className="p-2 text-center">{row.codigo}</div>
+              <div className="p-2 text-center">{row.procedencia}</div>
+              <div className="p-2 text-center">{row.planilla}</div>
+              <div className="p-2 text-left">{row.diagnostico}</div>
+              <div className="p-2 text-left">{row.tratamiento}</div>
+              <div className="p-2 text-left"></div>
+              <div className="p-2 text-left"></div>
             </div>
           ))
         )}
