@@ -1,12 +1,51 @@
 ---
-import ModulePlaceholder from "@/components/ModulePlaceholder.astro";
 import DashboardLayout from "@/layouts/DashboardLayout.astro";
+import { modulosAsistencial } from "@/lib/asistencialData";
 ---
 
 <DashboardLayout title="Asistencial" description="Módulo asistencial">
-  <ModulePlaceholder
-    title="Asistencial"
-    icon="fa-user-doctor"
-    description="Gestión de admisión, triaje, consulta médica y parte diario."
-  />
+  <section
+    class="px-4 py-14 sm:px-10 sm:py-16"
+    aria-labelledby="asistencial-heading"
+  >
+    <div class="mx-auto flex max-w-6xl flex-col items-center gap-12">
+      <header class="text-center">
+        <h1 id="asistencial-heading" class="text-5xl font-semibold text-brand">
+          Módulo Asistencial
+        </h1>
+        <p class="mt-3 text-lg text-text-primary">
+          Selecciona el área a la que deseas acceder.
+        </p>
+      </header>
+
+      <!-- Grid de accesos principales con lista semántica para teclado/lectores -->
+      <nav aria-label="Secciones del módulo asistencial" class="w-full">
+        <ul
+          class="mx-auto grid max-w-4xl grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3"
+        >
+          {
+            modulosAsistencial.map((modulo) => (
+              <li class="flex justify-center">
+                <a
+                  href={modulo.href}
+                  class="group block h-48 w-48 rounded-3xl bg-surface-light p-6 text-center transition ease-in-out hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+                  aria-label={modulo.ariaLabel}
+                >
+                  <div class="flex h-full flex-col items-center justify-center gap-3">
+                    <i
+                      class={`fas ${modulo.icon} text-6xl text-brand`}
+                      aria-hidden="true"
+                    />
+                    <h2 class="text-2xl font-semibold text-muted">
+                      {modulo.label}
+                    </h2>
+                  </div>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </div>
+  </section>
 </DashboardLayout>

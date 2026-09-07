@@ -1,0 +1,24 @@
+---
+import FechaHora from "@/components/FechaHora";
+import AdmisionFormContainer from "@/components/asistencial/admision/AdmisionFormContainer";
+import DashboardLayout from "@/layouts/DashboardLayout.astro";
+---
+
+<DashboardLayout title="Admisión" description="Módulo de admisión">
+  <section class="space-y-4 px-4" aria-labelledby="admision-heading">
+    <header class="space-y-1 px-6 flex justify-between">
+      <div>
+        <h1 id="admision-heading" class="text-2xl font-semibold text-brand">
+          Admisión
+        </h1>
+        <p class="text-sm text-text-primary">
+          Completa los datos del paciente para generar la admisión.
+        </p>
+      </div>
+      <div class="top-4 inset-e-4 relative">
+        <FechaHora client:only="react" />
+      </div>
+    </header>
+    <AdmisionFormContainer client:only="react" />
+  </section>
+</DashboardLayout>

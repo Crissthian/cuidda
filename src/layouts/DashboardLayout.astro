@@ -11,6 +11,7 @@ const {
 
 import "@/styles/global.css";
 import VigilanciaSidebar from "@/components/VigilanciaSidebar.astro";
+import Breadcumb from "@/components/Breadcumb.astro";
 
 interface MenuNode {
   id: string;
@@ -237,6 +238,12 @@ const isVigilancia = isActive("/vigilancia-medica");
       if (initialTheme && initialThemes.includes(initialTheme)) {
         document.documentElement.classList.add(initialTheme);
       }
+
+      // Aplicar estado del sidebar antes del render para evitar flash
+      const SIDEBAR_STATE_KEY = "sidebar-estado";
+      if (localStorage.getItem(SIDEBAR_STATE_KEY) === "cerrado") {
+        document.documentElement.classList.add("sidebar-cerrado");
+      }
     </script>
     <title>{title}</title>
   </head>
@@ -247,15 +254,25 @@ const isVigilancia = isActive("/vigilancia-medica");
         class="flex h-21 shrink-0 items-center justify-between bg-brand px-6 text-white"
         role="banner"
       >
-        <a href="/home" class="flex items-center gap-2">
-          <img
-            src="/logo-cuidda.png"
-            alt="Cuidda"
-            class="h-16 w-auto object-contain brightness-0 invert"
-            width="120"
-            height="32"
-          />
-        </a>
+        <div class="flex items-center gap-4">
+          <button
+            id="toggleSidebar"
+            type="button"
+            class="toggle-sidebar-btn text-white-custom p-2 transition duration-300 ease-in-out caret-transparent"
+            aria-label="Alternar barra lateral"
+          >
+            <i class="fas fa-bars-staggered text-3xl" aria-hidden="true"></i>
+          </button>
+          <a href="/home" class="flex items-center gap-2">
+            <img
+              src="/logo-cuidda.png"
+              alt="Cuidda"
+              class="h-16 w-auto object-contain brightness-0 invert"
+              width="120"
+              height="32"
+            />
+          </a>
+        </div>
 
         <nav class="flex items-center gap-6" aria-label="Usuario">
           <div
@@ -312,6 +329,7 @@ const isVigilancia = isActive("/vigilancia-medica");
         {
           !isVigilancia && (
             <aside
+              id="sidebar"
               class="flex w-75 shrink-0 flex-col overflow-y-auto bg-surface-light px-6 py-10 text-sm"
               aria-label="Navegación principal"
             >
@@ -417,16 +435,8 @@ const isVigilancia = isActive("/vigilancia-medica");
           class="flex flex-1 flex-col bg-surface-default overflow-y-auto h-full"
           id="main-content"
         >
-          <div class="flex-1 pt-6">
-            <nav
-              class="flex items-center gap-2 text-sm px-10"
-              aria-label="Breadcrumb"
-            >
-              <i
-                class="fa-solid fa-house text-text-secondary"
-                aria-hidden="true"></i>
-              <span class="font-semibold text-brand">{title}</span>
-            </nav>
+          <div class="flex-1">
+            <Breadcumb />
             <slot />
           </div>
         </main>
@@ -434,6 +444,18 @@ const isVigilancia = isActive("/vigilancia-medica");
     </div>
 
     <style>
+      .toggle-sidebar-btn {
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      html.sidebar-cerrado #toggleSidebar {
+        transform: rotate(180deg);
+      }
+
+      html.sidebar-cerrado #sidebar {
+        display: none;
+      }
+
       .submenu {
         max-height: 0;
         overflow: hidden;
@@ -515,6 +537,22 @@ const isVigilancia = isActive("/vigilancia-medica");
           localStorage.clear();
         } catch {}
         window.location.href = "/";
+      });
+
+      // Toggle Sidebar: ocultar/mostrar la barra lateral
+      const toggleSidebarBtn = document.getElementById("toggleSidebar");
+      const SIDEBAR_STATE_KEY = "sidebar-estado";
+      const applySidebarState = (cerrado: boolean) => {
+        document.documentElement.classList.toggle("sidebar-cerrado", cerrado);
+        localStorage.setItem(
+          SIDEBAR_STATE_KEY,
+          cerrado ? "cerrado" : "abierto",
+        );
+      };
+      toggleSidebarBtn?.addEventListener("click", () => {
+        applySidebarState(
+          !document.documentElement.classList.contains("sidebar-cerrado"),
+        );
       });
     </script>
   </body>
