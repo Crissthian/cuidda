@@ -32,7 +32,7 @@ export function useAdmisionForm() {
     window.setTimeout(() => {
       setIsLoading(false);
       setMode("actualizar");
-      toast.success(`Admisión ${data.atencion.cdg_ate} guardada correctamente`);
+      toast.success(`Admisión guardada correctamente`);
     }, 800);
   });
 

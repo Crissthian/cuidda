@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { MODAL_SIZE_CLASSES, type ModalSize } from "./modal.constants";
-import SonnerProvider from "./SonnerProvider";
 
 interface ModalProps {
   isOpen: boolean;
@@ -81,7 +80,6 @@ export default function Modal({
       }}
       style={{ zIndex }}
     >
-      <SonnerProvider />
       <div className="w-full h-full bg-surface-default flex flex-col overflow-hidden">
         {/* Contenido principal */}
         <div className="p-6 flex flex-col gap-4 overflow-auto">{children}</div>

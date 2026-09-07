@@ -14,14 +14,14 @@ export default function SuccessModal({
 
   return (
     <div
-      className="fixed inset-0 z-[60] flex items-center justify-center bg-black/40 p-4 backdrop-blur-[2px]"
+      className="fixed inset-0 z-60 flex items-center justify-center bg-black/40 p-4 backdrop-blur-[2px]"
       role="dialog"
       aria-modal="true"
       aria-labelledby="success-title"
       onClick={onClose}
     >
       <div
-        className="flex w-full max-w-[420px] flex-col items-center gap-5 rounded-2xl bg-surface-default px-10 py-12 shadow-xl"
+        className="flex w-full max-w-105 flex-col items-center gap-5 rounded-2xl bg-surface-default px-10 py-12 shadow-xl"
         onClick={(e) => e.stopPropagation()}
       >
         <span

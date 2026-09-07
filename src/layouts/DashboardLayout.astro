@@ -12,6 +12,7 @@ const {
 import "@/styles/global.css";
 import VigilanciaSidebar from "@/components/VigilanciaSidebar.astro";
 import Breadcumb from "@/components/Breadcumb.astro";
+import SonnerProvider from "@/components/ui/SonnerProvider";
 
 interface MenuNode {
   id: string;
@@ -248,6 +249,7 @@ const isVigilancia = isActive("/vigilancia-medica");
     <title>{title}</title>
   </head>
   <body class="text-xs antialiased">
+    <SonnerProvider client:only="react" />
     <div class="flex h-dvh w-dvw flex-col">
       <!-- NAVBAR: persiste en todas las páginas -->
       <header
