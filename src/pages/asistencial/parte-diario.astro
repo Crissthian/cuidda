@@ -1,0 +1,18 @@
+---
+import ParteDiarioTabla from "@/components/asistencial/parte-diario/ParteDiario";
+import DashboardLayout from "@/layouts/DashboardLayout.astro";
+---
+
+<DashboardLayout title="Parte Diario" description="Módulo de parte diario">
+  <section class="mx-6" aria-labelledby="parte-diario-heading">
+    <header class="px-6 mb-4">
+      <h1 id="parte-diario-heading" class="text-2xl font-semibold text-brand">
+        Parte Diario
+      </h1>
+      <p class="text-sm text-text-primary">
+        Revisa y gestiona los registros diarios de atenciones.
+      </p>
+    </header>
+    <ParteDiarioTabla client:only="react" />
+  </section>
+</DashboardLayout>
