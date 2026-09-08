@@ -26,7 +26,8 @@ export default function HistoriaClinicaContainer() {
     const matchNumero =
       !numeroFiltro.trim() ||
       a.numero.toLowerCase().includes(numeroFiltro.trim().toLowerCase());
-    const matchFecha = !fechaFiltro || a.fecha.split("/").reverse().join("-") === fechaFiltro;
+    const matchFecha =
+      !fechaFiltro || a.fecha.split("/").reverse().join("-") === fechaFiltro;
     return matchNumero && matchFecha;
   });
 

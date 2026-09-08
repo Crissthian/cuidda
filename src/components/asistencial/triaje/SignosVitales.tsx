@@ -39,7 +39,8 @@ const PRESION_RANGES: PresionRange[] = [
     className: "bg-green-300 text-green-900",
   },
   {
-    predicate: (sis: number, dia: number) => sis >= 120 && sis <= 129 && dia < 80,
+    predicate: (sis: number, dia: number) =>
+      sis >= 120 && sis <= 129 && dia < 80,
     label: "Presión Elevada",
     className: "bg-yellow-300 text-yellow-900",
   },
@@ -108,13 +109,12 @@ export default function SignosVitales({
     const diastolica = asNumber(dia);
 
     if (sistolica > 0 && diastolica > 0) {
-      const categoria =
-        PRESION_RANGES.find(({ predicate }) =>
-          predicate(sistolica, diastolica),
-        ) ?? {
-          className: "bg-gray-300 text-text-primary",
-          label: "Indeterminado",
-        };
+      const categoria = PRESION_RANGES.find(({ predicate }) =>
+        predicate(sistolica, diastolica),
+      ) ?? {
+        className: "bg-gray-300 text-text-primary",
+        label: "Indeterminado",
+      };
       setNivelPresion({
         value: categoria.label,
         className: `${categoria.className} ${INDICATOR_ACTIVE_BASE}`,

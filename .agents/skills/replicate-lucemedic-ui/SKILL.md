@@ -23,9 +23,11 @@ Objetivo: misma apariencia visual, solo presentación. Sin backend, sin datos re
 ## 2. Alcance Estricto (Solo UI)
 
 Portar:
+
 - Estructura JSX/Astro, clases Tailwind, layout `flex`/`grid`, modales, tabs, KPIs, filtros visuales, tablas maquetadas.
 
 No portar:
+
 - `actions`, services, repositories, SQL parametrizado, transacciones, Zod schemas de servidor, auth, `Astro.locals`, fetching real, TanStack Query, Zustand global (salvo `useState` local).
 - Si el origen llama a `actions.*` o `fetch`, reemplazar por datos mock y estado local.
 
@@ -59,18 +61,26 @@ Si la vista necesita listas, KPIs, tablas o selects:
    }
 
    export const matrizRows: MatrizRow[] = [
-     { id: 1, trabajador: "Nombre Ejemplo", dni: "DNI 12345678", puesto: "Puesto", sede: "Sede Lima" },
+     {
+       id: 1,
+       trabajador: "Nombre Ejemplo",
+       dni: "DNI 12345678",
+       puesto: "Puesto",
+       sede: "Sede Lima",
+     },
    ];
    ```
 3. Consumir con `.map()` y `key={item.id}`:
    ```tsx
    import { matrizRows } from "@/lib/matrizData";
 
-   {matrizRows.map((row) => (
-     <div key={row.id} className="grid ...">
-       <span>{row.trabajador}</span>
-     </div>
-   ))}
+   {
+     matrizRows.map((row) => (
+       <div key={row.id} className="grid ...">
+         <span>{row.trabajador}</span>
+       </div>
+     ));
+   }
    ```
 4. Sin IDs aleatorios, sin fechas dinámicas, sin llamadas de red. Texto en español.
 

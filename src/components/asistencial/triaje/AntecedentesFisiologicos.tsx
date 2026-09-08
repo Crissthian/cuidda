@@ -104,7 +104,10 @@ export default function AntecedentesFisiologicos({
           />
         </div>
         <div>
-          <label htmlFor="estado_animo" className="form-label text-text-primary">
+          <label
+            htmlFor="estado_animo"
+            className="form-label text-text-primary"
+          >
             Estado de ánimo
           </label>
           <input

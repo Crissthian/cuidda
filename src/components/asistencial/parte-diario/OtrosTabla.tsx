@@ -55,9 +55,7 @@ export default function OtrosTabla() {
       const pages = Math.max(1, Math.ceil(totalRows / PAGE_SIZE));
       const safePage = Math.min(page, pages);
 
-      setData(
-        filtered.slice((safePage - 1) * PAGE_SIZE, safePage * PAGE_SIZE),
-      );
+      setData(filtered.slice((safePage - 1) * PAGE_SIZE, safePage * PAGE_SIZE));
       setTotal(totalRows);
       setTotalPages(pages);
       setCurrentPage(safePage);
@@ -136,7 +134,9 @@ export default function OtrosTabla() {
             type="date"
             className="form-input"
             value={filters.fechaFin}
-            onChange={(e) => setFilters({ ...filters, fechaFin: e.target.value })}
+            onChange={(e) =>
+              setFilters({ ...filters, fechaFin: e.target.value })
+            }
             min={filters.fechaInicio || undefined}
           />
         </div>

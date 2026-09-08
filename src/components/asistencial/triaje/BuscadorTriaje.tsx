@@ -32,7 +32,7 @@ export default function BuscadorTriaje({
 
   return (
     <div className="px-6">
-      <div className="flex gap-4 items-end">
+      <div className="flex gap-4 items-end text-sm">
         <div className="flex-1">
           <label htmlFor="apellidos" className="form-label">
             Apellidos del Paciente
@@ -80,7 +80,7 @@ export default function BuscadorTriaje({
           id="btnBuscarAtenciones"
           type="button"
           onClick={onBuscar}
-          className="p-3 w-30 bg-brand text-white rounded-lg font-medium hover:bg-primary-hover cursor-pointer"
+          className="p-2.5 w-30 bg-brand text-white rounded-lg font-medium hover:bg-primary-hover cursor-pointer"
         >
           BUSCAR
         </button>
@@ -88,7 +88,7 @@ export default function BuscadorTriaje({
           id="btnLimpiarAtenciones"
           type="button"
           onClick={onLimpiar}
-          className="p-3 w-30 bg-muted text-white rounded-lg font-medium hover:bg-neutral-400 cursor-pointer"
+          className="p-2.5 w-30 bg-muted text-white rounded-lg font-medium hover:bg-neutral-400 cursor-pointer"
         >
           LIMPIAR
         </button>

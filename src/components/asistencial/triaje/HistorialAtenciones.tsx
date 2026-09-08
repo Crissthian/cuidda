@@ -56,7 +56,9 @@ export default function HistorialAtenciones({
                 {new Date(atencion.fecha).toLocaleDateString("es-PE")}
               </div>
               <div className="py-2 text-center px-3">{atencion.id}</div>
-              <div className="py-2 text-center px-3">{atencion.especialidad}</div>
+              <div className="py-2 text-center px-3">
+                {atencion.especialidad}
+              </div>
               <div className="py-2 text-center px-3">{atencion.medico}</div>
               <div className="py-2 text-center px-3">
                 <div className="flex items-center justify-center gap-3">

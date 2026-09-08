@@ -160,18 +160,40 @@ export default function TablaEmpresas({
           style={{ gridTemplateColumns: GRID_COLUMNS }}
         >
           <div className="p-2 text-text-primary text-center divisor">N°</div>
-          <div className="p-2 text-text-primary text-center divisor">EMPRESA</div>
-          <div className="p-2 text-text-primary text-center divisor">FECHA DE ATENCIÓN</div>
-          <div className="p-2 text-text-primary text-center divisor">HORA DE ATENCIÓN</div>
-          <div className="p-2 text-text-primary text-center divisor">APELLIDOS Y NOMBRES</div>
+          <div className="p-2 text-text-primary text-center divisor">
+            EMPRESA
+          </div>
+          <div className="p-2 text-text-primary text-center divisor">
+            FECHA DE ATENCIÓN
+          </div>
+          <div className="p-2 text-text-primary text-center divisor">
+            HORA DE ATENCIÓN
+          </div>
+          <div className="p-2 text-text-primary text-center divisor">
+            APELLIDOS Y NOMBRES
+          </div>
           <div className="p-2 text-text-primary text-center divisor">EDAD</div>
-          <div className="p-2 text-text-primary text-center divisor">CÓDIGO</div>
-          <div className="p-2 text-text-primary text-center divisor">PROCEDENCIA</div>
-          <div className="p-2 text-text-primary text-center divisor">PLANILLA</div>
-          <div className="p-2 text-text-primary text-center divisor">DIAGNÓSTICO</div>
-          <div className="p-2 text-text-primary text-center divisor">TRATAMIENTO</div>
-          <div className="p-2 text-text-primary text-left divisor">FIRMA PACIENTE</div>
-          <div className="p-2 text-text-primary text-left divisor">FIRMA MÉDICO</div>
+          <div className="p-2 text-text-primary text-center divisor">
+            CÓDIGO
+          </div>
+          <div className="p-2 text-text-primary text-center divisor">
+            PROCEDENCIA
+          </div>
+          <div className="p-2 text-text-primary text-center divisor">
+            PLANILLA
+          </div>
+          <div className="p-2 text-text-primary text-center divisor">
+            DIAGNÓSTICO
+          </div>
+          <div className="p-2 text-text-primary text-center divisor">
+            TRATAMIENTO
+          </div>
+          <div className="p-2 text-text-primary text-left divisor">
+            FIRMA PACIENTE
+          </div>
+          <div className="p-2 text-text-primary text-left divisor">
+            FIRMA MÉDICO
+          </div>
         </div>
 
         {/* Cuerpo */}
@@ -214,7 +236,9 @@ export default function TablaEmpresas({
               <div className="p-2 text-left indent-4">{row.empresa}</div>
               <div className="p-2 text-center">{row.fechaAtencion}</div>
               <div className="p-2 text-center">{row.horaAtencion}</div>
-              <div className="p-2 text-left indent-4">{row.apellidosNombres}</div>
+              <div className="p-2 text-left indent-4">
+                {row.apellidosNombres}
+              </div>
               <div className="p-2 text-center">{row.edad}</div>
               <div className="p-2 text-center">{row.codigo}</div>
               <div className="p-2 text-center">{row.procedencia}</div>

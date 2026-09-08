@@ -30,9 +30,9 @@ export default function ParteDiarioTabla() {
   const [empresasTotalPages, setEmpresasTotalPages] = useState(1);
   const [empresasTotal, setEmpresasTotal] = useState(0);
 
-  const [activeFilters, setActiveFilters] = useState<Partial<ParteDiarioFilters>>(
-    {},
-  );
+  const [activeFilters, setActiveFilters] = useState<
+    Partial<ParteDiarioFilters>
+  >({});
 
   /**
    * Consulta los datos mock con los filtros y página proporcionados.
@@ -46,13 +46,10 @@ export default function ParteDiarioTabla() {
         const filtered = parteDiarioEmpresasMock.filter((row) => {
           const matchSede =
             !filters.sede ||
-            (filters.sede === "001" &&
-              ["UNACEM S.A.A."].includes(row.empresa));
+            (filters.sede === "001" && ["UNACEM S.A.A."].includes(row.empresa));
           const matchEmpresa =
             !filters.empresa ||
-            row.empresa
-              .toLowerCase()
-              .includes(filters.empresa.toLowerCase());
+            row.empresa.toLowerCase().includes(filters.empresa.toLowerCase());
           const matchFechaInicio =
             !filters.fechaInicio ||
             row.fechaAtencion.split("/").reverse().join("-") >=
@@ -102,12 +99,11 @@ export default function ParteDiarioTabla() {
     const filtered = parteDiarioEmpresasMock.filter((row) => {
       const matchSede =
         !activeFilters.sede ||
-        (activeFilters.sede === "001" && ["UNACEM S.A.A."].includes(row.empresa));
+        (activeFilters.sede === "001" &&
+          ["UNACEM S.A.A."].includes(row.empresa));
       const matchEmpresa =
         !activeFilters.empresa ||
-        row.empresa
-          .toLowerCase()
-          .includes(activeFilters.empresa.toLowerCase());
+        row.empresa.toLowerCase().includes(activeFilters.empresa.toLowerCase());
       const matchFechaInicio =
         !activeFilters.fechaInicio ||
         row.fechaAtencion.split("/").reverse().join("-") >=

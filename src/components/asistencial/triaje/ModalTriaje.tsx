@@ -13,10 +13,7 @@ import { toast } from "sonner";
 import AntecedentesFisiologicos from "./AntecedentesFisiologicos";
 import HistorialAtenciones from "./HistorialAtenciones";
 import SignosVitales from "./SignosVitales";
-import {
-  emptyPacienteDataTriaje,
-  type TriajeModalMode,
-} from "./triaje.types";
+import { emptyPacienteDataTriaje, type TriajeModalMode } from "./triaje.types";
 import { useTriajeForm } from "./useTriajeForm";
 
 interface ModalTriajeProps {
