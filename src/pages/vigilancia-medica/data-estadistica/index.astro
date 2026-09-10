@@ -1,0 +1,22 @@
+---
+import DataEstadisticaContent from "@/components/data-estadistica/DataEstadisticaContent";
+import VigilanciaPagePlaceholder from "@/components/vigilancia/VigilanciaPagePlaceholder.astro";
+import DashboardLayout from "@/layouts/DashboardLayout.astro";
+---
+
+<DashboardLayout
+    title="Data estadística"
+    description="Módulo de data estadística"
+>
+    <div class="flex flex-1 flex-col overflow-y-auto">
+        <VigilanciaPagePlaceholder
+            title="Data estadística"
+            icon="fa-chart-pie"
+            description="Obtén datos estadísticos clave sobre la salud de tus colaboradores, lo que te ayudará a implementar políticas de bienestar más efectivas."
+            buttons={[]}
+        />
+        <div class="pb-6 px-10">
+            <DataEstadisticaContent client:load />
+        </div>
+    </div>
+</DashboardLayout>

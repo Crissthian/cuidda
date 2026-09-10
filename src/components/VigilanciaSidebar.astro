@@ -1,203 +1,229 @@
 ---
 interface Item {
-  id: string;
-  label: string;
-  icon: string;
-  href: string;
-  active?: boolean;
+    id: string;
+    label: string;
+    icon: string;
+    href: string;
+    active?: boolean;
 }
 
 interface Section {
-  id: string;
-  label: string;
-  items: Item[];
+    id: string;
+    label: string;
+    items: Item[];
 }
 
 const currentPath = Astro.url.pathname;
 const isActive = (path: string) =>
-  path !== "#" && (currentPath === path || currentPath.startsWith(`${path}/`));
+    path !== "#" &&
+    (currentPath === path || currentPath.startsWith(`${path}/`));
 
 const sections: Section[] = [
-  {
-    id: "inicio",
-    label: "Inicio",
-    items: [
-      {
-        id: "dashboard-general",
-        label: "Dashboard General",
-        icon: "fa-table-columns",
-        href: "/vigilancia-medica",
-      },
-    ],
-  },
-  {
-    id: "linea-base",
-    label: "Línea base",
-    items: [
-      {
-        id: "estudio-linea-base",
-        label: "Estudio de línea base",
-        icon: "fa-magnifying-glass-chart",
-        href: "/vigilancia-medica/estudio-linea-base",
-      },
-      {
-        id: "emos-trabajadores",
-        label: "EMOs y trabajadores",
-        icon: "fa-users",
-        href: "/vigilancia-medica/emos-y-trabajadores",
-      },
-      {
-        id: "matriz-iperc",
-        label: "Matriz IPERC",
-        icon: "fa-shield-halved",
-        href: "/vigilancia-medica/matriz-iperc",
-      },
-      {
-        id: "monitoreos",
-        label: "Monitoreos",
-        icon: "fa-file-waveform",
-        href: "/vigilancia-medica/monitoreos",
-      },
-      {
-        id: "protocolos-medicos",
-        label: "Protocolos médicos",
-        icon: "fa-book-medical",
-        href: "/vigilancia-medica/protocolos-medicos",
-      },
-    ],
-  },
-  {
-    id: "gestion-sst",
-    label: "Gestión SST",
-    items: [
-      {
-        id: "plan-anual",
-        label: "Plan Anual",
-        icon: "fa-file-medical",
-        href: "/vigilancia-medica/plan-anual",
-      },
-      {
-        id: "programas-salud",
-        label: "Programas de salud",
-        icon: "fa-user-shield",
-        href: "/vigilancia-medica/programas-de-salud",
-      },
-      {
-        id: "capacitaciones",
-        label: "Capacitaciones",
-        icon: "fa-chalkboard-user",
-        href: "/vigilancia-medica/capacitaciones",
-      },
-      {
-        id: "accidentes-incidentes",
-        label: "Accidentes e incidentes",
-        icon: "fa-person-falling-burst",
-        href: "/vigilancia-medica/accidentes-e-incidentes",
-      },
-      {
-        id: "estratificacion",
-        label: "Estratificación",
-        icon: "fa-triangle-exclamation",
-        href: "/vigilancia-medica/estratificacion",
-      },
-      {
-        id: "ausentismos-morbilidad",
-        label: "Ausentismos / Morbilidad",
-        icon: "fa-calendar-xmark",
-        href: "/vigilancia-medica/ausentismos-morbilidad",
-      },
-      {
-        id: "contratistas",
-        label: "Contratistas",
-        icon: "fa-truck",
-        href: "/vigilancia-medica/contratistas",
-      },
-    ],
-  },
-  {
-    id: "consultas",
-    label: "Módulo de consultas",
-    items: [
-      {
-        id: "consultas-tecnicas",
-        label: "Consultas técnicas S.O.",
-        icon: "fa-laptop-medical",
-        href: "/vigilancia-medica/consultas-tecnicas",
-      },
-    ],
-  },
-  {
-    id: "configuracion",
-    label: "Configuración",
-    items: [
-      {
-        id: "perfiles-permisos",
-        label: "Perfiles y permisos",
-        icon: "fa-key",
-        href: "/vigilancia-medica/perfiles-y-permisos",
-      },
-      {
-        id: "firmas",
-        label: "Firmas",
-        icon: "fa-signature",
-        href: "/vigilancia-medica/firmas",
-      },
-    ],
-  },
+    {
+        id: "inicio",
+        label: "Inicio",
+        items: [
+            {
+                id: "dashboard-general",
+                label: "Dashboard General",
+                icon: "fa-table-columns",
+                href: "/vigilancia-medica",
+            },
+        ],
+    },
+    {
+        id: "linea-base",
+        label: "Línea base",
+        items: [
+            {
+                id: "estudio-linea-base",
+                label: "Estudio de línea base",
+                icon: "fa-magnifying-glass-chart",
+                href: "/vigilancia-medica/estudio-linea-base",
+            },
+            {
+                id: "emos-trabajadores",
+                label: "EMOs y trabajadores",
+                icon: "fa-users",
+                href: "/vigilancia-medica/emos-y-trabajadores",
+            },
+            {
+                id: "matriz-iperc",
+                label: "Matriz IPERC",
+                icon: "fa-shield-halved",
+                href: "/vigilancia-medica/matriz-iperc",
+            },
+            {
+                id: "monitoreos",
+                label: "Monitoreos",
+                icon: "fa-file-waveform",
+                href: "/vigilancia-medica/monitoreos",
+            },
+            {
+                id: "protocolos-medicos",
+                label: "Protocolos médicos",
+                icon: "fa-book-medical",
+                href: "/vigilancia-medica/protocolos-medicos",
+            },
+        ],
+    },
+    {
+        id: "gestion-sst",
+        label: "Gestión SST",
+        items: [
+            {
+                id: "plan-anual",
+                label: "Plan Anual",
+                icon: "fa-file-medical",
+                href: "/vigilancia-medica/plan-anual",
+            },
+            {
+                id: "programas-salud",
+                label: "Programas de salud",
+                icon: "fa-user-shield",
+                href: "/vigilancia-medica/programas-de-salud",
+            },
+            {
+                id: "capacitaciones",
+                label: "Capacitaciones",
+                icon: "fa-chalkboard-user",
+                href: "/vigilancia-medica/capacitaciones",
+            },
+            {
+                id: "accidentes-incidentes",
+                label: "Accidentes e incidentes",
+                icon: "fa-person-falling-burst",
+                href: "/vigilancia-medica/accidentes-e-incidentes",
+            },
+            {
+                id: "estratificacion",
+                label: "Estratificación",
+                icon: "fa-triangle-exclamation",
+                href: "/vigilancia-medica/estratificacion",
+            },
+            {
+                id: "ausentismos-morbilidad",
+                label: "Ausentismos / Morbilidad",
+                icon: "fa-calendar-xmark",
+                href: "/vigilancia-medica/ausentismos-morbilidad",
+            },
+            {
+                id: "lectura-resultados",
+                label: "Lectura de resultados",
+                icon: "fa-book-open-reader",
+                href: "/vigilancia-medica/lectura-de-resultados",
+            },
+            {
+                id: "data-estadistica",
+                label: "Data estadística",
+                icon: "fa-chart-pie",
+                href: "/vigilancia-medica/data-estadistica",
+            },
+            {
+                id: "contratistas",
+                label: "Contratistas",
+                icon: "fa-truck",
+                href: "/vigilancia-medica/contratistas",
+            },
+            {
+                id: "informes-regulatorios",
+                label: "Informes regulatorios",
+                icon: "fa-file-contract",
+                href: "/vigilancia-medica/informes-regulatorios",
+            },
+        ],
+    },
+    {
+        id: "consultas",
+        label: "Módulo de consultas",
+        items: [
+            {
+                id: "consultas-tecnicas",
+                label: "Consultas técnicas S.O.",
+                icon: "fa-laptop-medical",
+                href: "/vigilancia-medica/consultas-tecnicas",
+            },
+        ],
+    },
+    {
+        id: "configuracion",
+        label: "Configuración",
+        items: [
+            {
+                id: "perfiles-permisos",
+                label: "Perfiles y permisos",
+                icon: "fa-key",
+                href: "/vigilancia-medica/perfiles-y-permisos",
+            },
+            {
+                id: "firmas",
+                label: "Firmas",
+                icon: "fa-signature",
+                href: "/vigilancia-medica/firmas",
+            },
+        ],
+    },
 ];
 ---
 
 <aside
-  class="flex w-75 shrink-0 flex-col overflow-y-auto bg-surface-light px-6 py-10"
-  aria-label="Navegación de Vigilancia Médica"
+    class="flex w-75 shrink-0 flex-col overflow-y-auto bg-surface-light px-6 py-10"
+    aria-label="Navegación de Vigilancia Médica"
 >
-  <div class="flex items-center gap-3 me-2">
-    <span class="flex size-12 shrink-0 place-content-center rounded-xl">
-      <i
-        class="fa-solid fa-laptop-medical p-3 text-xl text-brand"
-        aria-hidden="true"></i>
-    </span>
-    <span class="flex-1 text-sm font-semibold leading-tight text-brand">
-      Vigilancia Médica
-    </span>
-    <button
-      type="button"
-      class="flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center text-brand hover:text-primary-hover"
-      aria-label="Alternar menú de Vigilancia Médica"
-    >
-      <i class="fa-solid fa-chevron-down text-xs" aria-hidden="true"></i>
-    </button>
-  </div>
+    <div class="flex items-center gap-3 me-2">
+        <span class="flex size-12 shrink-0 place-content-center rounded-xl">
+            <i
+                class="fa-solid fa-laptop-medical p-3 text-xl text-brand"
+                aria-hidden="true"></i>
+        </span>
+        <span class="flex-1 text-sm font-semibold leading-tight text-brand">
+            Vigilancia Médica
+        </span>
+        <button
+            type="button"
+            class="flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center text-brand hover:text-primary-hover"
+            aria-label="Alternar menú de Vigilancia Médica"
+        >
+            <i class="fa-solid fa-chevron-down text-xs" aria-hidden="true"></i>
+        </button>
+    </div>
 
-  {
-    sections.map((section) => (
-      <section class="mt-2">
-        <h2 class="px-2 text-xs font-normal text-muted">{section.label}</h2>
-        <nav class="mt-2 flex flex-col gap-1" aria-label={section.label}>
-          {section.items.map((item) => {
-            const active = isActive(item.href);
-            return (
-              <a
-                href={item.href}
-                aria-current={active ? "page" : undefined}
-                class={`flex items-center gap-3 rounded-lg px-2 py-1.5 transition hover:bg-surface-default ${
-                  active
-                    ? "font-semibold text-brand"
-                    : "text-text-secondary hover:text-brand"
-                }`}
-              >
-                <i
-                  class={`fa-solid ${item.icon} w-5 shrink-0 text-center text-sm ${
-                    active ? "text-brand" : "text-text-secondary"
-                  }`}
-                  aria-hidden="true"
-                />
-                <span class="flex-1">{item.label}</span>
-              </a>
-            );
-          })}
-        </nav>
-      </section>
-    ))
-  }
+    {
+        sections.map((section) => (
+            <section class="mt-2">
+                <h2 class="px-2 text-xs font-normal text-muted">
+                    {section.label}
+                </h2>
+                <nav
+                    class="mt-2 flex flex-col gap-1"
+                    aria-label={section.label}
+                >
+                    {section.items.map((item) => {
+                        const active = isActive(item.href);
+                        return (
+                            <a
+                                href={item.href}
+                                aria-current={active ? "page" : undefined}
+                                class={`flex items-center gap-3 rounded-lg px-2 py-1 transition hover:bg-surface-default ${
+                                    active
+                                        ? "font-semibold text-brand"
+                                        : "text-text-secondary hover:text-brand"
+                                }`}
+                            >
+                                <i
+                                    class={`fa-solid ${item.icon} w-5 shrink-0 text-center text-sm ${
+                                        active
+                                            ? "text-brand"
+                                            : "text-text-secondary"
+                                    }`}
+                                    aria-hidden="true"
+                                />
+                                <span class="flex-1">{item.label}</span>
+                            </a>
+                        );
+                    })}
+                </nav>
+            </section>
+        ))
+    }
 </aside>

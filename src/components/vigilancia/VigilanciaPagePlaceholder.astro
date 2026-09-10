@@ -1,82 +1,90 @@
 ---
 interface Props {
-  title: string;
-  icon?: string;
-  description?: string;
-  buttons?: ButtonProps[];
+    title: string;
+    icon?: string;
+    description?: string;
+    buttons?: ButtonProps[];
 }
 
 interface ButtonProps {
-  state?: boolean;
-  icon: string;
-  text: string;
-  classes?: string[];
+    state?: boolean;
+    icon: string;
+    text: string;
+    classes?: string[];
 }
 
 const {
-  title,
-  description = "Contenido del módulo pendiente de implementar.",
-  buttons = [
-    {
-      icon: "fa-refresh",
-      text: "ACTUALIZAR CUMPLIMIENTO",
-    },
-  ] as ButtonProps[],
+    title,
+    description = "Contenido del módulo pendiente de implementar.",
+    buttons = [
+        {
+            icon: "fa-refresh",
+            text: "ACTUALIZAR CUMPLIMIENTO",
+        },
+    ] as ButtonProps[],
 } = Astro.props;
 
 const modalTriggers: Record<string, string> = {
-  "CARGAR DOCUMENTO": "cargar-documento",
-  "IMPORTAR PLANILLA": "importar-planilla",
-  "NUEVA MATRIZ": "nueva-matriz",
-  "CARGAR MATRIZ Y LEGAJOS": "cargar-matriz",
-  "PROGRAMAR MONITOREO": "programar-monitoreo",
-  "CARGAR INFORME": "cargar-informe",
-  "CARGAR PROTOCOLO": "cargar-protocolo",
-  "ACTUALIZAR PROTOCOLO": "actualizar-protocolo",
-  "CARGAR PLAN": "cargar-plan",
-  "PROGRAMAR CAPACITACIÓN": "programar-capacitacion",
-  "REGISTRAR CUMPLIMIENTO": "registrar-cumplimiento",
-  "NUEVO REGISTRO": "nuevo-registro",
-  "ANÁLISIS DE CAUSA RAÍZ": "analisis-causa-raiz",
-  "CARGAR DESCANSOS": "cargar-descansos",
-  "REGISTRAR CONTRATISTA": "registrar-contratista",
-  "ACTUALIZAR CUMPLIMIENTO": "actualizar-cumplimiento",
-  "Nueva consulta": "nueva-consulta",
+    "CARGAR DOCUMENTO": "cargar-documento",
+    "IMPORTAR PLANILLA": "importar-planilla",
+    "NUEVA MATRIZ": "nueva-matriz",
+    "CARGAR MATRIZ Y LEGAJOS": "cargar-matriz",
+    "PROGRAMAR MONITOREO": "programar-monitoreo",
+    "CARGAR INFORME": "cargar-informe",
+    "CARGAR PROTOCOLO": "cargar-protocolo",
+    "ACTUALIZAR PROTOCOLO": "actualizar-protocolo",
+    "CARGAR PLAN": "cargar-plan",
+    "PROGRAMAR CAPACITACIÓN": "programar-capacitacion",
+    "REGISTRAR CUMPLIMIENTO": "registrar-cumplimiento",
+    "NUEVO REGISTRO": "nuevo-registro",
+    "ANÁLISIS DE CAUSA RAÍZ": "analisis-causa-raiz",
+    "CARGAR DESCANSOS": "cargar-descansos",
+    "REGISTRAR CONTRATISTA": "registrar-contratista",
+    "ACTUALIZAR CUMPLIMIENTO": "actualizar-cumplimiento",
+    "Nueva consulta": "nueva-consulta",
 };
 ---
 
 <section
-  class="flex flex-1 flex-row justify-between py-4 px-10"
-  aria-labelledby="vigilancia-page-title"
+    class="flex flex-1 flex-row justify-between pb-4 px-10"
+    aria-labelledby="vigilancia-page-title"
 >
-  <div>
-    <h1
-      id="vigilancia-page-title"
-      class="text-lg font-bold uppercase tracking-wide text-brand"
-    >
-      {title}
-    </h1>
-    <p class="mt-1 max-w-5xl text-sm leading-relaxed text-muted">
-      {description}
-    </p>
-  </div>
-  {
-    buttons.length > 0 && (
-      <div class="flex flex-row gap-2">
-        {buttons.map(
-          ({ state, icon, text, classes = ["bg-muted-20 text-muted"] }) =>
-            state !== false && (
-              <button
-                type="button"
-                data-modal-trigger={modalTriggers[text]}
-                class={`flex h-10 items-center gap-2 rounded-lg px-4 text-xs font-semibold shadow-sm hover:bg-muted-30 ${classes.join(" ")}`}
-              >
-                <i class={`fa-solid ${icon} text-[11px]`} aria-hidden="true" />
-                {text}
-              </button>
-            ),
-        )}
-      </div>
-    )
-  }
+    <div>
+        <h1
+            id="vigilancia-page-title"
+            class="text-lg font-bold uppercase tracking-wide text-brand"
+        >
+            {title}
+        </h1>
+        <p class="mt-1 max-w-5xl text-sm leading-relaxed text-muted">
+            {description}
+        </p>
+    </div>
+    {
+        buttons.length > 0 && (
+            <div class="flex flex-row gap-2">
+                {buttons.map(
+                    ({
+                        state,
+                        icon,
+                        text,
+                        classes = ["bg-muted-20 text-muted"],
+                    }) =>
+                        state !== false && (
+                            <button
+                                type="button"
+                                data-modal-trigger={modalTriggers[text]}
+                                class={`flex h-10 items-center gap-2 rounded-lg px-4 text-xs font-semibold shadow-sm hover:bg-muted-30 ${classes.join(" ")}`}
+                            >
+                                <i
+                                    class={`fa-solid ${icon} text-[11px]`}
+                                    aria-hidden="true"
+                                />
+                                {text}
+                            </button>
+                        ),
+                )}
+            </div>
+        )
+    }
 </section>
