@@ -225,8 +225,19 @@ export default function CargarProtocoloModal({ isOpen, onClose }: Props) {
                 </div>
 
                 {selectedFile && (
-                  <div className="mt-4 flex flex-col gap-2 rounded-lg border border-brand/30 bg-white p-4">
-                    <div className="flex items-center justify-between">
+                  <div className="relative mt-4 flex flex-col gap-2 rounded-lg border border-brand/30 bg-white p-4">
+                    <button
+                      type="button"
+                      onClick={() => setSelectedFile(null)}
+                      className="absolute right-3 top-3 text-muted transition-colors hover:text-risk-red"
+                      aria-label={`Quitar ${selectedFile.name}`}
+                    >
+                      <i
+                        className="fa-regular fa-trash-can text-xs"
+                        aria-hidden="true"
+                      />
+                    </button>
+                    <div className="flex items-center justify-between gap-3 pr-6">
                       <div className="flex items-center gap-3">
                         <i
                           className="fa-regular fa-file-excel text-2xl text-success"
