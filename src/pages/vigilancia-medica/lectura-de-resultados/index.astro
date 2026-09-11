@@ -1,6 +1,8 @@
 ---
+import EnviarResultadosModalHost from "@/components/vigilancia/EnviarResultadosModalHost";
 import VigilanciaPagePlaceholder from "@/components/vigilancia/VigilanciaPagePlaceholder.astro";
 import DashboardLayout from "@/layouts/DashboardLayout.astro";
+import { lecturasResultados } from "@/lib/lecturaResultadosData";
 
 const kpis = [
     {
@@ -47,78 +49,25 @@ const grupoStyles: Record<string, { badge: string; dot: string }> = {
     G3: { badge: "bg-risk-red/10 text-risk-red", dot: "bg-risk-red" },
 };
 
-const trabajadores = [
-    {
-        id: 1,
-        nombre: "Rosa Quispe Mamani",
-        dni: "44231987",
-        sede: "Condorcocha",
-        puesto: "Operario de planta",
-        emo: "Periódico 2026",
-        fecha: "2026-02-11",
-        grupo: "G3",
-        modalidad: "Presencial",
-        estado: "LECTURA COMPLETADA",
-        estadoClasses: "bg-[#dcfce7] text-[#16a34a]",
-        accion: "VER",
-    },
-    {
-        id: 2,
-        nombre: "Carlos Aliaga Ríos",
-        dni: "07712340",
-        sede: "Condorcocha",
-        puesto: "Supervisor",
-        emo: "Periódico 2026",
-        fecha: "2026-01-28",
-        grupo: "G3",
-        modalidad: "Presencial",
-        estado: "REQUIERE ATENCION PRESENCIAL",
-        estadoClasses: "bg-risk-red/10 text-risk-red",
-        accion: "REGISTRAR",
-    },
-    {
-        id: 3,
-        nombre: "Milagros Ccanto Vera",
-        dni: "70021455",
-        sede: "Atococongo",
-        puesto: "Analista de laboratorio",
-        emo: "Periódico 2026",
-        fecha: "2026-03-02",
-        grupo: "G2",
-        modalidad: "Presencial",
-        estado: "REQUIERE ATENCION PRESENCIAL",
-        estadoClasses: "bg-risk-red/10 text-risk-red",
-        accion: "REGISTRAR",
-    },
-    {
-        id: 4,
-        nombre: "Jhon Ramos Huaman",
-        dni: "76554320",
-        sede: "Atococongo",
-        puesto: "Conductor",
-        emo: "Periódico 2026",
-        fecha: "2026-04-19",
-        grupo: "G2",
-        modalidad: "Presencial",
-        estado: "LECTURA COMPLETADA",
-        estadoClasses: "bg-[#dcfce7] text-[#16a34a]",
-        accion: "VER",
-    },
-    {
-        id: 5,
-        nombre: "Ana Lucía Ferrer",
-        dni: "48890012",
-        sede: "Conchán",
-        puesto: "Asistente administrativa",
-        emo: "Periódico 2026",
-        fecha: "2026-05-08",
-        grupo: "G1",
-        modalidad: "Remota",
-        estado: "LECTURA COMPLETADA",
-        estadoClasses: "bg-[#dcfce7] text-[#16a34a]",
-        accion: "ENVIAR_VER",
-    },
-];
+const trabajadores = lecturasResultados.map((l) => ({
+    id: l.id,
+    nombre: l.nombre,
+    dni: l.dni,
+    sede: l.sede,
+    puesto: l.puesto,
+    emo: l.emo,
+    fecha: l.fecha,
+    expiracion: l.expiracion,
+    grupo: l.grupo,
+    modalidad: l.modalidad,
+    estado: l.estadoLabel,
+    estadoClasses:
+        l.estado === "COMPLETADA"
+            ? "bg-[#dcfce7] text-[#16a34a]"
+            : "bg-risk-red/10 text-risk-red",
+    accion:
+        l.id === 5 ? "ENVIAR_VER" : l.estado === "COMPLETADA" ? "VER" : "REGISTRAR",
+}));
 ---
 
 <DashboardLayout
@@ -397,6 +346,11 @@ const trabajadores = [
                                                 <>
                                                     <button
                                                         type="button"
+                                                        data-modal-enviar={row.id}
+                                                        data-nombre={row.nombre}
+                                                        data-dni={row.dni}
+                                                        data-emo={row.emo}
+                                                        data-vencimiento={row.expiracion}
                                                         class="inline-flex items-center gap-1.5 rounded-lg bg-[#22c55e] px-3 py-1.5 text-[11px] font-bold tracking-wide text-white transition-colors hover:brightness-95"
                                                         aria-label={`Enviar por WhatsApp a ${row.nombre}`}
                                                     >
@@ -406,22 +360,22 @@ const trabajadores = [
                                                         />
                                                         ENVIAR
                                                     </button>
-                                                    <button
-                                                        type="button"
+                                                    <a
+                                                        href={`/vigilancia-medica/lectura-de-resultados/${row.id}`}
                                                         class="inline-flex min-w-16 items-center justify-center rounded-lg bg-muted px-4 py-1.5 text-[11px] font-bold tracking-wide text-white transition-colors hover:bg-muted-80"
                                                         aria-label={`Ver lectura de ${row.nombre}`}
                                                     >
                                                         VER
-                                                    </button>
+                                                    </a>
                                                 </>
                                             ) : (
-                                                <button
-                                                    type="button"
+                                                <a
+                                                    href={`/vigilancia-medica/lectura-de-resultados/${row.id}`}
                                                     class="inline-flex min-w-24 items-center justify-center rounded-lg bg-muted px-4 py-1.5 text-[11px] font-bold tracking-wide text-white transition-colors hover:bg-muted-80"
                                                     aria-label={`${row.accion === "VER" ? "Ver lectura de" : "Registrar lectura de"} ${row.nombre}`}
                                                 >
                                                     {row.accion}
-                                                </button>
+                                                </a>
                                             )}
                                         </span>
                                     </div>
@@ -432,5 +386,6 @@ const trabajadores = [
                 </div>
             </section>
         </div>
+        <EnviarResultadosModalHost client:load />
     </div>
 </DashboardLayout>

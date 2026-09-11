@@ -8,14 +8,14 @@ import { protocolos } from "@/lib/protocolosData";
 type Protocolo = (typeof protocolos)[number];
 
 interface Props {
-  protocolo: Protocolo;
+    protocolo: Protocolo;
 }
 
 export function getStaticPaths() {
-  return protocolos.map((protocolo) => ({
-    params: { id: String(protocolo.id) },
-    props: { protocolo },
-  }));
+    return protocolos.map((protocolo) => ({
+        params: { id: String(protocolo.id) },
+        props: { protocolo },
+    }));
 }
 
 const { protocolo } = Astro.props;
@@ -23,30 +23,31 @@ const titulo = protocolo ? `Detalle de protocolo` : "Protocolo no encontrado";
 ---
 
 <DashboardLayout title={titulo} description="Detalle del protocolo médico">
-  <div class="flex flex-1 flex-col overflow-y-auto bg-surface-default">
-    <div class="flex items-center gap-4 px-10">
-      <a
-        href="/vigilancia-medica/protocolos-medicos"
-        class="flex items-center gap-2 text-xs font-medium text-brand hover:text-primary-hover"
-      >
-        <i class="fa-solid fa-arrow-left text-xs" aria-hidden="true"></i>
-        Volver a protocolos médicos
-      </a>
+    <div class="flex flex-1 flex-col overflow-y-auto bg-surface-default">
+        <div class="flex items-center gap-4 px-10 pb-4">
+            <a
+                href="/vigilancia-medica/protocolos-medicos"
+                class="flex items-center gap-2 text-xs font-medium text-brand hover:text-primary-hover"
+            >
+                <i class="fa-solid fa-arrow-left text-xs" aria-hidden="true"
+                ></i>
+                Volver a protocolos médicos
+            </a>
+        </div>
+        <VigilanciaPagePlaceholder
+            title="PROTOCOLO EMO ADMINISTRATIVOS"
+            icon="fa-book-medical"
+            description="DPRT-ADM-01 · Minera Andes Sur S.A."
+            buttons={[
+                {
+                    icon: "fa-save",
+                    text: "ACTUALIZAR PROTOCOLO",
+                },
+            ]}
+        />
+        <div class="max-h-175 overflow-y-auto">
+            <ProtocoloDetalleContent protocolo={protocolo} client:load />
+        </div>
+        <ProtocolosModalHost client:load />
     </div>
-    <VigilanciaPagePlaceholder
-      title="PROTOCOLO EMO ADMINISTRATIVOS"
-      icon="fa-book-medical"
-      description="DPRT-ADM-01 · Minera Andes Sur S.A."
-      buttons={[
-        {
-          icon: "fa-save",
-          text: "ACTUALIZAR PROTOCOLO",
-        },
-      ]}
-    />
-    <div class="max-h-175 overflow-y-auto">
-      <ProtocoloDetalleContent protocolo={protocolo} client:load />
-    </div>
-    <ProtocolosModalHost client:load />
-  </div>
 </DashboardLayout>

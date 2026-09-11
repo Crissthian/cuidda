@@ -1,0 +1,83 @@
+---
+import LecturaResultadoDetalleContent from "@/components/vigilancia/LecturaResultadoDetalleContent";
+import LecturaResultadoModalHost from "@/components/vigilancia/LecturaResultadoModalHost";
+import VigilanciaPagePlaceholder from "@/components/vigilancia/VigilanciaPagePlaceholder.astro";
+import DashboardLayout from "@/layouts/DashboardLayout.astro";
+import { lecturasResultados } from "@/lib/lecturaResultadosData";
+
+type Lectura = (typeof lecturasResultados)[number];
+
+interface Props {
+    lectura: Lectura;
+}
+
+export function getStaticPaths() {
+    return lecturasResultados.map((lectura) => ({
+        params: { id: String(lectura.id) },
+        props: { lectura },
+    }));
+}
+
+const { lectura } = Astro.props;
+const titulo = lectura
+    ? `Lectura de resultados · ${lectura.nombre}`
+    : "Lectura no encontrada";
+---
+
+<DashboardLayout title={titulo} description="Detalle de lectura de resultados">
+    <div class="flex flex-1 flex-col overflow-y-auto">
+        <div class="flex items-center gap-4 px-10 pb-4">
+            <a
+                href="/vigilancia-medica/lectura-de-resultados"
+                class="flex items-center gap-2 text-xs font-medium text-brand hover:text-primary-hover"
+            >
+                <i class="fa-solid fa-arrow-left text-xs" aria-hidden="true"
+                ></i>
+                Volver a lectura de resultados
+            </a>
+        </div>
+        {
+            lectura ? (
+                <VigilanciaPagePlaceholder
+                    title={lectura.nombre.toUpperCase()}
+                    icon="fa-book-open-reader"
+                    description={`Lectura de resultados • ${lectura.emo} (${lectura.fecha}) • ${lectura.empresa}`}
+                    buttons={
+                        lectura.estado === "PENDIENTE"
+                            ? [
+                                  {
+                                      icon: "fa-user-doctor",
+                                      text: "REGISTRAR LECTURA PRESENCIAL",
+                                  },
+                              ]
+                            : []
+                    }
+                />
+            ) : (
+                <VigilanciaPagePlaceholder
+                    title="LECTURA NO ENCONTRADA"
+                    icon="fa-book-open-reader"
+                    description="No se encontró la lectura solicitada."
+                    buttons={[]}
+                />
+            )
+        }
+        {
+            lectura ? (
+                <LecturaResultadoDetalleContent lectura={lectura} client:load />
+            ) : (
+                <p class="px-10 pb-6 text-sm text-muted">
+                    Lectura de resultados no encontrada.
+                </p>
+            )
+        }
+        {
+            lectura?.estado === "PENDIENTE" && (
+                <LecturaResultadoModalHost
+                    trabajadorNombre={lectura.nombre}
+                    client:load
+                />
+            )
+        }
+    </div>
+</DashboardLayout>
