@@ -1,4 +1,6 @@
+import NuevaActividadModal from "@/components/programas/NuevaActividadModal";
 import { programaDetalle } from "@/lib/programasData";
+import { useState } from "react";
 
 type Props = { programaId: number };
 
@@ -6,6 +8,7 @@ export default function ProgramaDetalleContent({
   programaId: _programaId,
 }: Props) {
   const detalle = programaDetalle;
+  const [isActividadOpen, setIsActividadOpen] = useState(false);
 
   return (
     <div className="flex flex-col gap-5 text-xs">
@@ -102,7 +105,7 @@ export default function ProgramaDetalleContent({
                     />
                     {g.id}
                   </span>
-                  <span className="flex-1 text-text-secondary">
+                  <span className="flex-1 text-text-secondary text-sm">
                     {g.descripcion}
                   </span>
                   <span className="text-xs font-bold text-text-primary">
@@ -149,6 +152,7 @@ export default function ProgramaDetalleContent({
           </div>
           <button
             type="button"
+            onClick={() => setIsActividadOpen(true)}
             className="flex shrink-0 items-center gap-1.5 rounded-lg bg-muted-20 px-4 py-2 font-bold text-muted transition hover:bg-muted-30"
           >
             <i className="fa-solid fa-plus" aria-hidden="true" />
@@ -227,6 +231,11 @@ export default function ProgramaDetalleContent({
           </div>
         </div>
       </section>
+
+      <NuevaActividadModal
+        isOpen={isActividadOpen}
+        onClose={() => setIsActividadOpen(false)}
+      />
     </div>
   );
 }

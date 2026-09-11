@@ -14,7 +14,7 @@ export default function SuccessModal({
 
   return (
     <div
-      className="fixed inset-0 z-60 flex items-center justify-center bg-black/40 p-4 backdrop-blur-[2px]"
+      className="fixed inset-0 z-60 flex items-center justify-center bg-black/40 p-4 backdrop-blur-[2px] caret-transparent"
       role="dialog"
       aria-modal="true"
       aria-labelledby="success-title"

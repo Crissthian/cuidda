@@ -276,6 +276,14 @@ export const responsablesPrograma: string[] = [
   "Dr. J. Núñez",
 ];
 
+export const responsablesActividad: string[] = [
+  "Médico Ocupacional",
+  "Medicina Ocupacional",
+  "Enf. S. Ordoñez",
+  "SST",
+  "Lucemedic",
+];
+
 export const sedesPrograma: string[] = ["Condorcocha", "Atocongo", "Conchán"];
 
 export const periodosPrograma: string[] = ["2026", "2025", "2024"];
