@@ -1,0 +1,68 @@
+---
+import MedicoDetalleContent from "@/components/vigilancia/MedicoDetalleContent";
+import VigilanciaPagePlaceholder from "@/components/vigilancia/VigilanciaPagePlaceholder.astro";
+import DashboardLayout from "@/layouts/DashboardLayout.astro";
+import { medicos } from "@/lib/medicosData";
+
+type Medico = (typeof medicos)[number];
+
+interface Props {
+    medico: Medico;
+}
+
+export function getStaticPaths() {
+    return medicos.map((medico) => ({
+        params: { id: String(medico.id) },
+        props: { medico },
+    }));
+}
+
+const { medico } = Astro.props;
+const titulo = medico ? `Ficha del médico · ${medico.medico}` : "Médico no encontrado";
+---
+
+<DashboardLayout title={titulo} description="Ficha del médico">
+    <div class="flex flex-1 flex-col overflow-y-auto">
+        <div class="flex items-center gap-4 px-10 pb-4">
+            <a
+                href="/vigilancia-medica/firmas"
+                class="flex items-center gap-2 text-xs font-medium text-brand hover:text-primary-hover"
+            >
+                <i class="fa-solid fa-arrow-left text-xs" aria-hidden="true"
+                ></i>
+                Volver a firmas
+            </a>
+        </div>
+        {
+            medico ? (
+                <VigilanciaPagePlaceholder
+                    title="Ficha del médico"
+                    icon="fa-user-doctor"
+                    description="Identidad profesional, certificado y documentos autorizados."
+                    buttons={[
+                        {
+                            icon: "fa-floppy-disk",
+                            text: "GUARDAR CAMBIOS",
+                        },
+                    ]}
+                />
+            ) : (
+                <VigilanciaPagePlaceholder
+                    title="MÉDICO NO ENCONTRADO"
+                    icon="fa-user-doctor"
+                    description="No se encontró el médico solicitado."
+                    buttons={[]}
+                />
+            )
+        }
+        {
+            medico ? (
+                <MedicoDetalleContent medico={medico} client:load />
+            ) : (
+                <p class="px-10 pb-6 text-sm text-muted">
+                    Médico no encontrado.
+                </p>
+            )
+        }
+    </div>
+</DashboardLayout>

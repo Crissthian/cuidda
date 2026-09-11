@@ -5,18 +5,18 @@ import DashboardLayout from "@/layouts/DashboardLayout.astro";
 ---
 
 <DashboardLayout title="Firmas" description="Módulo de firmas">
-  <VigilanciaPagePlaceholder
-    title="Firmas"
-    icon="fa-signature"
-    description="Configuración"
-    buttons={[
-      {
-        text: "CONFIGURAR FIRMA",
-        icon: "fa-gear",
-      },
-    ]}
-  />
-  <div class="mx-10">
-    <FirmasContent client:load />
-  </div>
+    <VigilanciaPagePlaceholder
+        title="Médicos y firma digital"
+        icon="fa-signature"
+        description="Administra identidades, certificados y permisos de firma desde un solo lugar."
+        buttons={[
+            {
+                text: "NUEVO MEDICO",
+                icon: "fa-plus",
+            },
+        ]}
+    />
+    <div class="mx-10">
+        <FirmasContent client:load />
+    </div>
 </DashboardLayout>

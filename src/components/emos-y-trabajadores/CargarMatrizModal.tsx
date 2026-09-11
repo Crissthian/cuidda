@@ -7,7 +7,27 @@ type Props = {
   onClose: () => void;
 };
 
+type Vista = "selector" | "matriz" | "legajo";
+
+const sedes = ["Condorcocha", "Atococongo", "Conchán"];
+
+const aceptados: Record<Exclude<Vista, "selector">, Record<string, string[]>> =
+  {
+    matriz: {
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": [
+        ".xlsx",
+      ],
+      "application/vnd.ms-excel": [".xls"],
+      "text/csv": [".csv"],
+    },
+    legajo: {
+      "application/pdf": [".pdf"],
+    },
+  };
+
 export default function CargarMatrizModal({ isOpen, onClose }: Props) {
+  const [vista, setVista] = useState<Vista>("selector");
+  const [sede, setSede] = useState("");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [showSuccess, setShowSuccess] = useState(false);
 
@@ -21,16 +41,11 @@ export default function CargarMatrizModal({ isOpen, onClose }: Props) {
     onDrop,
     noClick: true,
     noKeyboard: true,
-    maxSize: 20 * 1024 * 1024,
-    accept: {
-      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": [
-        ".xlsx",
-      ],
-      "text/csv": [".csv"],
-      "application/pdf": [".pdf"],
-      "application/vnd.ms-excel": [".xls"],
-    },
+    maxSize: 10 * 1024 * 1024,
+    accept: vista === "selector" ? undefined : aceptados[vista],
   });
+
+  const acceptAttr = vista === "matriz" ? ".xlsx,.xls,.csv" : ".pdf";
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -42,15 +57,44 @@ export default function CargarMatrizModal({ isOpen, onClose }: Props) {
     setShowSuccess(true);
   };
 
+  const resetAll = () => {
+    setVista("selector");
+    setSede("");
+    setSelectedFile(null);
+  };
+
   const handleCloseSuccess = () => {
     setShowSuccess(false);
-    setSelectedFile(null);
+    resetAll();
     onClose();
   };
 
   const handleCloseUpload = () => {
-    setSelectedFile(null);
+    resetAll();
     onClose();
+  };
+
+  const titulo =
+    vista === "matriz"
+      ? "Carga de Matriz excel (sábana)"
+      : vista === "legajo"
+        ? "Carga de Legajo PDF"
+        : "Carga de documentos";
+
+  const subtitulo =
+    vista === "selector"
+      ? "Selecciona el documento que deseas cargar"
+      : undefined;
+
+  const formatos =
+    vista === "matriz" ? ".xlsx, .csv" : vista === "legajo" ? ".PDF" : "";
+
+  const extension = (name: string) => {
+    const lower = name.toLowerCase();
+    if (lower.endsWith(".pdf")) return "PDF";
+    if (lower.endsWith(".csv")) return "CSV";
+    if (lower.endsWith(".xls")) return "XLS";
+    return "XLSX";
   };
 
   if (!isOpen && !showSuccess) return null;
@@ -87,119 +131,220 @@ export default function CargarMatrizModal({ isOpen, onClose }: Props) {
                   id="modal-matriz-title"
                   className="text-xl font-bold text-brand"
                 >
-                  Carga de exámenes médicos
+                  {titulo}
                 </h2>
-                <p className="mt-1 text-sm text-text-secondary">
-                  Herramienta de migración · Matriz Excel (sábana) y legajo PDF
-                </p>
+                {subtitulo && (
+                  <p className="mt-1 text-sm text-text-secondary">
+                    {subtitulo}
+                  </p>
+                )}
               </div>
 
-              <section
-                className="mt-6 rounded-xl bg-surface-default p-5 shadow-md shadow-border-subtle/30 ring-1 ring-border-subtle/20"
-                aria-labelledby="archivo-fuente-title"
-              >
-                <h3
-                  id="archivo-fuente-title"
-                  className="text-sm font-bold text-brand"
-                >
-                  Archivo fuente
-                </h3>
-                <p className="text-xs text-muted">
-                  Formatos aceptados: .xlsx, .csv, .pdf
-                </p>
-
-                <div
-                  {...getRootProps()}
-                  className={`mt-4 flex flex-col items-center justify-center rounded-lg border-2 border-dashed px-6 py-10 text-center transition ${
-                    isDragActive
-                      ? "border-brand bg-brand/5"
-                      : "border-brand/60 bg-surface-default"
-                  }`}
-                >
-                  <input {...getInputProps()} />
-                  <i
-                    className="fa-solid fa-file-arrow-up text-3xl text-brand"
-                    aria-hidden="true"
-                  />
-                  <p className="mt-3 text-sm font-semibold text-muted">
-                    Arrastra la plantilla de línea base aquí
-                  </p>
-                  <p className="text-xs text-muted">
-                    o selecciona desde tu equipo · hasta 20 MB por archivo
-                  </p>
-                </div>
-
-                <div className="mt-4 flex justify-center">
-                  <label className="cursor-pointer">
-                    <input
-                      type="file"
-                      accept=".xlsx,.csv,.pdf,.xls"
-                      className="hidden"
-                      onChange={handleFileChange}
+              {vista === "selector" && (
+                <div className="mt-6 grid grid-cols-2 gap-4">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setVista("matriz");
+                      setSede("");
+                      setSelectedFile(null);
+                    }}
+                    className="flex flex-col items-center gap-3 rounded-xl bg-surface-light px-4 py-8 transition hover:bg-muted-20"
+                  >
+                    <i
+                      className="fa-regular fa-file-excel text-4xl text-brand"
+                      aria-hidden="true"
                     />
-                    <span className="flex rounded-lg bg-muted px-6 py-2 text-xs font-bold text-white hover:bg-muted-80">
-                      Seleccionar archivo
+                    <span className="text-sm text-text-secondary">
+                      Matriz excel
                     </span>
-                  </label>
-                  <button type="button" onClick={open} className="sr-only">
-                    Abrir selector
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setVista("legajo");
+                      setSede("");
+                      setSelectedFile(null);
+                    }}
+                    className="flex flex-col items-center gap-3 rounded-xl bg-surface-light px-4 py-8 transition hover:bg-muted-20"
+                  >
+                    <i
+                      className="fa-regular fa-file-pdf text-4xl text-brand"
+                      aria-hidden="true"
+                    />
+                    <span className="text-sm text-text-secondary">
+                      Legajo PDF
+                    </span>
                   </button>
                 </div>
+              )}
 
-                {selectedFile && (
-                  <div className="mt-4 flex flex-col gap-2 rounded-lg border border-brand/30 bg-white p-4">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <i
-                          className="fa-regular fa-file-excel text-2xl text-success"
-                          aria-hidden="true"
+              {vista !== "selector" && (
+                <>
+                  <section
+                    className="mt-6 rounded-xl bg-surface-default p-5 shadow-md shadow-border-subtle/30 ring-1 ring-border-subtle/20"
+                    aria-labelledby="paso1-matriz-title"
+                  >
+                    <h3
+                      id="paso1-matriz-title"
+                      className="flex flex-wrap items-baseline gap-1 text-sm text-text-secondary"
+                    >
+                      <span className="mr-1 text-2xl font-bold text-brand">
+                        1.
+                      </span>
+                      <span className="font-bold text-brand">
+                        Selecciona la sede
+                      </span>
+                    </h3>
+
+                    <div className="form-select-container mt-4">
+                      <select
+                        id="sede-matriz"
+                        value={sede}
+                        onChange={(e) => setSede(e.target.value)}
+                        className={`form-select appearance-none ${sede ? "text-text-primary" : "text-muted"}`}
+                      >
+                        <option value="" disabled hidden>
+                          Seleccionar
+                        </option>
+                        {sedes.map((s) => (
+                          <option key={s} value={s}>
+                            {s}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </section>
+
+                  <section
+                    className="mt-4 rounded-xl bg-surface-default p-5 shadow-md shadow-border-subtle/30 ring-1 ring-border-subtle/20"
+                    aria-labelledby="paso2-matriz-title"
+                  >
+                    <h3
+                      id="paso2-matriz-title"
+                      className="flex flex-wrap items-baseline gap-1 text-sm text-text-secondary"
+                    >
+                      <span className="mr-1 text-2xl font-bold text-brand">
+                        2.
+                      </span>
+                      <span className="font-bold text-brand">
+                        Archivo fuente
+                      </span>
+                    </h3>
+                    <p className="ml-7 text-xs text-muted">
+                      Formatos aceptados: {formatos}
+                    </p>
+
+                    <div
+                      {...getRootProps()}
+                      className={`mt-4 flex flex-col items-center justify-center rounded-lg border-2 border-dashed px-6 py-8 text-center transition ${
+                        isDragActive
+                          ? "border-brand bg-brand/5"
+                          : "border-brand/60 bg-surface-default"
+                      }`}
+                    >
+                      <input {...getInputProps()} />
+                      <i
+                        className="fa-solid fa-file-arrow-up text-3xl text-brand"
+                        aria-hidden="true"
+                      />
+                      <p className="mt-3 text-sm font-semibold text-muted">
+                        Arrastra el archivo aquí
+                      </p>
+                      <p className="text-xs text-muted">
+                        o selecciona desde tu equipo · hasta 10 MB
+                      </p>
+                    </div>
+
+                    <div className="mt-4 flex justify-center">
+                      <label className="cursor-pointer">
+                        <input
+                          type="file"
+                          accept={acceptAttr}
+                          className="hidden"
+                          onChange={handleFileChange}
                         />
-                        <div className="flex flex-col">
-                          <span className="text-xs font-bold text-text-secondary">
-                            {selectedFile.name}
-                          </span>
-                          <span className="text-[11px] text-muted">
-                            {selectedFile.name.toLowerCase().endsWith(".pdf")
-                              ? "PDF"
-                              : selectedFile.name.toLowerCase().endsWith(".csv")
-                                ? "CSV"
-                                : "XLSX"}{" "}
-                            · {(selectedFile.size / 1024).toFixed(0)} KB
+                        <span className="flex rounded-lg bg-muted px-6 py-2 text-xs font-bold text-white hover:bg-muted-80">
+                          Seleccionar archivo
+                        </span>
+                      </label>
+                      <button
+                        type="button"
+                        onClick={open}
+                        className="sr-only"
+                      >
+                        Abrir selector
+                      </button>
+                    </div>
+
+                    {selectedFile && (
+                      <div className="relative mt-4 flex flex-col gap-2 rounded-lg border border-brand/30 bg-white p-4">
+                        <button
+                          type="button"
+                          onClick={() => setSelectedFile(null)}
+                          className="absolute right-3 top-3 text-muted transition-colors hover:text-risk-red"
+                          aria-label={`Quitar ${selectedFile.name}`}
+                        >
+                          <i
+                            className="fa-regular fa-trash-can text-xs"
+                            aria-hidden="true"
+                          />
+                        </button>
+                        <div className="flex items-center justify-between gap-3 pr-6">
+                          <div className="flex items-center gap-3">
+                            <i
+                              className={`fa-regular ${vista === "legajo" ? "fa-file-pdf" : "fa-file-excel"} text-2xl text-success`}
+                              aria-hidden="true"
+                            />
+                            <div className="flex flex-col">
+                              <span className="text-xs font-bold text-text-secondary uppercase">
+                                {selectedFile.name}
+                              </span>
+                              <span className="text-[11px] text-muted">
+                                {extension(selectedFile.name)} ·{" "}
+                                {(selectedFile.size / 1024).toFixed(0)} KB
+                              </span>
+                            </div>
+                          </div>
+                          <span className="rounded-full bg-success/15 px-3 py-1 text-[10px] font-bold text-success-dark">
+                            Cargado
                           </span>
                         </div>
+                        <div className="h-1.5 w-full overflow-hidden rounded-full bg-surface-light">
+                          <div className="h-full w-full rounded-full bg-success" />
+                        </div>
                       </div>
-                      <span className="rounded-full bg-success/15 px-3 py-1 text-[10px] font-bold text-success-dark">
-                        Cargado
-                      </span>
-                    </div>
-                    <div className="h-1.5 w-full overflow-hidden rounded-full bg-surface-light">
-                      <div className="h-full w-full rounded-full bg-success" />
-                    </div>
-                  </div>
-                )}
-              </section>
+                    )}
+                  </section>
 
-              <div className="mt-6 flex justify-center gap-4">
-                <button
-                  type="button"
-                  onClick={handleCloseUpload}
-                  className="flex w-6/12 items-center justify-center gap-2 rounded-lg bg-muted px-8 py-3 text-xs font-bold text-white hover:bg-muted-80"
-                >
-                  <i className="fa-solid fa-trash text-xs" aria-hidden="true" />
-                  CANCELAR
-                </button>
-                <button
-                  type="button"
-                  onClick={handleCargarDocumento}
-                  className="flex w-7/12 items-center justify-center gap-2 rounded-lg bg-brand px-4 py-3 text-xs font-bold text-white hover:bg-primary-hover"
-                >
-                  <i
-                    className="fa-solid fa-cloud-arrow-up text-xs"
-                    aria-hidden="true"
-                  />
-                  CARGAR DOCUMENTO
-                </button>
-              </div>
+                  {selectedFile && (
+                    <div className="mt-6 flex justify-center gap-4">
+                      <button
+                        type="button"
+                        onClick={handleCloseUpload}
+                        className="flex w-6/12 items-center justify-center gap-2 rounded-lg bg-muted px-8 py-3 text-xs font-bold text-white hover:bg-muted-80"
+                      >
+                        <i
+                          className="fa-solid fa-trash text-xs"
+                          aria-hidden="true"
+                        />
+                        CANCELAR
+                      </button>
+                      <button
+                        type="button"
+                        onClick={handleCargarDocumento}
+                        className="flex w-7/12 items-center justify-center gap-2 rounded-lg bg-brand px-4 py-3 text-xs font-bold text-white hover:bg-primary-hover"
+                      >
+                        <i
+                          className="fa-solid fa-cloud-arrow-up text-xs"
+                          aria-hidden="true"
+                        />
+                        CARGAR DOCUMENTO
+                      </button>
+                    </div>
+                  )}
+                </>
+              )}
             </div>
           </div>
         </div>
