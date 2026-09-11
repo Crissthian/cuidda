@@ -1,3 +1,5 @@
+import EdicionManualModal from "@/components/vigilancia/EdicionManualModal";
+import FirmarInformeModal from "@/components/vigilancia/FirmarInformeModal";
 import type { InformeRegulatorio } from "@/lib/informesRegulatoriosData";
 import { useState } from "react";
 
@@ -472,7 +474,7 @@ const profesionales: FilaProfesional[] = [
     },
 ];
 
-const conclusiones = [
+const conclusionesIniciales = [
     "Cobertura y cumplimiento de vigilancia: durante el periodo 2026 se registró una población laboral de 2 trabajadores (0 masculino / 2 femenino), de los cuales 2 contaron con evaluación médica ocupacional, equivalente al 100 % de cobertura.",
     "Principales hallazgos de salud: la categoría con mayor número de casos fue “Enfermedades del oído” con 1 caso(s). La aptitud médica ocupacional se distribuyó en 1 apto(s), 1 apto(s) con restricciones y 0 no apto(s).",
     "Enfermedades relacionadas al trabajo: se identificaron 1 caso(s) con clasificación previamente validada por el médico ocupacional. No se atribuye causalidad laboral a diagnósticos sin dicha validación.",
@@ -480,7 +482,7 @@ const conclusiones = [
     "Programas de vigilancia: se ejecutaron 7 programas de salud, 4 presentan un avance igual o mayor al 70 %. La población clasificada corresponde a 0 en G1, 1 en G2 y 1 en G3.",
 ];
 
-const recomendaciones = [
+const recomendacionesIniciales = [
     "Continuar las evaluaciones médicas ocupacionales según el protocolo vigente por puesto de trabajo.",
     "Mantener el seguimiento clínico de la población de riesgo (1 trabajadores G2 y 1 G3), con reevaluación según periodicidad establecida.",
     "Fortalecer el programa de conservación auditiva y verificar la eficacia de la protección auditiva en los GES con exposición a ruido.",
@@ -597,6 +599,40 @@ function TablaEdad({ filas }: { filas: FilaEdad[] }) {
 export default function InformeRegulatorioDetalleContent({ informe }: Props) {
     const [saludExpandida, setSaludExpandida] = useState(false);
     const [trabajoExpandida, setTrabajoExpandida] = useState(false);
+    const [firmaAbierta, setFirmaAbierta] = useState(false);
+    const [edicionAbierta, setEdicionAbierta] = useState(false);
+    const [conclusiones, setConclusiones] = useState(conclusionesIniciales);
+    const [recomendaciones, setRecomendaciones] = useState(
+        recomendacionesIniciales,
+    );
+
+    const eliminarConclusion = (index: number) => {
+        setConclusiones((prev) => prev.filter((_, i) => i !== index));
+    };
+
+    const agregarConclusion = () => {
+        setConclusiones((prev) => [...prev, ""]);
+    };
+
+    const actualizarConclusion = (index: number, valor: string) => {
+        setConclusiones((prev) =>
+            prev.map((c, i) => (i === index ? valor : c)),
+        );
+    };
+
+    const eliminarRecomendacion = (index: number) => {
+        setRecomendaciones((prev) => prev.filter((_, i) => i !== index));
+    };
+
+    const agregarRecomendacion = () => {
+        setRecomendaciones((prev) => [...prev, ""]);
+    };
+
+    const actualizarRecomendacion = (index: number, valor: string) => {
+        setRecomendaciones((prev) =>
+            prev.map((r, i) => (i === index ? valor : r)),
+        );
+    };
 
     const filasSalud = saludExpandida
         ? saludTodas
@@ -651,8 +687,9 @@ export default function InformeRegulatorioDetalleContent({ informe }: Props) {
             <div className="flex items-center justify-end gap-4">
                 <button
                     type="button"
+                    disabled
                     aria-label="Validar informe"
-                    className="flex items-center gap-2 rounded-lg bg-muted-20 px-4 py-2.5 text-xs font-semibold tracking-wide text-muted transition-colors hover:text-brand"
+                    className="flex items-center gap-2 rounded-lg bg-muted-20 disabled:bg-muted/10 disabled:text-muted/50 px-4 py-2.5 text-xs font-semibold tracking-wide text-muted transition-colors"
                 >
                     <i
                         className="fa-regular fa-circle-check text-sm"
@@ -663,6 +700,7 @@ export default function InformeRegulatorioDetalleContent({ informe }: Props) {
                 <button
                     type="button"
                     aria-label="Firmar informe"
+                    onClick={() => setFirmaAbierta(true)}
                     className="flex items-center gap-2 rounded-lg bg-muted-20 px-4 py-2.5 text-xs font-semibold tracking-wide text-muted transition-colors hover:text-brand"
                 >
                     <i
@@ -898,11 +936,23 @@ export default function InformeRegulatorioDetalleContent({ informe }: Props) {
                                     </span>
                                     <span
                                         role="cell"
-                                        className={`pr-2 text-center text-[11px] ${f.expuestos === null ? "text-risk-salmon" : "text-text-secondary"}`}
+                                        className="pr-2 text-center text-[11px] text-text-secondary"
                                     >
-                                        {f.expuestos === null
-                                            ? "Información pendiente de validación"
-                                            : f.expuestos}
+                                        {f.expuestos === null ? (
+                                            <button
+                                                type="button"
+                                                onClick={() =>
+                                                    setEdicionAbierta(true)
+                                                }
+                                                aria-label={`Editar manualmente expuestos de ${f.agente}`}
+                                                className="text-risk-salmon transition-colors hover:text-risk-salmon/80 hover:underline"
+                                            >
+                                                Información pendiente de
+                                                validación
+                                            </button>
+                                        ) : (
+                                            f.expuestos
+                                        )}
                                     </span>
                                     <span
                                         role="cell"
@@ -963,7 +1013,7 @@ export default function InformeRegulatorioDetalleContent({ informe }: Props) {
                     <button
                         type="button"
                         aria-label="Regenerar conclusiones con IA"
-                        className="flex shrink-0 items-center gap-1.5 rounded-lg bg-linear-to-r from-[#1EE67D] to-[#0064D2] px-3 py-2 text-[11px] font-bold text-white transition-opacity hover:opacity-90"
+                        className="flex shrink-0 items-center gap-1.5 rounded-lg bg-linear-to-r from-[#1EE67D] to-[#0064D2] p-3 text-xs font-bold text-white transition-opacity hover:opacity-90"
                     >
                         <i
                             className="fa-solid fa-robot text-[11px]"
@@ -977,14 +1027,14 @@ export default function InformeRegulatorioDetalleContent({ informe }: Props) {
                     <h3 className="text-[11px] font-bold uppercase tracking-wide text-brand">
                         Conclusiones
                     </h3>
-                    <span className="rounded-full bg-[#32A9FD]/20 px-2 py-0.5 text-[9px] font-bold tracking-wide text-[#0496FF]">
+                    <span className="rounded-full bg-[#32A9FD]/20 px-2 py-1 text-[9px] font-bold tracking-wide text-[#0496FF]">
                         SUGERENCIA PARA VALIDACIÓN MÉDICA
                     </span>
                 </div>
                 <div className="mt-2 flex flex-col gap-2">
                     {conclusiones.map((c, i) => (
                         <div
-                            key={c.slice(0, 24)}
+                            key={`conclusion-${i}`}
                             className="flex items-start gap-3 rounded-lg bg-surface-light px-3 py-2.5"
                         >
                             <span
@@ -993,12 +1043,20 @@ export default function InformeRegulatorioDetalleContent({ informe }: Props) {
                             >
                                 {i + 1}
                             </span>
-                            <p className="flex-1 text-xs leading-relaxed text-text-secondary">
-                                {c}
-                            </p>
-                            <button // boton de eliminar conclusion
+                            <textarea
+                                value={c}
+                                onChange={(e) =>
+                                    actualizarConclusion(i, e.target.value)
+                                }
+                                placeholder="Escriba la conclusión..."
+                                rows={1}
+                                aria-label={`Conclusión ${i + 1}`}
+                                className="flex-1 resize-none bg-transparent text-xs leading-relaxed text-text-secondary outline-none placeholder:text-muted/60 focus:text-text-primary"
+                            />
+                            <button
                                 type="button"
-                                aria-label="Eliminar conclusión"
+                                onClick={() => eliminarConclusion(i)}
+                                aria-label={`Eliminar conclusión ${i + 1}`}
                                 className="shrink-0 text-muted transition-colors hover:text-brand"
                             >
                                 <i
@@ -1010,6 +1068,8 @@ export default function InformeRegulatorioDetalleContent({ informe }: Props) {
                     ))}
                     <button
                         type="button"
+                        onClick={agregarConclusion}
+                        aria-label="Agregar conclusión"
                         className="flex w-fit items-center gap-1.5 rounded-lg bg-muted-20 px-3 py-2 text-[11px] text-muted transition-colors hover:bg-muted-30"
                     >
                         <i
@@ -1024,14 +1084,14 @@ export default function InformeRegulatorioDetalleContent({ informe }: Props) {
                     <h3 className="text-[11px] font-bold uppercase tracking-wide text-text-primary">
                         Recomendaciones
                     </h3>
-                    <span className="rounded-full bg-[#32A9FD]/20 px-2 py-0.5 text-[9px] font-bold tracking-wide text-[#0496FF]">
+                    <span className="rounded-full bg-[#32A9FD]/20 px-2 py-1 text-[9px] font-bold tracking-wide text-[#0496FF]">
                         SUGERENCIA PARA VALIDACIÓN MÉDICA
                     </span>
                 </div>
                 <div className="mt-2 flex flex-col gap-2">
                     {recomendaciones.map((r, i) => (
                         <div
-                            key={r.slice(0, 24)}
+                            key={`recomendacion-${i}`}
                             className="flex items-start gap-3 rounded-lg bg-surface-light px-3 py-2.5"
                         >
                             <span
@@ -1040,11 +1100,19 @@ export default function InformeRegulatorioDetalleContent({ informe }: Props) {
                             >
                                 {i + 1}
                             </span>
-                            <p className="flex-1 text-xs leading-relaxed text-text-secondary">
-                                {r}
-                            </p>
+                            <textarea
+                                value={r}
+                                onChange={(e) =>
+                                    actualizarRecomendacion(i, e.target.value)
+                                }
+                                placeholder="Escriba la recomendación..."
+                                rows={1}
+                                aria-label={`Recomendación ${i + 1}`}
+                                className="flex-1 resize-none bg-transparent text-xs leading-relaxed text-text-secondary outline-none placeholder:text-muted/60 focus:text-text-primary"
+                            />
                             <button
                                 type="button"
+                                onClick={() => eliminarRecomendacion(i)}
                                 aria-label={`Eliminar recomendación ${i + 1}`}
                                 className="shrink-0 text-muted transition-colors hover:text-brand"
                             >
@@ -1057,6 +1125,8 @@ export default function InformeRegulatorioDetalleContent({ informe }: Props) {
                     ))}
                     <button
                         type="button"
+                        onClick={agregarRecomendacion}
+                        aria-label="Agregar recomendación"
                         className="flex w-fit items-center gap-1.5 rounded-lg bg-muted-20 px-3 py-2 text-[11px] text-muted transition-colors hover:bg-muted-30"
                     >
                         <i
@@ -1122,6 +1192,15 @@ export default function InformeRegulatorioDetalleContent({ informe }: Props) {
                     </ul>
                 </section>
             </div>
+
+            <FirmarInformeModal
+                isOpen={firmaAbierta}
+                onClose={() => setFirmaAbierta(false)}
+            />
+            <EdicionManualModal
+                isOpen={edicionAbierta}
+                onClose={() => setEdicionAbierta(false)}
+            />
         </div>
     );
 }

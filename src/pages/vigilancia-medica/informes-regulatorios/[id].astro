@@ -1,4 +1,6 @@
 ---
+import AuditarInformeModalHost from "@/components/vigilancia/AuditarInformeModalHost";
+import InformeDocumentoModalHost from "@/components/vigilancia/InformeDocumentoModalHost";
 import InformeRegulatorioDetalleContent from "@/components/vigilancia/InformeRegulatorioDetalleContent";
 import VigilanciaPagePlaceholder from "@/components/vigilancia/VigilanciaPagePlaceholder.astro";
 import DashboardLayout from "@/layouts/DashboardLayout.astro";
@@ -79,5 +81,7 @@ const titulo = informe
                 </p>
             )
         }
+        <InformeDocumentoModalHost client:load />
+        <AuditarInformeModalHost client:load />
     </div>
 </DashboardLayout>
