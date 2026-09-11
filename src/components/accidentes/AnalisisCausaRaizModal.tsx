@@ -65,7 +65,7 @@ export default function AnalisisCausaRaizModal({ isOpen, onClose }: Props) {
           onClick={handleCloseUpload}
         >
           <div
-            className="relative flex max-h-[90vh] w-full max-w-120 flex-col overflow-hidden rounded-2xl bg-surface-default shadow-xl"
+            className="relative flex max-h-[95vh] w-full max-w-125 flex-col overflow-hidden rounded-2xl bg-surface-default shadow-xl"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close button top right */}
@@ -96,7 +96,7 @@ export default function AnalisisCausaRaizModal({ isOpen, onClose }: Props) {
               </div>
 
               <section
-                className="mt-6 rounded-xl bg-surface-default p-5 shadow-md shadow-border-subtle/30 ring-1 ring-border-subtle/20"
+                className="mt-4 rounded-xl bg-surface-default p-5 shadow-md shadow-border-subtle/30 ring-1 ring-border-subtle/20"
                 aria-labelledby="archivo-fuente-causa-title"
               >
                 <h3
@@ -111,7 +111,7 @@ export default function AnalisisCausaRaizModal({ isOpen, onClose }: Props) {
 
                 <div
                   {...getRootProps()}
-                  className={`mt-4 flex flex-col items-center justify-center rounded-lg border-2 border-dashed px-6 py-8 text-center transition ${
+                  className={`mt-4 flex flex-col items-center justify-center rounded-lg border-2 border-dashed p-6 text-center transition border-brand/60 bg-surface-default transition ${
                     isDragActive
                       ? "border-brand bg-brand/5"
                       : "border-brand/60 bg-surface-default"

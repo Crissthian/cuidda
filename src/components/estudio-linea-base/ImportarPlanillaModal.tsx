@@ -91,7 +91,7 @@ export default function ImportarPlanillaModal({ isOpen, onClose }: Props) {
           onClick={handleCloseUpload}
         >
           <div
-            className="relative flex max-h-[90vh] w-full max-w-120 flex-col overflow-hidden rounded-2xl bg-surface-light shadow-xl"
+            className="relative flex max-h-[95vh] w-full max-w-120 flex-col overflow-hidden rounded-2xl bg-surface-light shadow-xl"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close button top right */}
@@ -190,7 +190,7 @@ export default function ImportarPlanillaModal({ isOpen, onClose }: Props) {
 
                 <div
                   {...getRootProps()}
-                  className={`mt-4 flex flex-col items-center justify-center rounded-lg border-2 border-dashed px-6 py-8 text-center transition ${
+                  className={`mt-4 flex flex-col items-center justify-center rounded-lg border-2 border-dashed p-6 text-center transition border-brand/60 bg-surface-default transition ${
                     isDragActive
                       ? "border-brand bg-brand/5"
                       : "border-brand/60 bg-surface-light"

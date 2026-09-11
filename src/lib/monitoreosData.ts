@@ -94,3 +94,15 @@ export const resultadosMonitoreo = [
     estadoClass: "bg-risk-salmon/15 text-risk-salmon",
   },
 ] as const;
+
+export const periodosMonitoreo: string[] = ["2026", "2025", "2024"];
+
+export const sedesMonitoreo: string[] = ["Condorcocha", "Atocongo", "Conchán"];
+
+export const agentesMonitoreo: string[] = [
+  "Ruido ocupacional",
+  "Polvo respirable (sílice)",
+  "Iluminación",
+  "Vibración cuerpo entero",
+  "Factores psicosociales",
+];

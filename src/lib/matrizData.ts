@@ -117,3 +117,9 @@ export const matrizIperc = [
     programa: "Cardiometabólico",
   },
 ] as const;
+
+export const sedesMatrizIperc: string[] = [
+  "Condorcocha",
+  "Atocongo",
+  "Conchán",
+];

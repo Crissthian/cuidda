@@ -77,7 +77,7 @@ export default function GenerarDocumentoInformeModal({
             onClick={onClose}
         >
             <div
-                className="relative flex max-h-[90vh] w-full max-w-4xl flex-col overflow-hidden rounded-2xl bg-surface-default shadow-xl"
+                className="relative flex max-h-[95vh] w-full max-w-4xl flex-col overflow-hidden rounded-2xl bg-surface-default shadow-xl"
                 onClick={(e) => e.stopPropagation()}
             >
                 <button

@@ -226,3 +226,219 @@ export const resultadosMonitoreoProgramas = [
     estadoClass: "bg-muted-20 text-muted",
   },
 ] as const;
+
+export const planProgramas = [
+  {
+    id: 1,
+    titulo: "Vigilancia dermatológica por contacto químico",
+    categoria: "OCUPACIONAL",
+    trabajadores: "96 trabajadores",
+    descripcion: "Contacto con reactivos de laboratorio y solventes",
+    hallazgos: [
+      "21 trabajadores con dermatitis de contacto referida en el EMO",
+      "8 casos G3 con lesiones recurrentes",
+    ],
+    actividadesSugeridas: 5,
+  },
+  {
+    id: 2,
+    titulo: "Vigilancia de trabajo en altura geográfica",
+    categoria: "OCUPACIONAL",
+    trabajadores: "174 trabajadores",
+    descripcion: "Exposición crónica intermitente a gran altitud (> 4000 msnm)",
+    hallazgos: [
+      "31 trabajadores con hematocrito elevado",
+      "16 casos G3 con sintomatología de mal de altura",
+    ],
+    actividadesSugeridas: 5,
+  },
+] as const;
+
+export const tiposPrograma: string[] = [
+  "Ocupacional",
+  "Preventivo",
+  "Subprograma",
+];
+
+export const especialidadesPrograma: string[] = [
+  "Medicina ocupacional",
+  "Higiene ocupacional",
+  "Ergonomía",
+  "Psicología ocupacional",
+  "Nutrición",
+];
+
+export const responsablesPrograma: string[] = [
+  "Dr. A. Manrique",
+  "Dra. L. Peña",
+  "Lic. M. Solís",
+  "Ps. C. Rivas",
+  "Dr. J. Núñez",
+];
+
+export const sedesPrograma: string[] = ["Condorcocha", "Atocongo", "Conchán"];
+
+export const periodosPrograma: string[] = ["2026", "2025", "2024"];
+
+export const gruposRiesgoPrograma = [
+  { id: "G1", poblacion: 472 },
+  { id: "G2", poblacion: 385 },
+  { id: "G3", poblacion: 143 },
+] as const;
+
+export const actividadesInicialesPrograma: string[] = [
+  "Identificación de población objetivo",
+  "Evaluación médica dirigida",
+  "Actividad preventiva / capacitación",
+  "Seguimiento de casos priorizados",
+];
+
+export const programaDetalle = {
+  id: 1,
+  titulo: "Conservación auditiva",
+  empresa: "UNACEM PERU S.A.",
+  sede: "UM Condorcocha",
+  periodo: "2026",
+  responsable: "Dr. A. Manrique",
+  enfoque: "Audiología",
+  poblacion: "218 trabajadores",
+  objetivo:
+    "Prevenir la progresión de la hipoacusia inducida por ruido en la población expuesta y asegurar el seguimiento de casos observados.",
+  avance: 82,
+  avanceDetalle: "Avance calculado del cumplimiento de 4 actividades",
+  avanceCompletadas: "1 completadas",
+  trabajadores: "218 trabajadores",
+  actividadesResumen: "10/12 actividades",
+  grupos: ["G2", "G3"],
+  distribucionRiesgo: [
+    {
+      id: "G1",
+      descripcion: "Sin hallazgos o hallazgos no relevantes",
+      cantidad: 0,
+      porcentaje: 0,
+      badgeClass: "bg-success/15 text-success-dark",
+      dotClass: "bg-success",
+      barClass: "bg-success",
+    },
+    {
+      id: "G2",
+      descripcion: "Riesgo con hallazgos relevantes no alarmantes",
+      cantidad: 142,
+      porcentaje: 80,
+      badgeClass: "bg-risk-salmon/15 text-risk-salmon",
+      dotClass: "bg-risk-salmon",
+      barClass: "bg-risk-salmon",
+    },
+    {
+      id: "G3",
+      descripcion: "Riesgo con hallazgos importantes / alarmantes",
+      cantidad: 76,
+      porcentaje: 20,
+      badgeClass: "bg-risk-red/15 text-risk-red",
+      dotClass: "bg-risk-red",
+      barClass: "bg-risk-red",
+    },
+  ],
+  planActividades: [
+    {
+      id: 1,
+      actividad: "Capacitación sobre conservación auditiva",
+      responsable: "Médico Ocupacional",
+      fecha: "2026-05-15",
+      estado: "COMPLETADA",
+      estadoClass: "bg-success/15 text-success-dark",
+      cumplimiento: 88,
+    },
+    {
+      id: 2,
+      actividad: "Seguimiento de audiometrías alteradas",
+      responsable: "Medicina Ocupacional",
+      fecha: "2026-06-04",
+      estado: "EN PROCESO",
+      estadoClass: "bg-violet/15 text-violet",
+      cumplimiento: 67,
+    },
+    {
+      id: 3,
+      actividad: "Control de uso de protección auditiva",
+      responsable: "Enf. S. Ordoñez",
+      fecha: "2026-04-18",
+      estado: "EN PROCESO",
+      estadoClass: "bg-violet/15 text-violet",
+      cumplimiento: 80,
+    },
+    {
+      id: 4,
+      actividad: "Reevaluación audiométrica de cierre",
+      responsable: "Medicina Ocupacional",
+      fecha: "2026-06-25",
+      estado: "EN PROCESO",
+      estadoClass: "bg-violet/15 text-violet",
+      cumplimiento: 58,
+    },
+  ],
+  kpis: [
+    {
+      id: 1,
+      label: "POBLACIÓN\nVIGILADA",
+      value: "218",
+      sub: "G2: 142 · G3: 76",
+      icon: "fa-users",
+      iconBg: "bg-[#e6f0ff]",
+      iconColor: "text-brand",
+    },
+    {
+      id: 2,
+      label: "CASOS G3\nACTIVOS",
+      value: "76",
+      sub: "35% de la población",
+      icon: "fa-triangle-exclamation",
+      iconBg: "bg-risk-salmon/15",
+      iconColor: "text-risk-salmon",
+    },
+    {
+      id: 3,
+      label: "AVANCE DEL\nPROGRAMA",
+      value: "82%",
+      sub: "10 de 12 actividades",
+      icon: "fa-chart-line",
+      iconBg: "bg-success/15",
+      iconColor: "text-success-dark",
+    },
+    {
+      id: 4,
+      label: "ACTIVIDADES\nATRASADAS",
+      value: "1",
+      sub: "prueba de ajuste auditivo",
+      icon: "fa-user-clock",
+      iconBg: "bg-risk-red/10",
+      iconColor: "text-risk-red",
+    },
+  ],
+  cumplimiento: [
+    {
+      id: 1,
+      actividad: "Audiometría tonal semestral (G2/G3)",
+      responsable: "Lucemedic",
+      vence: "2026-09-15",
+      estado: "EN CURSO",
+      estadoClass: "bg-violet/15 text-violet",
+    },
+    {
+      id: 2,
+      actividad: "Prueba de ajuste de protector auditivo",
+      responsable: "SST",
+      vence: "2026-08-30",
+      estado: "ATRASADO",
+      estadoClass: "bg-risk-salmon/15 text-risk-salmon",
+    },
+    {
+      id: 3,
+      actividad: "Capacitación en uso de EPP auditivo",
+      responsable: "SST",
+      vence: "2026-09-28",
+      estado: "PROGRAMADO",
+      estadoClass: "bg-muted-20 text-muted",
+    },
+  ],
+} as const;

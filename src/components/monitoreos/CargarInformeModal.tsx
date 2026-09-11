@@ -1,4 +1,9 @@
 import SuccessModal from "@/components/ui/SuccessModal";
+import {
+  agentesMonitoreo,
+  periodosMonitoreo,
+  sedesMonitoreo,
+} from "@/lib/monitoreosData";
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 
@@ -7,15 +12,9 @@ type Props = {
   onClose: () => void;
 };
 
-const agentes = [
-  "Ruido ocupacional",
-  "Polvo respirable (sílice)",
-  "Iluminación",
-  "Vibración cuerpo entero",
-  "Factores psicosociales",
-];
-
 export default function CargarInformeModal({ isOpen, onClose }: Props) {
+  const [periodo, setPeriodo] = useState("");
+  const [sede, setSede] = useState("");
   const [agente, setAgente] = useState("");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [showSuccess, setShowSuccess] = useState(false);
@@ -46,16 +45,21 @@ export default function CargarInformeModal({ isOpen, onClose }: Props) {
     setShowSuccess(true);
   };
 
+  const resetAll = () => {
+    setPeriodo("");
+    setSede("");
+    setAgente("");
+    setSelectedFile(null);
+  };
+
   const handleCloseSuccess = () => {
     setShowSuccess(false);
-    setSelectedFile(null);
-    setAgente("");
+    resetAll();
     onClose();
   };
 
   const handleCloseUpload = () => {
-    setSelectedFile(null);
-    setAgente("");
+    resetAll();
     onClose();
   };
 
@@ -72,7 +76,7 @@ export default function CargarInformeModal({ isOpen, onClose }: Props) {
           onClick={handleCloseUpload}
         >
           <div
-            className="relative flex max-h-[90vh] w-full max-w-120 flex-col overflow-hidden rounded-2xl bg-surface-default shadow-xl"
+            className="relative flex max-h-[95vh] w-full max-w-125 flex-col overflow-hidden rounded-2xl bg-surface-default shadow-xl"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close button top right */}
@@ -102,9 +106,9 @@ export default function CargarInformeModal({ isOpen, onClose }: Props) {
                 </p>
               </div>
 
-              {/* Paso 1 */}
+              {/* Paso 1: información de origen */}
               <section
-                className="mt-6 rounded-xl bg-surface-default p-5 shadow-md shadow-border-subtle/30 ring-1 ring-border-subtle/20"
+                className="mt-4 rounded-xl bg-surface-default p-5 shadow-md shadow-border-subtle/30 ring-1 ring-border-subtle/20"
                 aria-labelledby="paso1-informe-title"
               >
                 <h3
@@ -112,6 +116,83 @@ export default function CargarInformeModal({ isOpen, onClose }: Props) {
                   className="flex flex-wrap items-baseline gap-1 text-sm text-text-secondary"
                 >
                   <span className="mr-1 text-2xl font-bold text-brand">1.</span>
+                  <span className="font-bold text-brand">
+                    Información de origen
+                  </span>
+                </h3>
+
+                <div className="mt-4 grid grid-cols-2 gap-4">
+                  <div>
+                    <label
+                      htmlFor="informe-periodo"
+                      className="mb-1 block text-xs text-text-secondary"
+                    >
+                      Periodo
+                    </label>
+                    <div className="form-select-container">
+                      <select
+                        id="informe-periodo"
+                        value={periodo}
+                        onChange={(e) => setPeriodo(e.target.value)}
+                        className={`form-select appearance-none py-2.5 text-xs ${periodo ? "text-text-primary" : "text-muted"}`}
+                      >
+                        <option value="" disabled hidden>
+                          Seleccionar
+                        </option>
+                        {periodosMonitoreo.map((p) => (
+                          <option key={p} value={p}>
+                            {p}
+                          </option>
+                        ))}
+                      </select>
+                      <i
+                        className="fa-solid fa-chevron-down form-select-icon text-xs"
+                        aria-hidden="true"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="informe-sede"
+                      className="mb-1 block text-xs text-text-secondary"
+                    >
+                      Sede
+                    </label>
+                    <div className="form-select-container">
+                      <select
+                        id="informe-sede"
+                        value={sede}
+                        onChange={(e) => setSede(e.target.value)}
+                        className={`form-select appearance-none py-2.5 text-xs ${sede ? "text-text-primary" : "text-muted"}`}
+                      >
+                        <option value="" disabled hidden>
+                          Seleccionar
+                        </option>
+                        {sedesMonitoreo.map((s) => (
+                          <option key={s} value={s}>
+                            {s}
+                          </option>
+                        ))}
+                      </select>
+                      <i
+                        className="fa-solid fa-chevron-down form-select-icon text-xs"
+                        aria-hidden="true"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              {/* Paso 2: selección de agente */}
+              <section
+                className="mt-4 rounded-xl bg-surface-default p-5 shadow-md shadow-border-subtle/30 ring-1 ring-border-subtle/20"
+                aria-labelledby="paso2-informe-title"
+              >
+                <h3
+                  id="paso2-informe-title"
+                  className="flex flex-wrap items-baseline gap-1 text-sm text-text-secondary"
+                >
+                  <span className="mr-1 text-2xl font-bold text-brand">2.</span>
                   <span className="font-bold text-brand">
                     Selecciona el agente:
                   </span>
@@ -125,31 +206,37 @@ export default function CargarInformeModal({ isOpen, onClose }: Props) {
                     id="agente"
                     value={agente}
                     onChange={(e) => setAgente(e.target.value)}
-                    className={`form-select appearance-none ${agente ? "text-text-primary" : "text-muted"}`}
+                    className={`form-select appearance-none py-2.5 text-xs ${agente ? "text-text-primary" : "text-muted"}`}
                   >
                     <option value="" disabled hidden>
                       Selecciona el agente
                     </option>
-                    {agentes.map((a) => (
+                    {agentesMonitoreo.map((a) => (
                       <option key={a} value={a}>
                         {a}
                       </option>
                     ))}
                   </select>
+                  <i
+                    className="fa-solid fa-chevron-down form-select-icon text-xs"
+                    aria-hidden="true"
+                  />
                 </div>
               </section>
 
-              {/* Paso 2 */}
+              {/* Paso 3: importar informe */}
               <section
                 className="mt-4 rounded-xl bg-surface-default p-5 shadow-md shadow-border-subtle/30 ring-1 ring-border-subtle/20"
-                aria-labelledby="paso2-informe-title"
+                aria-labelledby="paso3-informe-title"
               >
                 <h3
-                  id="paso2-informe-title"
-                  className="text-sm font-bold text-brand"
+                  id="paso3-informe-title"
+                  className="flex flex-wrap items-baseline gap-1 text-sm text-text-secondary"
                 >
-                  <span className="mr-1 text-2xl font-bold text-brand">2.</span>
-                  Importar informe
+                  <span className="mr-1 text-2xl font-bold text-brand">3.</span>
+                  <span className="font-bold text-brand">
+                    Importar informe
+                  </span>
                 </h3>
                 <p className="ml-7 text-xs text-muted">
                   Formatos aceptados: PDF
@@ -157,7 +244,7 @@ export default function CargarInformeModal({ isOpen, onClose }: Props) {
 
                 <div
                   {...getRootProps()}
-                  className={`mt-4 flex flex-col items-center justify-center rounded-lg border-2 border-dashed px-6 py-8 text-center transition ${
+                  className={`mt-4 flex flex-col items-center justify-center rounded-lg border-2 border-dashed p-6 text-center transition border-brand/60 bg-surface-default ${
                     isDragActive
                       ? "border-brand bg-brand/5"
                       : "border-brand/60 bg-surface-default"
@@ -172,7 +259,7 @@ export default function CargarInformeModal({ isOpen, onClose }: Props) {
                     Arrastra tu informe aquí
                   </p>
                   <p className="text-xs text-muted">
-                    o selecciona desde tu equipo · hasta 20 MB por archivo
+                    o selecciona desde tu equipo · hasta 20 MB
                   </p>
                 </div>
 
@@ -236,27 +323,32 @@ export default function CargarInformeModal({ isOpen, onClose }: Props) {
               </section>
 
               {/* Acciones */}
-              <div className="mx-6 mt-6 flex justify-center gap-4">
-                <button
-                  type="button"
-                  onClick={handleCloseUpload}
-                  className="flex w-6/12 items-center justify-center gap-2 rounded-lg bg-muted px-8 py-3 text-xs font-bold text-white hover:bg-muted-80"
-                >
-                  <i className="fa-solid fa-trash text-xs" aria-hidden="true" />
-                  CANCELAR
-                </button>
-                <button
-                  type="button"
-                  onClick={handleCargarDocumento}
-                  className="flex w-7/12 items-center justify-center gap-2 rounded-lg bg-brand px-4 py-3 text-xs font-bold text-white hover:bg-primary-hover"
-                >
-                  <i
-                    className="fa-solid fa-cloud-arrow-up text-xs"
-                    aria-hidden="true"
-                  />
-                  CARGAR DOCUMENTO
-                </button>
-              </div>
+              {selectedFile && (
+                <div className="mx-6 mt-6 flex justify-center gap-4">
+                  <button
+                    type="button"
+                    onClick={handleCloseUpload}
+                    className="flex w-6/12 items-center justify-center gap-2 rounded-lg bg-muted px-8 py-3 text-xs font-bold text-white hover:bg-muted-80"
+                  >
+                    <i
+                      className="fa-solid fa-trash text-xs"
+                      aria-hidden="true"
+                    />
+                    CANCELAR
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleCargarDocumento}
+                    className="flex w-7/12 items-center justify-center gap-2 rounded-lg bg-brand px-4 py-3 text-xs font-bold text-white hover:bg-primary-hover"
+                  >
+                    <i
+                      className="fa-solid fa-cloud-arrow-up text-xs"
+                      aria-hidden="true"
+                    />
+                    CARGAR DOCUMENTO
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>

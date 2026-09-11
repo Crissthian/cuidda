@@ -1,0 +1,80 @@
+---
+import ProgramaDetalleContent from "@/components/programas/ProgramaDetalleContent";
+import ProgramaDetalleModalHost from "@/components/programas/ProgramaDetalleModalHost";
+import VigilanciaPagePlaceholder from "@/components/vigilancia/VigilanciaPagePlaceholder.astro";
+import DashboardLayout from "@/layouts/DashboardLayout.astro";
+import { programasCards } from "@/lib/programasData";
+
+type Programa = (typeof programasCards)[number];
+
+interface Props {
+  programa: Programa;
+}
+
+export function getStaticPaths() {
+  return programasCards.map((programa) => ({
+    params: { id: String(programa.id) },
+    props: { programa },
+  }));
+}
+
+const { programa } = Astro.props;
+const titulo = programa
+  ? `Programa · ${programa.titulo}`
+  : "Programa no encontrado";
+---
+
+<DashboardLayout title={titulo} description="Detalle del programa de salud">
+  <div class="flex flex-1 flex-col overflow-y-auto">
+    <div class="flex items-center gap-4 px-10 pb-4">
+      <a
+        href="/vigilancia-medica/programas-de-salud"
+        class="flex items-center gap-2 text-xs font-medium text-brand hover:text-primary-hover"
+      >
+        <i class="fa-solid fa-arrow-left text-xs" aria-hidden="true"></i>
+        Volver a programas de salud
+      </a>
+    </div>
+    {
+      programa ? (
+        <VigilanciaPagePlaceholder
+          title={programa.titulo.toUpperCase()}
+          icon="fa-user-shield"
+          description="UNACEM PERU S.A. · UM Condorcocha · Período 2026"
+          buttons={[
+            {
+              icon: "fa-robot",
+              text: "GENERAR DOCUMENTO CON IA",
+              classes: [
+                "bg-gradient-to-r",
+                "from-[#1EE67D]",
+                "to-[#0064D2]",
+                "text-white",
+              ],
+            },
+          ]}
+        />
+      ) : (
+        <VigilanciaPagePlaceholder
+          title="PROGRAMA NO ENCONTRADO"
+          icon="fa-user-shield"
+          description="No se encontró el programa solicitado."
+          buttons={[]}
+        />
+      )
+    }
+    {
+      programa ? (
+        <div class="px-10 pb-6">
+          <ProgramaDetalleContent
+            programaId={programa.id}
+            client:load
+          />
+        </div>
+      ) : (
+        <p class="px-10 pb-6 text-sm text-muted">Programa no encontrado.</p>
+      )
+    }
+    <ProgramaDetalleModalHost client:load />
+  </div>
+</DashboardLayout>
