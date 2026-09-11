@@ -1,15 +1,337 @@
 ---
-import ModulePlaceholder from "@/components/ModulePlaceholder.astro";
+import InformesRegulatoriosModalHost from "@/components/vigilancia/InformesRegulatoriosModalHost";
+import VigilanciaPagePlaceholder from "@/components/vigilancia/VigilanciaPagePlaceholder.astro";
 import DashboardLayout from "@/layouts/DashboardLayout.astro";
+import { informesRegulatorios } from "@/lib/informesRegulatoriosData";
+
+const kpis = [
+    {
+        id: "generados",
+        label: "INFORMES\nGENERADOS",
+        value: "1",
+        sub: null,
+        icon: "fa-file-circle-question",
+        iconBg: "bg-[#e6f0ff]",
+        iconColor: "text-brand",
+    },
+    {
+        id: "firmados",
+        label: "FIRMADOS /\nPRESENTADOS",
+        value: "0",
+        sub: null,
+        icon: "fa-file-circle-check",
+        iconBg: "bg-risk-salmon/15",
+        iconColor: "text-risk-salmon",
+    },
+    {
+        id: "alcance",
+        label: "TRABAJADORES DEL\nALCANCE",
+        value: "2",
+        sub: "2 evaluados en 2026",
+        icon: "fa-file-shield",
+        iconBg: "bg-[#e0f8f0]",
+        iconColor: "text-[#0bbb8a]",
+    },
+    {
+        id: "cobertura",
+        label: "COBERTURA DEL\nPERÍODO",
+        value: "100%",
+        sub: "EMO cerrados / población",
+        icon: "fa-file-circle-exclamation",
+        iconBg: "bg-risk-red/10",
+        iconColor: "text-risk-red",
+    },
+];
+
+const informes = informesRegulatorios;
 ---
 
 <DashboardLayout
     title="Informes regulatorios"
     description="Módulo de informes regulatorios"
 >
-    <ModulePlaceholder
-        title="Informes regulatorios"
-        icon="fa-file-contract"
-        description="Generación y gestión de informes regulatorios de salud ocupacional."
-    />
+    <div class="flex flex-1 flex-col overflow-y-auto text-xs">
+        <VigilanciaPagePlaceholder
+            title="Informes Regulatorios"
+            icon="fa-triangle-exclamation"
+            description="Informe Técnico Anual de Vigilancia de la Salud de los Trabajadores · DIGESA / DIRESA / GERESA"
+            buttons={[
+                {
+                    icon: "fa-robot",
+                    text: "GENERAR DOCUMENTO PERSONALIZADO",
+                    classes: [
+                        "bg-gradient-to-r from-[#1EE67D] to-[#0064D2]",
+                        "text-white",
+                        "hover:from-[#1EE67D] hover:to-[#0064D2]",
+                    ],
+                },
+            ]}
+        />
+
+        <div class="flex flex-col gap-5 px-10 pb-6">
+            <!-- ── KPIs ── -->
+            <section aria-label="Indicadores de informes regulatorios">
+                <div
+                    class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4"
+                >
+                    {
+                        kpis.map((kpi) => (
+                            <div class="flex items-center gap-4 rounded-xl bg-surface-default px-6 py-5 shadow-sm shadow-border-default">
+                                <span
+                                    class={`flex size-14 shrink-0 items-center justify-center rounded-xl ${kpi.iconBg}`}
+                                    aria-hidden="true"
+                                >
+                                    <i
+                                        class={`fa-solid ${kpi.icon} text-2xl ${kpi.iconColor}`}
+                                    />
+                                </span>
+                                <div class="flex flex-col">
+                                    <span class="whitespace-pre-line text-sm leading-tight tracking-wide text-text-secondary">
+                                        {kpi.label}
+                                    </span>
+                                    <span class="mt-1 text-2xl font-bold leading-none text-brand">
+                                        {kpi.value}
+                                    </span>
+                                    {kpi.sub && (
+                                        <span class="mt-1 text-xs text-success-dark">
+                                            {kpi.sub}
+                                        </span>
+                                    )}
+                                </div>
+                            </div>
+                        ))
+                    }
+                </div>
+            </section>
+
+            <!-- ── GENERAR INFORME ── -->
+            <section
+                aria-labelledby="generar-informe-title"
+                class="rounded-xl bg-surface-default p-5 shadow-sm shadow-border-default"
+            >
+                <h2
+                    id="generar-informe-title"
+                    class="text-sm font-medium uppercase tracking-wide text-text-primary"
+                >
+                    Generar informe
+                </h2>
+                <p class="mt-1 text-sm text-accent-muted">
+                    Seleccione período y alcance. La plataforma consolida
+                    automáticamente la información existente.
+                </p>
+
+                <form
+                    role="search"
+                    aria-label="Filtros para generar informe"
+                    class="mt-5 flex items-center gap-3"
+                >
+                    <label for="g-periodo" class="sr-only">Periodo</label>
+                    <span class="relative min-w-0 flex-1">
+                        <select
+                            id="g-periodo"
+                            aria-label="Periodo"
+                            class="form-select h-9 w-full appearance-none bg-surface-light pl-3 pr-8 text-xs text-muted-50 outline-none focus:ring-1 focus:ring-brand"
+                        >
+                            <option value="" selected>Periodo</option>
+                            <option value="2026">2026</option>
+                            <option value="2025">2025</option>
+                        </select>
+                    </span>
+                    <label for="g-sede" class="sr-only">Sede</label>
+                    <span class="relative min-w-0 flex-1">
+                        <select
+                            id="g-sede"
+                            aria-label="Sede"
+                            class="form-select h-9 w-full appearance-none bg-surface-light pl-3 pr-8 text-xs text-muted-50 outline-none focus:ring-1 focus:ring-brand"
+                        >
+                            <option value="" selected>Sede</option>
+                            <option value="condorcocha">Condorcocha</option>
+                            <option value="atococongo">Atococongo</option>
+                            <option value="conchan">Conchán</option>
+                        </select>
+                    </span>
+                    <label for="g-empresa" class="sr-only">Empresa</label>
+                    <span class="relative min-w-0 flex-1">
+                        <select
+                            id="g-empresa"
+                            aria-label="Empresa"
+                            class="form-select h-9 w-full appearance-none bg-surface-light pl-3 pr-8 text-xs text-muted-50 outline-none focus:ring-1 focus:ring-brand"
+                        >
+                            <option value="" selected>Empresa</option>
+                            <option value="unacem">UNACEM PERU S.A.</option>
+                        </select>
+                    </span>
+                    <label for="g-alcance" class="sr-only">Alcance</label>
+                    <span class="relative min-w-0 flex-1">
+                        <select
+                            id="g-alcance"
+                            aria-label="Alcance"
+                            class="form-select h-9 w-full appearance-none bg-surface-light pl-3 pr-8 text-xs text-muted-50 outline-none focus:ring-1 focus:ring-brand"
+                        >
+                            <option value="" selected>Alcance</option>
+                            <option value="todos">Todos los trabajadores</option>
+                            <option value="propios">Personal propio</option>
+                            <option value="terceros">Terceros</option>
+                        </select>
+                    </span>
+                    <label for="g-autoridad" class="sr-only"
+                        >Autoridad sanitaria</label
+                    >
+                    <span class="relative min-w-0 flex-1">
+                        <select
+                            id="g-autoridad"
+                            aria-label="Autoridad sanitaria"
+                            class="form-select h-9 w-full appearance-none bg-surface-light pl-3 pr-8 text-xs text-muted-50 outline-none focus:ring-1 focus:ring-brand"
+                        >
+                            <option value="" selected
+                                >Autoridad sanitaria</option
+                            >
+                            <option value="digesa">DIGESA</option>
+                            <option value="diresa">DIRESA</option>
+                            <option value="geresa">GERESA</option>
+                        </select>
+                    </span>
+                    <label for="g-tipo" class="sr-only">Tipo de documento</label>
+                    <span class="relative min-w-0 flex-1">
+                        <select
+                            id="g-tipo"
+                            aria-label="Tipo de documento"
+                            class="form-select h-9 w-full appearance-none bg-surface-light pl-3 pr-8 text-xs text-muted-50 outline-none focus:ring-1 focus:ring-brand"
+                        >
+                            <option value="" selected>Tipo de documento</option>
+                            <option value="tecnico">Informe técnico</option>
+                            <option value="anual">Informe anual</option>
+                        </select>
+                    </span>
+                    <button
+                        type="submit"
+                        class="inline-flex h-9 shrink-0 items-center justify-center rounded-lg bg-brand px-5 text-xs font-bold uppercase tracking-wide text-white shadow-sm transition-colors hover:bg-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+                    >
+                        Generar informe
+                    </button>
+                </form>
+            </section>
+
+            <!-- ── HISTORIAL DE INFORMES ── -->
+            <section
+                aria-labelledby="historial-informes-title"
+                class="rounded-xl bg-surface-default p-5 shadow-sm shadow-border-default"
+            >
+                <h2
+                    id="historial-informes-title"
+                    class="text-sm font-medium uppercase tracking-wide text-text-primary"
+                >
+                    Historial de informes
+                </h2>
+                <p class="mt-1 text-sm text-accent-muted">
+                    Cada informe conserva su versión, estado y trazabilidad.
+                </p>
+
+                <div class="mt-5 overflow-x-auto">
+                    <div
+                        class="min-w-300 text-xs"
+                        role="table"
+                        aria-label="Historial de informes"
+                    >
+                        <!-- header -->
+                        <div
+                            class="grid grid-cols-[0.5fr_0.8fr_2.4fr_0.6fr_1fr_0.7fr_0.9fr] gap-0 rounded-lg bg-surface-light px-4 py-3 text-[11px] font-medium uppercase tracking-wider text-text-secondary"
+                            role="row"
+                        >
+                            <span role="columnheader">Periodo</span>
+                            <span role="columnheader">Sede</span>
+                            <span role="columnheader">Documento</span>
+                            <span role="columnheader">Autoridad</span>
+                            <span role="columnheader">Médico</span>
+                            <span role="columnheader" class="text-center"
+                                >Estado</span
+                            >
+                            <span role="columnheader" class="text-center"
+                                >Acción</span
+                            >
+                        </div>
+                        <!-- rows -->
+                        <div class="flex flex-col">
+                            {
+                                informes.map((row) => (
+                                    <div
+                                        role="row"
+                                        class="grid grid-cols-[0.5fr_0.8fr_2.4fr_0.6fr_1fr_0.7fr_0.9fr] items-center gap-0 border-b border-dashed border-border-default px-4 py-4 transition-colors last:border-b-0 hover:bg-surface-light/50"
+                                    >
+                                        <span
+                                            role="cell"
+                                            class="pr-2 text-xs text-text-secondary"
+                                        >
+                                            {row.periodo}
+                                        </span>
+                                        <span
+                                            role="cell"
+                                            class="pr-2 text-xs text-text-secondary"
+                                        >
+                                            {row.sede}
+                                        </span>
+                                        <span role="cell" class="pr-2">
+                                            <span class="block text-xs font-medium leading-tight text-text-primary">
+                                                {row.titulo}
+                                            </span>
+                                            <span class="mt-0.5 block text-xs leading-tight text-muted">
+                                                {row.codigo}
+                                            </span>
+                                        </span>
+                                        <span
+                                            role="cell"
+                                            class="pr-2 text-xs text-text-secondary"
+                                        >
+                                            {row.autoridad}
+                                        </span>
+                                        <span
+                                            role="cell"
+                                            class="pr-2 text-xs text-text-secondary"
+                                        >
+                                            {row.medico}
+                                        </span>
+                                        <span
+                                            role="cell"
+                                            class="flex justify-center px-2"
+                                        >
+                                            <span class="inline-flex w-full max-w-28 items-center justify-center rounded-full bg-muted-20 px-3 py-1 text-center text-[10px] font-semibold leading-tight tracking-wide text-muted">
+                                                {row.estado}
+                                            </span>
+                                        </span>
+                                        <span
+                                            role="cell"
+                                            class="flex items-center justify-center gap-3"
+                                        >
+                                            <a
+                                                href={`/vigilancia-medica/informes-regulatorios/${row.id}`}
+                                                class="inline-flex items-center gap-1.5 rounded-lg bg-muted px-4 py-1.5 text-[11px] font-bold tracking-wide text-white transition-colors hover:bg-muted-80"
+                                                aria-label={`Abrir informe ${row.codigo}`}
+                                            >
+                                                <i
+                                                    class="fa-regular fa-pen-to-square text-xs"
+                                                    aria-hidden="true"
+                                                />
+                                                ABRIR
+                                            </a>
+                                            <button
+                                                type="button"
+                                                class="flex size-7 items-center justify-center text-muted transition-colors hover:text-risk-red"
+                                                aria-label={`Eliminar informe ${row.codigo}`}
+                                            >
+                                                <i
+                                                    class="fa-regular fa-trash-can text-sm"
+                                                    aria-hidden="true"
+                                                />
+                                            </button>
+                                        </span>
+                                    </div>
+                                ))
+                            }
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <InformesRegulatoriosModalHost client:load />
+    </div>
 </DashboardLayout>

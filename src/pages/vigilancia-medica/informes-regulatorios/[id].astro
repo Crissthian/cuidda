@@ -1,0 +1,83 @@
+---
+import InformeRegulatorioDetalleContent from "@/components/vigilancia/InformeRegulatorioDetalleContent";
+import VigilanciaPagePlaceholder from "@/components/vigilancia/VigilanciaPagePlaceholder.astro";
+import DashboardLayout from "@/layouts/DashboardLayout.astro";
+import { informesRegulatorios } from "@/lib/informesRegulatoriosData";
+
+type Informe = (typeof informesRegulatorios)[number];
+
+interface Props {
+    informe: Informe;
+}
+
+export function getStaticPaths() {
+    return informesRegulatorios.map((informe) => ({
+        params: { id: String(informe.id) },
+        props: { informe },
+    }));
+}
+
+const { informe } = Astro.props;
+const titulo = informe
+    ? `Informe regulatorio · ${informe.codigo}`
+    : "Informe no encontrado";
+---
+
+<DashboardLayout title={titulo} description="Detalle de informe regulatorio">
+    <div class="flex flex-1 flex-col overflow-y-auto">
+        <div class="flex items-center gap-4 px-10 pb-4">
+            <a
+                href="/vigilancia-medica/informes-regulatorios"
+                class="flex items-center gap-2 text-xs font-medium text-brand hover:text-primary-hover"
+            >
+                <i class="fa-solid fa-arrow-left text-xs" aria-hidden="true"
+                ></i>
+                Volver a informes regulatorios
+            </a>
+        </div>
+        {
+            informe ? (
+                <VigilanciaPagePlaceholder
+                    title={informe.titulo.toUpperCase()}
+                    icon="fa-file-contract"
+                    description={`${informe.empresa} • ${informe.alcance} • Período ${informe.periodo} • ${informe.autoridad} • ${informe.version}`}
+                    buttons={[
+                        {
+                            icon: "fa-shield-halved",
+                            text: "AUDITAR INFORME",
+                        },
+                        {
+                            icon: "fa-robot",
+                            text: "GENERAR DOCUMENTO",
+                            classes: [
+                                "bg-gradient-to-r",
+                                "from-[#1EE67D]",
+                                "to-[#0064D2]",
+                                "text-white",
+                            ],
+                        },
+                    ]}
+                />
+            ) : (
+                <VigilanciaPagePlaceholder
+                    title="INFORME NO ENCONTRADO"
+                    icon="fa-file-contract"
+                    description="No se encontró el informe solicitado."
+                    buttons={[]}
+                />
+            )
+        }
+        {
+            informe ? (
+                <InformeRegulatorioDetalleContent
+                    informe={informe}
+                    client:load
+                />
+            ) : (
+                <p class="px-10 pb-6 text-sm text-muted">
+                    Informe regulatorio no encontrado.
+                </p>
+            )
+        }
+    </div>
+</DashboardLayout>
