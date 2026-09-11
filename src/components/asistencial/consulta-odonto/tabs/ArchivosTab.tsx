@@ -2,7 +2,10 @@ import React, { useEffect, useRef, useState } from "react";
 import Modal from "@/components/ui/Modal";
 import { toast } from "sonner";
 import { useAtencionOdontoStore } from "../store/useAtencionOdontoStore";
-import { archivosOdontoMock, type ArchivoOdonto } from "@/lib/consultaOdontoData";
+import {
+  archivosOdontoMock,
+  type ArchivoOdonto,
+} from "@/lib/consultaOdontoData";
 
 interface ArchivosTabProps {
   onLoadComplete?: (loaded: boolean) => void;
@@ -36,15 +39,27 @@ const ArchivoRow = ({
   return (
     <div className="flex flex-col">
       <div className="grid grid-cols-[3rem_2fr_1fr_1fr_2fr_1fr_1fr_0.5fr] gap-2 items-center text-sm p-2 border-b border-dashed border-border-default">
-        <div className="text-center font-bold text-text-secondary">{index + 1}.-</div>
-        <div className="text-left pl-8 uppercase text-text-secondary truncate">{archivo.nombre}</div>
+        <div className="text-center font-bold text-text-secondary">
+          {index + 1}.-
+        </div>
+        <div className="text-left pl-8 uppercase text-text-secondary truncate">
+          {archivo.nombre}
+        </div>
         <div className="flex justify-center">
           <PreviewImage ruta={archivo.rutaPreview} alt={archivo.nombre} />
         </div>
-        <div className="text-center uppercase text-xs text-text-secondary">{archivo.subidoPor}</div>
-        <div className="text-center uppercase text-xs text-text-secondary">{archivo.descripcion}</div>
-        <div className="text-center text-xs text-text-secondary">{archivo.fechaCreacion}</div>
-        <div className="text-center text-xs text-text-secondary">{archivo.fechaArchivo || "-"}</div>
+        <div className="text-center uppercase text-xs text-text-secondary">
+          {archivo.subidoPor}
+        </div>
+        <div className="text-center uppercase text-xs text-text-secondary">
+          {archivo.descripcion}
+        </div>
+        <div className="text-center text-xs text-text-secondary">
+          {archivo.fechaCreacion}
+        </div>
+        <div className="text-center text-xs text-text-secondary">
+          {archivo.fechaArchivo || "-"}
+        </div>
 
         <div className="flex items-center justify-evenly gap-4">
           <button
@@ -61,7 +76,9 @@ const ArchivoRow = ({
             onClick={() => onDelete(archivo.id)}
             disabled={readOnly}
             className={`text-red-500 disabled:text-gray-400 transition-colors text-xl ${
-              readOnly ? "opacity-30 cursor-not-allowed" : "hover:text-red-600 cursor-pointer"
+              readOnly
+                ? "opacity-30 cursor-not-allowed"
+                : "hover:text-red-600 cursor-pointer"
             }`}
             title={readOnly ? "Solo lectura" : "Eliminar"}
           >
@@ -77,7 +94,10 @@ const ArchivoRow = ({
  * Componente Tabla de Archivos para Odontología.
  * Gestiona la carga, listado y eliminación simulada de archivos de la consulta.
  */
-export function ArchivosTab({ onLoadComplete, readOnly = false }: ArchivosTabProps): React.ReactElement {
+export function ArchivosTab({
+  onLoadComplete,
+  readOnly = false,
+}: ArchivosTabProps): React.ReactElement {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
@@ -98,7 +118,9 @@ export function ArchivosTab({ onLoadComplete, readOnly = false }: ArchivosTabPro
   const [descripcion, setDescripcion] = useState("");
   const [origen, setOrigen] = useState("interno");
   const [area, setArea] = useState("odontologia");
-  const [fechaArchivo, setFechaArchivo] = useState(new Date().toISOString().split("T")[0]);
+  const [fechaArchivo, setFechaArchivo] = useState(
+    new Date().toISOString().split("T")[0],
+  );
   const [dragActive, setDragActive] = useState(false);
   const [fileError, setFileError] = useState("");
   const [generalError, setGeneralError] = useState("");
@@ -107,7 +129,12 @@ export function ArchivosTab({ onLoadComplete, readOnly = false }: ArchivosTabPro
   const { datosEvento } = useAtencionOdontoStore();
 
   const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
-  const ALLOWED_TYPES = ["application/pdf", "image/jpeg", "image/png", "image/jpg"];
+  const ALLOWED_TYPES = [
+    "application/pdf",
+    "image/jpeg",
+    "image/png",
+    "image/jpg",
+  ];
 
   useEffect(() => {
     onLoadComplete?.(true);
@@ -181,7 +208,9 @@ export function ArchivosTab({ onLoadComplete, readOnly = false }: ArchivosTabPro
       return;
     }
 
-    const extension = selectedFile.name.substring(selectedFile.name.lastIndexOf("."));
+    const extension = selectedFile.name.substring(
+      selectedFile.name.lastIndexOf("."),
+    );
     if (!nombreFinal.toLowerCase().endsWith(extension.toLowerCase())) {
       nombreFinal += extension;
     }
@@ -221,23 +250,29 @@ export function ArchivosTab({ onLoadComplete, readOnly = false }: ArchivosTabPro
     toast.loading("Eliminando archivo...", { id: "eliminar-archivo" });
 
     setTimeout(() => {
-      setArchivos((prev) => prev.filter((a) => a.id.toString() !== fileToDeleteId));
+      setArchivos((prev) =>
+        prev.filter((a) => a.id.toString() !== fileToDeleteId),
+      );
       setIsDeleting(false);
       setIsDeleteModalOpen(false);
       setFileToDeleteId(null);
-      toast.success("Archivo eliminado correctamente", { id: "eliminar-archivo" });
+      toast.success("Archivo eliminado correctamente", {
+        id: "eliminar-archivo",
+      });
     }, 400);
   };
 
   const paginatedArchivos = archivos.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
-    currentPage * ITEMS_PER_PAGE
+    currentPage * ITEMS_PER_PAGE,
   );
 
   return (
     <div className="flex flex-col gap-6">
       <div className="flex justify-between items-center mb-2">
-        <h3 className="text-lg font-bold text-text-primary">Archivos Digitales</h3>
+        <h3 className="text-lg font-bold text-text-primary">
+          Archivos Digitales
+        </h3>
         {!readOnly ? (
           <button
             type="button"
@@ -253,11 +288,15 @@ export function ArchivosTab({ onLoadComplete, readOnly = false }: ArchivosTabPro
         {/* Cabecera de la Tabla */}
         <div className="grid grid-cols-[3rem_2fr_1fr_1fr_2fr_1fr_1fr_0.5fr] gap-2 items-center bg-muted-20 px-2 py-5 rounded-lg text-xs font-bold text-text-secondary uppercase tracking-wide text-center">
           <div>N°</div>
-          <div className="text-center border-l border-border-default">Nombre</div>
+          <div className="text-center border-l border-border-default">
+            Nombre
+          </div>
           <div className="border-l border-border-default">Preview</div>
           <div className="border-l border-border-default">Subido Por</div>
           <div className="border-l border-border-default">Descripción</div>
-          <div className="border-l border-border-default">Fecha de Creación</div>
+          <div className="border-l border-border-default">
+            Fecha de Creación
+          </div>
           <div className="border-l border-border-default">Fecha de Archivo</div>
           <div className="border-l border-border-default">Acciones</div>
         </div>
@@ -285,8 +324,15 @@ export function ArchivosTab({ onLoadComplete, readOnly = false }: ArchivosTabPro
         {totalPages > 1 && (
           <div className="flex flex-col sm:flex-row justify-between items-center gap-3 mt-6 pt-4 text-sm my-4 border-t border-border-default">
             <div className="text-sm text-text-secondary">
-              Mostrando <span className="font-semibold text-text-primary">{paginatedArchivos.length}</span> de{" "}
-              <span className="font-semibold text-text-primary">{totalRecords}</span> archivo(s)
+              Mostrando{" "}
+              <span className="font-semibold text-text-primary">
+                {paginatedArchivos.length}
+              </span>{" "}
+              de{" "}
+              <span className="font-semibold text-text-primary">
+                {totalRecords}
+              </span>{" "}
+              archivo(s)
             </div>
 
             <div className="flex items-center gap-2">
@@ -315,7 +361,9 @@ export function ArchivosTab({ onLoadComplete, readOnly = false }: ArchivosTabPro
                   type="button"
                   aria-label="Página siguiente"
                   title="Siguiente"
-                  onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                  onClick={() =>
+                    setCurrentPage((p) => Math.min(totalPages, p + 1))
+                  }
                   disabled={currentPage === totalPages}
                   className={`inline-flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors border focus:ring-2 focus:ring-brand ${
                     currentPage === totalPages
@@ -345,7 +393,9 @@ export function ArchivosTab({ onLoadComplete, readOnly = false }: ArchivosTabPro
           <div className="flex flex-col gap-5">
             {/* Info del Doctor */}
             <div className="flex flex-col gap-2">
-              <label className="text-text-primary font-medium text-sm">Doctor</label>
+              <label className="text-text-primary font-medium text-sm">
+                Doctor
+              </label>
               <input
                 type="text"
                 value={datosEvento?.nombreMedico || doctorName}
@@ -356,7 +406,9 @@ export function ArchivosTab({ onLoadComplete, readOnly = false }: ArchivosTabPro
 
             {/* Datos del Archivo */}
             <div className="flex flex-col gap-2">
-              <label className="text-text-primary font-medium text-sm">Nombre de archivo</label>
+              <label className="text-text-primary font-medium text-sm">
+                Nombre de archivo
+              </label>
               <input
                 type="text"
                 value={nombreArchivo}
@@ -370,7 +422,9 @@ export function ArchivosTab({ onLoadComplete, readOnly = false }: ArchivosTabPro
             </div>
 
             <div className="flex flex-col gap-2">
-              <label className="text-text-primary font-medium text-sm">Fecha de archivo</label>
+              <label className="text-text-primary font-medium text-sm">
+                Fecha de archivo
+              </label>
               <input
                 type="date"
                 value={fechaArchivo}
@@ -380,7 +434,9 @@ export function ArchivosTab({ onLoadComplete, readOnly = false }: ArchivosTabPro
             </div>
 
             <div className="flex flex-col gap-2">
-              <label className="text-text-primary font-medium text-sm">Descripción</label>
+              <label className="text-text-primary font-medium text-sm">
+                Descripción
+              </label>
               <textarea
                 rows={3}
                 value={descripcion}
@@ -393,10 +449,15 @@ export function ArchivosTab({ onLoadComplete, readOnly = false }: ArchivosTabPro
             {/* Opciones de Clasificación */}
             <div className="grid grid-cols-2 gap-4">
               <div className="flex flex-col gap-2">
-                <label className="text-text-primary font-medium text-sm">Origen</label>
+                <label className="text-text-primary font-medium text-sm">
+                  Origen
+                </label>
                 <div className="flex items-center gap-4">
                   {["interno", "externo"].map((val) => (
-                    <label key={val} className="inline-flex items-center gap-2 cursor-pointer">
+                    <label
+                      key={val}
+                      className="inline-flex items-center gap-2 cursor-pointer"
+                    >
                       <input
                         type="radio"
                         name="origen"
@@ -405,16 +466,23 @@ export function ArchivosTab({ onLoadComplete, readOnly = false }: ArchivosTabPro
                         onChange={() => setOrigen(val)}
                         className="radio bg-muted-30 checked:text-brand"
                       />
-                      <span className="text-text-secondary text-sm capitalize">{val}</span>
+                      <span className="text-text-secondary text-sm capitalize">
+                        {val}
+                      </span>
                     </label>
                   ))}
                 </div>
               </div>
               <div className="flex flex-col gap-2">
-                <label className="text-text-primary font-medium text-sm">Área</label>
+                <label className="text-text-primary font-medium text-sm">
+                  Área
+                </label>
                 <div className="flex items-center gap-4">
                   {["odontologia", "otros"].map((val) => (
-                    <label key={val} className="inline-flex items-center gap-2 cursor-pointer">
+                    <label
+                      key={val}
+                      className="inline-flex items-center gap-2 cursor-pointer"
+                    >
                       <input
                         type="radio"
                         name="area"
@@ -423,7 +491,9 @@ export function ArchivosTab({ onLoadComplete, readOnly = false }: ArchivosTabPro
                         onChange={() => setArea(val)}
                         className="radio bg-muted-30 checked:text-brand"
                       />
-                      <span className="text-text-secondary text-sm capitalize">{val}</span>
+                      <span className="text-text-secondary text-sm capitalize">
+                        {val}
+                      </span>
                     </label>
                   ))}
                 </div>
@@ -486,7 +556,11 @@ export function ArchivosTab({ onLoadComplete, readOnly = false }: ArchivosTabPro
                   </>
                 )}
               </div>
-              {fileError && <p className="text-red-500 text-xs mt-1 font-medium">{fileError}</p>}
+              {fileError && (
+                <p className="text-red-500 text-xs mt-1 font-medium">
+                  {fileError}
+                </p>
+              )}
             </div>
           </div>
 
@@ -536,10 +610,13 @@ export function ArchivosTab({ onLoadComplete, readOnly = false }: ArchivosTabPro
             <div className="size-10 rounded-full bg-red-100 flex items-center justify-center shrink-0">
               <i className="fa-solid fa-triangle-exclamation text-xl"></i>
             </div>
-            <h2 className="text-lg font-bold text-text-primary uppercase">¿Eliminar archivo?</h2>
+            <h2 className="text-lg font-bold text-text-primary uppercase">
+              ¿Eliminar archivo?
+            </h2>
           </div>
           <p className="text-text-primary text-sm leading-relaxed">
-            Esta acción es irreversible. El archivo se eliminará permanentemente de la lista de atención odontológica.
+            Esta acción es irreversible. El archivo se eliminará permanentemente
+            de la lista de atención odontológica.
           </p>
           <div className="flex justify-end gap-3 mt-4">
             <button
@@ -558,7 +635,8 @@ export function ArchivosTab({ onLoadComplete, readOnly = false }: ArchivosTabPro
             >
               {isDeleting ? (
                 <>
-                  <i className="fa-solid fa-spinner fa-spin text-xs"></i> Procesando...
+                  <i className="fa-solid fa-spinner fa-spin text-xs"></i>{" "}
+                  Procesando...
                 </>
               ) : (
                 "Sí, Eliminar"

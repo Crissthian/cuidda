@@ -110,7 +110,8 @@ export const pacientesOdontoMock: PacienteOdonto[] = [
     fechaNacimiento: new Date(1983, 1, 18),
     fechaIngreso: new Date(2026, 2, 7),
     horaIngreso: "11:40",
-    motivoConsulta: "EVALUACION PARA COLOCACION DE PROTESIS FIJA EN ZONA POSTERIOR",
+    motivoConsulta:
+      "EVALUACION PARA COLOCACION DE PROTESIS FIJA EN ZONA POSTERIOR",
     dni: "09874563",
     estadoAtencion: "2",
   },
@@ -166,7 +167,8 @@ export const pacientesOdontoMock: PacienteOdonto[] = [
     fechaNacimiento: new Date(1989, 7, 7),
     fechaIngreso: new Date(2026, 2, 5),
     horaIngreso: "16:45",
-    motivoConsulta: "SEGUIMIENTO DE TRATAMIENTO DE ENDODONCIA Y SELLADO CORONAL",
+    motivoConsulta:
+      "SEGUIMIENTO DE TRATAMIENTO DE ENDODONCIA Y SELLADO CORONAL",
     dni: "43658921",
     estadoAtencion: "2",
   },
@@ -180,7 +182,10 @@ export const cie10OdontoMock: CIE10Item[] = [
   { codigo: "K02.8", descripcion: "OTRAS CARIES DENTALES" },
   { codigo: "K04.0", descripcion: "PULPITIS AGUDA Y CRONICA" },
   { codigo: "K04.1", descripcion: "NECROSIS DE LA PULPA" },
-  { codigo: "K04.4", descripcion: "PERIODONTITIS APICAL AGUDA ORIGINADA EN LA PULPA" },
+  {
+    codigo: "K04.4",
+    descripcion: "PERIODONTITIS APICAL AGUDA ORIGINADA EN LA PULPA",
+  },
   { codigo: "K04.5", descripcion: "PERIODONTITIS APICAL CRONICA" },
   { codigo: "K04.7", descripcion: "ABSCESO PERIAPICAL SIN FISTULA" },
   { codigo: "K05.0", descripcion: "GINGIVITIS AGUDA" },
@@ -189,7 +194,10 @@ export const cie10OdontoMock: CIE10Item[] = [
   { codigo: "K03.0", descripcion: "ATRICION EXCESIVA DE LOS DIENTES" },
   { codigo: "K03.1", descripcion: "ABRASION DE LOS DIENTES" },
   { codigo: "K03.2", descripcion: "EROSION DE LOS DIENTES" },
-  { codigo: "K07.2", descripcion: "ANOMALIAS DE LA RELACION ENTRE LOS ARCOS DENTARIOS" },
+  {
+    codigo: "K07.2",
+    descripcion: "ANOMALIAS DE LA RELACION ENTRE LOS ARCOS DENTARIOS",
+  },
   { codigo: "K07.3", descripcion: "ANOMALIAS DE LA POSICION DEL DIENTE" },
   { codigo: "Z01.2", descripcion: "EXAMEN ODONTOLOGICO GENERAL" },
 ];

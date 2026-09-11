@@ -1,5 +1,5 @@
-export { ToothZone } from './ToothZone'
-export { ToothInteraction } from './ToothInteraction'
-export { ToothColumn } from './ToothColumn'
-export { OdontogramaToolbar } from './OdontogramaToolbar'
-export { OdontogramaSvgOverlay } from './OdontogramaSvgOverlay'
+export { ToothZone } from "./ToothZone";
+export { ToothInteraction } from "./ToothInteraction";
+export { ToothColumn } from "./ToothColumn";
+export { OdontogramaToolbar } from "./OdontogramaToolbar";
+export { OdontogramaSvgOverlay } from "./OdontogramaSvgOverlay";

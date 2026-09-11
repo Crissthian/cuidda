@@ -39,14 +39,21 @@ export default function ListaPacientesConsultaMedica({
     }
   };
 
-  const getAccionTexto = (tipoAtencion: string | undefined, estadoAtencion: string) => {
+  const getAccionTexto = (
+    tipoAtencion: string | undefined,
+    estadoAtencion: string,
+  ) => {
     if (tipoAtencion === "002") return "Emergencia";
     if (estadoAtencion === "1") return "Iniciar";
     return "Ver";
   };
 
-  const getAccionClase = (tipoAtencion: string | undefined, estadoAtencion: string) => {
-    if (estadoAtencion === "2" && tipoAtencion === "002") return "bg-muted text-white";
+  const getAccionClase = (
+    tipoAtencion: string | undefined,
+    estadoAtencion: string,
+  ) => {
+    if (estadoAtencion === "2" && tipoAtencion === "002")
+      return "bg-muted text-white";
     if (tipoAtencion === "002") return "bg-red-500 text-white";
     if (estadoAtencion === "1") return "bg-brand text-success";
     return "bg-muted text-white";
@@ -80,7 +87,8 @@ export default function ListaPacientesConsultaMedica({
                 <i className="fa-solid fa-file-lines mr-1"></i> CÓDIGO
               </th>
               <th className="p-2 divisor text-center font-normal w-[25%]">
-                <i className="fa-solid fa-file-lines mr-1"></i> APELLIDOS Y NOMBRES
+                <i className="fa-solid fa-file-lines mr-1"></i> APELLIDOS Y
+                NOMBRES
               </th>
               <th className="p-2 divisor text-center font-normal w-[12%]">
                 <i className="fa-solid fa-file-lines mr-1"></i> ÁREA DE ATENCIÓN
@@ -89,10 +97,12 @@ export default function ListaPacientesConsultaMedica({
                 <i className="fa-solid fa-user-doctor mr-1"></i> MÉDICO
               </th>
               <th className="p-2 divisor text-center font-normal w-[10%]">
-                <i className="fa-solid fa-calendar mr-1"></i> FECHA DE <br /> INGRESO
+                <i className="fa-solid fa-calendar mr-1"></i> FECHA DE <br />{" "}
+                INGRESO
               </th>
               <th className="p-2 divisor text-center font-normal w-[8%]">
-                <i className="fa-solid fa-clock mr-1"></i> HORA DE <br /> INGRESO
+                <i className="fa-solid fa-clock mr-1"></i> HORA DE <br />{" "}
+                INGRESO
               </th>
               <th className="p-2 divisor text-center font-normal w-[10%]">
                 <i className="fa-solid fa-file-lines mr-1"></i> CONSULTA
@@ -153,7 +163,9 @@ export default function ListaPacientesConsultaMedica({
                   <td className="p-2 cursor-pointer text-center">
                     {patient.descripcion_especialidad}
                   </td>
-                  <td className="p-2 cursor-pointer ps-4">{patient.nombre_medico}</td>
+                  <td className="p-2 cursor-pointer ps-4">
+                    {patient.nombre_medico}
+                  </td>
                   <td className="p-2 cursor-pointer text-center">
                     {formatearFecha(patient.fecha_atencion)}
                   </td>
@@ -168,16 +180,19 @@ export default function ListaPacientesConsultaMedica({
                       data-codigo={patient.codigo_atencion}
                       className={`rounded-lg p-2 font-semibold transition-opacity cursor-pointer hover:opacity-90 w-28 ${getAccionClase(
                         patient.tipo_atencion,
-                        patient.estado_atencion
+                        patient.estado_atencion,
                       )}`}
                     >
-                      {getAccionTexto(patient.tipo_atencion, patient.estado_atencion)}
+                      {getAccionTexto(
+                        patient.tipo_atencion,
+                        patient.estado_atencion,
+                      )}
                     </button>
                   </td>
                   <td className="p-2 text-center">
                     <span
                       className={`p-2 rounded-full text-sm font-medium ${getEstadoBadge(
-                        patient.estado_atencion
+                        patient.estado_atencion,
                       )}`}
                     >
                       {getEstadoTexto(patient.estado_atencion)}
@@ -192,8 +207,15 @@ export default function ListaPacientesConsultaMedica({
         {/* Paginación */}
         <div className="flex flex-col sm:flex-row justify-between items-center gap-3 mt-6 pt-4 text-sm my-4 border-t border-border-default">
           <div className="text-sm text-text-primary-80">
-            Mostrando <span className="font-semibold text-text-primary">{pacientes.length}</span> de{" "}
-            <span className="font-semibold text-text-primary">{totalRecords}</span> registros
+            Mostrando{" "}
+            <span className="font-semibold text-text-primary">
+              {pacientes.length}
+            </span>{" "}
+            de{" "}
+            <span className="font-semibold text-text-primary">
+              {totalRecords}
+            </span>{" "}
+            registros
           </div>
 
           <div className="flex items-center gap-2">
@@ -219,7 +241,9 @@ export default function ListaPacientesConsultaMedica({
                 aria-label="Página siguiente"
                 title="Siguiente"
                 onClick={handleNextPage}
-                disabled={currentPage === totalPages || totalPages === 0 || loading}
+                disabled={
+                  currentPage === totalPages || totalPages === 0 || loading
+                }
                 className="inline-flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors border focus:ring-2 focus:ring-offset-1 focus:ring-brand disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
               >
                 <span className="hidden sm:inline">Siguiente</span>

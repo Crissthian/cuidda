@@ -1,1 +1,1 @@
-export { default } from '@/components/asistencial/consulta-medica/ModalConsultaMedica'
+export { default } from "@/components/asistencial/consulta-medica/ModalConsultaMedica";

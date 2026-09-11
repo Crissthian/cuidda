@@ -1,4 +1,10 @@
-import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useState } from "react";
+import React, {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useMemo,
+  useState,
+} from "react";
 import { createPortal } from "react-dom";
 import { ListaHallazgos } from "../odontograma/ListaHallazgos";
 import Odontograma from "../odontograma/Odontograma";
@@ -33,22 +39,42 @@ interface OdontogramaTabProps {
 export interface OdontogramaTabRef {
   handleSave: () => Promise<boolean>;
   validate: () => Promise<boolean>;
-  getFormData: () => { odontograma: HallazgoClinico[]; plan_trabajo: FilaPlan[]; sesiones: string };
+  getFormData: () => {
+    odontograma: HallazgoClinico[];
+    plan_trabajo: FilaPlan[];
+    sesiones: string;
+  };
 }
 
 /**
  * Componente que gestiona la visualización interactiva de la dentadura y el plan de tratamiento.
  * Sincroniza el estado del odontograma gráfico con el listado de hallazgos.
  */
-export const OdontogramaTab = forwardRef<OdontogramaTabRef, OdontogramaTabProps>(
-  ({ cdgAtencion: _cdgAtencion, estadoAtencion, dniPaciente: _dniPaciente, onLoadComplete, readOnly = false }, ref) => {
-    const [filasPlan, setFilasPlan] = useState<FilaPlan[]>(crearFilasInicialesSesiones);
+export const OdontogramaTab = forwardRef<
+  OdontogramaTabRef,
+  OdontogramaTabProps
+>(
+  (
+    {
+      cdgAtencion: _cdgAtencion,
+      estadoAtencion,
+      dniPaciente: _dniPaciente,
+      onLoadComplete,
+      readOnly = false,
+    },
+    ref,
+  ) => {
+    const [filasPlan, setFilasPlan] = useState<FilaPlan[]>(
+      crearFilasInicialesSesiones,
+    );
 
     const [modalConfirmacion, setModalConfirmacion] = useState<{
       abierto: boolean;
       filaId: number | null;
     }>({ abierto: false, filaId: null });
-    const [modalContainer, setModalContainer] = useState<HTMLElement | null>(null);
+    const [modalContainer, setModalContainer] = useState<HTMLElement | null>(
+      null,
+    );
 
     useEffect(() => {
       setModalContainer(document.body);
@@ -78,7 +104,10 @@ export const OdontogramaTab = forwardRef<OdontogramaTabRef, OdontogramaTabProps>
       }),
     }));
 
-    const etiquetasSesion = useMemo(() => filasPlan.map((_, idx) => `SESIÓN ${idx + 1}`), [filasPlan]);
+    const etiquetasSesion = useMemo(
+      () => filasPlan.map((_, idx) => `SESIÓN ${idx + 1}`),
+      [filasPlan],
+    );
 
     const crearFila = () => ({
       id: Date.now() + Math.random(),
@@ -123,9 +152,17 @@ export const OdontogramaTab = forwardRef<OdontogramaTabRef, OdontogramaTabProps>
       setModalConfirmacion({ abierto: false, filaId: null });
     };
 
-    const actualizarCampo = <K extends keyof FilaPlan>(filaId: number, campo: K, valor: FilaPlan[K]) => {
+    const actualizarCampo = <K extends keyof FilaPlan>(
+      filaId: number,
+      campo: K,
+      valor: FilaPlan[K],
+    ) => {
       if (readOnly) return;
-      setFilasPlan((filas) => filas.map((fila) => (fila.id === filaId ? { ...fila, [campo]: valor } : fila)));
+      setFilasPlan((filas) =>
+        filas.map((fila) =>
+          fila.id === filaId ? { ...fila, [campo]: valor } : fila,
+        ),
+      );
     };
 
     const eliminarHallazgo = (id: string) => {
@@ -140,14 +177,25 @@ export const OdontogramaTab = forwardRef<OdontogramaTabRef, OdontogramaTabProps>
           <div className="col-span-8 h-full rounded-xl bg-surface-light shadow-md relative">
             <Odontograma
               hallazgos={hallazgos}
-              onHallazgoCreated={(nuevo) => setHallazgos((prev) => [...prev, nuevo])}
+              onHallazgoCreated={(nuevo) =>
+                setHallazgos((prev) => [...prev, nuevo])
+              }
               onHallazgoDeleted={eliminarHallazgo}
             />
-            {readOnly ? <div className="absolute inset-0 z-10 cursor-default" aria-hidden="true" /> : null}
+            {readOnly ? (
+              <div
+                className="absolute inset-0 z-10 cursor-default"
+                aria-hidden="true"
+              />
+            ) : null}
           </div>
 
           <div className="col-span-4 rounded-xl bg-surface-light shadow-md">
-            <ListaHallazgos hallazgos={hallazgos} onDelete={eliminarHallazgo} readOnly={readOnly} />
+            <ListaHallazgos
+              hallazgos={hallazgos}
+              onDelete={eliminarHallazgo}
+              readOnly={readOnly}
+            />
           </div>
         </div>
 
@@ -184,7 +232,9 @@ export const OdontogramaTab = forwardRef<OdontogramaTabRef, OdontogramaTabProps>
                     className="form-input bg-surface-light text-sm"
                     value={fila.tratamiento}
                     readOnly={readOnly}
-                    onChange={(e) => actualizarCampo(fila.id, "tratamiento", e.target.value)}
+                    onChange={(e) =>
+                      actualizarCampo(fila.id, "tratamiento", e.target.value)
+                    }
                   />
 
                   <input
@@ -192,7 +242,9 @@ export const OdontogramaTab = forwardRef<OdontogramaTabRef, OdontogramaTabProps>
                     className="form-input bg-surface-light w-full text-sm"
                     value={fila.fecha}
                     disabled={readOnly}
-                    onChange={(e) => actualizarCampo(fila.id, "fecha", e.target.value)}
+                    onChange={(e) =>
+                      actualizarCampo(fila.id, "fecha", e.target.value)
+                    }
                   />
 
                   <div className="flex items-center justify-center gap-4 bg-surface-light rounded-lg border border-surface-light h-10 px-3">
@@ -203,7 +255,9 @@ export const OdontogramaTab = forwardRef<OdontogramaTabRef, OdontogramaTabProps>
                         name={`estado-${fila.id}`}
                         checked={fila.estado === "pendiente"}
                         disabled={readOnly}
-                        onChange={() => actualizarCampo(fila.id, "estado", "pendiente")}
+                        onChange={() =>
+                          actualizarCampo(fila.id, "estado", "pendiente")
+                        }
                       />
                       <span className="text-xs font-medium uppercase text-text-secondary">
                         Pendiente
@@ -216,7 +270,9 @@ export const OdontogramaTab = forwardRef<OdontogramaTabRef, OdontogramaTabProps>
                         name={`estado-${fila.id}`}
                         checked={fila.estado === "culminado"}
                         disabled={readOnly}
-                        onChange={() => actualizarCampo(fila.id, "estado", "culminado")}
+                        onChange={() =>
+                          actualizarCampo(fila.id, "estado", "culminado")
+                        }
                       />
                       <span className="text-xs font-medium uppercase text-text-secondary">
                         Culminado
@@ -261,7 +317,7 @@ export const OdontogramaTab = forwardRef<OdontogramaTabRef, OdontogramaTabProps>
         />
       </div>
     );
-  }
+  },
 );
 
 export const ConfirmacionModal = ({
@@ -279,10 +335,15 @@ export const ConfirmacionModal = ({
 
   return createPortal(
     <div className="absolute inset-0 flex items-center justify-center p-4 z-60">
-      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onCancel}></div>
+      <div
+        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+        onClick={onCancel}
+      ></div>
       <div className="relative bg-surface-light rounded-lg w-full max-w-md shadow-xl z-10">
         <div className="px-6 py-4 border-b border-border-default">
-          <h3 className="text-xl font-semibold text-text-primary">Confirmar eliminación</h3>
+          <h3 className="text-xl font-semibold text-text-primary">
+            Confirmar eliminación
+          </h3>
         </div>
         <div className="px-6 py-6">
           <div className="flex items-start gap-4">
@@ -293,7 +354,9 @@ export const ConfirmacionModal = ({
               <p className="text-text-primary text-base leading-relaxed">
                 ¿Está seguro de que desea eliminar esta sesión?
               </p>
-              <p className="text-gray-500 text-sm mt-2">Esta acción no se puede deshacer.</p>
+              <p className="text-gray-500 text-sm mt-2">
+                Esta acción no se puede deshacer.
+              </p>
             </div>
           </div>
         </div>
@@ -315,7 +378,7 @@ export const ConfirmacionModal = ({
         </div>
       </div>
     </div>,
-    container
+    container,
   );
 };
 

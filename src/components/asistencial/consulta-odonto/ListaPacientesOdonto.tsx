@@ -1,14 +1,19 @@
 import React, { useMemo, useState } from "react";
 import { ModalIniciarAtencion } from "./ModalAtencionOdonto";
 import Skeleton from "@/components/ui/Skeleton";
-import { pacientesOdontoMock, type PacienteOdonto } from "@/lib/consultaOdontoData";
+import {
+  pacientesOdontoMock,
+  type PacienteOdonto,
+} from "@/lib/consultaOdontoData";
 
 export function ListaPacientesOdonto() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedPaciente, setSelectedPaciente] = useState<PacienteOdonto | null>(null);
+  const [selectedPaciente, setSelectedPaciente] =
+    useState<PacienteOdonto | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const allPacientes = pacientesOdontoMock;
-  const [filteredPacientes, setFilteredPacientes] = useState<PacienteOdonto[]>(pacientesOdontoMock);
+  const [filteredPacientes, setFilteredPacientes] =
+    useState<PacienteOdonto[]>(pacientesOdontoMock);
 
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 10;
@@ -26,7 +31,9 @@ export function ListaPacientesOdonto() {
       let filtered = [...allPacientes];
       if (searchApellidos.trim()) {
         const q = searchApellidos.toLowerCase().trim();
-        filtered = filtered.filter((p) => p.apellidosNombres.toLowerCase().includes(q));
+        filtered = filtered.filter((p) =>
+          p.apellidosNombres.toLowerCase().includes(q),
+        );
       }
       if (searchMedico.trim()) {
         const q = searchMedico.toLowerCase().trim();
@@ -65,7 +72,7 @@ export function ListaPacientesOdonto() {
       dniPaciente: selectedPaciente?.dni || "",
       estadoAtencion: selectedPaciente?.estadoAtencion || "0",
     }),
-    [selectedPaciente]
+    [selectedPaciente],
   );
 
   const handleOpenModal = (paciente: PacienteOdonto) => {
@@ -91,7 +98,7 @@ export function ListaPacientesOdonto() {
 
   const displayedPacientes = filteredPacientes.slice(
     (currentPage - 1) * pageSize,
-    currentPage * pageSize
+    currentPage * pageSize,
   );
 
   return (
@@ -104,7 +111,9 @@ export function ListaPacientesOdonto() {
         />
       )}
 
-      <h2 className="text-lg font-medium text-text-primary">Lista de pacientes Odontología</h2>
+      <h2 className="text-lg font-medium text-text-primary">
+        Lista de pacientes Odontología
+      </h2>
 
       <div className="flex items-end gap-4 bg-transparent">
         <div className="flex-1">
@@ -172,7 +181,9 @@ export function ListaPacientesOdonto() {
       <div className="flex-1 min-h-0 overflow-auto">
         <div className="border-collapse text-sm shadow-lg pb-4">
           <div className="flex justify-between items-center pr-4 pt-4 min-h-10 mb-2">
-            <div className="text-text-primary font-medium">Total registros: {totalRecords}</div>
+            <div className="text-text-primary font-medium">
+              Total registros: {totalRecords}
+            </div>
             <div className="w-10 opacity-0"></div>
           </div>
           <div className="relative">
@@ -192,7 +203,8 @@ export function ListaPacientesOdonto() {
                     <i className="fas fa-user-md mr-1"></i> MÉDICO
                   </th>
                   <th className="p-2 divisor text-center font-normal w-[10%]">
-                    <i className="fas fa-calendar mr-1"></i> FECHA DE <br /> INGRESO
+                    <i className="fas fa-calendar mr-1"></i> FECHA DE <br />{" "}
+                    INGRESO
                   </th>
                   <th className="p-2 divisor text-center font-normal w-[8%]">
                     <i className="fas fa-clock mr-1"></i> HORA DE <br /> INGRESO
@@ -241,9 +253,15 @@ export function ListaPacientesOdonto() {
                           key={paciente.id}
                           className="hover:bg-muted-20 border-dashed border-brand cursor-pointer"
                         >
-                          <td className="p-2 text-center">{paciente.codigoAtencion}</td>
-                          <td className="p-2 uppercase">{paciente.apellidosNombres}</td>
-                          <td className="p-2 text-center">{paciente.areaAtencion}</td>
+                          <td className="p-2 text-center">
+                            {paciente.codigoAtencion}
+                          </td>
+                          <td className="p-2 uppercase">
+                            {paciente.apellidosNombres}
+                          </td>
+                          <td className="p-2 text-center">
+                            {paciente.areaAtencion}
+                          </td>
                           <td className="p-2 uppercase">{paciente.medico}</td>
                           <td className="p-2 text-center">
                             {paciente.fechaIngreso
@@ -253,7 +271,9 @@ export function ListaPacientesOdonto() {
                               .reverse()
                               .join("/")}
                           </td>
-                          <td className="p-2 text-center">{paciente.horaIngreso}</td>
+                          <td className="p-2 text-center">
+                            {paciente.horaIngreso}
+                          </td>
                           <td className="p-2 text-center">
                             <button
                               type="button"
@@ -264,7 +284,9 @@ export function ListaPacientesOdonto() {
                                   : "bg-muted text-white hover:bg-muted/90"
                               }`}
                             >
-                              {paciente.estadoAtencion === "0" ? "INICIAR" : "VER"}
+                              {paciente.estadoAtencion === "0"
+                                ? "INICIAR"
+                                : "VER"}
                             </button>
                           </td>
                           <td className="p-2 text-center">
@@ -275,7 +297,9 @@ export function ListaPacientesOdonto() {
                                   : "text-text-secondary"
                               }`}
                             >
-                              {paciente.estadoAtencion === "0" ? "En espera" : "Culminado"}
+                              {paciente.estadoAtencion === "0"
+                                ? "En espera"
+                                : "Culminado"}
                             </span>
                           </td>
                         </tr>
@@ -287,8 +311,15 @@ export function ListaPacientesOdonto() {
 
           <div className="flex flex-col sm:flex-row justify-between items-center gap-3 mt-6 pt-4 text-sm my-4 border-t border-border-default">
             <div className="text-sm text-text-secondary">
-              Mostrando <span className="font-semibold text-text-primary">{displayedPacientes.length}</span> de{" "}
-              <span className="font-semibold text-text-primary">{totalRecords}</span> registros
+              Mostrando{" "}
+              <span className="font-semibold text-text-primary">
+                {displayedPacientes.length}
+              </span>{" "}
+              de{" "}
+              <span className="font-semibold text-text-primary">
+                {totalRecords}
+              </span>{" "}
+              registros
             </div>
 
             <div className="flex items-center gap-2">

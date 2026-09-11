@@ -1,6 +1,17 @@
-import React, { Fragment, useEffect, useState, forwardRef, useImperativeHandle } from "react";
+import React, {
+  Fragment,
+  useEffect,
+  useState,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
 import { createPortal } from "react-dom";
-import { useFieldArray, useForm, FormProvider, useFormContext } from "react-hook-form";
+import {
+  useFieldArray,
+  useForm,
+  FormProvider,
+  useFormContext,
+} from "react-hook-form";
 import { useAtencionOdontoStore } from "../store/useAtencionOdontoStore";
 import {
   cie10OdontoMock,
@@ -71,9 +82,12 @@ const RecetaTabContent = ({
   readOnly = false,
 }: RecetaTabProps) => {
   const [modalBusquedaAbierto, setModalBusquedaAbierto] = useState(false);
-  const [diagnosticoSeleccionadoIndex, setDiagnosticoSeleccionadoIndex] = useState<number | null>(null);
+  const [diagnosticoSeleccionadoIndex, setDiagnosticoSeleccionadoIndex] =
+    useState<number | null>(null);
   const [terminoBusqueda, setTerminoBusqueda] = useState("");
-  const [resultadosFiltrados, setResultadosFiltrados] = useState<CIE10Item[]>([]);
+  const [resultadosFiltrados, setResultadosFiltrados] = useState<CIE10Item[]>(
+    [],
+  );
   const [buscando, setBuscando] = useState(false);
 
   const [modalConfirmacion, setModalConfirmacion] = useState<{
@@ -81,7 +95,9 @@ const RecetaTabContent = ({
     tipo: "diagnostico" | "receta" | null;
     index: number | null;
   }>({ abierto: false, tipo: null, index: null });
-  const [modalContainer, setModalContainer] = useState<HTMLElement | null>(null);
+  const [modalContainer, setModalContainer] = useState<HTMLElement | null>(
+    null,
+  );
 
   const {
     control,
@@ -92,8 +108,12 @@ const RecetaTabContent = ({
   } = useFormContext();
 
   // Búsqueda de medicamentos en Receta
-  const [activeSearchRowReceta, setActiveSearchRowReceta] = useState<number | null>(null);
-  const [searchResultsReceta, setSearchResultsReceta] = useState<MedicamentoOdontoItem[]>([]);
+  const [activeSearchRowReceta, setActiveSearchRowReceta] = useState<
+    number | null
+  >(null);
+  const [searchResultsReceta, setSearchResultsReceta] = useState<
+    MedicamentoOdontoItem[]
+  >([]);
 
   const {
     fields: diagnosticos,
@@ -140,7 +160,9 @@ const RecetaTabContent = ({
     const timer = setTimeout(() => {
       const q = terminoBusqueda.toLowerCase();
       const filtered = cie10OdontoMock.filter(
-        (item) => item.codigo.toLowerCase().includes(q) || item.descripcion.toLowerCase().includes(q)
+        (item) =>
+          item.codigo.toLowerCase().includes(q) ||
+          item.descripcion.toLowerCase().includes(q),
       );
       setResultadosFiltrados(filtered);
       setBuscando(false);
@@ -161,20 +183,27 @@ const RecetaTabContent = ({
       (m) =>
         m.NombreProducto.toLowerCase().includes(q) ||
         m.CodigoInterno.toLowerCase().includes(q) ||
-        m.PrincipioActivo.toLowerCase().includes(q)
+        m.PrincipioActivo.toLowerCase().includes(q),
     );
     setSearchResultsReceta(filtered);
   };
 
-  const handleSelectProductReceta = (rowIndex: number, medicamento: MedicamentoOdontoItem) => {
+  const handleSelectProductReceta = (
+    rowIndex: number,
+    medicamento: MedicamentoOdontoItem,
+  ) => {
     setValue(`recetas.${rowIndex}.producto`, medicamento.NombreProducto, {
       shouldValidate: true,
       shouldDirty: true,
     });
-    setValue(`recetas.${rowIndex}.cdg_medicamento`, String(medicamento.IdMedicamento), {
-      shouldValidate: false,
-      shouldDirty: true,
-    });
+    setValue(
+      `recetas.${rowIndex}.cdg_medicamento`,
+      String(medicamento.IdMedicamento),
+      {
+        shouldValidate: false,
+        shouldDirty: true,
+      },
+    );
     setActiveSearchRowReceta(null);
     setSearchResultsReceta([]);
   };
@@ -189,7 +218,10 @@ const RecetaTabContent = ({
     setValue(`diagnosticos.${index}`, EMPTY_DIAGNOSTICO);
   };
 
-  const eliminarDiagnostico = (e: React.MouseEvent<HTMLButtonElement>, index: number) => {
+  const eliminarDiagnostico = (
+    e: React.MouseEvent<HTMLButtonElement>,
+    index: number,
+  ) => {
     e.preventDefault();
     if (readOnly) return;
     setModalConfirmacion({ abierto: true, tipo: "diagnostico", index });
@@ -205,7 +237,10 @@ const RecetaTabContent = ({
     setValue(`recetas.${index}`, EMPTY_RECETA);
   };
 
-  const eliminarReceta = (e: React.MouseEvent<HTMLButtonElement>, index: number) => {
+  const eliminarReceta = (
+    e: React.MouseEvent<HTMLButtonElement>,
+    index: number,
+  ) => {
     e.preventDefault();
     if (readOnly) return;
     setModalConfirmacion({ abierto: true, tipo: "receta", index });
@@ -216,13 +251,19 @@ const RecetaTabContent = ({
       setModalConfirmacion({ abierto: false, tipo: null, index: null });
       return;
     }
-    if (modalConfirmacion.tipo === "diagnostico" && modalConfirmacion.index !== null) {
+    if (
+      modalConfirmacion.tipo === "diagnostico" &&
+      modalConfirmacion.index !== null
+    ) {
       if (diagnosticos.length > 1) {
         removeDiagnostico(modalConfirmacion.index);
       } else {
         limpiarDiagnostico(modalConfirmacion.index);
       }
-    } else if (modalConfirmacion.tipo === "receta" && modalConfirmacion.index !== null) {
+    } else if (
+      modalConfirmacion.tipo === "receta" &&
+      modalConfirmacion.index !== null
+    ) {
       if (recetas.length > 1) {
         removeReceta(modalConfirmacion.index);
       } else {
@@ -262,16 +303,26 @@ const RecetaTabContent = ({
   const seleccionarCIE10 = (cie10: CIE10Item) => {
     if (readOnly) return;
     if (diagnosticoSeleccionadoIndex !== null) {
-      setValue(`diagnosticos.${diagnosticoSeleccionadoIndex}.cie10`, cie10.codigo);
-      setValue(`diagnosticos.${diagnosticoSeleccionadoIndex}.diagnostico`, cie10.descripcion);
+      setValue(
+        `diagnosticos.${diagnosticoSeleccionadoIndex}.cie10`,
+        cie10.codigo,
+      );
+      setValue(
+        `diagnosticos.${diagnosticoSeleccionadoIndex}.diagnostico`,
+        cie10.descripcion,
+      );
     }
     cerrarModalBusqueda();
   };
 
-  const autocompletarCIE10 = (codigo: string, index: number, openModalIfNotFound = false) => {
+  const autocompletarCIE10 = (
+    codigo: string,
+    index: number,
+    openModalIfNotFound = false,
+  ) => {
     if (!codigo.trim()) return;
     const found = cie10OdontoMock.find(
-      (item) => item.codigo.toUpperCase() === codigo.trim().toUpperCase()
+      (item) => item.codigo.toUpperCase() === codigo.trim().toUpperCase(),
     );
     if (found) {
       setValue(`diagnosticos.${index}.diagnostico`, found.descripcion);
@@ -288,15 +339,24 @@ const RecetaTabContent = ({
 
   const diagnosticosPdf = currentDiagnosticos
     .filter((d: DiagnosticoFormValue) => d.cie10 && d.diagnostico)
-    .map((d: DiagnosticoFormValue) => ({ cie10: d.cie10, diagnostico: d.diagnostico }));
+    .map((d: DiagnosticoFormValue) => ({
+      cie10: d.cie10,
+      diagnostico: d.diagnostico,
+    }));
 
   const recetasPdf = currentRecetas
     .filter((r: RecetaFormValue) => r.producto)
     .map((r: RecetaFormValue) => ({
       des_prod: r.producto,
       cant: r.cantidad,
-      via_apli: viasAplicacionOdonto.find((v) => v.num_item === r.via)?.des_item || r.via || "ORAL",
-      frec: frecuenciasOdonto.find((f) => f.num_item === r.frecuencia)?.des_item || r.frecuencia || "CADA 8 HORAS",
+      via_apli:
+        viasAplicacionOdonto.find((v) => v.num_item === r.via)?.des_item ||
+        r.via ||
+        "ORAL",
+      frec:
+        frecuenciasOdonto.find((f) => f.num_item === r.frecuencia)?.des_item ||
+        r.frecuencia ||
+        "CADA 8 HORAS",
       durac: r.duracion || "3",
       comen: r.comentarios || "",
     }));
@@ -353,7 +413,8 @@ const RecetaTabContent = ({
                   | undefined;
 
                 const errorCie10 = diagnosticoErrorObj?.[index]?.cie10;
-                const errorDiagnostico = diagnosticoErrorObj?.[index]?.diagnostico;
+                const errorDiagnostico =
+                  diagnosticoErrorObj?.[index]?.diagnostico;
                 const errorTipo = diagnosticoErrorObj?.[index]?.tipo;
 
                 return (
@@ -362,7 +423,8 @@ const RecetaTabContent = ({
                       className="gap-4 py-3 items-start"
                       style={{
                         display: "grid",
-                        gridTemplateColumns: "120px 1fr 360px 80px 80px 80px 150px",
+                        gridTemplateColumns:
+                          "120px 1fr 360px 80px 80px 80px 150px",
                       }}
                     >
                       <div className="flex flex-col">
@@ -378,8 +440,12 @@ const RecetaTabContent = ({
                               e.preventDefault();
                               abrirModalBusqueda(index);
                             } else if (e.key === "Tab") {
-                              const cie10Val = watch(`diagnosticos.${index}.cie10`);
-                              const diagVal = watch(`diagnosticos.${index}.diagnostico`);
+                              const cie10Val = watch(
+                                `diagnosticos.${index}.cie10`,
+                              );
+                              const diagVal = watch(
+                                `diagnosticos.${index}.diagnostico`,
+                              );
                               if (!diagVal && cie10Val?.trim()) {
                                 e.preventDefault();
                                 autocompletarCIE10(cie10Val, index, true);
@@ -406,9 +472,13 @@ const RecetaTabContent = ({
                           tabIndex={-1}
                           placeholder="Descripción del diagnóstico"
                           className={`w-full px-3 py-2 rounded bg-surface-light uppercase ${
-                            errorDiagnostico ? "border border-red-500" : "border-none"
+                            errorDiagnostico
+                              ? "border border-red-500"
+                              : "border-none"
                           }`}
-                          {...registerField(`diagnosticos.${index}.diagnostico`)}
+                          {...registerField(
+                            `diagnosticos.${index}.diagnostico`,
+                          )}
                         />
                         {errorDiagnostico && (
                           <span className="text-red-500 text-xs mt-1">
@@ -486,7 +556,9 @@ const RecetaTabContent = ({
 
         {/* Sección Receta */}
         <section className="text-text-primary">
-          <h3 className="text-xl font-semibold mb-4 text-text-primary">Receta</h3>
+          <h3 className="text-xl font-semibold mb-4 text-text-primary">
+            Receta
+          </h3>
           <div className="rounded-lg overflow-hidden">
             {/* Header tabla */}
             <div className="grid grid-cols-[60px_2fr_100px_160px_160px_100px_1.5fr_180px] py-3 gap-4 items-center">
@@ -542,30 +614,35 @@ const RecetaTabContent = ({
                           setTimeout(() => setActiveSearchRowReceta(null), 250);
                         }}
                       />
-                      <input type="hidden" {...registerField(`recetas.${index}.cdg_medicamento`)} />
+                      <input
+                        type="hidden"
+                        {...registerField(`recetas.${index}.cdg_medicamento`)}
+                      />
 
                       {/* Dropdown de autocompletado */}
-                      {activeSearchRowReceta === index && searchResultsReceta.length > 0 && (
-                        <div className="absolute z-60 left-0 right-0 mt-1 bg-surface-default border border-border-default rounded-lg shadow-lg max-h-64 overflow-y-auto">
-                          {searchResultsReceta.map((result) => (
-                            <div
-                              key={result.CodigoInterno}
-                              className="w-full text-left p-2 hover:bg-surface-light text-sm border-b border-border-default last:border-0 cursor-pointer"
-                              onMouseDown={(e) => {
-                                e.preventDefault();
-                                handleSelectProductReceta(index, result);
-                              }}
-                            >
-                              <div className="font-medium text-text-primary">
-                                {result.NombreProducto}
+                      {activeSearchRowReceta === index &&
+                        searchResultsReceta.length > 0 && (
+                          <div className="absolute z-60 left-0 right-0 mt-1 bg-surface-default border border-border-default rounded-lg shadow-lg max-h-64 overflow-y-auto">
+                            {searchResultsReceta.map((result) => (
+                              <div
+                                key={result.CodigoInterno}
+                                className="w-full text-left p-2 hover:bg-surface-light text-sm border-b border-border-default last:border-0 cursor-pointer"
+                                onMouseDown={(e) => {
+                                  e.preventDefault();
+                                  handleSelectProductReceta(index, result);
+                                }}
+                              >
+                                <div className="font-medium text-text-primary">
+                                  {result.NombreProducto}
+                                </div>
+                                <div className="text-xs text-text-secondary">
+                                  Código: {result.CodigoInterno} | Stock:{" "}
+                                  {result.StockActual}
+                                </div>
                               </div>
-                              <div className="text-xs text-text-secondary">
-                                Código: {result.CodigoInterno} | Stock: {result.StockActual}
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      )}
+                            ))}
+                          </div>
+                        )}
                     </div>
 
                     <input
@@ -654,7 +731,10 @@ const RecetaTabContent = ({
 
           <div className="py-4 flex flex-row gap-2 w-full">
             <div className="flex-1">
-              <label className="block mb-2 font-semibold text-brand" htmlFor="alergias">
+              <label
+                className="block mb-2 font-semibold text-brand"
+                htmlFor="alergias"
+              >
                 Alergias:
               </label>
               <textarea
@@ -667,7 +747,10 @@ const RecetaTabContent = ({
               ></textarea>
             </div>
             <div className="flex-1">
-              <label className="block mb-2 font-semibold text-brand" htmlFor="recomendaciones">
+              <label
+                className="block mb-2 font-semibold text-brand"
+                htmlFor="recomendaciones"
+              >
                 Recomendaciones:
               </label>
               <textarea
@@ -700,10 +783,15 @@ const RecetaTabContent = ({
         modalContainer &&
         createPortal(
           <div className="absolute inset-0 flex items-center justify-center p-4 z-60">
-            <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={cancelarEliminacion}></div>
+            <div
+              className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+              onClick={cancelarEliminacion}
+            ></div>
             <div className="relative bg-surface-light rounded-lg w-full max-w-md shadow-xl z-10">
               <div className="px-6 py-4 border-b border-border-default">
-                <h3 className="text-xl font-semibold text-text-primary">Confirmar eliminación</h3>
+                <h3 className="text-xl font-semibold text-text-primary">
+                  Confirmar eliminación
+                </h3>
               </div>
               <div className="px-6 py-6">
                 <div className="flex items-start gap-4">
@@ -713,9 +801,14 @@ const RecetaTabContent = ({
                   <div className="flex-1">
                     <p className="text-text-primary text-base leading-relaxed">
                       ¿Está seguro de que desea eliminar este{" "}
-                      {modalConfirmacion.tipo === "diagnostico" ? "diagnóstico" : "receta"}?
+                      {modalConfirmacion.tipo === "diagnostico"
+                        ? "diagnóstico"
+                        : "receta"}
+                      ?
                     </p>
-                    <p className="text-gray-500 text-sm mt-2">Esta acción no se puede deshacer.</p>
+                    <p className="text-gray-500 text-sm mt-2">
+                      Esta acción no se puede deshacer.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -737,7 +830,7 @@ const RecetaTabContent = ({
               </div>
             </div>
           </div>,
-          modalContainer
+          modalContainer,
         )}
 
       {/* Modal de búsqueda CIE-10 */}
@@ -745,7 +838,9 @@ const RecetaTabContent = ({
         <div className="fixed inset-0 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm z-60">
           <div className="rounded-lg w-full max-w-3xl max-h-[80vh] flex flex-col shadow-2xl bg-surface-light border border-border-default">
             <div className="flex justify-between items-center px-6 py-4 border-b border-border-default bg-surface-light rounded-t-lg">
-              <h3 className="text-xl font-semibold text-text-primary">Búsqueda de Diagnósticos CIE-10</h3>
+              <h3 className="text-xl font-semibold text-text-primary">
+                Búsqueda de Diagnósticos CIE-10
+              </h3>
               <button
                 type="button"
                 onClick={cerrarModalBusqueda}
@@ -772,7 +867,8 @@ const RecetaTabContent = ({
                   <div className="text-center py-12">
                     <i className="fa-solid fa-search text-5xl text-text-secondary mb-4"></i>
                     <p className="text-text-secondary text-lg">
-                      Ingrese al menos 3 caracteres para buscar diagnósticos CIE-10
+                      Ingrese al menos 3 caracteres para buscar diagnósticos
+                      CIE-10
                     </p>
                   </div>
                 ) : buscando ? (
@@ -792,9 +888,13 @@ const RecetaTabContent = ({
                         className="p-4 border border-border-default rounded-lg hover:bg-brand hover:text-white cursor-pointer transition-all duration-150 bg-surface-default"
                       >
                         <div className="flex gap-3 items-start">
-                          <span className="font-bold text-base">{item.codigo}</span>
+                          <span className="font-bold text-base">
+                            {item.codigo}
+                          </span>
                           <span>—</span>
-                          <span className="flex-1 leading-relaxed">{item.descripcion}</span>
+                          <span className="flex-1 leading-relaxed">
+                            {item.descripcion}
+                          </span>
                         </div>
                       </div>
                     ))}
@@ -819,27 +919,29 @@ const RecetaTabContent = ({
 /**
  * Componente para la prescripción de recetas y registro de diagnósticos CIE-10.
  */
-export const RecetaTab = forwardRef<RecetaTabRef, RecetaTabProps>((props, ref) => {
-  const methods = useForm({
-    defaultValues: {
-      diagnosticos: [EMPTY_DIAGNOSTICO],
-      recetas: [EMPTY_RECETA],
-      alergias: "",
-      recomendaciones: "",
-    },
-  });
+export const RecetaTab = forwardRef<RecetaTabRef, RecetaTabProps>(
+  (props, ref) => {
+    const methods = useForm({
+      defaultValues: {
+        diagnosticos: [EMPTY_DIAGNOSTICO],
+        recetas: [EMPTY_RECETA],
+        alergias: "",
+        recomendaciones: "",
+      },
+    });
 
-  useImperativeHandle(ref, () => ({
-    handleSave: async () => true,
-    getFormData: () => methods.getValues(),
-    validate: async () => await methods.trigger(),
-  }));
+    useImperativeHandle(ref, () => ({
+      handleSave: async () => true,
+      getFormData: () => methods.getValues(),
+      validate: async () => await methods.trigger(),
+    }));
 
-  return (
-    <FormProvider {...methods}>
-      <RecetaTabContent {...props} />
-    </FormProvider>
-  );
-});
+    return (
+      <FormProvider {...methods}>
+        <RecetaTabContent {...props} />
+      </FormProvider>
+    );
+  },
+);
 
 RecetaTab.displayName = "RecetaTab";

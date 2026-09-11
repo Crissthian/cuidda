@@ -63,87 +63,91 @@ const ESTADOS_CARGA_INICIAL: EstadosCarga = {
  * @param codigo - Código a formatear
  * @returns Código formateado con 8 dígitos
  */
-export const formatearCodigo = (codigo: string | number | undefined): string => {
+export const formatearCodigo = (
+  codigo: string | number | undefined,
+): string => {
   if (!codigo) return "";
   return codigo.toString().padStart(8, "0");
 };
 
-export const useAtencionOdontoStore = create<AtencionOdontoState>((set, get) => ({
-  datosEvento: null,
-  codigoOdontologia: "",
-  codigoGenerado: "",
-  estadoAtencion: "0",
-  estaGuardando: false,
-  estadosCarga: ESTADOS_CARGA_INICIAL,
-  modalAbierto: false,
-  alergiasTemp: "",
+export const useAtencionOdontoStore = create<AtencionOdontoState>(
+  (set, get) => ({
+    datosEvento: null,
+    codigoOdontologia: "",
+    codigoGenerado: "",
+    estadoAtencion: "0",
+    estaGuardando: false,
+    estadosCarga: ESTADOS_CARGA_INICIAL,
+    modalAbierto: false,
+    alergiasTemp: "",
 
-  inicializarAtencion: (datos: DatosEvento) => {
-    set({
-      datosEvento: datos,
-      estadoAtencion: datos.estadoAtencion,
-      codigoOdontologia: formatearCodigo(datos.codigoOdontologia),
-      estadosCarga: ESTADOS_CARGA_INICIAL,
-    });
-  },
+    inicializarAtencion: (datos: DatosEvento) => {
+      set({
+        datosEvento: datos,
+        estadoAtencion: datos.estadoAtencion,
+        codigoOdontologia: formatearCodigo(datos.codigoOdontologia),
+        estadosCarga: ESTADOS_CARGA_INICIAL,
+      });
+    },
 
-  setCodigoOdontologia: (codigo: string) => {
-    set({
-      codigoOdontologia: formatearCodigo(codigo),
-      codigoGenerado: "",
-    });
-  },
+    setCodigoOdontologia: (codigo: string) => {
+      set({
+        codigoOdontologia: formatearCodigo(codigo),
+        codigoGenerado: "",
+      });
+    },
 
-  setCodigoGenerado: (codigo: string) => {
-    set({ codigoGenerado: formatearCodigo(codigo) });
-  },
+    setCodigoGenerado: (codigo: string) => {
+      set({ codigoGenerado: formatearCodigo(codigo) });
+    },
 
-  setEstadoAtencion: (estado: string) => {
-    set({ estadoAtencion: estado });
-  },
+    setEstadoAtencion: (estado: string) => {
+      set({ estadoAtencion: estado });
+    },
 
-  setEstaGuardando: (guardando: boolean) => {
-    set({ estaGuardando: guardando });
-  },
+    setEstaGuardando: (guardando: boolean) => {
+      set({ estaGuardando: guardando });
+    },
 
-  setEstadoCarga: (componente: keyof EstadosCarga, cargado: boolean) => {
-    set((state) => ({
-      estadosCarga: { ...state.estadosCarga, [componente]: cargado },
-    }));
-  },
+    setEstadoCarga: (componente: keyof EstadosCarga, cargado: boolean) => {
+      set((state) => ({
+        estadosCarga: { ...state.estadosCarga, [componente]: cargado },
+      }));
+    },
 
-  setModalAbierto: (abierto: boolean) => {
-    set({ modalAbierto: abierto });
-  },
+    setModalAbierto: (abierto: boolean) => {
+      set({ modalAbierto: abierto });
+    },
 
-  setAlergiasTemp: (val: string) => {
-    set({ alergiasTemp: val });
-  },
+    setAlergiasTemp: (val: string) => {
+      set({ alergiasTemp: val });
+    },
 
-  limpiarStore: () => {
-    set({
-      datosEvento: null,
-      codigoOdontologia: "",
-      codigoGenerado: "",
-      estadoAtencion: "0",
-      estaGuardando: false,
-      estadosCarga: ESTADOS_CARGA_INICIAL,
-      modalAbierto: false,
-      alergiasTemp: "",
-    });
-  },
+    limpiarStore: () => {
+      set({
+        datosEvento: null,
+        codigoOdontologia: "",
+        codigoGenerado: "",
+        estadoAtencion: "0",
+        estaGuardando: false,
+        estadosCarga: ESTADOS_CARGA_INICIAL,
+        modalAbierto: false,
+        alergiasTemp: "",
+      });
+    },
 
-  todoCargado: () => {
-    const { estadosCarga } = get();
-    return Object.values(estadosCarga).every(Boolean);
-  },
+    todoCargado: () => {
+      const { estadosCarga } = get();
+      return Object.values(estadosCarga).every(Boolean);
+    },
 
-  esNuevaConsulta: () => {
-    return get().estadoAtencion === "0";
-  },
+    esNuevaConsulta: () => {
+      return get().estadoAtencion === "0";
+    },
 
-  codigoMostrado: () => {
-    const { codigoOdontologia, codigoGenerado } = get();
-    return codigoOdontologia || codigoGenerado;
-  },
-}));
+    codigoMostrado: () => {
+      const { codigoOdontologia, codigoGenerado } = get();
+      return codigoOdontologia || codigoGenerado;
+    },
+  }),
+);

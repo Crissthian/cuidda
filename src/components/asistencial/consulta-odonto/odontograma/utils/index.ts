@@ -1,1 +1,1 @@
-export * from './odontograma.utils'
+export * from "./odontograma.utils";

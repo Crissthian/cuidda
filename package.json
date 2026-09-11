@@ -1,54 +1,54 @@
 {
-    "name": "cuidda",
-    "type": "module",
-    "version": "0.0.1",
-    "private": true,
-    "engines": {
-        "node": ">=22.12.0"
-    },
-    "scripts": {
-        "dev": "astro dev --port 3000",
-        "build": "astro build",
-        "preview": "astro preview",
-        "check": "astro check",
-        "format": "prettier --write ."
-    },
-    "allowScripts": {
-        "esbuild": true
-    },
-    "dependencies": {
-        "@astrojs/check": "^0.9.9",
-        "@astrojs/react": "^6.0.1",
-        "@hookform/resolvers": "^5.4.0",
-        "@modelcontextprotocol/sdk": "^1.29.0",
-        "@react-pdf/renderer": "^4.5.1",
-        "@tailwindcss/vite": "^4.3.2",
-        "@types/react": "^19.2.17",
-        "@types/react-dom": "^19.2.3",
-        "astro": "^7.2.8",
-        "date-fns": "^4.4.0",
-        "dom-to-image-more": "^3.10.2",
-        "dotenv": "^16.6.1",
-        "exceljs": "^4.4.0",
-        "file-saver": "^2.0.5",
-        "lucide-react": "^1.23.0",
-        "react": "^19.2.7",
-        "react-dom": "^19.2.7",
-        "react-dropzone": "^15.0.0",
-        "react-hook-form": "^7.80.0",
-        "react-quill-new": "^3.8.3",
-        "recharts": "^3.10.1",
-        "sonner": "^2.0.7",
-        "tailwindcss": "^4.3.2",
-        "typescript": "^6.0.3",
-        "xlsx": "^0.18.5",
-        "zod": "^4.4.3",
-        "zustand": "^5.0.14"
-    },
-    "devDependencies": {
-        "@types/file-saver": "^2.0.7",
-        "daisyui": "^5.6.10",
-        "prettier": "^3.9.4",
-        "prettier-plugin-astro": "^0.14.1"
-    }
+  "name": "cuidda",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev --port 3000",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "format": "prettier --write ."
+  },
+  "allowScripts": {
+    "esbuild": true
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.9",
+    "@astrojs/react": "^6.0.1",
+    "@hookform/resolvers": "^5.4.0",
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "@react-pdf/renderer": "^4.5.1",
+    "@tailwindcss/vite": "^4.3.2",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "astro": "^7.2.8",
+    "date-fns": "^4.4.0",
+    "dom-to-image-more": "^3.10.2",
+    "dotenv": "^16.6.1",
+    "exceljs": "^4.4.0",
+    "file-saver": "^2.0.5",
+    "lucide-react": "^1.23.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "react-dropzone": "^15.0.0",
+    "react-hook-form": "^7.80.0",
+    "react-quill-new": "^3.8.3",
+    "recharts": "^3.10.1",
+    "sonner": "^2.0.7",
+    "tailwindcss": "^4.3.2",
+    "typescript": "^6.0.3",
+    "xlsx": "^0.18.5",
+    "zod": "^4.4.3",
+    "zustand": "^5.0.14"
+  },
+  "devDependencies": {
+    "@types/file-saver": "^2.0.7",
+    "daisyui": "^5.6.10",
+    "prettier": "^3.9.4",
+    "prettier-plugin-astro": "^0.14.1"
+  }
 }

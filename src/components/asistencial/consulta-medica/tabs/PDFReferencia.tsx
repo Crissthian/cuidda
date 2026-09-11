@@ -1,5 +1,14 @@
 import React, { useState } from "react";
-import { Document, Font, Image, Page, StyleSheet, Text, View, pdf } from "@react-pdf/renderer";
+import {
+  Document,
+  Font,
+  Image,
+  Page,
+  StyleSheet,
+  Text,
+  View,
+  pdf,
+} from "@react-pdf/renderer";
 
 // Registrar fuentes
 Font.register({
@@ -263,11 +272,13 @@ const PRESION_RANGES = [
     label: "Presión Normal",
   },
   {
-    predicate: (sis: number, dia: number) => sis >= 120 && sis <= 129 && dia < 80,
+    predicate: (sis: number, dia: number) =>
+      sis >= 120 && sis <= 129 && dia < 80,
     label: "Presión Elevada",
   },
   {
-    predicate: (sis: number, dia: number) => (sis >= 130 && sis <= 139) || (dia >= 80 && dia <= 89),
+    predicate: (sis: number, dia: number) =>
+      (sis >= 130 && sis <= 139) || (dia >= 80 && dia <= 89),
     label: "Hipertensión Etapa 1",
   },
   {
@@ -276,11 +287,16 @@ const PRESION_RANGES = [
   },
 ];
 
-const calcularNivelPresion = (sistolica: number | null, diastolica: number | null): string => {
+const calcularNivelPresion = (
+  sistolica: number | null,
+  diastolica: number | null,
+): string => {
   if (!sistolica || !diastolica || sistolica <= 0 || diastolica <= 0) {
     return "";
   }
-  const categoria = PRESION_RANGES.find(({ predicate }) => predicate(sistolica, diastolica));
+  const categoria = PRESION_RANGES.find(({ predicate }) =>
+    predicate(sistolica, diastolica),
+  );
   return categoria?.label || "";
 };
 
@@ -344,7 +360,9 @@ const formatearHora = (hora: string | Date | null): string => {
 const esAntecedenteValido = (valor: string | null): boolean => {
   if (!valor) return false;
   const valorLimpio = valor.trim().toUpperCase();
-  return valorLimpio !== "" && valorLimpio !== "NINGUNA" && valorLimpio !== "NINGUNO";
+  return (
+    valorLimpio !== "" && valorLimpio !== "NINGUNA" && valorLimpio !== "NINGUNO"
+  );
 };
 
 // Componente del documento PDF con diseño idéntico a Lucemedic
@@ -352,7 +370,9 @@ interface PDFReferenciaDocumentProps {
   datos: DatosReferenciaAPI;
 }
 
-export const PDFReferenciaDocument = ({ datos }: PDFReferenciaDocumentProps) => {
+export const PDFReferenciaDocument = ({
+  datos,
+}: PDFReferenciaDocumentProps) => {
   const diagnosticos = datos.Diagnosticos
     ? datos.Diagnosticos.split(" / ")
         .map((d) => d.trim())
@@ -363,32 +383,53 @@ export const PDFReferenciaDocument = ({ datos }: PDFReferenciaDocumentProps) => 
   const antecedentes: { label: string; valor: string }[] = [];
 
   if (esAntecedenteValido(datos.patologicos)) {
-    antecedentes.push({ label: "Patológicos", valor: datos.patologicos!.trim() });
+    antecedentes.push({
+      label: "Patológicos",
+      valor: datos.patologicos!.trim(),
+    });
   }
   if (esAntecedenteValido(datos.quirurgicos)) {
-    antecedentes.push({ label: "Quirúrgicos", valor: datos.quirurgicos!.trim() });
+    antecedentes.push({
+      label: "Quirúrgicos",
+      valor: datos.quirurgicos!.trim(),
+    });
   }
   if (esAntecedenteValido(datos.traumaticos)) {
-    antecedentes.push({ label: "Traumáticos", valor: datos.traumaticos!.trim() });
+    antecedentes.push({
+      label: "Traumáticos",
+      valor: datos.traumaticos!.trim(),
+    });
   }
   if (esAntecedenteValido(datos.toxicologicos)) {
-    antecedentes.push({ label: "Toxicológicos", valor: datos.toxicologicos!.trim() });
+    antecedentes.push({
+      label: "Toxicológicos",
+      valor: datos.toxicologicos!.trim(),
+    });
   }
   if (esAntecedenteValido(datos.alergias)) {
     antecedentes.push({ label: "Alergias", valor: datos.alergias!.trim() });
   }
   if (esAntecedenteValido(datos.medicamentos)) {
-    antecedentes.push({ label: "Medicamentos", valor: datos.medicamentos!.trim() });
+    antecedentes.push({
+      label: "Medicamentos",
+      valor: datos.medicamentos!.trim(),
+    });
   }
   if (esAntecedenteValido(datos.otros_antecedentes)) {
-    antecedentes.push({ label: "Otros", valor: datos.otros_antecedentes!.trim() });
+    antecedentes.push({
+      label: "Otros",
+      valor: datos.otros_antecedentes!.trim(),
+    });
   }
 
   const paText =
     datos.presion_sistolica && datos.presion_diastolica
       ? `${datos.presion_sistolica}/${datos.presion_diastolica}`
       : "--";
-  const nivelPresion = calcularNivelPresion(datos.presion_sistolica, datos.presion_diastolica);
+  const nivelPresion = calcularNivelPresion(
+    datos.presion_sistolica,
+    datos.presion_diastolica,
+  );
   const paCompleto = nivelPresion ? `${paText} (${nivelPresion})` : paText;
 
   return (
@@ -409,11 +450,15 @@ export const PDFReferenciaDocument = ({ datos }: PDFReferenciaDocumentProps) => 
         <View style={styles.infoRow}>
           <View style={styles.infoItem}>
             <Text style={styles.label}>N° de referencia: </Text>
-            <Text style={styles.value}>{datos.id_referencia?.trim() || "--"}</Text>
+            <Text style={styles.value}>
+              {datos.id_referencia?.trim() || "--"}
+            </Text>
           </View>
           <View style={styles.infoItem}>
             <Text style={styles.label}>Fecha de atención: </Text>
-            <Text style={styles.value}>{formatearFecha(datos.fecha_actual)}</Text>
+            <Text style={styles.value}>
+              {formatearFecha(datos.fecha_actual)}
+            </Text>
           </View>
           <View style={styles.infoItem}>
             <Text style={styles.label}>Hora de atención: </Text>
@@ -427,11 +472,15 @@ export const PDFReferenciaDocument = ({ datos }: PDFReferenciaDocumentProps) => 
           <View style={styles.destinoRow}>
             <View style={styles.destinoItem}>
               <Text style={styles.label}>Departamento:</Text>
-              <Text style={styles.value}>{datos.departamento?.trim() || "--"}</Text>
+              <Text style={styles.value}>
+                {datos.departamento?.trim() || "--"}
+              </Text>
             </View>
             <View style={styles.destinoItem}>
               <Text style={styles.label}>Provincia:</Text>
-              <Text style={styles.value}>{datos.provincia?.trim() || "--"}</Text>
+              <Text style={styles.value}>
+                {datos.provincia?.trim() || "--"}
+              </Text>
             </View>
             <View style={styles.destinoItem}>
               <Text style={styles.label}>Distrito:</Text>
@@ -450,11 +499,15 @@ export const PDFReferenciaDocument = ({ datos }: PDFReferenciaDocumentProps) => 
           <View style={styles.pacienteRow}>
             <View style={styles.pacienteItem}>
               <Text style={styles.label}>Apellidos y Nombres:</Text>
-              <Text style={styles.value}>{datos.NOMBRE_PERSONA?.trim() || "--"}</Text>
+              <Text style={styles.value}>
+                {datos.NOMBRE_PERSONA?.trim() || "--"}
+              </Text>
             </View>
             <View style={styles.pacienteItem}>
               <Text style={styles.label}>Edad:</Text>
-              <Text style={styles.value}>{datos.edad != null ? `${datos.edad} años` : "--"}</Text>
+              <Text style={styles.value}>
+                {datos.edad != null ? `${datos.edad} años` : "--"}
+              </Text>
             </View>
             <View style={styles.pacienteItem}>
               <Text style={styles.label}>Sexo:</Text>
@@ -471,7 +524,9 @@ export const PDFReferenciaDocument = ({ datos }: PDFReferenciaDocumentProps) => 
 
         {/* III. Enfermedad actual */}
         <Text style={styles.sectionTitle}>III. ENFERMEDAD ACTUAL:</Text>
-        <Text style={styles.sectionContent}>{datos.enfermedad_actual?.trim() || "--"}</Text>
+        <Text style={styles.sectionContent}>
+          {datos.enfermedad_actual?.trim() || "--"}
+        </Text>
 
         {/* IV. Antecedentes */}
         {antecedentes.length > 0 && (
@@ -492,7 +547,9 @@ export const PDFReferenciaDocument = ({ datos }: PDFReferenciaDocumentProps) => 
         {esAntecedenteValido(datos.examen_fisico) && (
           <>
             <Text style={styles.sectionTitle}>V. EXÁMEN FÍSICO:</Text>
-            <Text style={styles.sectionContent}>{datos.examen_fisico?.trim()}</Text>
+            <Text style={styles.sectionContent}>
+              {datos.examen_fisico?.trim()}
+            </Text>
           </>
         )}
 
@@ -511,13 +568,17 @@ export const PDFReferenciaDocument = ({ datos }: PDFReferenciaDocumentProps) => 
           {datos.frecuencia_respiratoria != null && (
             <View style={styles.signoItem}>
               <Text style={styles.signoLabel}>F.R:</Text>
-              <Text style={styles.signoValue}>{datos.frecuencia_respiratoria}x'</Text>
+              <Text style={styles.signoValue}>
+                {datos.frecuencia_respiratoria}x'
+              </Text>
             </View>
           )}
           {datos.frecuencia_cardiaca != null && (
             <View style={styles.signoItem}>
               <Text style={styles.signoLabel}>F.C:</Text>
-              <Text style={styles.signoValue}>{datos.frecuencia_cardiaca}x'</Text>
+              <Text style={styles.signoValue}>
+                {datos.frecuencia_cardiaca}x'
+              </Text>
             </View>
           )}
           {datos.saturacion_oxigeno != null && (
@@ -531,7 +592,9 @@ export const PDFReferenciaDocument = ({ datos }: PDFReferenciaDocumentProps) => 
         {/* VI. Diagnósticos presuntivos */}
         {diagnosticos.length > 0 && (
           <>
-            <Text style={styles.sectionTitle}>VI. DIAGNÓSTICOS PRESUNTIVOS:</Text>
+            <Text style={styles.sectionTitle}>
+              VI. DIAGNÓSTICOS PRESUNTIVOS:
+            </Text>
             {diagnosticos.map((diagnostico, index) => (
               <Text key={index} style={styles.bulletPoint}>
                 • {diagnostico}
@@ -543,7 +606,9 @@ export const PDFReferenciaDocument = ({ datos }: PDFReferenciaDocumentProps) => 
         {/* VII. Tratamientos administrados */}
         {tratamientosTexto && (
           <>
-            <Text style={styles.sectionTitle}>VII. TRATAMIENTOS ADMINISTRADOS:</Text>
+            <Text style={styles.sectionTitle}>
+              VII. TRATAMIENTOS ADMINISTRADOS:
+            </Text>
             <Text style={styles.sectionContent}>{tratamientosTexto}</Text>
           </>
         )}
@@ -552,7 +617,9 @@ export const PDFReferenciaDocument = ({ datos }: PDFReferenciaDocumentProps) => 
         {datos.motivo_referencia && (
           <>
             <Text style={styles.sectionTitle}>VIII. MOTIVO DE REFERENCIA:</Text>
-            <Text style={styles.sectionContent}>{datos.motivo_referencia.trim()}</Text>
+            <Text style={styles.sectionContent}>
+              {datos.motivo_referencia.trim()}
+            </Text>
           </>
         )}
 
@@ -607,27 +674,43 @@ export default function PDFReferencia(props: PDFReferenciaProps) {
       // Combinar datos recibidos con el mock de prueba oficial
       const datosCompletos: DatosReferenciaAPI = {
         ...datosReferenciaMock,
-        id_referencia: props.numeroReferencia || props.codigoAtencion || datosReferenciaMock.id_referencia,
-        NOMBRE_PERSONA: props.pacienteNombre || datosReferenciaMock.NOMBRE_PERSONA,
+        id_referencia:
+          props.numeroReferencia ||
+          props.codigoAtencion ||
+          datosReferenciaMock.id_referencia,
+        NOMBRE_PERSONA:
+          props.pacienteNombre || datosReferenciaMock.NOMBRE_PERSONA,
         edad: props.edad ?? datosReferenciaMock.edad,
         ipress: props.ipress || datosReferenciaMock.ipress,
         departamento: props.departamento || datosReferenciaMock.departamento,
-        enfermedad_actual: props.enfermedadActual || datosReferenciaMock.enfermedad_actual,
-        motivo_referencia: props.motivoReferencia || datosReferenciaMock.motivo_referencia,
+        enfermedad_actual:
+          props.enfermedadActual || datosReferenciaMock.enfermedad_actual,
+        motivo_referencia:
+          props.motivoReferencia || datosReferenciaMock.motivo_referencia,
         Tratamiento_administrados:
-          props.tratamientos && props.tratamientos.length > 0 && props.tratamientos[0]?.producto
+          props.tratamientos &&
+          props.tratamientos.length > 0 &&
+          props.tratamientos[0]?.producto
             ? props.tratamientos
-                .map((t, i) => `${i + 1}. ${t.producto} - Vía: ${t.via || "Oral"} (${t.comentarios})`)
+                .map(
+                  (t, i) =>
+                    `${i + 1}. ${t.producto} - Vía: ${t.via || "Oral"} (${t.comentarios})`,
+                )
                 .join("\n")
             : datosReferenciaMock.Tratamiento_administrados,
       };
 
-      const blob = await pdf(<PDFReferenciaDocument datos={datosCompletos} />).toBlob();
+      const blob = await pdf(
+        <PDFReferenciaDocument datos={datosCompletos} />,
+      ).toBlob();
       const blobUrl = URL.createObjectURL(blob);
       window.open(blobUrl, "_blank", "noopener,noreferrer");
       setTimeout(() => URL.revokeObjectURL(blobUrl), 60000);
     } catch (err) {
-      const message = err instanceof Error ? err.message : "Error inesperado al generar el PDF.";
+      const message =
+        err instanceof Error
+          ? err.message
+          : "Error inesperado al generar el PDF.";
       setError(message);
     } finally {
       setLoading(false);
@@ -635,12 +718,19 @@ export default function PDFReferencia(props: PDFReferenciaProps) {
   };
 
   const buttonClasses = `flex items-center gap-2 px-6 py-2 rounded-lg font-semibold transition-colors cursor-pointer ${
-    loading ? "bg-brand text-white opacity-80 cursor-wait" : "bg-brand hover:bg-brand/80 text-white"
+    loading
+      ? "bg-brand text-white opacity-80 cursor-wait"
+      : "bg-brand hover:bg-brand/80 text-white"
   }`;
 
   return (
     <div className="flex flex-col items-end gap-2">
-      <button type="button" onClick={handleGeneratePdf} className={buttonClasses} disabled={loading}>
+      <button
+        type="button"
+        onClick={handleGeneratePdf}
+        className={buttonClasses}
+        disabled={loading}
+      >
         {loading ? (
           <>
             <i className="fa-solid fa-spinner fa-spin"></i>
@@ -654,7 +744,9 @@ export default function PDFReferencia(props: PDFReferenciaProps) {
         )}
       </button>
       {error && (
-        <span className="text-sm text-red-600 text-right max-w-xs">No se pudo generar el PDF: {error}</span>
+        <span className="text-sm text-red-600 text-right max-w-xs">
+          No se pudo generar el PDF: {error}
+        </span>
       )}
     </div>
   );

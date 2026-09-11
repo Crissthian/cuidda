@@ -2,7 +2,9 @@
  * Calcula la edad a partir de la fecha de nacimiento.
  * Soporta formatos "YYYY-MM-DD" o "DD/MM/YYYY" y objetos Date.
  */
-export function calcularEdad(fechaNacimiento: string | Date | undefined | null): number {
+export function calcularEdad(
+  fechaNacimiento: string | Date | undefined | null,
+): number {
   if (!fechaNacimiento) {
     return 0;
   }

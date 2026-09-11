@@ -23,12 +23,12 @@ export default function ExamenesAuxiliaresTab({
 }: ExamenesAuxiliaresTabProps) {
   const [categorias] = useState<CategoriaExamen[]>(categoriasExamenesMock);
   const [categoriasAbiertas, setCategoriasAbiertas] = useState<Set<number>>(
-    new Set([1])
+    new Set([1]),
   );
 
   const examenesSeleccionados = useMemo(
     () => new Set(selectedExamenes ?? []),
-    [selectedExamenes]
+    [selectedExamenes],
   );
 
   const toggleCategoria = (idCategoria: number) => {
@@ -72,7 +72,9 @@ export default function ExamenesAuxiliaresTab({
             <span>{categoria.nombre.toUpperCase()}</span>
             <svg
               className={`w-5 h-5 transition-transform duration-300 ease-in-out absolute inset-s-5 ${
-                categoriasAbiertas.has(categoria.id_categoria) ? "rotate-90" : ""
+                categoriasAbiertas.has(categoria.id_categoria)
+                  ? "rotate-90"
+                  : ""
               }`}
               fill="none"
               stroke="currentColor"
@@ -111,7 +113,9 @@ export default function ExamenesAuxiliaresTab({
                         >
                           <input
                             type="checkbox"
-                            checked={examenesSeleccionados.has(examen.numero_examen)}
+                            checked={examenesSeleccionados.has(
+                              examen.numero_examen,
+                            )}
                             onChange={() => toggleExamen(examen.numero_examen)}
                             disabled={readOnly}
                             className="checkbox size-5 border-brand border rounded-sm text-brand checked:bg-brand checked:text-surface-light align-middle"

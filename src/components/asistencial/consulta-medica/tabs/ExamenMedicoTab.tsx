@@ -60,7 +60,10 @@ const calcularPresion = (sistolica: string, diastolica: string) => {
     if (sis < 120 && dia < 80)
       return { nivel: "Presión Normal", clase: "bg-green-300 text-green-900" };
     if (sis >= 120 && sis <= 129 && dia < 80)
-      return { nivel: "Presión Elevada", clase: "bg-yellow-300 text-yellow-900" };
+      return {
+        nivel: "Presión Elevada",
+        clase: "bg-yellow-300 text-yellow-900",
+      };
     if ((sis >= 130 && sis <= 139) || (dia >= 80 && dia <= 89))
       return {
         nivel: "Hipertensión Etapa 1",
@@ -93,12 +96,18 @@ export default function ExamenMedicoTab({
 
   const { nivelPresion, nivelPresionClase } = useMemo(() => {
     const resultado = calcularPresion(presionSistolica, presionDiastolica);
-    return { nivelPresion: resultado.nivel, nivelPresionClase: resultado.clase };
+    return {
+      nivelPresion: resultado.nivel,
+      nivelPresionClase: resultado.clase,
+    };
   }, [presionSistolica, presionDiastolica]);
 
   useEffect(() => {
     setValue("imc", imc, { shouldValidate: false, shouldDirty: false });
-    setValue("imcClase", imcClase, { shouldValidate: false, shouldDirty: false });
+    setValue("imcClase", imcClase, {
+      shouldValidate: false,
+      shouldDirty: false,
+    });
   }, [imc, imcClase, setValue]);
 
   useEffect(() => {
@@ -179,12 +188,17 @@ export default function ExamenMedicoTab({
               <i className="fas fa-thermometer-half text-white text-xl"></i>
             </div>
             <div className="flex-1">
-              <label htmlFor="temperatura" className="block text-sm font-medium mb-1">
+              <label
+                htmlFor="temperatura"
+                className="block text-sm font-medium mb-1"
+              >
                 Temperatura
               </label>
               <input
                 id="temperatura"
-                {...register("temperatura", { disabled: signosVitalesDisabled })}
+                {...register("temperatura", {
+                  disabled: signosVitalesDisabled,
+                })}
                 type="number"
                 step="0.1"
                 className="w-full px-3 py-2 border-none rounded bg-surface-light"
@@ -199,12 +213,17 @@ export default function ExamenMedicoTab({
               <i className="fas fa-lungs text-white text-xl"></i>
             </div>
             <div className="flex-1">
-              <label htmlFor="frecuenciaRespiratoria" className="block text-sm font-medium mb-1">
+              <label
+                htmlFor="frecuenciaRespiratoria"
+                className="block text-sm font-medium mb-1"
+              >
                 F. Respiratoria
               </label>
               <input
                 id="frecuenciaRespiratoria"
-                {...register("frecuenciaRespiratoria", { disabled: signosVitalesDisabled })}
+                {...register("frecuenciaRespiratoria", {
+                  disabled: signosVitalesDisabled,
+                })}
                 type="number"
                 className="w-full px-3 py-2 border-none rounded bg-surface-light"
               />
@@ -216,12 +235,17 @@ export default function ExamenMedicoTab({
               <i className="fas fa-heartbeat text-white text-xl"></i>
             </div>
             <div className="flex-1">
-              <label htmlFor="frecuenciaCardiaca" className="block text-sm font-medium mb-1">
+              <label
+                htmlFor="frecuenciaCardiaca"
+                className="block text-sm font-medium mb-1"
+              >
                 F. Cardiaca
               </label>
               <input
                 id="frecuenciaCardiaca"
-                {...register("frecuenciaCardiaca", { disabled: signosVitalesDisabled })}
+                {...register("frecuenciaCardiaca", {
+                  disabled: signosVitalesDisabled,
+                })}
                 type="number"
                 className="w-full px-3 py-2 border-none rounded bg-surface-light"
               />
@@ -235,12 +259,17 @@ export default function ExamenMedicoTab({
               <i className="fas fa-tint text-white text-xl"></i>
             </div>
             <div className="flex-1">
-              <label htmlFor="presionSistolica" className="block text-sm font-medium mb-1">
+              <label
+                htmlFor="presionSistolica"
+                className="block text-sm font-medium mb-1"
+              >
                 P. Sistólica
               </label>
               <input
                 id="presionSistolica"
-                {...register("presionSistolica", { disabled: signosVitalesDisabled })}
+                {...register("presionSistolica", {
+                  disabled: signosVitalesDisabled,
+                })}
                 type="number"
                 className="w-full px-3 py-2 border-none rounded bg-surface-light"
               />
@@ -252,12 +281,17 @@ export default function ExamenMedicoTab({
               <i className="fas fa-tint text-white text-xl"></i>
             </div>
             <div className="flex-1">
-              <label htmlFor="presionDiastolica" className="block text-sm font-medium mb-1">
+              <label
+                htmlFor="presionDiastolica"
+                className="block text-sm font-medium mb-1"
+              >
                 P. Diastólica
               </label>
               <input
                 id="presionDiastolica"
-                {...register("presionDiastolica", { disabled: signosVitalesDisabled })}
+                {...register("presionDiastolica", {
+                  disabled: signosVitalesDisabled,
+                })}
                 type="number"
                 className="w-full px-3 py-2 border-none rounded bg-surface-light"
               />
@@ -271,7 +305,10 @@ export default function ExamenMedicoTab({
               <i className="fas fa-tint text-white text-xl"></i>
             </div>
             <div className="flex-1">
-              <label htmlFor="nivelPresion" className="block text-sm font-medium mb-1">
+              <label
+                htmlFor="nivelPresion"
+                className="block text-sm font-medium mb-1"
+              >
                 Nivel de presión
               </label>
               <input
@@ -289,12 +326,17 @@ export default function ExamenMedicoTab({
               <i className="fas fa-hand-holding-heart text-white text-xl"></i>
             </div>
             <div className="flex-1">
-              <label htmlFor="saturacionOxigeno" className="block text-sm font-medium mb-1">
+              <label
+                htmlFor="saturacionOxigeno"
+                className="block text-sm font-medium mb-1"
+              >
                 Saturación O₂
               </label>
               <input
                 id="saturacionOxigeno"
-                {...register("saturacionOxigeno", { disabled: signosVitalesDisabled })}
+                {...register("saturacionOxigeno", {
+                  disabled: signosVitalesDisabled,
+                })}
                 type="number"
                 className="w-full px-3 py-2 border-none rounded bg-surface-light"
               />
@@ -306,7 +348,9 @@ export default function ExamenMedicoTab({
       <div className="w-1/2">
         <div className="p-6 rounded-lg max-w-4xl mx-auto text-start">
           <div className="mb-6">
-            <h3 className="text-lg font-semibold text-text-primary mb-2">Anamnesis</h3>
+            <h3 className="text-lg font-semibold text-text-primary mb-2">
+              Anamnesis
+            </h3>
             <textarea
               rows={5}
               readOnly={readOnly}
@@ -315,7 +359,9 @@ export default function ExamenMedicoTab({
             />
           </div>
           <div className="mb-6">
-            <h3 className="text-lg font-semibold text-text-primary mb-2">Examen físico</h3>
+            <h3 className="text-lg font-semibold text-text-primary mb-2">
+              Examen físico
+            </h3>
             <textarea
               rows={5}
               readOnly={readOnly}
@@ -324,7 +370,9 @@ export default function ExamenMedicoTab({
             />
           </div>
           <div>
-            <h3 className="text-lg font-semibold text-text-primary mb-2">Medicación habitual</h3>
+            <h3 className="text-lg font-semibold text-text-primary mb-2">
+              Medicación habitual
+            </h3>
             <textarea
               rows={5}
               readOnly={readOnly}

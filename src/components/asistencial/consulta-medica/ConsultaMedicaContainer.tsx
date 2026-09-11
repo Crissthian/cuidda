@@ -17,7 +17,7 @@ const defaultFiltros: ConsultaFiltros = {
 
 export default function ConsultaMedicaContainer() {
   const [pacientes, setPacientes] = useState<PacienteConsultaMedica[]>(
-    pacientesConsultaMock
+    pacientesConsultaMock,
   );
   const [filtros, setFiltros] = useState<ConsultaFiltros>(defaultFiltros);
   const [filtrosAplicados, setFiltrosAplicados] =
@@ -71,7 +71,8 @@ export default function ConsultaMedicaContainer() {
           .includes(filtrosAplicados.medico.toLowerCase());
 
       const matchEstado =
-        !filtrosAplicados.estado || p.estado_atencion === filtrosAplicados.estado;
+        !filtrosAplicados.estado ||
+        p.estado_atencion === filtrosAplicados.estado;
 
       return matchApellidos && matchMedico && matchEstado;
     });

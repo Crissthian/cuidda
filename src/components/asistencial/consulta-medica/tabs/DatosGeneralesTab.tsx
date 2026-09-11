@@ -114,7 +114,7 @@ export default function DatosGeneralesTab({
     setTimeout(() => {
       setValue("especialidad", item.especialidad);
       toast.success(
-        `Atención previa #${item.codigo_atencion} cargada para edición`
+        `Atención previa #${item.codigo_atencion} cargada para edición`,
       );
       if (onExamenesAuxiliaresLoaded) {
         onExamenesAuxiliaresLoaded([1, 5, 12]);
@@ -290,7 +290,9 @@ export default function DatosGeneralesTab({
                 <span className="text-sm text-text-primary">No</span>
               </label>
               <div className="ps-1">
-                <label className="select-none">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <label className="select-none">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </label>
                 <input
                   className="p-2 bg-muted-30 text-text-primary rounded-lg w-16 ms-4 opacity-0"
                   disabled
@@ -303,7 +305,9 @@ export default function DatosGeneralesTab({
 
       {/* Sección 2: Restricciones */}
       <section className="text-start">
-        <h3 className="text-lg font-semibold text-brand mb-6 px-2">Restricciones</h3>
+        <h3 className="text-lg font-semibold text-brand mb-6 px-2">
+          Restricciones
+        </h3>
         <div className="flex items-start gap-8 px-2">
           <div className="flex flex-1 items-center gap-6">
             <label className="flex items-center gap-2 cursor-pointer">
@@ -353,7 +357,9 @@ export default function DatosGeneralesTab({
           </div>
 
           <div className="flex-8 ms-12">
-            <label className="block text-text-primary mb-1">Descripción de la restricción</label>
+            <label className="block text-text-primary mb-1">
+              Descripción de la restricción
+            </label>
             <input
               type="text"
               {...register("restricciones_descripcion")}
@@ -374,7 +380,10 @@ export default function DatosGeneralesTab({
           <div className="grid grid-cols-[220px_80px_80px_1fr] gap-4 items-center">
             <span className="text-text-primary">Patológicos</span>
             <div className="flex items-center gap-2">
-              <label htmlFor="patologicos-si" className="flex items-center gap-2 cursor-pointer">
+              <label
+                htmlFor="patologicos-si"
+                className="flex items-center gap-2 cursor-pointer"
+              >
                 <span className="text-text-primary text-sm">Sí</span>
                 <input
                   id="patologicos-si"
@@ -386,7 +395,10 @@ export default function DatosGeneralesTab({
               </label>
             </div>
             <div className="flex items-center gap-2">
-              <label htmlFor="patologicos-no" className="flex items-center gap-2 cursor-pointer">
+              <label
+                htmlFor="patologicos-no"
+                className="flex items-center gap-2 cursor-pointer"
+              >
                 <span className="text-text-primary text-sm">No</span>
                 <input
                   id="patologicos-no"
@@ -417,7 +429,10 @@ export default function DatosGeneralesTab({
           <div className="grid grid-cols-[220px_80px_80px_1fr] gap-4 items-center">
             <span className="text-text-primary">Quirúrgicos</span>
             <div className="flex items-center gap-2">
-              <label htmlFor="quirurgicos-si" className="flex items-center gap-2 cursor-pointer">
+              <label
+                htmlFor="quirurgicos-si"
+                className="flex items-center gap-2 cursor-pointer"
+              >
                 <span className="text-text-primary text-sm">Sí</span>
                 <input
                   id="quirurgicos-si"
@@ -429,7 +444,10 @@ export default function DatosGeneralesTab({
               </label>
             </div>
             <div className="flex items-center gap-2">
-              <label htmlFor="quirurgicos-no" className="flex items-center gap-2 cursor-pointer">
+              <label
+                htmlFor="quirurgicos-no"
+                className="flex items-center gap-2 cursor-pointer"
+              >
                 <span className="text-text-primary text-sm">No</span>
                 <input
                   id="quirurgicos-no"
@@ -460,7 +478,10 @@ export default function DatosGeneralesTab({
           <div className="grid grid-cols-[220px_80px_80px_1fr] gap-4 items-center">
             <span className="text-text-primary">Traumático</span>
             <div className="flex items-center gap-2">
-              <label htmlFor="traumatico-si" className="flex items-center gap-2 cursor-pointer">
+              <label
+                htmlFor="traumatico-si"
+                className="flex items-center gap-2 cursor-pointer"
+              >
                 <span className="text-text-primary text-sm">Sí</span>
                 <input
                   id="traumatico-si"
@@ -472,7 +493,10 @@ export default function DatosGeneralesTab({
               </label>
             </div>
             <div className="flex items-center gap-2">
-              <label htmlFor="traumatico-no" className="flex items-center gap-2 cursor-pointer">
+              <label
+                htmlFor="traumatico-no"
+                className="flex items-center gap-2 cursor-pointer"
+              >
                 <span className="text-text-primary text-sm">No</span>
                 <input
                   id="traumatico-no"
@@ -503,7 +527,10 @@ export default function DatosGeneralesTab({
           <div className="grid grid-cols-[220px_80px_80px_1fr] gap-4 items-center">
             <span className="text-text-primary">Toxicológicos</span>
             <div className="flex items-center gap-2">
-              <label htmlFor="toxicologicos-si" className="flex items-center gap-2 cursor-pointer">
+              <label
+                htmlFor="toxicologicos-si"
+                className="flex items-center gap-2 cursor-pointer"
+              >
                 <span className="text-text-primary text-sm">Sí</span>
                 <input
                   id="toxicologicos-si"
@@ -515,7 +542,10 @@ export default function DatosGeneralesTab({
               </label>
             </div>
             <div className="flex items-center gap-2">
-              <label htmlFor="toxicologicos-no" className="flex items-center gap-2 cursor-pointer">
+              <label
+                htmlFor="toxicologicos-no"
+                className="flex items-center gap-2 cursor-pointer"
+              >
                 <span className="text-text-primary text-sm">No</span>
                 <input
                   id="toxicologicos-no"
@@ -546,7 +576,10 @@ export default function DatosGeneralesTab({
           <div className="grid grid-cols-[220px_80px_80px_1fr] gap-4 items-center">
             <span className="text-text-primary">¿Sufre de alguna alergia?</span>
             <div className="flex items-center gap-2">
-              <label htmlFor="sufreAlergia-si" className="flex items-center gap-2 cursor-pointer">
+              <label
+                htmlFor="sufreAlergia-si"
+                className="flex items-center gap-2 cursor-pointer"
+              >
                 <span className="text-text-primary text-sm">Sí</span>
                 <input
                   id="sufreAlergia-si"
@@ -558,7 +591,10 @@ export default function DatosGeneralesTab({
               </label>
             </div>
             <div className="flex items-center gap-2">
-              <label htmlFor="sufreAlergia-no" className="flex items-center gap-2 cursor-pointer">
+              <label
+                htmlFor="sufreAlergia-no"
+                className="flex items-center gap-2 cursor-pointer"
+              >
                 <span className="text-text-primary text-sm">No</span>
                 <input
                   id="sufreAlergia-no"
@@ -589,7 +625,10 @@ export default function DatosGeneralesTab({
           <div className="grid grid-cols-[220px_80px_80px_1fr] gap-4 items-center">
             <span className="text-text-primary">¿Toma algún medicamento?</span>
             <div className="flex items-center gap-2">
-              <label htmlFor="tomaMedicamento-si" className="flex items-center gap-2 cursor-pointer">
+              <label
+                htmlFor="tomaMedicamento-si"
+                className="flex items-center gap-2 cursor-pointer"
+              >
                 <span className="text-text-primary text-sm">Sí</span>
                 <input
                   id="tomaMedicamento-si"
@@ -601,7 +640,10 @@ export default function DatosGeneralesTab({
               </label>
             </div>
             <div className="flex items-center gap-2">
-              <label htmlFor="tomaMedicamento-no" className="flex items-center gap-2 cursor-pointer">
+              <label
+                htmlFor="tomaMedicamento-no"
+                className="flex items-center gap-2 cursor-pointer"
+              >
                 <span className="text-text-primary text-sm">No</span>
                 <input
                   id="tomaMedicamento-no"
@@ -614,7 +656,10 @@ export default function DatosGeneralesTab({
               </label>
             </div>
             <div className="flex items-center gap-2">
-              <label htmlFor="tomaMedicamento-cual" className="text-text-primary">
+              <label
+                htmlFor="tomaMedicamento-cual"
+                className="text-text-primary"
+              >
                 ¿Cuál?
               </label>
               <input
@@ -750,7 +795,9 @@ export default function DatosGeneralesTab({
                   />
                   <span className="text-text-primary">VPH</span>
                 </label>
-                <div className={`flex items-center gap-2 ${!watch("vacuna_vph") ? "opacity-50" : ""}`}>
+                <div
+                  className={`flex items-center gap-2 ${!watch("vacuna_vph") ? "opacity-50" : ""}`}
+                >
                   <span className="text-text-primary">N° de dosis</span>
                   <input
                     type="number"
@@ -766,9 +813,14 @@ export default function DatosGeneralesTab({
           </div>
 
           <div className="flex items-center gap-8 pt-4">
-            <span className="font-medium text-text-primary">Menores de 6 años:</span>
+            <span className="font-medium text-text-primary">
+              Menores de 6 años:
+            </span>
 
-            <label htmlFor="vacunasMenores6-completo" className="flex items-center gap-3 cursor-pointer">
+            <label
+              htmlFor="vacunasMenores6-completo"
+              className="flex items-center gap-3 cursor-pointer"
+            >
               <input
                 id="vacunasMenores6-completo"
                 type="radio"
@@ -779,7 +831,10 @@ export default function DatosGeneralesTab({
               <span className="text-text-primary">Calendario completo</span>
             </label>
 
-            <label htmlFor="vacunasMenores6-incompleto" className="flex items-center gap-3 cursor-pointer">
+            <label
+              htmlFor="vacunasMenores6-incompleto"
+              className="flex items-center gap-3 cursor-pointer"
+            >
               <input
                 id="vacunasMenores6-incompleto"
                 type="radio"
@@ -792,7 +847,9 @@ export default function DatosGeneralesTab({
           </div>
 
           <div className="space-y-2">
-            <label className="block font-medium text-text-primary">Comentarios</label>
+            <label className="block font-medium text-text-primary">
+              Comentarios
+            </label>
             <textarea
               {...register("vacuna_comentarios")}
               rows={3}
@@ -859,7 +916,10 @@ export default function DatosGeneralesTab({
           <div className="grid grid-cols-[200px_60px_60px_200px_220px_60px_60px_1fr] gap-4 items-center">
             <span className="text-text-primary">¿Tiene hijos?</span>
             <div className="flex items-center gap-2">
-              <label htmlFor="hijos-si" className="flex items-center gap-2 cursor-pointer">
+              <label
+                htmlFor="hijos-si"
+                className="flex items-center gap-2 cursor-pointer"
+              >
                 <span className="text-text-primary text-sm">Sí</span>
                 <input
                   id="hijos-si"
@@ -871,7 +931,10 @@ export default function DatosGeneralesTab({
               </label>
             </div>
             <div className="flex items-center gap-2">
-              <label htmlFor="hijos-no" className="flex items-center gap-2 cursor-pointer">
+              <label
+                htmlFor="hijos-no"
+                className="flex items-center gap-2 cursor-pointer"
+              >
                 <span className="text-text-primary text-sm">No</span>
                 <input
                   id="hijos-no"
@@ -890,13 +953,20 @@ export default function DatosGeneralesTab({
               <input
                 id="hijos-cuantos"
                 type="number"
-                {...register("hijos_cuantos", { disabled: watch("hijos") == "2" })}
+                {...register("hijos_cuantos", {
+                  disabled: watch("hijos") == "2",
+                })}
                 className={`form-input w-16 max-w-16 ${watch("hijos") == "2" ? "opacity-50 cursor-not-allowed" : ""}`}
               />
             </div>
-            <span className="text-text-primary text-end">¿Hijos fallecidos?</span>
+            <span className="text-text-primary text-end">
+              ¿Hijos fallecidos?
+            </span>
             <div className="flex items-center gap-2">
-              <label htmlFor="hijos-fallecidos-si" className="flex items-center gap-2 cursor-pointer">
+              <label
+                htmlFor="hijos-fallecidos-si"
+                className="flex items-center gap-2 cursor-pointer"
+              >
                 <span className="text-text-primary text-sm">Sí</span>
                 <input
                   id="hijos-fallecidos-si"
@@ -908,7 +978,10 @@ export default function DatosGeneralesTab({
               </label>
             </div>
             <div className="flex items-center gap-2">
-              <label htmlFor="hijos-fallecidos-no" className="flex items-center gap-2 cursor-pointer">
+              <label
+                htmlFor="hijos-fallecidos-no"
+                className="flex items-center gap-2 cursor-pointer"
+              >
                 <span className="text-text-primary text-sm">No</span>
                 <input
                   id="hijos-fallecidos-no"
@@ -921,7 +994,10 @@ export default function DatosGeneralesTab({
               </label>
             </div>
             <div className="flex items-center gap-2">
-              <label htmlFor="hijos-fallecidos-motivos" className="text-text-primary">
+              <label
+                htmlFor="hijos-fallecidos-motivos"
+                className="text-text-primary"
+              >
                 ¿Motivos?
               </label>
               <input
@@ -975,7 +1051,9 @@ export default function DatosGeneralesTab({
                     key={item.codigo_atencion + index}
                     className="border-b border-border-default"
                   >
-                    <td className="px-4 py-4 text-text-primary">{index + 1}.-</td>
+                    <td className="px-4 py-4 text-text-primary">
+                      {index + 1}.-
+                    </td>
                     <td className="px-4 py-4">
                       <div className="bg-surface-light rounded px-3 py-2 text-text-primary">
                         {item.fecha_triaje}

@@ -5,13 +5,13 @@ import { fileURLToPath } from "node:url";
 
 // https://astro.build/config
 export default defineConfig({
-    integrations: [react()],
-    vite: {
-        plugins: [tailwindcss()],
-        resolve: {
-            alias: {
-                "@": fileURLToPath(new URL("./src", import.meta.url)),
-            },
-        },
+  integrations: [react()],
+  vite: {
+    plugins: [tailwindcss()],
+    resolve: {
+      alias: {
+        "@": fileURLToPath(new URL("./src", import.meta.url)),
+      },
     },
+  },
 });

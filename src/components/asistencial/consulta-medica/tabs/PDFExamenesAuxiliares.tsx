@@ -1,5 +1,16 @@
 import React, { useState, type ReactElement } from "react";
-import { Document, Font, Image, Page, Path, StyleSheet, Svg, Text, View, pdf } from "@react-pdf/renderer";
+import {
+  Document,
+  Font,
+  Image,
+  Page,
+  Path,
+  StyleSheet,
+  Svg,
+  Text,
+  View,
+  pdf,
+} from "@react-pdf/renderer";
 import { categoriasExamenesMock } from "@/lib/consultaMedicaData";
 
 interface ExamColumn {
@@ -386,10 +397,15 @@ const examStyles = StyleSheet.create({
 const MedicalPrescriptionPage = ({ formData }: { formData: FormData }) => {
   const MAX_PER_COLUMN = 6;
   const MAX_PER_PAGE = MAX_PER_COLUMN * 2;
-  const recetaPages: Array<{ leftColumn: typeof formData.recetas; rightColumn: typeof formData.recetas }> = [];
+  const recetaPages: Array<{
+    leftColumn: typeof formData.recetas;
+    rightColumn: typeof formData.recetas;
+  }> = [];
 
   if (formData.recetas && formData.recetas.length > 0) {
-    const recetasValidas = formData.recetas.filter((receta) => receta.des_prod && receta.des_prod.trim() !== "");
+    const recetasValidas = formData.recetas.filter(
+      (receta) => receta.des_prod && receta.des_prod.trim() !== "",
+    );
 
     for (let i = 0; i < recetasValidas.length; i += MAX_PER_PAGE) {
       const pageRecetas = recetasValidas.slice(i, i + MAX_PER_PAGE);
@@ -412,7 +428,11 @@ const MedicalPrescriptionPage = ({ formData }: { formData: FormData }) => {
             <View style={recetaStyles.dateInfo}>
               <Text>Fecha: {formatDate(new Date())}</Text>
               <Text>
-                Hora: {new Date().toLocaleTimeString("es-PE", { hour: "2-digit", minute: "2-digit" })}
+                Hora:{" "}
+                {new Date().toLocaleTimeString("es-PE", {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
               </Text>
             </View>
           </View>
@@ -475,12 +495,20 @@ const MedicalPrescriptionPage = ({ formData }: { formData: FormData }) => {
               </Text>
             </View>
             <View style={recetaStyles.diagnosisRow}>
-              <Text style={[recetaStyles.infoLabel, { paddingTop: 1, marginBottom: 2 }]}>
+              <Text
+                style={[
+                  recetaStyles.infoLabel,
+                  { paddingTop: 1, marginBottom: 2 },
+                ]}
+              >
                 Diagnóstico(s):
               </Text>
               {formData.diagnosticos && formData.diagnosticos.length > 0 ? (
                 formData.diagnosticos.map((diagnostico, index) => (
-                  <Text key={index} style={{ paddingTop: 2, paddingBottom: 2, fontSize: 8 }}>
+                  <Text
+                    key={index}
+                    style={{ paddingTop: 2, paddingBottom: 2, fontSize: 8 }}
+                  >
                     • {diagnostico.des_dag}
                   </Text>
                 ))
@@ -493,7 +521,10 @@ const MedicalPrescriptionPage = ({ formData }: { formData: FormData }) => {
           </View>
 
           {/* Background image centered on full page */}
-          <Image src="/images/fondopdf.png" style={recetaStyles.pageBackground} />
+          <Image
+            src="/images/fondopdf.png"
+            style={recetaStyles.pageBackground}
+          />
 
           <View style={recetaStyles.section}>
             <Text style={recetaStyles.sectionTitle}>MEDICACIÓN</Text>
@@ -517,7 +548,9 @@ const MedicalPrescriptionPage = ({ formData }: { formData: FormData }) => {
                       </Text>
                       <Text style={recetaStyles.medicationDetails}>
                         <Text style={recetaStyles.medicationLabel}>Frec: </Text>
-                        {receta.frecuencia?.trim() || receta.frec?.trim() || "CADA 8 HORAS"}
+                        {receta.frecuencia?.trim() ||
+                          receta.frec?.trim() ||
+                          "CADA 8 HORAS"}
                         {"  |  "}
                         <Text style={recetaStyles.medicationLabel}>Dur: </Text>
                         {receta.durac?.trim() || "3"} días
@@ -526,18 +559,24 @@ const MedicalPrescriptionPage = ({ formData }: { formData: FormData }) => {
                         {receta.cant || "10"}
                         {"  |  "}
                         <Text style={recetaStyles.medicationLabel}>Vía: </Text>
-                        {receta.via_aplicacion?.trim() || receta.via_apli?.trim() || "ORAL"}
+                        {receta.via_aplicacion?.trim() ||
+                          receta.via_apli?.trim() ||
+                          "ORAL"}
                       </Text>
                       {receta.comen && receta.comen.trim() && (
                         <Text style={recetaStyles.medicationDetails}>
-                          <Text style={recetaStyles.medicationLabel}>Ind: </Text>
+                          <Text style={recetaStyles.medicationLabel}>
+                            Ind:{" "}
+                          </Text>
                           {receta.comen.toUpperCase()}
                         </Text>
                       )}
                     </View>
                   ))
                 ) : (
-                  <Text style={recetaStyles.medicationDetails}>No se han registrado medicamentos</Text>
+                  <Text style={recetaStyles.medicationDetails}>
+                    No se han registrado medicamentos
+                  </Text>
                 )}
               </View>
 
@@ -558,7 +597,9 @@ const MedicalPrescriptionPage = ({ formData }: { formData: FormData }) => {
                     </Text>
                     <Text style={recetaStyles.medicationDetails}>
                       <Text style={recetaStyles.medicationLabel}>Frec: </Text>
-                      {receta.frecuencia?.trim() || receta.frec?.trim() || "CADA 12 HORAS"}
+                      {receta.frecuencia?.trim() ||
+                        receta.frec?.trim() ||
+                        "CADA 12 HORAS"}
                       {"  |  "}
                       <Text style={recetaStyles.medicationLabel}>Dur: </Text>
                       {receta.durac?.trim() || "5"} días
@@ -567,7 +608,9 @@ const MedicalPrescriptionPage = ({ formData }: { formData: FormData }) => {
                       {receta.cant || "5"}
                       {"  |  "}
                       <Text style={recetaStyles.medicationLabel}>Vía: </Text>
-                      {receta.via_aplicacion?.trim() || receta.via_apli?.trim() || "ORAL"}
+                      {receta.via_aplicacion?.trim() ||
+                        receta.via_apli?.trim() ||
+                        "ORAL"}
                     </Text>
                     {receta.comen && receta.comen.trim() && (
                       <Text style={recetaStyles.medicationDetails}>
@@ -583,7 +626,9 @@ const MedicalPrescriptionPage = ({ formData }: { formData: FormData }) => {
 
           {/* Sección de Recomendaciones Médicas */}
           <View style={recetaStyles.recommendationsSection}>
-            <Text style={recetaStyles.recommendationsTitle}>RECOMENDACIONES MÉDICAS</Text>
+            <Text style={recetaStyles.recommendationsTitle}>
+              RECOMENDACIONES MÉDICAS
+            </Text>
             <View style={recetaStyles.recommendationsText}>
               <Text>
                 {formData.recomendaciones ||
@@ -596,13 +641,17 @@ const MedicalPrescriptionPage = ({ formData }: { formData: FormData }) => {
             <View style={recetaStyles.signature}>
               <View style={recetaStyles.signatureLineWrapper}>
                 <View style={recetaStyles.signatureLine} />
-                <Text style={recetaStyles.signatureText}>Firma del médico tratante</Text>
+                <Text style={recetaStyles.signatureText}>
+                  Firma del médico tratante
+                </Text>
               </View>
             </View>
             <View style={recetaStyles.signature}>
               <View style={recetaStyles.signatureLineWrapper}>
                 <View style={recetaStyles.signatureLine} />
-                <Text style={recetaStyles.signatureText}>Firma del paciente</Text>
+                <Text style={recetaStyles.signatureText}>
+                  Firma del paciente
+                </Text>
               </View>
             </View>
           </View>
@@ -692,7 +741,9 @@ const AuxiliarExamRequest = ({ data }: { data: ExamRequestData }) => (
       <View style={examStyles.column}>
         {data.seccionIzquierda.map((seccion, idx) => (
           <View key={`left-${idx}`} style={{ marginBottom: 12 }}>
-            {seccion.title && <Text style={examStyles.columnTitle}>{seccion.title}</Text>}
+            {seccion.title && (
+              <Text style={examStyles.columnTitle}>{seccion.title}</Text>
+            )}
             {seccion.items.map((item, itemIdx) => (
               <Text key={`left-item-${itemIdx}`} style={examStyles.examItem}>
                 • {item}
@@ -705,7 +756,9 @@ const AuxiliarExamRequest = ({ data }: { data: ExamRequestData }) => (
       <View style={examStyles.column}>
         {data.seccionDerecha.map((seccion, idx) => (
           <View key={`right-${idx}`} style={{ marginBottom: 12 }}>
-            {seccion.title && <Text style={examStyles.columnTitle}>{seccion.title}</Text>}
+            {seccion.title && (
+              <Text style={examStyles.columnTitle}>{seccion.title}</Text>
+            )}
             {seccion.items.map((item, itemIdx) => (
               <Text key={`right-item-${itemIdx}`} style={examStyles.examItem}>
                 • {item}
@@ -720,7 +773,9 @@ const AuxiliarExamRequest = ({ data }: { data: ExamRequestData }) => (
       <View style={examStyles.signature}>
         <View style={examStyles.signatureLineWrapper}>
           <View style={examStyles.signatureLine} />
-          <Text style={examStyles.signatureText}>Firma del médico tratante</Text>
+          <Text style={examStyles.signatureText}>
+            Firma del médico tratante
+          </Text>
         </View>
       </View>
       <View style={examStyles.signature}>
@@ -756,7 +811,13 @@ const AuxiliarExamRequest = ({ data }: { data: ExamRequestData }) => (
 
 // Particionado de categorías de exámenes
 const partitionExamCategories = (
-  categories: { nombre: string; subcategorias: { nombre: string; examenes: { descripcion: string; orden: number }[] }[] }[]
+  categories: {
+    nombre: string;
+    subcategorias: {
+      nombre: string;
+      examenes: { descripcion: string; orden: number }[];
+    }[];
+  }[],
 ) => {
   const auxiliares: typeof categories = [];
   const interconsultas: typeof categories = [];
@@ -777,7 +838,13 @@ const partitionExamCategories = (
 };
 
 const buildColumns = (
-  categorias: { nombre: string; subcategorias: { nombre: string; examenes: { descripcion: string; orden: number }[] }[] }[]
+  categorias: {
+    nombre: string;
+    subcategorias: {
+      nombre: string;
+      examenes: { descripcion: string; orden: number }[];
+    }[];
+  }[],
 ): { left: ExamColumn[]; right: ExamColumn[]; hasItems: boolean } => {
   if (!categorias.length) {
     return { left: [], right: [], hasItems: false };
@@ -906,7 +973,9 @@ export default function PDFExamenesAuxiliares({
         subcategorias: cat.subcategorias.map((sub) => ({
           nombre: sub.nombre,
           examenes: sub.examenes.filter(
-            (ex) => selectedExamenes.length === 0 || selectedExamenes.includes(ex.numero_examen)
+            (ex) =>
+              selectedExamenes.length === 0 ||
+              selectedExamenes.includes(ex.numero_examen),
           ),
         })),
       }));
@@ -921,9 +990,19 @@ export default function PDFExamenesAuxiliares({
                   {
                     nombre: "HEMATOLOGÍA",
                     examenes: [
-                      { descripcion: "HEMOGRAMA COMPLETO AUTOMATIZADO", orden: 1 },
-                      { descripcion: "VELOCIDAD DE SEDIMENTACIÓN GLOBULAR (VSG)", orden: 2 },
-                      { descripcion: "PROTEÍNA C REACTIVA CUANTITATIVA", orden: 3 },
+                      {
+                        descripcion: "HEMOGRAMA COMPLETO AUTOMATIZADO",
+                        orden: 1,
+                      },
+                      {
+                        descripcion:
+                          "VELOCIDAD DE SEDIMENTACIÓN GLOBULAR (VSG)",
+                        orden: 2,
+                      },
+                      {
+                        descripcion: "PROTEÍNA C REACTIVA CUANTITATIVA",
+                        orden: 3,
+                      },
                     ],
                   },
                   {
@@ -943,7 +1022,10 @@ export default function PDFExamenesAuxiliares({
                     nombre: "RADIOLOGÍA",
                     examenes: [
                       { descripcion: "RADIOGRAFÍA DE TÓRAX PA", orden: 7 },
-                      { descripcion: "RADIOGRAFÍA DE SENOS PARANASALES", orden: 8 },
+                      {
+                        descripcion: "RADIOGRAFÍA DE SENOS PARANASALES",
+                        orden: 8,
+                      },
                     ],
                   },
                 ],
@@ -954,7 +1036,10 @@ export default function PDFExamenesAuxiliares({
                   {
                     nombre: "ESPECIALIDADES MÉDICAS",
                     examenes: [
-                      { descripcion: "EVALUACIÓN POR OTORRINOLARINGOLOGÍA", orden: 9 },
+                      {
+                        descripcion: "EVALUACIÓN POR OTORRINOLARINGOLOGÍA",
+                        orden: 9,
+                      },
                       { descripcion: "EVALUACIÓN POR CARDIOLOGÍA", orden: 10 },
                     ],
                   },
@@ -963,7 +1048,8 @@ export default function PDFExamenesAuxiliares({
             ]
           : examenesActivos;
 
-      const { auxiliares, interconsultas, otros } = partitionExamCategories(categoriasAUsar);
+      const { auxiliares, interconsultas, otros } =
+        partitionExamCategories(categoriasAUsar);
       const auxiliaresColumns = buildColumns(auxiliares);
       const interconsultasColumns = buildColumns(interconsultas);
       const otrosColumns = buildColumns(otros);
@@ -981,7 +1067,9 @@ export default function PDFExamenesAuxiliares({
       const paginas: ReactElement[] = [];
 
       // 1. Receta Médica
-      paginas.push(<MedicalPrescriptionPage key="receta" formData={recetaFormData} />);
+      paginas.push(
+        <MedicalPrescriptionPage key="receta" formData={recetaFormData} />,
+      );
 
       // 2. Solicitud de Exámenes Auxiliares
       if (auxiliaresColumns.hasItems) {
@@ -994,7 +1082,7 @@ export default function PDFExamenesAuxiliares({
               seccionIzquierda: auxiliaresColumns.left,
               seccionDerecha: auxiliaresColumns.right,
             }}
-          />
+          />,
         );
       }
 
@@ -1009,7 +1097,7 @@ export default function PDFExamenesAuxiliares({
               seccionIzquierda: interconsultasColumns.left,
               seccionDerecha: interconsultasColumns.right,
             }}
-          />
+          />,
         );
       }
 
@@ -1024,16 +1112,23 @@ export default function PDFExamenesAuxiliares({
               seccionIzquierda: otrosColumns.left,
               seccionDerecha: otrosColumns.right,
             }}
-          />
+          />,
         );
       }
 
-      const blob = await pdf(<Document title={`Documento_Medico_${codigoAtencion}`}>{paginas}</Document>).toBlob();
+      const blob = await pdf(
+        <Document title={`Documento_Medico_${codigoAtencion}`}>
+          {paginas}
+        </Document>,
+      ).toBlob();
       const blobUrl = URL.createObjectURL(blob);
       window.open(blobUrl, "_blank", "noopener,noreferrer");
       setTimeout(() => URL.revokeObjectURL(blobUrl), 60000);
     } catch (err) {
-      const message = err instanceof Error ? err.message : "Error inesperado al generar el PDF.";
+      const message =
+        err instanceof Error
+          ? err.message
+          : "Error inesperado al generar el PDF.";
       setError(message);
     } finally {
       setLoadingData(false);
@@ -1041,12 +1136,19 @@ export default function PDFExamenesAuxiliares({
   };
 
   const buttonClasses = `px-8 py-2 rounded-lg font-semibold transition-all inline-flex items-center justify-center gap-2 cursor-pointer ${
-    loadingData ? "bg-brand text-white opacity-80 cursor-wait" : "bg-brand hover:bg-brand/80 text-white"
+    loadingData
+      ? "bg-brand text-white opacity-80 cursor-wait"
+      : "bg-brand hover:bg-brand/80 text-white"
   }`;
 
   return (
     <div className="flex flex-col items-end gap-2">
-      <button type="button" onClick={handleGeneratePdf} className={buttonClasses} disabled={loadingData}>
+      <button
+        type="button"
+        onClick={handleGeneratePdf}
+        className={buttonClasses}
+        disabled={loadingData}
+      >
         {loadingData ? (
           <>
             <i className="fa-solid fa-spinner fa-spin"></i>
@@ -1060,7 +1162,9 @@ export default function PDFExamenesAuxiliares({
         )}
       </button>
       {error && (
-        <span className="text-sm text-red-600 text-right max-w-xs">No se pudo generar el PDF: {error}</span>
+        <span className="text-sm text-red-600 text-right max-w-xs">
+          No se pudo generar el PDF: {error}
+        </span>
       )}
     </div>
   );

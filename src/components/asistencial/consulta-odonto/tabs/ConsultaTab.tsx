@@ -10,7 +10,10 @@ import {
 } from "../schema";
 
 interface ConsultaTabProps {
-  onSaveSuccess?: (payload: { estadoAtencion: string; codigoOdontologia?: string }) => void;
+  onSaveSuccess?: (payload: {
+    estadoAtencion: string;
+    codigoOdontologia?: string;
+  }) => void;
   onLoadComplete?: (cargado: boolean) => void;
   readOnly?: boolean;
 }
@@ -27,7 +30,8 @@ export interface ConsultaTabRef {
  */
 export const ConsultaTab = React.forwardRef<ConsultaTabRef, ConsultaTabProps>(
   ({ onLoadComplete, readOnly = false }, ref) => {
-    const { datosEvento, alergiasTemp, setAlergiasTemp } = useAtencionOdontoStore();
+    const { datosEvento, alergiasTemp, setAlergiasTemp } =
+      useAtencionOdontoStore();
 
     const nombreMedico = datosEvento?.nombreMedico ?? "";
     const motivoConsulta = datosEvento?.motivoConsulta ?? "";
@@ -91,12 +95,14 @@ export const ConsultaTab = React.forwardRef<ConsultaTabRef, ConsultaTabProps>(
       if (antPatologicos === ANTECEDENTE_NO) setValue("patologicos_cual", "");
       if (antQuirurgicos === ANTECEDENTE_NO) setValue("quirurgicos_cual", "");
       if (antTraumatico === ANTECEDENTE_NO) setValue("traumatico_cual", "");
-      if (antToxicologicos === ANTECEDENTE_NO) setValue("toxicologicos_cual", "");
+      if (antToxicologicos === ANTECEDENTE_NO)
+        setValue("toxicologicos_cual", "");
       if (antAlergia === ANTECEDENTE_NO) {
         setValue("sufreAlergia_cual", "");
         setAlergiasTemp("");
       }
-      if (antMedicamento === ANTECEDENTE_NO) setValue("tomaMedicamento_cual", "");
+      if (antMedicamento === ANTECEDENTE_NO)
+        setValue("tomaMedicamento_cual", "");
     }, [
       antPatologicos,
       antQuirurgicos,
@@ -120,18 +126,31 @@ export const ConsultaTab = React.forwardRef<ConsultaTabRef, ConsultaTabProps>(
           <div className="grid grid-cols-2 gap-6">
             <div className="flex flex-col gap-4">
               <div className="flex flex-col">
-                <label className="text-sm font-medium text-text-secondary mb-1">Doctor</label>
-                <input type="text" className="form-input rounded-lg" readOnly {...register("doctor")} />
+                <label className="text-sm font-medium text-text-secondary mb-1">
+                  Doctor
+                </label>
+                <input
+                  type="text"
+                  className="form-input rounded-lg"
+                  readOnly
+                  {...register("doctor")}
+                />
                 {errors.doctor && (
-                  <span className="text-xs text-red-500 mt-1">{errors.doctor.message}</span>
+                  <span className="text-xs text-red-500 mt-1">
+                    {errors.doctor.message}
+                  </span>
                 )}
               </div>
 
               <div className="flex flex-col">
-                <h3 className="text-lg font-bold text-brand mb-2">Enfermedad Actual</h3>
+                <h3 className="text-lg font-bold text-brand mb-2">
+                  Enfermedad Actual
+                </h3>
                 <div className="flex flex-col gap-3">
                   <div className="flex flex-col">
-                    <label className="text-sm text-text-secondary mb-1">Tiempo de enfermedad</label>
+                    <label className="text-sm text-text-secondary mb-1">
+                      Tiempo de enfermedad
+                    </label>
                     <textarea
                       className="form-input rounded-lg"
                       rows={6}
@@ -152,7 +171,9 @@ export const ConsultaTab = React.forwardRef<ConsultaTabRef, ConsultaTabProps>(
               </div>
 
               <div className="flex flex-col">
-                <h3 className="text-lg font-bold text-brand mb-2">Comentarios Generales</h3>
+                <h3 className="text-lg font-bold text-brand mb-2">
+                  Comentarios Generales
+                </h3>
                 <textarea
                   className="form-input rounded-lg"
                   rows={6}
@@ -250,7 +271,9 @@ export const ConsultaTab = React.forwardRef<ConsultaTabRef, ConsultaTabProps>(
                             htmlFor="patologicos-si"
                             className="flex items-center gap-2 cursor-pointer"
                           >
-                            <span className="text-text-primary text-sm">Sí</span>
+                            <span className="text-text-primary text-sm">
+                              Sí
+                            </span>
                             <input
                               id="patologicos-si"
                               type="radio"
@@ -265,7 +288,9 @@ export const ConsultaTab = React.forwardRef<ConsultaTabRef, ConsultaTabProps>(
                             htmlFor="patologicos-no"
                             className="flex items-center gap-2 cursor-pointer"
                           >
-                            <span className="text-text-primary text-sm">No</span>
+                            <span className="text-text-primary text-sm">
+                              No
+                            </span>
                             <input
                               id="patologicos-no"
                               type="radio"
@@ -276,7 +301,10 @@ export const ConsultaTab = React.forwardRef<ConsultaTabRef, ConsultaTabProps>(
                           </label>
                         </div>
                         <div className="flex items-center gap-2">
-                          <label htmlFor="patologicos-cual" className="text-text-primary">
+                          <label
+                            htmlFor="patologicos-cual"
+                            className="text-text-primary"
+                          >
                             ¿Cuál?
                           </label>
                           <input
@@ -298,7 +326,9 @@ export const ConsultaTab = React.forwardRef<ConsultaTabRef, ConsultaTabProps>(
                             htmlFor="quirurgicos-si"
                             className="flex items-center gap-2 cursor-pointer"
                           >
-                            <span className="text-text-primary text-sm">Sí</span>
+                            <span className="text-text-primary text-sm">
+                              Sí
+                            </span>
                             <input
                               id="quirurgicos-si"
                               type="radio"
@@ -313,7 +343,9 @@ export const ConsultaTab = React.forwardRef<ConsultaTabRef, ConsultaTabProps>(
                             htmlFor="quirurgicos-no"
                             className="flex items-center gap-2 cursor-pointer"
                           >
-                            <span className="text-text-primary text-sm">No</span>
+                            <span className="text-text-primary text-sm">
+                              No
+                            </span>
                             <input
                               id="quirurgicos-no"
                               type="radio"
@@ -324,7 +356,10 @@ export const ConsultaTab = React.forwardRef<ConsultaTabRef, ConsultaTabProps>(
                           </label>
                         </div>
                         <div className="flex items-center gap-2">
-                          <label htmlFor="quirurgicos-cual" className="text-text-primary">
+                          <label
+                            htmlFor="quirurgicos-cual"
+                            className="text-text-primary"
+                          >
                             ¿Cuál?
                           </label>
                           <input
@@ -346,7 +381,9 @@ export const ConsultaTab = React.forwardRef<ConsultaTabRef, ConsultaTabProps>(
                             htmlFor="traumatico-si"
                             className="flex items-center gap-2 cursor-pointer"
                           >
-                            <span className="text-text-primary text-sm">Sí</span>
+                            <span className="text-text-primary text-sm">
+                              Sí
+                            </span>
                             <input
                               id="traumatico-si"
                               type="radio"
@@ -361,7 +398,9 @@ export const ConsultaTab = React.forwardRef<ConsultaTabRef, ConsultaTabProps>(
                             htmlFor="traumatico-no"
                             className="flex items-center gap-2 cursor-pointer"
                           >
-                            <span className="text-text-primary text-sm">No</span>
+                            <span className="text-text-primary text-sm">
+                              No
+                            </span>
                             <input
                               id="traumatico-no"
                               type="radio"
@@ -372,7 +411,10 @@ export const ConsultaTab = React.forwardRef<ConsultaTabRef, ConsultaTabProps>(
                           </label>
                         </div>
                         <div className="flex items-center gap-2">
-                          <label htmlFor="traumatico-cual" className="text-text-primary">
+                          <label
+                            htmlFor="traumatico-cual"
+                            className="text-text-primary"
+                          >
                             ¿Cuál?
                           </label>
                           <input
@@ -394,7 +436,9 @@ export const ConsultaTab = React.forwardRef<ConsultaTabRef, ConsultaTabProps>(
                             htmlFor="toxicologicos-si"
                             className="flex items-center gap-2 cursor-pointer"
                           >
-                            <span className="text-text-primary text-sm">Sí</span>
+                            <span className="text-text-primary text-sm">
+                              Sí
+                            </span>
                             <input
                               id="toxicologicos-si"
                               type="radio"
@@ -409,7 +453,9 @@ export const ConsultaTab = React.forwardRef<ConsultaTabRef, ConsultaTabProps>(
                             htmlFor="toxicologicos-no"
                             className="flex items-center gap-2 cursor-pointer"
                           >
-                            <span className="text-text-primary text-sm">No</span>
+                            <span className="text-text-primary text-sm">
+                              No
+                            </span>
                             <input
                               id="toxicologicos-no"
                               type="radio"
@@ -420,7 +466,10 @@ export const ConsultaTab = React.forwardRef<ConsultaTabRef, ConsultaTabProps>(
                           </label>
                         </div>
                         <div className="flex items-center gap-2">
-                          <label htmlFor="toxicologicos-cual" className="text-text-primary">
+                          <label
+                            htmlFor="toxicologicos-cual"
+                            className="text-text-primary"
+                          >
                             ¿Cuál?
                           </label>
                           <input
@@ -436,13 +485,17 @@ export const ConsultaTab = React.forwardRef<ConsultaTabRef, ConsultaTabProps>(
 
                       {/* ¿Sufre de alguna alergia? */}
                       <div className="grid grid-cols-[220px_80px_80px_1fr] gap-4 items-center">
-                        <span className="text-text-primary">¿Sufre de alguna alergia?</span>
+                        <span className="text-text-primary">
+                          ¿Sufre de alguna alergia?
+                        </span>
                         <div className="flex items-center gap-2">
                           <label
                             htmlFor="sufreAlergia-si"
                             className="flex items-center gap-2 cursor-pointer"
                           >
-                            <span className="text-text-primary text-sm">Sí</span>
+                            <span className="text-text-primary text-sm">
+                              Sí
+                            </span>
                             <input
                               id="sufreAlergia-si"
                               type="radio"
@@ -457,7 +510,9 @@ export const ConsultaTab = React.forwardRef<ConsultaTabRef, ConsultaTabProps>(
                             htmlFor="sufreAlergia-no"
                             className="flex items-center gap-2 cursor-pointer"
                           >
-                            <span className="text-text-primary text-sm">No</span>
+                            <span className="text-text-primary text-sm">
+                              No
+                            </span>
                             <input
                               id="sufreAlergia-no"
                               type="radio"
@@ -468,7 +523,10 @@ export const ConsultaTab = React.forwardRef<ConsultaTabRef, ConsultaTabProps>(
                           </label>
                         </div>
                         <div className="flex items-center gap-2">
-                          <label htmlFor="sufreAlergia-cual" className="text-text-primary">
+                          <label
+                            htmlFor="sufreAlergia-cual"
+                            className="text-text-primary"
+                          >
                             ¿Cuál?
                           </label>
                           <input
@@ -486,13 +544,17 @@ export const ConsultaTab = React.forwardRef<ConsultaTabRef, ConsultaTabProps>(
 
                       {/* ¿Toma algún medicamento? */}
                       <div className="grid grid-cols-[220px_80px_80px_1fr] gap-4 items-center">
-                        <span className="text-text-primary">¿Toma algún medicamento?</span>
+                        <span className="text-text-primary">
+                          ¿Toma algún medicamento?
+                        </span>
                         <div className="flex items-center gap-2">
                           <label
                             htmlFor="tomaMedicamento-si"
                             className="flex items-center gap-2 cursor-pointer"
                           >
-                            <span className="text-text-primary text-sm">Sí</span>
+                            <span className="text-text-primary text-sm">
+                              Sí
+                            </span>
                             <input
                               id="tomaMedicamento-si"
                               type="radio"
@@ -507,7 +569,9 @@ export const ConsultaTab = React.forwardRef<ConsultaTabRef, ConsultaTabProps>(
                             htmlFor="tomaMedicamento-no"
                             className="flex items-center gap-2 cursor-pointer"
                           >
-                            <span className="text-text-primary text-sm">No</span>
+                            <span className="text-text-primary text-sm">
+                              No
+                            </span>
                             <input
                               id="tomaMedicamento-no"
                               type="radio"
@@ -518,7 +582,10 @@ export const ConsultaTab = React.forwardRef<ConsultaTabRef, ConsultaTabProps>(
                           </label>
                         </div>
                         <div className="flex items-center gap-2">
-                          <label htmlFor="tomaMedicamento-cual" className="text-text-primary">
+                          <label
+                            htmlFor="tomaMedicamento-cual"
+                            className="text-text-primary"
+                          >
                             ¿Cuál?
                           </label>
                           <input
@@ -534,7 +601,9 @@ export const ConsultaTab = React.forwardRef<ConsultaTabRef, ConsultaTabProps>(
 
                       {/* Otros antecedentes */}
                       <div className="grid grid-cols-[220px_1fr] gap-4">
-                        <span className="text-text-primary">Otros antecedentes</span>
+                        <span className="text-text-primary">
+                          Otros antecedentes
+                        </span>
                         <textarea
                           id="otrosAntecedentes"
                           rows={3}
@@ -551,7 +620,7 @@ export const ConsultaTab = React.forwardRef<ConsultaTabRef, ConsultaTabProps>(
         </div>
       </fieldset>
     );
-  }
+  },
 );
 
 ConsultaTab.displayName = "ConsultaTab";
