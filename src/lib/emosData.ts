@@ -53,6 +53,7 @@ export const matrizEmos = [
     hallazgosColor: "text-risk-red",
     factores: "Ruido / Vibración / Polvo",
     grupo: "G3" as const,
+    lectura: "lecturado" as const,
   },
   {
     id: 2,
@@ -69,6 +70,7 @@ export const matrizEmos = [
     hallazgosColor: "text-risk-salmon",
     factores: "Químicos / Ergonómico",
     grupo: "G2" as const,
+    lectura: "pendiente" as const,
   },
   {
     id: 3,
@@ -85,6 +87,7 @@ export const matrizEmos = [
     hallazgosColor: "text-risk-red",
     factores: "Radiación UV / Humos metálicos",
     grupo: "G3" as const,
+    lectura: "lecturado" as const,
   },
   {
     id: 4,
@@ -101,5 +104,6 @@ export const matrizEmos = [
     hallazgosColor: "text-text-secondary",
     factores: "Ergonómico /Psicosocial",
     grupo: "G1" as const,
+    lectura: "lecturado" as const,
   },
 ] as const;

@@ -1,6 +1,7 @@
 import SuccessModal from "@/components/ui/SuccessModal";
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
+import { SEDES } from "@/lib/sedes";
 
 type Props = {
   isOpen: boolean;
@@ -8,8 +9,6 @@ type Props = {
 };
 
 type Vista = "selector" | "matriz" | "legajo";
-
-const sedes = ["Condorcocha", "Atococongo", "Conchán"];
 
 const aceptados: Record<
   Exclude<Vista, "selector">,
@@ -112,7 +111,7 @@ export default function CargarMatrizModal({ isOpen, onClose }: Props) {
           onClick={handleCloseUpload}
         >
           <div
-            className="relative flex max-h-[95vh] w-full max-w-125 flex-col overflow-hidden rounded-2xl bg-surface-default shadow-xl"
+            className="relative flex max-h-[95vh] w-full max-w-120 flex-col overflow-hidden rounded-2xl bg-surface-default shadow-xl"
             onClick={(e) => e.stopPropagation()}
           >
             <button
@@ -143,7 +142,7 @@ export default function CargarMatrizModal({ isOpen, onClose }: Props) {
               </div>
 
               {vista === "selector" && (
-                <div className="mt-6 grid grid-cols-2 gap-4">
+                <div className="mt-6 grid grid-cols-2 gap-12 mx-6 ">
                   <button
                     type="button"
                     onClick={() => {
@@ -151,13 +150,13 @@ export default function CargarMatrizModal({ isOpen, onClose }: Props) {
                       setSede("");
                       setSelectedFile(null);
                     }}
-                    className="flex flex-col items-center gap-3 rounded-xl bg-surface-light px-4 py-8 transition hover:bg-muted-20"
+                    className="group flex flex-col items-center gap-3 rounded-xl bg-brand/10 px-4 py-8 transition text-brand hover:bg-brand hover:text-success"
                   >
                     <i
-                      className="fa-regular fa-file-excel text-4xl text-brand"
+                      className="fa-regular fa-file-excel text-4xl hover:text-success group-hover:text-success"
                       aria-hidden="true"
                     />
-                    <span className="text-sm text-text-secondary">
+                    <span className="text-sm text-text-secondary hover:text-white-custom group-hover:text-white-custom">
                       Matriz excel
                     </span>
                   </button>
@@ -168,13 +167,13 @@ export default function CargarMatrizModal({ isOpen, onClose }: Props) {
                       setSede("");
                       setSelectedFile(null);
                     }}
-                    className="flex flex-col items-center gap-3 rounded-xl bg-surface-light px-4 py-8 transition hover:bg-muted-20"
+                    className="group flex flex-col items-center gap-3 rounded-xl bg-brand/10 px-4 py-8 transition text-brand hover:bg-brand"
                   >
                     <i
-                      className="fa-regular fa-file-pdf text-4xl text-brand"
+                      className="fa-regular fa-file-pdf text-4xl hover:text-success group-hover:text-success"
                       aria-hidden="true"
                     />
-                    <span className="text-sm text-text-secondary">
+                    <span className="text-sm text-text-secondary hover:text-white-custom group-hover:text-white-custom">
                       Legajo PDF
                     </span>
                   </button>
@@ -204,12 +203,12 @@ export default function CargarMatrizModal({ isOpen, onClose }: Props) {
                         id="sede-matriz"
                         value={sede}
                         onChange={(e) => setSede(e.target.value)}
-                        className={`form-select appearance-none ${sede ? "text-text-primary" : "text-muted"}`}
+                        className={`form-select appearance-none uppercase ${sede ? "text-text-primary" : "text-muted"}`}
                       >
                         <option value="" disabled hidden>
                           Seleccionar
                         </option>
-                        {sedes.map((s) => (
+                        {SEDES.map((s) => (
                           <option key={s} value={s}>
                             {s}
                           </option>
@@ -239,7 +238,7 @@ export default function CargarMatrizModal({ isOpen, onClose }: Props) {
 
                     <div
                       {...getRootProps()}
-                      className={`mt-4 flex flex-col items-center justify-center rounded-lg border-2 border-dashed p-6 text-center transition border-brand/60 bg-surface-default transition ${
+                      className={`mt-4 flex flex-col items-center justify-center rounded-lg border-2 border-dashed p-6 text-center transition border-brand/60 bg-surface-default ${
                         isDragActive
                           ? "border-brand bg-brand/5"
                           : "border-brand/60 bg-surface-default"

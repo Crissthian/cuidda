@@ -1,5 +1,5 @@
 import SuccessModal from "@/components/ui/SuccessModal";
-import { sedesMatrizIperc } from "@/lib/matrizData";
+import { SEDES } from "@/lib/sedes";
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 
@@ -126,12 +126,12 @@ export default function NuevaMatrizModal({ isOpen, onClose }: Props) {
                     id="sede-matriz"
                     value={sede}
                     onChange={(e) => setSede(e.target.value)}
-                    className={`form-select appearance-none ${sede ? "text-text-primary" : "text-muted"}`}
+                    className={`form-select appearance-none uppercase ${sede ? "text-text-primary" : "text-muted"}`}
                   >
                     <option value="" disabled hidden>
                       Seleccionar
                     </option>
-                    {sedesMatrizIperc.map((s) => (
+                    {SEDES.map((s) => (
                       <option key={s} value={s}>
                         {s}
                       </option>

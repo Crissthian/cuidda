@@ -16,46 +16,76 @@ export default function MatrizEmosTable() {
           Matriz de EMOs
         </h2>
       </div>
-      <div className="flex items-center gap-3 mt-4 w-6/12">
+      {/* Filtros */}
+      <div className="mt-4 flex w-7/12 items-center gap-3">
         <label htmlFor="f-sede" className="sr-only">
           Sede
         </label>
-        <select
-          id="f-sede"
-          className="form-select h-8 w-48 rounded-lg bg-surface-light px-3 text-xs text-muted uppercase"
-          defaultValue=""
-        >
-          <option>Sede</option>
-          {SEDES.map((sede) => (
-            <option key={sede} value={sede}>
-              {sede}
-            </option>
-          ))}
-        </select>
+        <div className="flex h-9 w-48 items-center gap-2 rounded-lg bg-surface-light px-3">
+          <span
+            aria-hidden="true"
+            className="pointer-events-none select-none text-xs font-semibold text-muted uppercase"
+          >
+            Sede
+          </span>
+          <select
+            id="f-sede"
+            className="h-full flex-1 items-center cursor-pointer bg-transparent text-xs text-muted uppercase outline-none!"
+            defaultValue=""
+          >
+            <option value="" disabled />
+            {SEDES.map((sede) => (
+              <option key={sede} value={sede}>
+                {sede}
+              </option>
+            ))}
+          </select>
+        </div>
+
         <label htmlFor="f-grupo" className="sr-only">
           Grupo de riesgo
         </label>
-        <select
-          id="f-grupo"
-          className="form-select h-8 w-48 rounded-lg bg-surface-light px-3 text-xs text-muted uppercase"
-          defaultValue=""
-        >
-          <option>Grupo de riesgo</option>
-          {GRUPOS.map((grupo) => (
-            <option key={grupo} value={grupo}>
-              {grupo}
-            </option>
-          ))}
-        </select>
-        <select
-          id="f-estado"
-          className="form-select h-8 w-48 rounded-lg bg-surface-light px-3 text-xs text-muted uppercase"
-          defaultValue=""
-        >
-          <option>Estado de lectura</option>
-          <option value="leido">Leído</option>
-          <option value="no-leido">No leído</option>
-        </select>
+        <div className="flex h-8 w-48 items-center gap-2 rounded-lg bg-surface-light px-3">
+          <span
+            aria-hidden="true"
+            className="pointer-events-none select-none text-xs font-semibold text-muted uppercase"
+          >
+            Grupo de riesgo
+          </span>
+          <select
+            id="f-grupo"
+            className="h-full flex-1 items-center cursor-pointer bg-transparent text-xs text-muted uppercase outline-none!"
+            defaultValue=""
+          >
+            <option value="" disabled />
+            {GRUPOS.map((grupo) => (
+              <option key={grupo} value={grupo}>
+                {grupo}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <label htmlFor="f-estado" className="sr-only">
+          Estado de lectura
+        </label>
+        <div className="flex h-8 w-60 items-center gap-2 rounded-lg bg-surface-light px-3">
+          <span
+            aria-hidden="true"
+            className="pointer-events-none select-none text-xs font-semibold text-muted uppercase"
+          >
+            Estado de lectura
+          </span>
+          <select
+            id="f-estado"
+            className="h-full flex-1 items-center cursor-pointer bg-transparent text-xs text-muted uppercase outline-none!"
+            defaultValue=""
+          >
+            <option value="" disabled />
+            <option value="leido">Lecturado</option>
+            <option value="no-leido">Pendiente</option>
+          </select>
+        </div>
         <button
           type="button"
           className="rounded-lg bg-brand px-8 py-2 text-xs font-bold tracking-wide text-white hover:bg-primary-hover"
@@ -64,7 +94,7 @@ export default function MatrizEmosTable() {
         </button>
       </div>
       <div className="mt-5 overflow-hidden rounded-lg">
-        <div className="grid grid-cols-[1.1fr_1.1fr_0.8fr_0.8fr_1fr_1.4fr_1.2fr_0.6fr] gap-2 rounded-lg bg-surface-light p-3 text-[11px] font-semibold uppercase tracking-wider text-muted">
+        <div className="grid grid-cols-[1.1fr_1.1fr_0.8fr_0.8fr_1fr_1.4fr_1.2fr_0.6fr_0.9fr] gap-2 rounded-lg bg-surface-light p-3 text-[11px] font-semibold uppercase tracking-wider text-muted">
           <span>Trabajador</span>
           <span>Puesto / Sede</span>
           <span>Antigüedad</span>
@@ -73,13 +103,14 @@ export default function MatrizEmosTable() {
           <span>Hallazgos</span>
           <span>Factores de riesgo</span>
           <span className="text-center">Grupo</span>
+          <span className="text-center">Estado de lectura</span>
         </div>
 
         <div className="divide-y divide-dashed divide-border-subtle">
           {matrizEmos.map((row) => (
             <div
               key={row.id}
-              className="grid grid-cols-[1.1fr_1.1fr_0.8fr_0.8fr_1fr_1.4fr_1.2fr_0.6fr] gap-2 px-3 py-3 text-xs"
+              className="grid grid-cols-[1.1fr_1.1fr_0.8fr_0.8fr_1fr_1.4fr_1.2fr_0.6fr_0.9fr] gap-2 px-3 py-3 text-xs"
             >
               <div className="flex flex-col gap-0.5">
                 <span className="font-medium leading-tight text-text-primary">
@@ -141,6 +172,17 @@ export default function MatrizEmosTable() {
                     aria-hidden="true"
                   />
                   {row.grupo}
+                </span>
+              </span>
+              <span className="flex justify-center self-center">
+                <span
+                  className={`rounded-full w-20 text-center px-2.5 py-1 text-xs font-bold ${
+                    row.lectura === "lecturado"
+                      ? "bg-success/15 text-success-dark"
+                      : "bg-risk-salmon/15 text-risk-salmon"
+                  }`}
+                >
+                  {row.lectura === "lecturado" ? "Lecturado" : "Pendiente"}
                 </span>
               </span>
             </div>
