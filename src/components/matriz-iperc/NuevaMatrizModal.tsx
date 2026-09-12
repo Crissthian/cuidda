@@ -128,9 +128,7 @@ export default function NuevaMatrizModal({ isOpen, onClose }: Props) {
                     onChange={(e) => setSede(e.target.value)}
                     className={`form-select appearance-none py-2.5 uppercase ${sede ? "text-text-primary" : "text-muted"}`}
                   >
-                    <option value="" disabled hidden>
-                      Seleccionar
-                    </option>
+                    <option value="">Seleccionar</option>
                     {SEDES.map((s) => (
                       <option key={s} value={s}>
                         {s}

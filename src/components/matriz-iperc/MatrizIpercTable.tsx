@@ -17,7 +17,7 @@ export default function MatrizIpercTable() {
       </div>
 
       <div className="mt-4 overflow-hidden rounded-lg">
-        <div className="grid grid-cols-[1.1fr_1fr_1.1fr_0.55fr_0.55fr_0.55fr_0.75fr_1.2fr_1fr] gap-4 rounded-lg bg-surface-light p-3 text-[10px] font-semibold uppercase tracking-wider text-muted">
+        <div className="grid grid-cols-[1.1fr_1fr_1.1fr_0.55fr_0.55fr_0.55fr_0.75fr_1.2fr_1fr] gap-4 rounded-lg bg-surface-light p-3 text-[11px] font-semibold uppercase tracking-wider text-muted">
           <span>Proceso</span>
           <span>Peligro</span>
           <span>Riesgo a la salud</span>
@@ -55,7 +55,7 @@ export default function MatrizIpercTable() {
               </span>
               <span className="flex justify-center self-center">
                 <span
-                  className={`rounded-full flex place-content-center h-5 w-full text-center mx-6 py-1 text-[10px] font-bold ${row.nivelClass}`}
+                  className={`rounded-full flex place-content-center h-5 w-full text-center mx-6 py-1 text-[11px] font-bold ${row.nivelClass}`}
                 >
                   {row.nivel}
                 </span>

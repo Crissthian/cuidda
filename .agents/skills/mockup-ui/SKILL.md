@@ -66,7 +66,71 @@ Esta skill guía al agente en la maquetación y desarrollo de interfaces visuale
 
 ---
 
-## 4. Manejo de Datos Estáticos
+## 4. Campos de Formulario (Selects e Inputs)
+
+**Etiqueta visible como prefijo**: No usar la primera `<option>` del `select` como placeholder. La etiqueta debe renderizarse como un `<span>` no seleccionable dentro de un contenedor `flex` que agrupa el prefijo y el control.
+
+Reglas del patrón:
+
+- El contenedor define toda la apariencia: `flex h-9 items-center gap-2 rounded-lg bg-surface-light px-3` (ajustar `h-*` según el contexto de la pantalla).
+- El `<span>` prefijo lleva `pointer-events-none select-none text-xs font-semibold text-muted` y `aria-hidden="true"`.
+- Mantener siempre el `<label htmlFor="..." className="sr-only">` para accesibilidad, ya que el prefijo está oculto a lectores de pantalla.
+- El control va sin fondo, borde ni outline propios: `h-full flex-1 bg-transparent text-xs text-muted outline-none!` (+ `cursor-pointer` en `select`).
+- Incluir una `<option value="" />` vacía (o `disabled`) para conservar el estado sin selección.
+- Usar `uppercase` en el prefijo cuando el control también lo use, para que ambos textos coincidan.
+
+```tsx
+<label htmlFor="f-sede" className="sr-only">
+  Sede
+</label>
+<div className="flex h-9 flex-1 items-center gap-2 rounded-lg bg-surface-light px-3">
+  <span
+    aria-hidden="true"
+    className="pointer-events-none select-none text-xs font-semibold text-muted uppercase"
+  >
+    Sede
+  </span>
+  <select
+    id="f-sede"
+    defaultValue=""
+    className="h-full flex-1 items-center uppercase cursor-pointer bg-transparent text-xs text-muted uppercase outline-none!"
+  >
+    <option value="" />
+    {SEDES.map((sede) => (
+      <option key={sede} value={sede}>
+        {sede}
+      </option>
+    ))}
+  </select>
+</div>
+```
+
+El mismo patrón aplica a `input type="date"`, omitiendo `cursor-pointer` y `uppercase` cuando no correspondan:
+
+```tsx
+<label htmlFor="f-desde" className="sr-only">
+  Desde
+</label>
+<div className="flex h-9 flex-1 items-center gap-2 rounded-lg bg-surface-light px-3">
+  <span
+    aria-hidden="true"
+    className="pointer-events-none select-none text-xs font-semibold text-muted"
+  >
+    Desde
+  </span>
+  <input
+    id="f-desde"
+    type="date"
+    className="h-full flex-1 bg-transparent text-xs text-muted outline-none!"
+    defaultValue={`${CURRENT_YEAR}-01-01`}
+    max={TODAY_ISO}
+  />
+</div>
+```
+
+---
+
+## 5. Manejo de Datos Estáticos
 
 Si necesitas mostrar listas, tablas de referencia o datos de prueba repetitivos:
 
@@ -90,7 +154,7 @@ Si necesitas mostrar listas, tablas de referencia o datos de prueba repetitivos:
 
 ---
 
-## 5. Accesibilidad (A11Y) - Lista de Control
+## 6. Accesibilidad (A11Y) - Lista de Control
 
 - **Etiquetado Semántico**: Utilizar elementos semánticos de HTML5 (`<header>`, `<main>`, `<section>`, `<nav>`, `<aside>`) para estructurar la página en lugar de `<div>` anidados.
 - **Asociación de Inputs**: Asociar siempre `<label htmlFor="id-campo">` con `<input id="id-campo">`.
@@ -107,7 +171,7 @@ Si necesitas mostrar listas, tablas de referencia o datos de prueba repetitivos:
 
 ---
 
-## 6. Tabs y Contenido Pendiente
+## 7. Tabs y Contenido Pendiente
 
 - Al implementar sistemas de pestañas (Tabs), si alguna de las pestañas no cuenta con diseño o lógica inmediata, renderizar un marcador de posición claro y limpio:
   ```tsx

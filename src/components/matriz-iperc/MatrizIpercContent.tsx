@@ -1,5 +1,6 @@
 import MatrizIpercTable from "@/components/matriz-iperc/MatrizIpercTable";
 import MatrizKpis from "@/components/matriz-iperc/MatrizKpis";
+import { SEDES } from "@/lib/sedes";
 
 export default function MatrizIpercContent() {
   return (
@@ -7,22 +8,30 @@ export default function MatrizIpercContent() {
       className="flex flex-col gap-6 text-xs px-10"
       aria-label="Matriz IPERC 001"
     >
-      <div className="flex items-center gap-3 w-4/12">
+      <div className="flex w-4/12 items-center gap-3">
         <label htmlFor="m-sede" className="sr-only">
           Sede
         </label>
-        <select
-          id="m-sede"
-          className="form-select h-8 w-48 rounded-lg bg-surface-light text-xs text-muted"
-          defaultValue=""
-        >
-          <option value="" disabled>
+        <div className="flex h-8 w-48 items-center gap-2 rounded-lg bg-surface-light px-3">
+          <span
+            aria-hidden="true"
+            className="pointer-events-none select-none text-xs font-semibold text-muted"
+          >
             Sede
-          </option>
-          <option>Todas</option>
-          <option>Condorcocha</option>
-          <option>Atocongo</option>
-        </select>
+          </span>
+          <select
+            id="m-sede"
+            className="h-full flex-1 items-center uppercase cursor-pointer bg-transparent text-xs text-muted outline-none!"
+            defaultValue=""
+          >
+            <option value="" />
+            {SEDES.map((sede) => (
+              <option key={sede} value={sede}>
+                {sede}
+              </option>
+            ))}
+          </select>
+        </div>
         <button
           type="button"
           className="rounded-lg bg-brand px-8 py-2 text-xs font-bold tracking-wide text-white hover:bg-primary-hover"
