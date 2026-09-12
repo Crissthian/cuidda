@@ -126,7 +126,7 @@ export default function NuevaMatrizModal({ isOpen, onClose }: Props) {
                     id="sede-matriz"
                     value={sede}
                     onChange={(e) => setSede(e.target.value)}
-                    className={`form-select appearance-none uppercase ${sede ? "text-text-primary" : "text-muted"}`}
+                    className={`form-select appearance-none py-2.5 uppercase ${sede ? "text-text-primary" : "text-muted"}`}
                   >
                     <option value="" disabled hidden>
                       Seleccionar
