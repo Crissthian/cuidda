@@ -121,7 +121,7 @@ export default function CargarPlanModal({ isOpen, onClose }: Props) {
 
               {/* Paso 1 */}
               <section
-                className="mt-6 rounded-xl bg-surface-light p-5 shadow-md shadow-border-subtle/30 ring-1 ring-border-subtle/20"
+                className="mt-6 rounded-xl bg-surface-default p-5 shadow-md shadow-border-subtle/30 ring-1 ring-border-subtle/20"
                 aria-labelledby="paso1-plan-title"
               >
                 <div className="flex items-center justify-between gap-4">
