@@ -1,4 +1,6 @@
 import { matrizEmos } from "@/lib/emosData";
+import { GRUPOS } from "@/lib/grupos";
+import { SEDES } from "@/lib/sedes";
 
 export default function MatrizEmosTable() {
   return (
@@ -20,31 +22,39 @@ export default function MatrizEmosTable() {
         </label>
         <select
           id="f-sede"
-          className="form-select h-8 w-48 rounded-lg bg-surface-light px-3 text-xs text-muted"
+          className="form-select h-8 w-48 rounded-lg bg-surface-light px-3 text-xs text-muted uppercase"
           defaultValue=""
         >
-          <option value="" disabled>
-            Sede
-          </option>
-          <option>Todas</option>
-          <option>Condorcocha</option>
-          <option>Sede Lima</option>
+          <option>Sede</option>
+          {SEDES.map((sede) => (
+            <option key={sede} value={sede}>
+              {sede}
+            </option>
+          ))}
         </select>
         <label htmlFor="f-grupo" className="sr-only">
           Grupo de riesgo
         </label>
         <select
           id="f-grupo"
-          className="form-select h-8 w-48 rounded-lg bg-surface-light px-3 text-xs text-muted"
+          className="form-select h-8 w-48 rounded-lg bg-surface-light px-3 text-xs text-muted uppercase"
           defaultValue=""
         >
-          <option value="" disabled>
-            Grupo de riesgo
-          </option>
-          <option>Todos</option>
-          <option>G1</option>
-          <option>G2</option>
-          <option>G3</option>
+          <option>Grupo de riesgo</option>
+          {GRUPOS.map((grupo) => (
+            <option key={grupo} value={grupo}>
+              {grupo}
+            </option>
+          ))}
+        </select>
+        <select
+          id="f-estado"
+          className="form-select h-8 w-48 rounded-lg bg-surface-light px-3 text-xs text-muted uppercase"
+          defaultValue=""
+        >
+          <option>Estado de lectura</option>
+          <option value="leido">Leído</option>
+          <option value="no-leido">No leído</option>
         </select>
         <button
           type="button"
@@ -54,7 +64,7 @@ export default function MatrizEmosTable() {
         </button>
       </div>
       <div className="mt-5 overflow-hidden rounded-lg">
-        <div className="grid grid-cols-[1.1fr_1.1fr_0.8fr_0.8fr_1fr_1.4fr_1.2fr_0.6fr] gap-2 rounded-lg bg-surface-light p-3 text-[10px] font-semibold uppercase tracking-wider text-muted">
+        <div className="grid grid-cols-[1.1fr_1.1fr_0.8fr_0.8fr_1fr_1.4fr_1.2fr_0.6fr] gap-2 rounded-lg bg-surface-light p-3 text-[11px] font-semibold uppercase tracking-wider text-muted">
           <span>Trabajador</span>
           <span>Puesto / Sede</span>
           <span>Antigüedad</span>
@@ -75,33 +85,33 @@ export default function MatrizEmosTable() {
                 <span className="font-medium leading-tight text-text-primary">
                   {row.trabajador}
                 </span>
-                <span className="text-[11px] text-muted">{row.dni}</span>
+                <span className="text-xs text-muted">{row.dni}</span>
               </div>
               <div className="flex flex-col gap-0.5">
                 <span className="leading-tight text-text-primary">
                   {row.puesto}
                 </span>
-                <span className="text-[11px] text-muted">{row.sede}</span>
+                <span className="text-xs text-muted">{row.sede}</span>
               </div>
               <div className="flex flex-col gap-0.5">
                 <span className="font-medium text-text-primary">
                   {row.antiguedad}
                 </span>
-                <span className="text-[11px] text-muted">ingreso</span>
-                <span className="text-[11px] text-muted">{row.ingreso}</span>
+                <span className="text-xs text-muted">ingreso</span>
+                <span className="text-xs text-muted">{row.ingreso}</span>
               </div>
               <div className="flex flex-col gap-0.5">
                 <span className="text-text-primary">{row.emo}</span>
-                <span className="text-[11px] text-muted">{row.emoFecha}</span>
+                <span className="text-xs text-muted">{row.emoFecha}</span>
               </div>
-              <span className="self-center text-[10px] font-semibold uppercase leading-tight text-brand whitespace-break-spaces">
+              <span className="self-center text-xs font-semibold uppercase leading-tight text-brand whitespace-break-spaces">
                 {row.aptitud}
               </span>
               <div className="flex flex-col gap-0.5 self-center">
                 {row.hallazgos.map((h, i) => (
                   <span
                     key={i}
-                    className={`text-[11px] leading-tight ${row.hallazgosColor}`}
+                    className={`text-xs leading-tight ${row.hallazgosColor}`}
                   >
                     {h}
                   </span>
@@ -112,7 +122,7 @@ export default function MatrizEmosTable() {
               </span>
               <span className="flex justify-center self-center">
                 <span
-                  className={`flex items-center gap-1 rounded-full px-2.5 py-1 text-[10px] font-bold ${
+                  className={`flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-bold ${
                     row.grupo === "G3"
                       ? "bg-risk-red/10 text-risk-red"
                       : row.grupo === "G2"

@@ -1,4 +1,4 @@
-const SEDES = ["Condorcocha", "Atocongo", "Conchán", "Villarán"];
+import { SEDES } from "@/lib/sedes";
 
 const TODAY = new Date();
 const CURRENT_YEAR = TODAY.getFullYear();
@@ -17,30 +17,42 @@ export default function DashboardFilters() {
         <label htmlFor="f-periodo" className="sr-only">
           Periodo
         </label>
-        <select
-          id="f-periodo"
-          className="form-select h-9 flex-1 items-center rounded-lg bg-surface-light px-3 text-xs text-muted"
-          defaultValue={String(CURRENT_YEAR)}
-        >
-          {YEARS.map((year) => (
-            <option key={year} value={year}>
-              {year}
-            </option>
-          ))}
-        </select>
+        <div className="flex h-9 flex-1 items-center gap-2 rounded-lg bg-surface-light px-3">
+          <span
+            aria-hidden="true"
+            className="pointer-events-none select-none text-xs font-semibold text-muted uppercase"
+          >
+            Periodo
+          </span>
+          <select
+            id="f-periodo"
+            className="h-full flex-1 ps-4 items-center cursor-pointer bg-transparent text-xs text-muted uppercase outline-none!"
+          >
+            <option value="" />
+            {YEARS.map((year) => (
+              <option key={year} value={year}>
+                {year}
+              </option>
+            ))}
+          </select>
+        </div>
 
         <label htmlFor="f-sede" className="sr-only">
           Sede
         </label>
-        <div className="form-select-container flex-1">
+        <div className="flex h-9 flex-1 items-center gap-2 rounded-lg bg-surface-light px-3">
+          <span
+            aria-hidden="true"
+            className="pointer-events-none select-none text-xs font-semibold text-muted uppercase"
+          >
+            Sede
+          </span>
           <select
             id="f-sede"
-            className="form-select h-9 flex-1 items-center w-full bg-surface-light px-3 text-xs text-muted uppercase"
+            className="h-full flex-1 ps-4 items-center cursor-pointer bg-transparent text-xs text-muted uppercase outline-none!"
             defaultValue=""
           >
-            <option value="" disabled>
-              Sede
-            </option>
+            <option value="" />
             {SEDES.map((sede) => (
               <option key={sede} value={sede}>
                 {sede}
@@ -52,24 +64,40 @@ export default function DashboardFilters() {
         <label htmlFor="f-desde" className="sr-only">
           Desde
         </label>
-        <input
-          id="f-desde"
-          type="date"
-          className="form-input h-9 flex-1 items-center rounded-lg bg-surface-light px-3 text-xs text-muted"
-          defaultValue={`${CURRENT_YEAR}-01-01`}
-          max={TODAY_ISO}
-        />
+        <div className="flex h-9 flex-1 items-center gap-2 rounded-lg bg-surface-light px-3">
+          <span
+            aria-hidden="true"
+            className="pointer-events-none select-none text-xs font-semibold text-muted"
+          >
+            Desde
+          </span>
+          <input
+            id="f-desde"
+            type="date"
+            className="h-full flex-1 bg-transparent text-xs text-muted outline-none!"
+            defaultValue={`${CURRENT_YEAR}-01-01`}
+            max={TODAY_ISO}
+          />
+        </div>
 
         <label htmlFor="f-hasta" className="sr-only">
           Hasta
         </label>
-        <input
-          id="f-hasta"
-          type="date"
-          className="form-input h-9 flex-1 items-center rounded-lg bg-surface-light px-3 text-xs text-muted"
-          defaultValue={TODAY_ISO}
-          max={TODAY_ISO}
-        />
+        <div className="flex h-9 flex-1 items-center gap-2 rounded-lg bg-surface-light px-3">
+          <span
+            aria-hidden="true"
+            className="pointer-events-none select-none text-xs font-semibold text-muted"
+          >
+            Hasta
+          </span>
+          <input
+            id="f-hasta"
+            type="date"
+            className="h-full flex-1 bg-transparent text-xs text-muted outline-none!"
+            defaultValue={TODAY_ISO}
+            max={TODAY_ISO}
+          />
+        </div>
       </div>
 
       <button

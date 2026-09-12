@@ -16,10 +16,10 @@ export default function KpiCards() {
               <i className={`fa-solid ${kpi.icon} text-2xl ${kpi.iconColor}`} />
             </span>
             <div className="flex flex-col">
-              <span className="whitespace-break-spaces text-sm font-medium leading-tight text-text-secondary">
+              <span className="whitespace-break-spaces text-sm leading-tight text-text-secondary">
                 {kpi.label}
               </span>
-              <span className="py-1 text-xl font-bold leading-none text-brand">
+              <span className="py-1 text-xl leading-none text-brand">
                 {kpi.value}
               </span>
               <span className={`text-xs ${kpi.subColor}`}>{kpi.sub}</span>
