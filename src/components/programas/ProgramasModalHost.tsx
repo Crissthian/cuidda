@@ -14,5 +14,7 @@ export default function ProgramasModalHost() {
     return () => btn.removeEventListener("click", handler);
   }, []);
 
-  return <NuevoProgramaModal isOpen={isOpen} onClose={() => setIsOpen(false)} />;
+  return (
+    <NuevoProgramaModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
+  );
 }

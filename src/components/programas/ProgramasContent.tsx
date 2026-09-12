@@ -66,68 +66,68 @@ export default function ProgramasContent() {
         </div>
         {/* Plan de programas */}
         {activeTab === "TODOS" && (
-        <section
-          className="my-4 flex flex-col rounded-xl bg-surface-default p-5 shadow-sm shadow-border-default"
-          aria-labelledby="plan-programas-title"
-        >
-          <h2
-            id="plan-programas-title"
-            className="text-sm font-bold uppercase text-text-primary"
+          <section
+            className="my-4 flex flex-col rounded-xl bg-surface-default p-5 shadow-sm shadow-border-default"
+            aria-labelledby="plan-programas-title"
           >
-            Plan de programas
-          </h2>
-          <p className="text-xs text-muted">
-            Registre el cumplimiento; el avance del programa se recalcula
-            automáticamente
-          </p>
+            <h2
+              id="plan-programas-title"
+              className="text-sm font-bold uppercase text-text-primary"
+            >
+              Plan de programas
+            </h2>
+            <p className="text-xs text-muted">
+              Registre el cumplimiento; el avance del programa se recalcula
+              automáticamente
+            </p>
 
-          <div className="mt-4 grid grid-cols-2 gap-6">
-            {planProgramas.map((plan) => (
-              <article
-                key={plan.id}
-                className="flex flex-col rounded-xl bg-linear-to-r from-brand/10 via-brand/5 to-success/15 p-5"
-                aria-labelledby={`plan-${plan.id}`}
-              >
-                <div className="flex items-start justify-between gap-2">
-                  <h3
-                    id={`plan-${plan.id}`}
-                    className="text-sm font-bold leading-tight text-text-primary"
-                  >
-                    {plan.titulo}
-                  </h3>
-                  <span className="shrink-0 rounded-full bg-violet/15 px-2.5 py-0.5 text-[10px] font-bold text-violet">
-                    {plan.categoria}
-                  </span>
-                </div>
+            <div className="mt-4 grid grid-cols-2 gap-6">
+              {planProgramas.map((plan) => (
+                <article
+                  key={plan.id}
+                  className="flex flex-col rounded-xl bg-linear-to-r from-brand/10 via-brand/5 to-success/15 p-5"
+                  aria-labelledby={`plan-${plan.id}`}
+                >
+                  <div className="flex items-start justify-between gap-2">
+                    <h3
+                      id={`plan-${plan.id}`}
+                      className="text-sm font-bold leading-tight text-text-primary"
+                    >
+                      {plan.titulo}
+                    </h3>
+                    <span className="shrink-0 rounded-full bg-violet/15 px-2.5 py-0.5 text-[10px] font-bold text-violet">
+                      {plan.categoria}
+                    </span>
+                  </div>
 
-                <p className="mt-1 text-xs leading-tight">
-                  <span className="font-bold text-brand">
-                    {plan.trabajadores}
-                  </span>
-                  <span className="text-brand"> · {plan.descripcion}</span>
-                </p>
+                  <p className="mt-1 text-xs leading-tight">
+                    <span className="font-bold text-brand">
+                      {plan.trabajadores}
+                    </span>
+                    <span className="text-brand"> · {plan.descripcion}</span>
+                  </p>
 
-                <ul className="mt-3 flex list-disc flex-col gap-1 pl-5 text-xs text-muted">
-                  {plan.hallazgos.map((hallazgo) => (
-                    <li key={hallazgo}>{hallazgo}</li>
-                  ))}
-                </ul>
+                  <ul className="mt-3 flex list-disc flex-col gap-1 pl-5 text-xs text-muted">
+                    {plan.hallazgos.map((hallazgo) => (
+                      <li key={hallazgo}>{hallazgo}</li>
+                    ))}
+                  </ul>
 
-                <div className="mt-4 flex items-center gap-3">
-                  <button
-                    type="button"
-                    className="rounded-lg bg-brand px-4 py-2 text-xs font-bold text-white transition hover:bg-primary-hover"
-                  >
-                    GENERAR PROGRAMA
-                  </button>
-                  <span className="text-xs text-brand">
-                    incluye {plan.actividadesSugeridas} actividades sugeridas
-                  </span>
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
+                  <div className="mt-4 flex items-center gap-3">
+                    <button
+                      type="button"
+                      className="rounded-lg bg-brand px-4 py-2 text-xs font-bold text-white transition hover:bg-primary-hover"
+                    >
+                      GENERAR PROGRAMA
+                    </button>
+                    <span className="text-xs text-brand">
+                      incluye {plan.actividadesSugeridas} actividades sugeridas
+                    </span>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
         )}
         {/* Cards grid */}
         <div className="grid grid-cols-4 gap-6 pb-6">

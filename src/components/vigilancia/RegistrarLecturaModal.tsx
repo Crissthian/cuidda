@@ -39,9 +39,7 @@ function CheckRow({
     >
       <span
         className={`mt-0.5 flex size-4 shrink-0 items-center justify-center rounded border ${
-          checked
-            ? "border-brand bg-brand"
-            : "border-muted-30 bg-surface-light"
+          checked ? "border-brand bg-brand" : "border-muted-30 bg-surface-light"
         }`}
         aria-hidden="true"
       >

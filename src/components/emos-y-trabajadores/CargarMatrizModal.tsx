@@ -11,19 +11,21 @@ type Vista = "selector" | "matriz" | "legajo";
 
 const sedes = ["Condorcocha", "Atococongo", "Conchán"];
 
-const aceptados: Record<Exclude<Vista, "selector">, Record<string, string[]>> =
-  {
-    matriz: {
-      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": [
-        ".xlsx",
-      ],
-      "application/vnd.ms-excel": [".xls"],
-      "text/csv": [".csv"],
-    },
-    legajo: {
-      "application/pdf": [".pdf"],
-    },
-  };
+const aceptados: Record<
+  Exclude<Vista, "selector">,
+  Record<string, string[]>
+> = {
+  matriz: {
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": [
+      ".xlsx",
+    ],
+    "application/vnd.ms-excel": [".xls"],
+    "text/csv": [".csv"],
+  },
+  legajo: {
+    "application/pdf": [".pdf"],
+  },
+};
 
 export default function CargarMatrizModal({ isOpen, onClose }: Props) {
   const [vista, setVista] = useState<Vista>("selector");
@@ -268,11 +270,7 @@ export default function CargarMatrizModal({ isOpen, onClose }: Props) {
                           Seleccionar archivo
                         </span>
                       </label>
-                      <button
-                        type="button"
-                        onClick={open}
-                        className="sr-only"
-                      >
+                      <button type="button" onClick={open} className="sr-only">
                         Abrir selector
                       </button>
                     </div>

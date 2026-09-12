@@ -88,9 +88,7 @@ export default function ProgramaDetalleContent({
           >
             Distribución por grupo de riesgo
           </h2>
-          <p className="text-muted">
-            Tomada de la clasificación existente
-          </p>
+          <p className="text-muted">Tomada de la clasificación existente</p>
 
           <div className="mt-4 flex flex-col gap-4">
             {detalle.distribucionRiesgo.map((g) => (

@@ -115,9 +115,7 @@ export default function NuevaMatrizModal({ isOpen, onClose }: Props) {
                   id="paso1-matriz-title"
                   className="flex flex-wrap items-baseline gap-1 text-sm text-text-secondary"
                 >
-                  <span className="mr-1 text-2xl font-bold text-brand">
-                    1.
-                  </span>
+                  <span className="mr-1 text-2xl font-bold text-brand">1.</span>
                   <span className="font-bold text-brand">
                     Selecciona la sede
                   </span>
@@ -151,9 +149,7 @@ export default function NuevaMatrizModal({ isOpen, onClose }: Props) {
                   id="paso2-matriz-title"
                   className="flex flex-wrap items-baseline gap-1 text-sm text-text-secondary"
                 >
-                  <span className="mr-1 text-2xl font-bold text-brand">
-                    2.
-                  </span>
+                  <span className="mr-1 text-2xl font-bold text-brand">2.</span>
                   <span className="font-bold text-brand">Archivo fuente</span>
                 </h3>
                 <p className="ml-7 text-xs text-muted">

@@ -3,9 +3,7 @@ import { useEffect, useState } from "react";
 
 type Props = { trabajadorNombre?: string };
 
-export default function LecturaResultadoModalHost({
-  trabajadorNombre,
-}: Props) {
+export default function LecturaResultadoModalHost({ trabajadorNombre }: Props) {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {

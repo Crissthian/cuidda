@@ -30,7 +30,10 @@ function GrupoBadge({ grupo }: { grupo: "G1" | "G2" | "G3" }) {
     <span
       className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-bold leading-none ${map[grupo]}`}
     >
-      <span className={`size-2 rounded-full ${dot[grupo]}`} aria-hidden="true" />
+      <span
+        className={`size-2 rounded-full ${dot[grupo]}`}
+        aria-hidden="true"
+      />
       {grupo}
     </span>
   );
@@ -63,7 +66,10 @@ export default function LecturaResultadoDetalleContent({ lectura }: Props) {
           </span>
         </div>
 
-        <div className="my-5 border-t border-dashed border-border-subtle" aria-hidden="true" />
+        <div
+          className="my-5 border-t border-dashed border-border-subtle"
+          aria-hidden="true"
+        />
 
         <div className="grid grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-3 lg:grid-cols-5">
           <FichaField label="Documento" value={`DNI ${lectura.dni}`} />
@@ -73,7 +79,10 @@ export default function LecturaResultadoDetalleContent({ lectura }: Props) {
           <FichaField label="Tipo de EMO" value={lectura.emo} />
           <FichaField label="Médico responsable" value={lectura.medico} />
           <FichaField label="EMO de referencia" value={lectura.emoRef} />
-          <FichaField label="Expiración del enlace" value={lectura.expiracionCorta} />
+          <FichaField
+            label="Expiración del enlace"
+            value={lectura.expiracionCorta}
+          />
         </div>
       </section>
 
@@ -105,10 +114,7 @@ export default function LecturaResultadoDetalleContent({ lectura }: Props) {
           </h3>
           <ul className="mt-2 list-disc space-y-1 pl-6 marker:text-text-primary">
             {lectura.resultados.map((r) => (
-              <li
-                key={r}
-                className="text-sm leading-relaxed text-text-primary"
-              >
+              <li key={r} className="text-sm leading-relaxed text-text-primary">
                 {r}
               </li>
             ))}
@@ -119,10 +125,7 @@ export default function LecturaResultadoDetalleContent({ lectura }: Props) {
           </h3>
           <ul className="mt-2 list-disc space-y-1 pl-6 marker:text-text-primary">
             {lectura.recomendaciones.map((r) => (
-              <li
-                key={r}
-                className="text-sm leading-relaxed text-text-primary"
-              >
+              <li key={r} className="text-sm leading-relaxed text-text-primary">
                 {r}
               </li>
             ))}
@@ -152,7 +155,10 @@ export default function LecturaResultadoDetalleContent({ lectura }: Props) {
                 <FichaField label="Nombre" value={constancia.nombre} />
                 <FichaField label="DNI" value={constancia.dni} />
                 <FichaField label="Fecha" value={constancia.fecha} />
-                <FichaField label="Transacción" value={constancia.transaccion} />
+                <FichaField
+                  label="Transacción"
+                  value={constancia.transaccion}
+                />
                 <FichaField label="Modalidad" value={constancia.modalidad} />
                 <FichaField label="Hora" value={constancia.hora} />
                 <div className="col-span-3">
@@ -183,8 +189,8 @@ export default function LecturaResultadoDetalleContent({ lectura }: Props) {
                   Registró {constancia.medico}
                 </p>
                 <p className="mt-0.5 text-xs leading-relaxed text-text-secondary">
-                  No se almacenan imágenes de huellas; solo la referencia
-                  segura de validación.
+                  No se almacenan imágenes de huellas; solo la referencia segura
+                  de validación.
                 </p>
               </div>
             </>

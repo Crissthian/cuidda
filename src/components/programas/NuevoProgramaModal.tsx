@@ -276,7 +276,11 @@ export default function NuevoProgramaModal({ isOpen, onClose }: Props) {
 
                 <div>
                   <span className={labelClass}>Grupos de riesgo incluidos</span>
-                  <div className="flex gap-3" role="group" aria-label="Grupos de riesgo incluidos">
+                  <div
+                    className="flex gap-3"
+                    role="group"
+                    aria-label="Grupos de riesgo incluidos"
+                  >
                     {gruposRiesgoPrograma.map((g) => {
                       const active = grupos.includes(g.id);
                       return (

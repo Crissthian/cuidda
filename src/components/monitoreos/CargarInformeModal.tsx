@@ -234,9 +234,7 @@ export default function CargarInformeModal({ isOpen, onClose }: Props) {
                   className="flex flex-wrap items-baseline gap-1 text-sm text-text-secondary"
                 >
                   <span className="mr-1 text-2xl font-bold text-brand">3.</span>
-                  <span className="font-bold text-brand">
-                    Importar informe
-                  </span>
+                  <span className="font-bold text-brand">Importar informe</span>
                 </h3>
                 <p className="ml-7 text-xs text-muted">
                   Formatos aceptados: PDF

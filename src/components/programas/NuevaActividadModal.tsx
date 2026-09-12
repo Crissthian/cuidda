@@ -121,7 +121,10 @@ export default function NuevaActividadModal({ isOpen, onClose }: Props) {
                     </div>
                   </div>
                   <div>
-                    <label htmlFor="nueva-actividad-fecha" className={labelClass}>
+                    <label
+                      htmlFor="nueva-actividad-fecha"
+                      className={labelClass}
+                    >
                       Fecha programada
                     </label>
                     <div className="relative">
@@ -156,7 +159,10 @@ export default function NuevaActividadModal({ isOpen, onClose }: Props) {
                     type="submit"
                     className="flex items-center gap-2 rounded-lg bg-brand px-6 py-2.5 text-[11px] font-bold text-white transition hover:bg-primary-hover"
                   >
-                    <i className="fa-solid fa-plus text-[11px]" aria-hidden="true" />
+                    <i
+                      className="fa-solid fa-plus text-[11px]"
+                      aria-hidden="true"
+                    />
                     AGREGAR
                   </button>
                 </div>
