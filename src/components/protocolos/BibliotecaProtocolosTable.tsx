@@ -13,36 +13,7 @@ export default function BibliotecaProtocolosTable() {
         Biblioteca de protocolos
       </h2>
 
-      <div className="mt-4 flex items-center gap-3">
-        <label htmlFor="p-empresa" className="sr-only">
-          Empresa
-        </label>
-        <select
-          id="p-empresa"
-          className="form-select h-8 flex-1 rounded-lg bg-surface-light px-3 text-xs text-muted"
-          defaultValue=""
-        >
-          <option value="" disabled>
-            Empresa
-          </option>
-          <option>Minera Andes Sur S.A.</option>
-          <option>Transportes Vía Norte S.A.C.</option>
-        </select>
-
-        <label htmlFor="p-sede" className="sr-only">
-          Sede
-        </label>
-        <select
-          id="p-sede"
-          className="form-select h-8 flex-1 rounded-lg bg-surface-light px-3 text-xs text-muted"
-          defaultValue=""
-        >
-          <option value="" disabled>
-            Sede
-          </option>
-          <option>Todas</option>
-        </select>
-
+      <div className="mt-4 flex items-center gap-3 max-w-5/12">
         <label htmlFor="p-area" className="sr-only">
           Área
         </label>
@@ -51,26 +22,13 @@ export default function BibliotecaProtocolosTable() {
           className="form-select h-8 flex-1 rounded-lg bg-surface-light px-3 text-xs text-muted"
           defaultValue=""
         >
-          <option value="" disabled>
-            Área
-          </option>
+          <option value="">Área</option>
           <option>Administración</option>
           <option>Operaciones</option>
-        </select>
-
-        <label htmlFor="p-tipo" className="sr-only">
-          Tipo de EMO
-        </label>
-        <select
-          id="p-tipo"
-          className="form-select h-8 flex-1 rounded-lg bg-surface-light px-3 text-xs text-muted"
-          defaultValue=""
-        >
-          <option value="" disabled>
-            Tipo de EMO
-          </option>
-          <option>Periódico</option>
-          <option>Ingreso</option>
+          <option>Logistica</option>
+          <option>Transporte</option>
+          <option>Mantenimiento</option>
+          <option>Producción</option>
         </select>
 
         <label htmlFor="p-estado" className="sr-only">
@@ -81,11 +39,9 @@ export default function BibliotecaProtocolosTable() {
           className="form-select h-8 flex-1 rounded-lg bg-surface-light px-3 text-xs text-muted"
           defaultValue=""
         >
-          <option value="" disabled>
-            Estado
-          </option>
+          <option value="">Estado</option>
           <option>Vigente</option>
-          <option>Por actualizar</option>
+          <option>No vigente</option>
         </select>
 
         <button
@@ -138,7 +94,7 @@ export default function BibliotecaProtocolosTable() {
                 {row.actualizacion}
               </span>
               <span className="flex justify-center self-center">
-                <span className="rounded-full bg-success/15 px-3 py-1 text-[10px] font-bold text-success-dark">
+                <span className="rounded-full bg-success/15 px-3 py-1 text-[11px] font-bold text-success-dark">
                   {row.estado}
                 </span>
               </span>
@@ -146,10 +102,10 @@ export default function BibliotecaProtocolosTable() {
                 <a
                   href={`/vigilancia-medica/protocolos-medicos/${row.id}`}
                   aria-label={`Ver detalles del protocolo ${row.protocolo}`}
-                  className="flex w-18 place-content-center gap-1 rounded-lg bg-muted px-3 py-1 text-[10px] font-bold text-white hover:bg-muted-80"
+                  className="flex w-18 items-center text-center gap-1 rounded-lg bg-muted px-3 py-1 text-[11px] font-bold text-white hover:bg-muted-80"
                 >
                   <i
-                    className="fa-solid fa-eye text-[10px]"
+                    className="fa-solid fa-eye text-[11px]"
                     aria-hidden="true"
                   />
                   VER

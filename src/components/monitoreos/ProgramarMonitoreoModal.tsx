@@ -6,14 +6,7 @@ type Props = {
   onClose: () => void;
 };
 
-const tiposMonitoreo = ["Higiénico", "Psicosocial", "Ergonómico", "Biológico"];
-const areasEvaluar = [
-  "Mina – Perforación",
-  "Planta – Chancado",
-  "Taller mantenimiento",
-  "Acarreo",
-  "Toda la operación",
-];
+const tiposMonitoreo = ["Higiénico", "Psicosocial", "Ergonómico"];
 
 export default function ProgramarMonitoreoModal({ isOpen, onClose }: Props) {
   const [agente, setAgente] = useState("");
@@ -57,7 +50,7 @@ export default function ProgramarMonitoreoModal({ isOpen, onClose }: Props) {
           onClick={handleClose}
         >
           <div
-            className="relative flex max-h-[95vh] w-full max-w-125 flex-col overflow-hidden rounded-2xl bg-surface-default shadow-xl"
+            className="relative flex max-h-[95vh] w-full max-w-120 px-4 flex-col overflow-hidden rounded-2xl bg-surface-default shadow-xl"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close button top right */}
@@ -78,7 +71,7 @@ export default function ProgramarMonitoreoModal({ isOpen, onClose }: Props) {
               <div className="text-center">
                 <h2
                   id="modal-programar-title"
-                  className="text-xl font-bold text-brand"
+                  className="text-sm font-bold text-brand"
                 >
                   Programa tu monitoreo
                 </h2>
@@ -93,7 +86,10 @@ export default function ProgramarMonitoreoModal({ isOpen, onClose }: Props) {
                 }}
               >
                 <div>
-                  <label htmlFor="agente" className="form-label">
+                  <label
+                    htmlFor="agente"
+                    className="form-label text-xs text-text-primary"
+                  >
                     Ingresa agente
                   </label>
                   <input
@@ -106,7 +102,10 @@ export default function ProgramarMonitoreoModal({ isOpen, onClose }: Props) {
                 </div>
 
                 <div>
-                  <label htmlFor="tipo" className="form-label">
+                  <label
+                    htmlFor="tipo"
+                    className="form-label text-xs text-text-primary"
+                  >
                     Selecciona tipo
                   </label>
                   <div className="form-select-container">
@@ -116,7 +115,7 @@ export default function ProgramarMonitoreoModal({ isOpen, onClose }: Props) {
                       onChange={(e) => setTipo(e.target.value)}
                       className="form-select appearance-none"
                     >
-                      <option value="" disabled hidden />
+                      <option value="" />
                       {tiposMonitoreo.map((t) => (
                         <option key={t} value={t}>
                           {t}
@@ -127,28 +126,26 @@ export default function ProgramarMonitoreoModal({ isOpen, onClose }: Props) {
                 </div>
 
                 <div>
-                  <label htmlFor="area" className="form-label">
-                    Selecciona área a evaluar
+                  <label
+                    htmlFor="area"
+                    className="form-label text-xs text-text-primary"
+                  >
+                    Área a evaluar
                   </label>
-                  <div className="form-select-container">
-                    <select
-                      id="area"
-                      value={area}
-                      onChange={(e) => setArea(e.target.value)}
-                      className="form-select appearance-none"
-                    >
-                      <option value="" disabled hidden />
-                      {areasEvaluar.map((a) => (
-                        <option key={a} value={a}>
-                          {a}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                  <input
+                    id="area"
+                    type="text"
+                    value={area}
+                    onChange={(e) => setArea(e.target.value)}
+                    className="form-input"
+                  />
                 </div>
 
                 <div>
-                  <label htmlFor="fecha" className="form-label">
+                  <label
+                    htmlFor="fecha"
+                    className="form-label text-xs text-text-primary"
+                  >
                     Seleccionar fecha
                   </label>
                   <div className="relative max-w-55">

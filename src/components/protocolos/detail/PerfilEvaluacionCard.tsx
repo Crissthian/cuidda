@@ -46,7 +46,7 @@ export default function PerfilEvaluacionCard() {
       </div>
 
       <div className="mt-5 overflow-hidden rounded-lg">
-        <div className="grid grid-cols-[1fr_0.7fr_1.2fr] gap-4 rounded-lg bg-surface-light p-3 text-xs uppercase tracking-wider text-muted">
+        <div className="grid grid-cols-[1fr_0.7fr_1.2fr] gap-4 rounded-lg bg-surface-light p-3 text-[11px] uppercase tracking-wider text-muted">
           <span>Evaluación / Examen</span>
           <span>Tipo</span>
           <span>Condición</span>

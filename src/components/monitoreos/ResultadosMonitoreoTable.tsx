@@ -19,7 +19,7 @@ export default function ResultadosMonitoreoTable() {
       </div>
 
       <div className="mt-4 overflow-hidden rounded-lg">
-        <div className="grid grid-cols-[1.2fr_0.8fr_1.1fr_0.8fr_0.9fr_0.7fr_0.7fr] gap-4 rounded-lg bg-surface-light p-3 text-[10px] font-semibold uppercase tracking-wider text-muted">
+        <div className="grid grid-cols-[1.2fr_0.8fr_1.1fr_0.8fr_0.9fr_0.7fr_0.7fr] gap-4 rounded-lg bg-surface-light p-3 text-[11px] font-semibold uppercase tracking-wider text-muted">
           <span>Agente</span>
           <span>Tipo</span>
           <span>Área evaluada</span>
@@ -49,7 +49,7 @@ export default function ResultadosMonitoreoTable() {
               <span className="text-text-secondary">{row.lmp}</span>
               <span className="flex justify-center self-center">
                 <span
-                  className={`rounded-full w-full h-5 mx-8 text-center px-3 py-1 text-[10px] font-bold ${row.estadoClass}`}
+                  className={`rounded-full w-full h-5 mx-8 text-center px-3 py-1 text-[11px] font-bold ${row.estadoClass}`}
                 >
                   {row.estado}
                 </span>

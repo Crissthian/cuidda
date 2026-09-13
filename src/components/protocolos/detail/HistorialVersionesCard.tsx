@@ -17,7 +17,7 @@ export default function HistorialVersionesCard() {
       </p>
 
       <div className="mt-4 overflow-hidden rounded-lg">
-        <div className="grid grid-cols-[0.5fr_0.7fr_0.9fr_1.4fr_0.8fr_0.6fr] gap-4 rounded-lg bg-surface-light p-3 text-xs uppercase tracking-wider text-muted">
+        <div className="grid grid-cols-[0.5fr_0.7fr_0.9fr_1.4fr_0.8fr_0.6fr] gap-4 rounded-lg bg-surface-light p-3 text-[11px] uppercase tracking-wider text-muted">
           <span>Versión</span>
           <span>Fecha</span>
           <span>Responsable</span>
@@ -40,7 +40,7 @@ export default function HistorialVersionesCard() {
               <span className="text-text-secondary">{row.vigencia}</span>
               <span className="flex justify-center items-center">
                 <span
-                  className={`rounded-lg h-5 w-10/12 text-center px-3 py-1 text-[10px] font-bold ${
+                  className={`rounded-lg h-5 w-10/12 text-center px-3 py-1 text-[11px] font-bold ${
                     row.estado === "VIGENTE"
                       ? "bg-success/15 text-success-dark"
                       : "bg-muted-20 text-muted"

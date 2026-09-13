@@ -247,7 +247,7 @@ export default function CargarDocumentoModal({ isOpen, onClose }: Props) {
                           </span>
                         </div>
                       </div>
-                      <span className="rounded-full bg-success/15 px-3 py-1 text-[10px] font-bold text-success-dark">
+                      <span className="rounded-full bg-success/15 px-3 py-1 text-[11px] font-bold text-success-dark">
                         Cargado
                       </span>
                     </div>

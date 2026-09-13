@@ -111,7 +111,7 @@ export default function ActualizarProtocoloModal({ isOpen, onClose }: Props) {
                   className={`mt-4 flex flex-col items-center justify-center rounded-lg border-2 border-dashed p-6 text-center transition border-brand/60 bg-surface-default ${
                     isDragActive
                       ? "border-brand bg-brand/5"
-                      : "border-brand/60 bg-white"
+                      : "border-brand/60 bg-surface-default"
                   }`}
                 >
                   <input {...getInputProps()} />
@@ -175,7 +175,7 @@ export default function ActualizarProtocoloModal({ isOpen, onClose }: Props) {
                           </span>
                         </div>
                       </div>
-                      <span className="rounded-full bg-success/15 px-3 py-1 text-[10px] font-bold text-success-dark">
+                      <span className="rounded-full bg-success/15 px-3 py-1 text-[11px] font-bold text-success-dark">
                         Cargado
                       </span>
                     </div>

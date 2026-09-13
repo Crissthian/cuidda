@@ -1,11 +1,11 @@
 import SuccessModal from "@/components/ui/SuccessModal";
-import {
-  agentesMonitoreo,
-  periodosMonitoreo,
-  sedesMonitoreo,
-} from "@/lib/monitoreosData";
+import { agentesMonitoreo } from "@/lib/monitoreosData";
+import { SEDES } from "@/lib/sedes";
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
+const TODAY = new Date();
+const CURRENT_YEAR = TODAY.getFullYear();
+const YEARS = Array.from({ length: 10 }, (_, i) => CURRENT_YEAR - i);
 
 type Props = {
   isOpen: boolean;
@@ -136,10 +136,8 @@ export default function CargarInformeModal({ isOpen, onClose }: Props) {
                         onChange={(e) => setPeriodo(e.target.value)}
                         className={`form-select appearance-none py-2.5 text-xs ${periodo ? "text-text-primary" : "text-muted"}`}
                       >
-                        <option value="" disabled hidden>
-                          Seleccionar
-                        </option>
-                        {periodosMonitoreo.map((p) => (
+                        <option value="">Seleccionar</option>
+                        {YEARS.map((p) => (
                           <option key={p} value={p}>
                             {p}
                           </option>
@@ -165,10 +163,8 @@ export default function CargarInformeModal({ isOpen, onClose }: Props) {
                         onChange={(e) => setSede(e.target.value)}
                         className={`form-select appearance-none py-2.5 text-xs ${sede ? "text-text-primary" : "text-muted"}`}
                       >
-                        <option value="" disabled hidden>
-                          Seleccionar
-                        </option>
-                        {sedesMonitoreo.map((s) => (
+                        <option value="">Seleccionar</option>
+                        {SEDES.map((s) => (
                           <option key={s} value={s}>
                             {s}
                           </option>
@@ -208,9 +204,7 @@ export default function CargarInformeModal({ isOpen, onClose }: Props) {
                     onChange={(e) => setAgente(e.target.value)}
                     className={`form-select appearance-none py-2.5 text-xs ${agente ? "text-text-primary" : "text-muted"}`}
                   >
-                    <option value="" disabled hidden>
-                      Selecciona el agente
-                    </option>
+                    <option value="">Selecciona el agente</option>
                     {agentesMonitoreo.map((a) => (
                       <option key={a} value={a}>
                         {a}
@@ -309,7 +303,7 @@ export default function CargarInformeModal({ isOpen, onClose }: Props) {
                           </span>
                         </div>
                       </div>
-                      <span className="rounded-full bg-success/15 px-3 py-1 text-[10px] font-bold text-success-dark">
+                      <span className="rounded-full bg-success/15 px-3 py-1 text-[11px] font-bold text-success-dark">
                         Cargado
                       </span>
                     </div>

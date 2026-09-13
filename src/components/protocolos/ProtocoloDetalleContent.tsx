@@ -13,11 +13,11 @@ export default function ProtocoloDetalleContent({ protocolo }: Props) {
       <ProtocoloHeaderCard protocolo={protocolo} />
 
       <div className="grid grid-cols-12 gap-6">
-        <div className="col-span-8">
+        <div className="col-span-9">
           <PerfilEvaluacionCard />
           <HistorialVersionesCard />
         </div>
-        <div className="col-span-4 flex flex-col gap-6">
+        <div className="col-span-3 flex flex-col gap-6">
           <PuestosIncluidosCard />
           <DocumentoProtocoloCard
             codigo={protocolo.codigo}

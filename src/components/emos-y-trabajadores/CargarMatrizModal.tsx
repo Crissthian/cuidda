@@ -1,7 +1,7 @@
 import SuccessModal from "@/components/ui/SuccessModal";
+import { SEDES } from "@/lib/sedes";
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
-import { SEDES } from "@/lib/sedes";
 
 type Props = {
   isOpen: boolean;
@@ -303,7 +303,7 @@ export default function CargarMatrizModal({ isOpen, onClose }: Props) {
                               </span>
                             </div>
                           </div>
-                          <span className="rounded-full bg-success/15 px-3 py-1 text-[10px] font-bold text-success-dark">
+                          <span className="rounded-full bg-success/15 px-3 py-1 text-[11px] font-bold text-success-dark">
                             Cargado
                           </span>
                         </div>

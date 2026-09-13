@@ -69,17 +69,17 @@ export default function ProtocoloHeaderCard({ protocolo }: Props) {
       </div>
 
       <div className="mt-5 border-t border-dashed border-border-subtle pt-4">
-        <div className="w-4/12 flex gap-4">
-          <span className="rounded-lg bg-success/15 px-3 py-1 text-[10px] font-bold text-success-dark w-full text-center">
+        <div className="w-138 flex gap-4">
+          <span className="rounded-lg bg-success/15 px-2 py-1 text-[11px] font-bold text-success-dark w-full text-center">
             VIGENTE
           </span>
-          <span className="rounded-lg bg-[#e6f0ff] px-3 py-1 text-[10px] font-bold text-brand w-full text-center">
+          <span className="rounded-lg bg-[#e6f0ff] px-2 py-1 text-[11px] font-bold text-brand w-full text-center">
             10 EVALUACIONES
           </span>
-          <span className="rounded-lg bg-risk-salmon/15 px-3 py-1 text-[10px] font-bold text-risk-salmon w-full text-center">
+          <span className="rounded-lg bg-risk-salmon/15 px-2 py-1 text-[11px] font-bold text-risk-salmon w-full text-center">
             4 CONDICIONALES
           </span>
-          <span className="rounded-lg bg-muted-20 px-3 py-1 text-[10px] font-bold text-muted w-full text-center">
+          <span className="rounded-lg bg-muted-20 px-2 py-1 text-[11px] font-bold text-muted w-full text-center">
             12 ASOCIADOS
           </span>
         </div>
