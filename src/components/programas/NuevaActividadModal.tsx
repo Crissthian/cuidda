@@ -47,7 +47,7 @@ export default function NuevaActividadModal({ isOpen, onClose }: Props) {
           onClick={handleClose}
         >
           <div
-            className="relative flex max-h-[90vh] w-full max-w-2xl flex-col overflow-hidden rounded-2xl bg-surface-default shadow-xl"
+            className="relative flex max-h-[90vh] w-full max-w-xl flex-col overflow-hidden rounded-2xl bg-surface-default shadow-xl"
             onClick={(e) => e.stopPropagation()}
           >
             <button
@@ -114,10 +114,6 @@ export default function NuevaActividadModal({ isOpen, onClose }: Props) {
                           </option>
                         ))}
                       </select>
-                      <i
-                        className="fa-solid fa-chevron-down form-select-icon text-xs"
-                        aria-hidden="true"
-                      />
                     </div>
                   </div>
                   <div>

@@ -162,10 +162,6 @@ export default function NuevoProgramaModal({ isOpen, onClose }: Props) {
                           </option>
                         ))}
                       </select>
-                      <i
-                        className="fa-solid fa-chevron-down form-select-icon text-xs"
-                        aria-hidden="true"
-                      />
                     </div>
                   </div>
                   <div className="col-span-4">
@@ -188,10 +184,6 @@ export default function NuevoProgramaModal({ isOpen, onClose }: Props) {
                           </option>
                         ))}
                       </select>
-                      <i
-                        className="fa-solid fa-chevron-down form-select-icon text-xs"
-                        aria-hidden="true"
-                      />
                     </div>
                   </div>
                   <div className="col-span-5">
@@ -214,10 +206,6 @@ export default function NuevoProgramaModal({ isOpen, onClose }: Props) {
                           </option>
                         ))}
                       </select>
-                      <i
-                        className="fa-solid fa-chevron-down form-select-icon text-xs"
-                        aria-hidden="true"
-                      />
                     </div>
                   </div>
                   <div className="col-span-4">
@@ -240,10 +228,6 @@ export default function NuevoProgramaModal({ isOpen, onClose }: Props) {
                           </option>
                         ))}
                       </select>
-                      <i
-                        className="fa-solid fa-chevron-down form-select-icon text-xs"
-                        aria-hidden="true"
-                      />
                     </div>
                   </div>
                   <div className="col-span-3">
@@ -266,10 +250,6 @@ export default function NuevoProgramaModal({ isOpen, onClose }: Props) {
                           </option>
                         ))}
                       </select>
-                      <i
-                        className="fa-solid fa-chevron-down form-select-icon text-xs"
-                        aria-hidden="true"
-                      />
                     </div>
                   </div>
                 </div>

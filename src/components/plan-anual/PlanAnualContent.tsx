@@ -1,6 +1,9 @@
 import ActividadesTable from "@/components/plan-anual/ActividadesTable";
 import AvanceMensual from "@/components/plan-anual/AvanceMensual";
 import PlanAnualKpis from "@/components/plan-anual/PlanAnualKpis";
+const TODAY = new Date();
+const CURRENT_YEAR = TODAY.getFullYear();
+const YEARS = Array.from({ length: 10 }, (_, i) => CURRENT_YEAR - i);
 
 export default function PlanAnualContent() {
   return (
@@ -10,17 +13,26 @@ export default function PlanAnualContent() {
           <label htmlFor="pa-periodo" className="sr-only">
             Periodo
           </label>
-          <select
-            id="pa-periodo"
-            className="form-select h-8 w-48 rounded-lg bg-surface-light px-3 text-xs text-muted"
-            defaultValue=""
-          >
-            <option value="" disabled>
+          <div className="flex h-8 w-48 items-center gap-2 rounded-lg bg-surface-light px-3">
+            <span
+              aria-hidden="true"
+              className="pointer-events-none select-none text-xs font-semibold text-muted uppercase"
+            >
               Periodo
-            </option>
-            <option>2026</option>
-            <option>2025</option>
-          </select>
+            </span>
+            <select
+              id="pa-periodo"
+              defaultValue=""
+              className="h-full flex-1 items-center cursor-pointer bg-transparent text-xs text-muted uppercase outline-none!"
+            >
+              <option value="" />
+              {YEARS.map((periodo) => (
+                <option key={periodo} value={periodo}>
+                  {periodo}
+                </option>
+              ))}
+            </select>
+          </div>
           <button
             type="button"
             className="rounded-lg bg-brand px-8 py-2 text-xs font-bold tracking-wide text-white hover:bg-primary-hover"

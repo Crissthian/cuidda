@@ -1,5 +1,6 @@
 import SuccessModal from "@/components/ui/SuccessModal";
-import { calendarioCapacitaciones } from "@/lib/capacitacionesData";
+import { temasCumplimiento } from "@/lib/capacitacionesData";
+import { SEDES } from "@/lib/sedes";
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 
@@ -9,6 +10,7 @@ type Props = {
 };
 
 export default function RegistrarCumplimientoModal({ isOpen, onClose }: Props) {
+  const [sede, setSede] = useState("");
   const [tema, setTema] = useState("");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [showSuccess, setShowSuccess] = useState(false);
@@ -46,12 +48,14 @@ export default function RegistrarCumplimientoModal({ isOpen, onClose }: Props) {
   const handleCloseSuccess = () => {
     setShowSuccess(false);
     setSelectedFile(null);
+    setSede("");
     setTema("");
     onClose();
   };
 
   const handleCloseUpload = () => {
     setSelectedFile(null);
+    setSede("");
     setTema("");
     onClose();
   };
@@ -106,34 +110,64 @@ export default function RegistrarCumplimientoModal({ isOpen, onClose }: Props) {
               >
                 <h3
                   id="paso1-cumplimiento-title"
-                  className="flex flex-wrap items-baseline gap-1 text-sm text-text-secondary"
+                  className="flex items-baseline gap-2 text-sm font-bold text-brand"
                 >
-                  <span className="mr-1 text-2xl font-bold text-brand">1.</span>
-                  <span className="font-bold text-brand">
-                    Selecciona el tema:
-                  </span>
-                  <span className="font-normal">
-                    Señala el tema de la capacitación para actualizar
-                    cumplimiento.
-                  </span>
+                  <span className="text-2xl font-bold text-brand">1.</span>
+                  Información de origen
                 </h3>
 
-                <div className="form-select-container mt-4">
-                  <select
-                    id="tema"
-                    value={tema}
-                    onChange={(e) => setTema(e.target.value)}
-                    className={`form-select appearance-none ${tema ? "text-text-primary" : "text-muted"}`}
-                  >
-                    <option value="" disabled hidden>
-                      Selecciona tema
-                    </option>
-                    {calendarioCapacitaciones.map((c) => (
-                      <option key={c.id} value={c.tema}>
-                        {c.tema}
-                      </option>
-                    ))}
-                  </select>
+                <div className="ml-7 mt-4 flex flex-col gap-4">
+                  <div>
+                    <label
+                      htmlFor="cumplimiento-sede"
+                      className="mb-1 block text-sm text-text-primary"
+                    >
+                      Sede
+                    </label>
+                    <div className="form-select-container">
+                      <select
+                        id="cumplimiento-sede"
+                        value={sede}
+                        onChange={(e) => setSede(e.target.value)}
+                        className={`form-select appearance-none ${sede ? "text-text-primary" : "text-muted"}`}
+                      >
+                        <option value="" disabled hidden>
+                          Seleccionar
+                        </option>
+                        {SEDES.map((s) => (
+                          <option key={s} value={s}>
+                            {s}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="tema"
+                      className="mb-1 block text-sm text-text-primary"
+                    >
+                      Tema
+                    </label>
+                    <div className="form-select-container">
+                      <select
+                        id="tema"
+                        value={tema}
+                        onChange={(e) => setTema(e.target.value)}
+                        className={`form-select appearance-none ${tema ? "text-text-primary" : "text-muted"}`}
+                      >
+                        <option value="" disabled hidden>
+                          Seleccionar
+                        </option>
+                        {temasCumplimiento.map((t) => (
+                          <option key={t} value={t}>
+                            {t}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
                 </div>
               </section>
 
@@ -144,9 +178,9 @@ export default function RegistrarCumplimientoModal({ isOpen, onClose }: Props) {
               >
                 <h3
                   id="paso2-cumplimiento-title"
-                  className="text-sm font-bold text-brand"
+                  className="flex items-baseline gap-2 text-sm font-bold text-brand"
                 >
-                  <span className="mr-1 text-2xl font-bold text-brand">2.</span>
+                  <span className="text-2xl font-bold text-brand">2.</span>
                   Importar lista de asistencia
                 </h3>
                 <p className="ml-7 text-xs text-muted">
@@ -155,7 +189,7 @@ export default function RegistrarCumplimientoModal({ isOpen, onClose }: Props) {
 
                 <div
                   {...getRootProps()}
-                  className={`mt-4 flex flex-col items-center justify-center rounded-lg border-2 border-dashed p-6 text-center transition border-brand/60 bg-surface-default transition ${
+                  className={`mt-4 flex flex-col items-center justify-center rounded-lg border-2 border-dashed p-6 text-center transition border-brand/60 bg-surface-default ${
                     isDragActive
                       ? "border-brand bg-brand/5"
                       : "border-brand/60 bg-surface-default"

@@ -7,7 +7,15 @@ type Props = {
 };
 
 const modalidades = ["Presencial", "Virtual", "Mixta"];
-const gruposObjetivo = ["G1", "G2", "G3", "Todos", "Brigadistas"];
+const gruposObjetivo = [
+  "G1",
+  "G2",
+  "G3",
+  "G1 - G2",
+  "G2 - G3",
+  "G1 - G3",
+  "Todos",
+];
 
 export default function ProgramarCapacitacionModal({ isOpen, onClose }: Props) {
   const [tema, setTema] = useState("");
@@ -39,6 +47,10 @@ export default function ProgramarCapacitacionModal({ isOpen, onClose }: Props) {
   };
 
   if (!isOpen && !showSuccess) return null;
+
+  function setReferencial(value: string): void {
+    throw new Error("Function not implemented.");
+  }
 
   return (
     <>
@@ -87,7 +99,10 @@ export default function ProgramarCapacitacionModal({ isOpen, onClose }: Props) {
                 }}
               >
                 <div>
-                  <label htmlFor="tema" className="form-label">
+                  <label
+                    htmlFor="tema"
+                    className="form-label text-sm text-text-primary font-normal"
+                  >
                     Ingresar tema
                   </label>
                   <input
@@ -100,7 +115,10 @@ export default function ProgramarCapacitacionModal({ isOpen, onClose }: Props) {
                 </div>
 
                 <div>
-                  <label htmlFor="modalidad" className="form-label">
+                  <label
+                    htmlFor="modalidad"
+                    className="form-label text-sm text-text-primary font-normal"
+                  >
                     Selecciona modalidad
                   </label>
                   <div className="form-select-container">
@@ -121,7 +139,10 @@ export default function ProgramarCapacitacionModal({ isOpen, onClose }: Props) {
                 </div>
 
                 <div>
-                  <label htmlFor="grupo" className="form-label">
+                  <label
+                    htmlFor="grupo"
+                    className="form-label text-sm text-text-primary font-normal"
+                  >
                     Selecciona grupo objetivo
                   </label>
                   <div className="form-select-container">
@@ -141,19 +162,42 @@ export default function ProgramarCapacitacionModal({ isOpen, onClose }: Props) {
                   </div>
                 </div>
 
-                <div>
-                  <label htmlFor="fecha" className="form-label">
-                    Seleccionar fecha
-                  </label>
-                  <div className="relative max-w-55">
-                    <input
-                      id="fecha"
-                      type="date"
-                      value={fecha}
-                      onChange={(e) => setFecha(e.target.value)}
-                      placeholder="31-08-2026"
-                      className="form-input px-4"
-                    />
+                <div className="flex gap-2 justify-between">
+                  <div className="flex-1">
+                    <label
+                      htmlFor="fecha"
+                      className="form-label text-sm text-text-primary font-normal"
+                    >
+                      Seleccionar fecha
+                    </label>
+                    <div className="relative max-w-55">
+                      <input
+                        id="fecha"
+                        type="date"
+                        value={fecha}
+                        onChange={(e) => setFecha(e.target.value)}
+                        placeholder="31-08-2026"
+                        className="form-input w-10/12"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <label
+                      htmlFor="referencial"
+                      className="form-label text-sm text-text-primary font-normal"
+                    >
+                      N° referencial de asistencia
+                    </label>
+                    <div className="relative max-w-55">
+                      <input
+                        id="referencial"
+                        type="number"
+                        value={""}
+                        onChange={(e) => setReferencial(e.target.value)}
+                        placeholder="0000"
+                        className="form-input w-10/12"
+                      />
+                    </div>
                   </div>
                 </div>
 

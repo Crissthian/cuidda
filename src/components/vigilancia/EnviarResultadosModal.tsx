@@ -14,13 +14,9 @@ type Props = {
   data: EnviarResultadosData | null;
 };
 
-const canales = ["WhatsApp", "Correo electrónico", "SMS"];
+const canales = ["WhatsApp", "Correo"];
 
-const tiposComunicacion = [
-  "Enlace seguro con token",
-  "Documento PDF adjunto",
-  "Notificación de lectura",
-];
+const tiposComunicacion = ["Envío inicial", "Recordatorio"];
 
 const labelClass = "mb-1 block text-xs text-text-secondary";
 const inputClass = "form-input !py-2.5 text-xs";

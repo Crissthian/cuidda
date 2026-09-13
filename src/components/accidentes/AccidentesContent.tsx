@@ -1,39 +1,62 @@
 import AccidentesKpis from "@/components/accidentes/AccidentesKpis";
 import RegistroEventosTable from "@/components/accidentes/RegistroEventosTable";
+import { sedesAccidentes } from "@/lib/accidentesData";
+const TODAY = new Date();
+const CURRENT_YEAR = TODAY.getFullYear();
+const YEARS = Array.from({ length: 10 }, (_, i) => CURRENT_YEAR - i);
 
 export default function AccidentesContent() {
   return (
     <div className="flex flex-col gap-5 text-xs">
       <div className="px-10 pb-2">
-        <div className="flex items-center gap-3 pb-6 max-w-6/12">
+        <div className="flex max-w-6/12 items-center gap-3 pb-6">
           <label htmlFor="acc-periodo" className="sr-only">
             Periodo
           </label>
-          <select
-            id="acc-periodo"
-            className="form-select h-8 w-48 rounded-lg bg-surface-light px-3 text-xs text-muted"
-            defaultValue=""
-          >
-            <option value="" disabled>
+          <div className="flex h-8 w-48 items-center gap-2 rounded-lg bg-surface-light px-3">
+            <span
+              aria-hidden="true"
+              className="pointer-events-none select-none text-xs font-semibold uppercase text-muted"
+            >
               Periodo
-            </option>
-            <option>2026</option>
-            <option>2025</option>
-          </select>
+            </span>
+            <select
+              id="acc-periodo"
+              defaultValue=""
+              className="h-full flex-1 items-center cursor-pointer bg-transparent text-xs uppercase text-muted outline-none!"
+            >
+              <option value="" />
+              {YEARS.map((year) => (
+                <option key={year} value={year}>
+                  {year}
+                </option>
+              ))}
+            </select>
+          </div>
+
           <label htmlFor="acc-sede" className="sr-only">
             Sede
           </label>
-          <select
-            id="acc-sede"
-            className="form-select h-8 w-48 rounded-lg bg-surface-light px-3 text-xs text-muted"
-            defaultValue=""
-          >
-            <option value="" disabled>
+          <div className="flex h-8 w-48 items-center gap-2 rounded-lg bg-surface-light px-3">
+            <span
+              aria-hidden="true"
+              className="pointer-events-none select-none text-xs font-semibold uppercase text-muted"
+            >
               Sede
-            </option>
-            <option>Todas</option>
-            <option>Condorcocha</option>
-          </select>
+            </span>
+            <select
+              id="acc-sede"
+              defaultValue=""
+              className="h-full flex-1 items-center cursor-pointer bg-transparent text-xs uppercase text-muted outline-none!"
+            >
+              <option value="" />
+              {sedesAccidentes.map((sede) => (
+                <option key={sede} value={sede}>
+                  {sede}
+                </option>
+              ))}
+            </select>
+          </div>
           <button
             type="button"
             className="rounded-lg bg-brand px-8 py-2 text-xs font-bold tracking-wide text-white hover:bg-primary-hover"

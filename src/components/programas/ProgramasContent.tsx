@@ -130,7 +130,7 @@ export default function ProgramasContent() {
           </section>
         )}
         {/* Cards grid */}
-        <div className="grid grid-cols-4 gap-6 pb-6">
+        <div className="grid grid-cols-4 gap-6">
           {filtered.map((prog) => (
             <section
               key={prog.id}
@@ -174,7 +174,7 @@ export default function ProgramasContent() {
                 <span className="font-medium text-brand">
                   {prog.trabajadores}
                 </span>
-                <span className="text-muted"> · {prog.actividades}</span>
+                <span className="text-brand"> · {prog.actividades}</span>
               </div>
 
               <div className="mt-2 flex gap-1.5 justify-between">
@@ -200,7 +200,7 @@ export default function ProgramasContent() {
                 </div>
                 <a
                   href={`/vigilancia-medica/programas-de-salud/${prog.id}`}
-                  className="flex shrink-0 items-center gap-1 text-[11px] font-bold text-brand hover:text-primary-hover"
+                  className="flex shrink-0 items-center gap-1 text-xs text-brand hover:text-primary-hover"
                 >
                   Ver programa{" "}
                   <i className="fa-solid fa-arrow-right" aria-hidden="true" />

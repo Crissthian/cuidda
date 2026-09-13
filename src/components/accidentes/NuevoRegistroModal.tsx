@@ -96,7 +96,10 @@ export default function NuevoRegistroModal({ isOpen, onClose }: Props) {
               >
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label htmlFor="tipo" className="form-label">
+                    <label
+                      htmlFor="tipo"
+                      className="form-label text-text-primary text-sm font-normal"
+                    >
                       Selecciona tipo de registro
                     </label>
                     <div className="form-select-container">
@@ -106,7 +109,7 @@ export default function NuevoRegistroModal({ isOpen, onClose }: Props) {
                         onChange={(e) => setTipo(e.target.value)}
                         className="form-select appearance-none"
                       >
-                        <option value="" disabled hidden />
+                        <option>Seleccionar</option>
                         {tiposRegistro.map((t) => (
                           <option key={t} value={t}>
                             {t}
@@ -117,7 +120,10 @@ export default function NuevoRegistroModal({ isOpen, onClose }: Props) {
                   </div>
 
                   <div>
-                    <label htmlFor="codigo" className="form-label">
+                    <label
+                      htmlFor="codigo"
+                      className="form-label text-text-primary text-sm font-normal"
+                    >
                       Código asignado
                     </label>
                     <input
@@ -131,7 +137,10 @@ export default function NuevoRegistroModal({ isOpen, onClose }: Props) {
                 </div>
 
                 <div>
-                  <label htmlFor="fecha" className="form-label">
+                  <label
+                    htmlFor="fecha"
+                    className="form-label text-text-primary text-sm font-normal"
+                  >
                     Seleccionar fecha del evento
                   </label>
                   <div className="relative max-w-55">
@@ -147,7 +156,10 @@ export default function NuevoRegistroModal({ isOpen, onClose }: Props) {
                 </div>
 
                 <div>
-                  <label htmlFor="trabajador" className="form-label">
+                  <label
+                    htmlFor="trabajador"
+                    className="form-label text-text-primary text-sm font-normal"
+                  >
                     Nombre del trabajador
                   </label>
                   <input
@@ -160,7 +172,10 @@ export default function NuevoRegistroModal({ isOpen, onClose }: Props) {
                 </div>
 
                 <div>
-                  <label htmlFor="area" className="form-label">
+                  <label
+                    htmlFor="area"
+                    className="form-label text-text-primary text-sm font-normal"
+                  >
                     Área
                   </label>
                   <input

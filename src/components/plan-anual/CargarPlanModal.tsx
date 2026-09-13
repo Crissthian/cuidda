@@ -148,7 +148,7 @@ export default function CargarPlanModal({ isOpen, onClose }: Props) {
 
               {/* Paso 2 */}
               <section
-                className="mt-4 rounded-xl bg-white p-5 shadow-md shadow-border-subtle/30 ring-1 ring-border-subtle/20"
+                className="mt-4 rounded-xl bg-surface-default p-5 shadow-md shadow-border-subtle/30 ring-1 ring-border-subtle/20"
                 aria-labelledby="paso2-plan-title"
               >
                 <h3
@@ -171,7 +171,7 @@ export default function CargarPlanModal({ isOpen, onClose }: Props) {
 
               {/* Paso 3 */}
               <section
-                className="mt-4 rounded-xl bg-white p-5 shadow-md shadow-border-subtle/30 ring-1 ring-border-subtle/20"
+                className="mt-4 rounded-xl bg-surface-default p-5 shadow-md shadow-border-subtle/30 ring-1 ring-border-subtle/20"
                 aria-labelledby="paso3-plan-title"
               >
                 <h3

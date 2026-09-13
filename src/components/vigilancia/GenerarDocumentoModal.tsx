@@ -6,84 +6,92 @@ type Props = {
   onClose: () => void;
 };
 
-const periodos = ["2026", "2025", "2024"];
-const empresas = ["UNACEM PERU S.A.", "Todas las empresas"];
-const sedes = ["Condorcocha", "Atococongo", "Conchán", "Todas las sedes"];
+type DocTabId = "programa" | "avance" | "final";
 
-const infoIzquierda = [
-  "Población",
-  "Aptitudes",
-  "Enfermedades relacionadas al trabajo",
-  "G1 / G2 / G3",
-  "Conclusiones y recomendaciones",
+const docTabs: { id: DocTabId; label: string }[] = [
+  { id: "programa", label: "Documento del Programa" },
+  { id: "avance", label: "Informe de avance" },
+  { id: "final", label: "Informes final" },
 ];
 
-const infoDerecha = [
-  "EMO",
-  "Diagnósticos / Epidemiología",
-  "Riesgos y agentes de exposición",
-  "Programas",
-];
+type DocumentoPreview = {
+  titulo: string;
+  empresa: string;
+  sede: string;
+  periodo: string;
+  responsable: string;
+  tipo: string;
+  introduccion: string;
+  exposicion: string;
+  hallazgos: string[];
+  poblacion: string;
+};
 
-const labelClass = "mb-1 block text-xs text-text-secondary";
-const inputClass = "form-input !py-2.5 text-xs";
-const selectClass = "form-select appearance-none !py-2.5 text-xs";
-
-function CheckItem({
-  checked,
-  onToggle,
-  label,
-}: {
-  checked: boolean;
-  onToggle: () => void;
-  label: string;
-}) {
-  return (
-    <button
-      type="button"
-      role="checkbox"
-      aria-checked={checked}
-      aria-label={label}
-      onClick={onToggle}
-      className="flex items-center gap-2.5 text-left"
-    >
-      <span
-        className={`flex size-4 shrink-0 items-center justify-center rounded border ${
-          checked ? "border-brand bg-brand" : "border-muted-20 bg-surface-light"
-        }`}
-        aria-hidden="true"
-      >
-        {checked && (
-          <i
-            className="fa-solid fa-check text-[8px] text-white-custom"
-            aria-hidden="true"
-          />
-        )}
-      </span>
-      <span className="text-sm leading-relaxed text-text-primary">{label}</span>
-    </button>
-  );
-}
+const documentos: Record<DocTabId, DocumentoPreview> = {
+  programa: {
+    titulo: "PROGRAMA DE CONSERVACIÓN AUDITIVA",
+    empresa: "UNACEM PERU S.A.",
+    sede: "UM Concepción",
+    periodo: "2026",
+    responsable: "Dr. A. Manrique",
+    tipo: "Programa Ocupacional · Enfoque: Audiología",
+    introduccion:
+      "El presente documento corresponde al programa “Conservación auditiva”, ejecutado en el marco del Sistema de Vigilancia Médica Ocupacional de Minera Andes Sur S.A.. La información utilizada proviene de los registros existentes en la plataforma: EMO, Línea Base, Vigilancia Médica.",
+    exposicion:
+      "Exposición principal identificada: Ruido ocupacional (GES perforación, planta concentradora).",
+    hallazgos: [
+      "17 hallazgos audiométricos en el EMO periódico",
+      "5 casos requieren seguimiento especializado",
+      "76 trabajadores con desplazamiento de umbral > 25 dB",
+    ],
+    poblacion: "Total: 218 trabajadores",
+  },
+  avance: {
+    titulo: "INFORME DE AVANCE — CONSERVACIÓN AUDITIVA",
+    empresa: "Minera Andes Sur S.A.",
+    sede: "UM Concepción",
+    periodo: "2026",
+    responsable: "Dr. A. Manrique",
+    tipo: "Programa Ocupacional · Enfoque: Audiología",
+    introduccion:
+      "El presente documento corresponde al programa “Conservación auditiva”, ejecutado en el marco del Sistema de Vigilancia Médica Ocupacional de Minera Andes Sur S.A.. La información utilizada proviene de los registros existentes en la plataforma: EMO, Línea Base, Vigilancia Médica.",
+    exposicion:
+      "Exposición principal identificada: Ruido ocupacional (GES perforación, planta concentradora).",
+    hallazgos: [
+      "17 hallazgos audiométricos en el EMO periódico",
+      "5 casos requieren seguimiento especializado",
+      "76 trabajadores con desplazamiento de umbral > 25 dB",
+    ],
+    poblacion: "Total: 218 trabajadores",
+  },
+  final: {
+    titulo: "INFORME FINAL — CONSERVACIÓN AUDITIVA",
+    empresa: "Minera Andes Sur S.A.",
+    sede: "UM Concepción",
+    periodo: "2026",
+    responsable: "Dr. A. Manrique",
+    tipo: "Programa Ocupacional · Enfoque: Audiología",
+    introduccion:
+      "El presente documento corresponde al programa “Conservación auditiva”, ejecutado en el marco del Sistema de Vigilancia Médica Ocupacional de Minera Andes Sur S.A.. La información utilizada proviene de los registros existentes en la plataforma: EMO, Línea Base, Vigilancia Médica.",
+    exposicion:
+      "Exposición principal identificada: Ruido ocupacional (GES perforación, planta concentradora).",
+    hallazgos: [
+      "17 hallazgos audiométricos en el EMO periódico",
+      "5 casos requieren seguimiento especializado",
+      "76 trabajadores con desplazamiento de umbral > 25 dB",
+    ],
+    poblacion: "Total: 218 trabajadores",
+  },
+};
 
 export default function GenerarDocumentoModal({ isOpen, onClose }: Props) {
-  const [periodo, setPeriodo] = useState("");
-  const [empresa, setEmpresa] = useState("");
-  const [sede, setSede] = useState("");
-  const [seleccion, setSeleccion] = useState<string[]>([]);
-  const [objetivo, setObjetivo] = useState("");
+  const [tab, setTab] = useState<DocTabId>("programa");
   const [showSuccess, setShowSuccess] = useState(false);
 
-  const toggle = (item: string) =>
-    setSeleccion((prev) =>
-      prev.includes(item) ? prev.filter((i) => i !== item) : [...prev, item],
-    );
+  const doc = documentos[tab];
 
   const resetForm = () => {
-    setPeriodo("");
-    setEmpresa("");
-    setSede("");
-    setSeleccion([]);
-    setObjetivo("");
+    setTab("programa");
   };
 
   const handleClose = () => {
@@ -130,154 +138,104 @@ export default function GenerarDocumentoModal({ isOpen, onClose }: Props) {
                 id="modal-generar-documento-title"
                 className="text-lg font-bold text-brand"
               >
-                Generar documento personalizado
+                Generar documento con IA
               </h2>
               <p className="mt-1 text-sm text-accent-muted">
-                La IA redacta el documento utilizando exclusivamente la
-                información seleccionada.
+                Se utiliza únicamente la información registrada en la
+                plataforma. Los datos no disponibles se marcan como pendientes.
               </p>
 
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  setShowSuccess(true);
-                }}
-                className="mt-6 flex flex-col gap-5"
+              <div
+                className="mt-4 flex gap-2 rounded-lg bg-muted-20 p-2"
+                role="tablist"
+                aria-label="Tipos de documento"
               >
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-                  <div>
-                    <label htmlFor="doc-periodo" className={labelClass}>
-                      Periodo
-                    </label>
-                    <div className="form-select-container">
-                      <select
-                        id="doc-periodo"
-                        value={periodo}
-                        onChange={(e) => setPeriodo(e.target.value)}
-                        className={`${selectClass} ${periodo ? "text-text-primary" : "text-muted"}`}
-                      >
-                        <option value="" disabled hidden>
-                          Seleccionar
-                        </option>
-                        {periodos.map((p) => (
-                          <option key={p} value={p}>
-                            {p}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
-                  <div>
-                    <label htmlFor="doc-empresa" className={labelClass}>
-                      Empresa
-                    </label>
-                    <div className="form-select-container">
-                      <select
-                        id="doc-empresa"
-                        value={empresa}
-                        onChange={(e) => setEmpresa(e.target.value)}
-                        className={`${selectClass} ${empresa ? "text-text-primary" : "text-muted"}`}
-                      >
-                        <option value="" disabled hidden>
-                          Seleccionar
-                        </option>
-                        {empresas.map((e) => (
-                          <option key={e} value={e}>
-                            {e}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
-                  <div>
-                    <label htmlFor="doc-sede" className={labelClass}>
-                      Sede
-                    </label>
-                    <div className="form-select-container">
-                      <select
-                        id="doc-sede"
-                        value={sede}
-                        onChange={(e) => setSede(e.target.value)}
-                        className={`${selectClass} ${sede ? "text-text-primary" : "text-muted"}`}
-                      >
-                        <option value="" disabled hidden>
-                          Seleccionar
-                        </option>
-                        {sedes.map((s) => (
-                          <option key={s} value={s}>
-                            {s}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
-                </div>
-
-                <fieldset>
-                  <legend className="text-xs font-semibold text-text-primary">
-                    Información a incorporar
-                  </legend>
-                  <div className="mt-3 grid grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-2">
-                    <div className="flex flex-col gap-3">
-                      {infoIzquierda.map((item) => (
-                        <CheckItem
-                          key={item}
-                          label={item}
-                          checked={seleccion.includes(item)}
-                          onToggle={() => toggle(item)}
-                        />
-                      ))}
-                    </div>
-                    <div className="flex flex-col gap-3">
-                      {infoDerecha.map((item) => (
-                        <CheckItem
-                          key={item}
-                          label={item}
-                          checked={seleccion.includes(item)}
-                          onToggle={() => toggle(item)}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                </fieldset>
-
-                <div>
-                  <label htmlFor="doc-objetivo" className={labelClass}>
-                    Objetivo del documento
-                  </label>
-                  <textarea
-                    id="doc-objetivo"
-                    rows={4}
-                    value={objetivo}
-                    onChange={(e) => setObjetivo(e.target.value)}
-                    className={`${inputClass} resize-none`}
-                  />
-                </div>
-
-                <div className="flex justify-end gap-3 pb-2 pt-1">
+                {docTabs.map((t) => (
                   <button
+                    key={t.id}
                     type="button"
-                    onClick={handleClose}
-                    className="flex items-center justify-center gap-2 rounded-lg bg-muted px-6 py-2.5 text-[11px] font-bold text-white hover:bg-muted-80"
+                    role="tab"
+                    aria-selected={tab === t.id}
+                    onClick={() => setTab(t.id)}
+                    className={`rounded-lg px-4 py-2 text-xs font-semibold transition ${
+                      tab === t.id
+                        ? "bg-brand text-white-custom shadow-sm"
+                        : "bg-surface-default text-brand hover:bg-surface-light"
+                    }`}
                   >
-                    <i
-                      className="fa-solid fa-trash text-[11px]"
-                      aria-hidden="true"
-                    />
-                    CANCELAR
+                    {t.label}
                   </button>
-                  <button
-                    type="submit"
-                    className="flex items-center justify-center gap-2 rounded-lg bg-brand px-6 py-2.5 text-[11px] font-bold text-white hover:bg-primary-hover"
-                  >
-                    <i
-                      className="fa-solid fa-robot text-[11px]"
-                      aria-hidden="true"
-                    />
-                    GENERAR
-                  </button>
-                </div>
-              </form>
+                ))}
+              </div>
+
+              <p className="mt-3 text-xs text-brand">
+                Vista previa editable — la aprobación final corresponde al
+                médico ocupacional
+              </p>
+
+              <div
+                className="mt-2 rounded-lg bg-surface-light p-5 text-xs leading-relaxed text-text-secondary"
+                role="tabpanel"
+                aria-label={`Vista previa de ${docTabs.find((t) => t.id === tab)?.label}`}
+              >
+                <p className="font-medium uppercase">{doc.titulo}</p>
+
+                <p className="mt-4 font-medium uppercase">1. Datos generales</p>
+                <p>Empresa: {doc.empresa}</p>
+                <p>Sede: {doc.sede}</p>
+                <p>Periodo: {doc.periodo}</p>
+                <p>Responsable: {doc.responsable}</p>
+                <p>Tipo: {doc.tipo}</p>
+
+                <p className="mt-4 font-medium uppercase">2. Introducción</p>
+                <p>{doc.introduccion}</p>
+
+                <p className="mt-4 font-medium uppercase">3. Justificación</p>
+                <p>{doc.exposicion}</p>
+                {doc.hallazgos.map((h) => (
+                  <p key={h}>- {h}</p>
+                ))}
+
+                <p className="mt-4 font-medium uppercase">
+                  4. Población objetivo
+                </p>
+                <p>{doc.poblacion}</p>
+              </div>
+
+              <div className="mt-5 flex justify-end gap-3">
+                <button
+                  type="button"
+                  onClick={handleClose}
+                  className="flex items-center gap-2 rounded-lg bg-muted px-6 py-2.5 text-[11px] font-bold text-white transition hover:bg-muted-80"
+                >
+                  <i
+                    className="fa-solid fa-trash text-[11px]"
+                    aria-hidden="true"
+                  />
+                  CANCELAR
+                </button>
+                <button
+                  type="button"
+                  className="flex items-center gap-2 rounded-lg bg-muted px-6 py-2.5 text-[11px] font-bold text-white transition hover:bg-muted-80"
+                >
+                  <i
+                    className="fa-solid fa-download text-[11px]"
+                    aria-hidden="true"
+                  />
+                  DESCARGAR
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setShowSuccess(true)}
+                  className="flex items-center gap-2 rounded-lg bg-brand px-6 py-2.5 text-[11px] font-bold text-white transition hover:bg-primary-hover"
+                >
+                  <i
+                    className="fa-solid fa-floppy-disk text-[11px]"
+                    aria-hidden="true"
+                  />
+                  GUARDAR
+                </button>
+              </div>
             </div>
           </div>
         </div>

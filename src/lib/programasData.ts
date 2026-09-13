@@ -261,11 +261,15 @@ export const tiposPrograma: string[] = [
 ];
 
 export const especialidadesPrograma: string[] = [
-  "Medicina ocupacional",
-  "Higiene ocupacional",
-  "Ergonomía",
-  "Psicología ocupacional",
+  "Medicina Ocupacional",
+  "Cardiología",
   "Nutrición",
+  "Psicología",
+  "Ergonomía",
+  "Otorrinolaringología",
+  "Neumología",
+  "Oftalmología",
+  "Otros",
 ];
 
 export const responsablesPrograma: string[] = [
@@ -277,14 +281,22 @@ export const responsablesPrograma: string[] = [
 ];
 
 export const responsablesActividad: string[] = [
-  "Médico Ocupacional",
-  "Medicina Ocupacional",
+  "Dr. A. Manrique",
+  "Dr. M. Salcedo",
+  "Dra. C. Villanueva",
   "Enf. S. Ordoñez",
-  "SST",
-  "Lucemedic",
+  "Lic. R. Peralta",
+  "Medicina ocupacional",
 ];
 
 export const sedesPrograma: string[] = ["Condorcocha", "Atocongo", "Conchán"];
+
+export const estadosAvanceActividad: string[] = [
+  "Pendiente",
+  "En proceso",
+  "Completada",
+  "No ejecutada",
+];
 
 export const periodosPrograma: string[] = ["2026", "2025", "2024"];
 

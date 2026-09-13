@@ -37,6 +37,16 @@ export const kpisAccidentes = [
   },
 ] as const;
 
+export const periodosAccidentes: string[] = ["2026", "2025"];
+
+export const sedesAccidentes: string[] = [
+  "Todas",
+  "Condorcocha",
+  "Atocongo",
+  "Conchán",
+  "Villarán",
+];
+
 export const registroEventos = [
   {
     id: 1,

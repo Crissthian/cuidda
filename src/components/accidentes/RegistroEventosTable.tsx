@@ -17,7 +17,7 @@ export default function RegistroEventosTable() {
       </p>
 
       <div className="mt-4 overflow-hidden rounded-lg">
-        <div className="grid grid-cols-[0.7fr_0.9fr_0.7fr_0.9fr_0.8fr_0.8fr_0.7fr_1.1fr_0.7fr] gap-4 rounded-lg bg-surface-light p-3 text-[10px] font-semibold uppercase tracking-wider text-muted">
+        <div className="grid grid-cols-[0.7fr_0.9fr_0.7fr_0.9fr_0.8fr_0.8fr_0.7fr_1.1fr_0.7fr] gap-4 rounded-lg bg-surface-light p-3 text-[11px] font-semibold uppercase tracking-wider text-muted">
           <span>Tipo</span>
           <span>Código</span>
           <span>Fecha</span>
@@ -60,7 +60,7 @@ export default function RegistroEventosTable() {
               </span>
               <span className="flex justify-center self-center">
                 <span
-                  className={`rounded-full w-full text-center mx-4 px-2 py-1 text-[10px] font-bold ${row.estadoClass}`}
+                  className={`rounded-full w-full text-center mx-4 px-2 py-1 text-[11px] font-bold ${row.estadoClass}`}
                 >
                   {row.estado}
                 </span>

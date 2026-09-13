@@ -1,4 +1,5 @@
 import NuevaActividadModal from "@/components/programas/NuevaActividadModal";
+import RegistrarAvanceActividadModal from "@/components/programas/RegistrarAvanceActividadModal";
 import { programaDetalle } from "@/lib/programasData";
 import { useState } from "react";
 
@@ -9,6 +10,14 @@ export default function ProgramaDetalleContent({
 }: Props) {
   const detalle = programaDetalle;
   const [isActividadOpen, setIsActividadOpen] = useState(false);
+  const [actividadSeleccionada, setActividadSeleccionada] = useState<
+    string | null
+  >(null);
+  const [actividades, setActividades] = useState([...detalle.planActividades]);
+
+  const eliminarActividad = (id: number) => {
+    setActividades((prev) => prev.filter((row) => row.id !== id));
+  };
 
   return (
     <div className="flex flex-col gap-5 text-xs">
@@ -168,7 +177,7 @@ export default function ProgramaDetalleContent({
             <span className="w-28" aria-hidden="true" />
           </div>
           <div className="divide-y divide-dashed divide-border-subtle">
-            {detalle.planActividades.map((row) => (
+            {actividades.map((row) => (
               <div
                 key={row.id}
                 className="grid grid-cols-[1.6fr_1fr_0.6fr_0.6fr_1fr_auto] items-center gap-4 px-4 py-3 text-xs"
@@ -204,6 +213,7 @@ export default function ProgramaDetalleContent({
                 <span className="flex w-28 items-center justify-end gap-2">
                   <button
                     type="button"
+                    onClick={() => setActividadSeleccionada(row.actividad)}
                     aria-label={`Actualizar ${row.actividad}`}
                     className="flex items-center gap-1 rounded-md bg-muted px-2.5 py-1.5 text-[9px] font-bold text-white transition hover:bg-muted-80"
                   >
@@ -215,11 +225,12 @@ export default function ProgramaDetalleContent({
                   </button>
                   <button
                     type="button"
+                    onClick={() => eliminarActividad(row.id)}
                     aria-label={`Eliminar ${row.actividad}`}
                     className="text-muted transition-colors hover:text-risk-red"
                   >
                     <i
-                      className="fa-regular fa-trash-can text-xs"
+                      className="fa-regular fa-trash-can text-sm"
                       aria-hidden="true"
                     />
                   </button>
@@ -233,6 +244,12 @@ export default function ProgramaDetalleContent({
       <NuevaActividadModal
         isOpen={isActividadOpen}
         onClose={() => setIsActividadOpen(false)}
+      />
+
+      <RegistrarAvanceActividadModal
+        isOpen={actividadSeleccionada !== null}
+        actividad={actividadSeleccionada ?? undefined}
+        onClose={() => setActividadSeleccionada(null)}
       />
     </div>
   );

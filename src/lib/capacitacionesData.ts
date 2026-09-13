@@ -37,6 +37,14 @@ export const kpisCapacitaciones = [
   },
 ] as const;
 
+export const temasCumplimiento: string[] = [
+  "Uso correcto de protección auditiva",
+  "Protección respiratoria y prueba de ajuste",
+  "Higiene postural y manejo de cargas",
+  "Gestión de fatiga y sueño en turnos",
+  "Primeros auxilios y respuesta médica",
+];
+
 export const calendarioCapacitaciones = [
   {
     id: 1,

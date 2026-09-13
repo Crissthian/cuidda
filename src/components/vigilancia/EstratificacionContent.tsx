@@ -1,3 +1,9 @@
+import CambiarGrupoModal from "@/components/vigilancia/CambiarGrupoModal";
+import HistorialCambiosModal from "@/components/vigilancia/HistorialCambiosModal";
+import { GRUPOS } from "@/lib/grupos";
+import { SEDES } from "@/lib/sedes";
+import { useState } from "react";
+
 const grupos = [
   {
     id: "G1",
@@ -97,6 +103,7 @@ const trabajadores = [
     cargo: "Operador de perforadora",
     tipo: "Interno",
     sede: "Condorcocha",
+    validado: true,
     hallazgos: "Hipoacusia neurosensorial bilateral · IMC 33.1",
     actividades:
       "Capacitación anual / Examen médico anual / Reevaluación semestral / Consulta con especialista / Determinación de origen ocupacional / Comité de reubicación laboral",
@@ -108,6 +115,7 @@ const trabajadores = [
     cargo: "Analista de laboratorio",
     tipo: "Interno",
     sede: "Condorcocha",
+    validado: false,
     hallazgos: "Espirometría restrictiva leve",
     actividades:
       "Capacitación anual / Examen médico anual / Reevaluación semestral / Ingreso a programa específico",
@@ -119,6 +127,7 @@ const trabajadores = [
     cargo: "Soldador",
     tipo: "Interno",
     sede: "Condorcocha",
+    validado: false,
     hallazgos: "Pterigión OD · Dermatitis de contacto",
     actividades:
       "Capacitación anual / Examen médico anual / Reevaluación semestral / Consulta con especialista / Determinación de origen ocupacional / Comité de reubicación laboral",
@@ -130,6 +139,7 @@ const trabajadores = [
     cargo: "Supervisora de planta",
     tipo: "Interno",
     sede: "Condorcocha",
+    validado: true,
     hallazgos: "Sin hallazgos relevantes",
     actividades: "Capacitación anual / Examen médico anual",
   },
@@ -140,6 +150,7 @@ const trabajadores = [
     cargo: "Conductor de volquete",
     tipo: "Externo",
     sede: "Condorcocha",
+    validado: true,
     hallazgos: "HTA estadio 1 · Somnolencia diurna",
     actividades:
       "Capacitación anual / Examen médico anual / Reevaluación semestral / Ingreso a programa específico",
@@ -151,6 +162,7 @@ const trabajadores = [
     cargo: "Asistente administrativo",
     tipo: "Externo",
     sede: "Condorcocha",
+    validado: false,
     hallazgos: "Sin hallazgos relevantes",
     actividades: "Capacitación anual / Examen médico anual",
   },
@@ -161,6 +173,7 @@ const trabajadores = [
     cargo: "Mecánico de mina",
     tipo: "Interno",
     sede: "Condorcocha",
+    validado: true,
     hallazgos: "Neumoconiosis 0/1 1/1 · Lumbalgia crónica",
     actividades:
       "Capacitación anual / Examen médico anual / Reevaluación semestral / Consulta con especialista / Determinación de origen ocupacional / Comité de reubicación laboral",
@@ -172,6 +185,7 @@ const trabajadores = [
     cargo: "Enfermera ocupacional",
     tipo: "Interno",
     sede: "Condorcocha",
+    validado: true,
     hallazgos: "Sin hallazgos relevantes",
     actividades: "Capacitación anual / Examen médico anual",
   },
@@ -182,6 +196,7 @@ const trabajadores = [
     cargo: "Operador de chancado",
     tipo: "Externo",
     sede: "Condorcocha",
+    validado: false,
     hallazgos: "Hipoacusia inicial (4 kHz)",
     actividades:
       "Capacitación anual / Examen médico anual / Reevaluación semestral / Ingreso a programa específico",
@@ -193,6 +208,7 @@ const trabajadores = [
     cargo: "Practicante de SST",
     tipo: "Externo",
     sede: "Condorcocha",
+    validado: true,
     hallazgos: "Sin hallazgos relevantes",
     actividades: "Capacitación anual / Examen médico anual",
   },
@@ -223,6 +239,13 @@ function GrupoBadge({ grupo }: { grupo: "G1" | "G2" | "G3" }) {
 }
 
 export default function EstratificacionContent() {
+  const [seleccionado, setSeleccionado] = useState<
+    (typeof trabajadores)[number] | null
+  >(null);
+  const [historial, setHistorial] = useState<
+    (typeof trabajadores)[number] | null
+  >(null);
+
   return (
     <div className="flex flex-col gap-5 px-10">
       {/* ── 3 CARDS SUPERIORES ── */}
@@ -334,21 +357,24 @@ export default function EstratificacionContent() {
         </p>
 
         <div className="mt-4 overflow-x-auto">
-          <table className="w-full border-collapse text-xs">
+          <table className="w-full border-collapse text-xs table-fixed">
             <thead>
               <tr className="bg-surface-light text-xs font-bold uppercase tracking-wider text-muted">
                 <th
                   scope="col"
-                  className="whitespace-nowrap px-4 py-3 text-left font-bold rounded-l-lg"
+                  className="whitespace-nowrap px-4 py-3 text-left font-bold rounded-l-lg w-[10%]"
                 >
                   Regla
                 </th>
-                <th scope="col" className="px-4 py-3 text-left font-bold">
+                <th
+                  scope="col"
+                  className="px-4 py-3 text-left font-bold w-[35%]"
+                >
                   Condición
                 </th>
                 <th
                   scope="col"
-                  className="whitespace-nowrap px-4 py-3 text-center font-bold"
+                  className="whitespace-nowrap px-4 py-3 text-center font-bold w-[15%]"
                 >
                   Grupo asignado
                 </th>
@@ -404,51 +430,88 @@ export default function EstratificacionContent() {
           </div>
 
           {/* filtros */}
-          <div className="flex flex-wrap items-end gap-3">
-            <label className="flex flex-col gap-1.5">
-              <div className="relative">
-                <select
-                  defaultValue="todas"
-                  className="form-select min-w-40 appearance-none rounded-lg border border-border-subtle/40 bg-surface-light px-3 py-2 text-xs text-text-secondary outline-none focus:border-brand focus:ring-1 focus:ring-brand"
-                >
-                  <option value="todas" disabled>
-                    Sede
-                  </option>
-                  <option value="condorcocha">Condorcocha</option>
-                  <option value="lima">Lima</option>
-                </select>
-              </div>
-            </label>
+          <form
+            role="search"
+            aria-label="Filtros de trabajadores por grupo"
+            className="flex flex-wrap items-center gap-3 w-full max-w-5xl"
+            onSubmit={(e) => e.preventDefault()}
+          >
+            <label htmlFor="est-apellidos">Apellidos</label>
+            <input
+              id="est-apellidos"
+              type="text"
+              placeholder="Apellidos"
+              autoComplete="off"
+              className="form-input h-9 min-w-0 flex-1 bg-surface-light px-3 text-xs text-text-primary placeholder:text-muted-50 focus:ring-1 focus:ring-brand"
+            />
 
-            <label className="flex flex-col gap-1.5">
-              <div className="relative">
-                <select
-                  defaultValue="todos"
-                  className="form-select min-w-45 appearance-none rounded-lg border border-border-subtle/40 bg-surface-light px-3 py-2 text-xs text-text-secondary outline-none focus:border-brand focus:ring-1 focus:ring-brand"
-                >
-                  <option value="todos" disabled>
-                    Grupo de riesgo
+            <label htmlFor="est-dni">DNI</label>
+            <input
+              id="est-dni"
+              type="text"
+              placeholder="DNI"
+              autoComplete="off"
+              inputMode="numeric"
+              className="form-input h-9 min-w-0 flex-1 bg-surface-light px-3 text-xs text-text-primary placeholder:text-muted-50 focus:ring-1 focus:ring-brand"
+            />
+
+            <label htmlFor="est-sede">Sede</label>
+            <div className="flex h-9 min-w-0 flex-1 items-center gap-2 rounded-lg bg-surface-light px-3">
+              <span
+                aria-hidden="true"
+                className="pointer-events-none select-none text-xs font-semibold uppercase text-muted"
+              >
+                Sede
+              </span>
+              <select
+                id="est-sede"
+                defaultValue=""
+                className="h-full min-w-0 flex-1 items-center cursor-pointer bg-transparent text-xs uppercase text-muted outline-none!"
+              >
+                <option value="" />
+                {SEDES.map((sede) => (
+                  <option key={sede} value={sede}>
+                    {sede}
                   </option>
-                  <option value="G1">G1 — Sin hallazgos</option>
-                  <option value="G2">G2 — Riesgo no alarmante</option>
-                  <option value="G3">G3 — Riesgo importante</option>
-                </select>
-              </div>
-            </label>
+                ))}
+              </select>
+            </div>
+
+            <label htmlFor="est-grupo">Grupo de riesgo</label>
+            <div className="flex h-9 min-w-0 flex-1 items-center gap-2 rounded-lg bg-surface-light px-3">
+              <span
+                aria-hidden="true"
+                className="pointer-events-none select-none text-xs font-semibold uppercase text-muted"
+              >
+                Grupo de riesgo
+              </span>
+              <select
+                id="est-grupo"
+                defaultValue=""
+                className="h-full min-w-0 flex-1 items-center cursor-pointer bg-transparent text-xs uppercase text-muted outline-none!"
+              >
+                <option value="" />
+                {GRUPOS.map((grupo) => (
+                  <option key={grupo} value={grupo}>
+                    {grupo}
+                  </option>
+                ))}
+              </select>
+            </div>
 
             <button
-              type="button"
-              className="inline-flex h-8 items-center justify-center rounded-lg bg-brand px-7 text-xs font-bold uppercase tracking-wide text-white shadow-sm transition-colors hover:bg-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+              type="submit"
+              className="inline-flex h-9 shrink-0 items-center justify-center rounded-lg bg-brand px-10 text-xs font-bold uppercase tracking-wide text-white shadow-sm transition-colors hover:bg-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
             >
               Buscar
             </button>
-          </div>
+          </form>
         </div>
 
         <div className="mt-5 overflow-x-auto rounded-lg">
           <table className="w-full border-collapse text-xs">
             <thead>
-              <tr className="bg-surface-light text-xs font-bold uppercase tracking-wider text-muted">
+              <tr className="bg-surface-light text-[11px] font-bold uppercase tracking-wider text-muted">
                 <th
                   scope="col"
                   className="whitespace-nowrap px-3 py-3 text-left font-bold w-28 rounded-l-lg"
@@ -481,9 +544,15 @@ export default function EstratificacionContent() {
                 </th>
                 <th
                   scope="col"
-                  className="min-w-65 px-3 py-3 text-left font-bold w-auto rounded-r-lg"
+                  className="min-w-65 px-3 py-3 text-left font-bold w-auto"
                 >
                   Actividades asignadas
+                </th>
+                <th
+                  scope="col"
+                  className="whitespace-nowrap px-3 py-3 text-center font-bold w-24 rounded-r-lg"
+                >
+                  Detalle
                 </th>
               </tr>
             </thead>
@@ -494,10 +563,17 @@ export default function EstratificacionContent() {
                   className="divide-y divide-dashed divide-border-default/60"
                 >
                   <td className="px-3 py-3 flex items-center justify-evenly">
-                    <i
-                      className="fa-solid fa-pen-to-square text-sm text-brand"
-                      aria-hidden="true"
-                    />
+                    <button
+                      type="button"
+                      onClick={() => setSeleccionado(t)}
+                      className="flex items-center justify-center rounded-md p-1 text-brand hover:bg-surface-light"
+                      aria-label={`Cambiar grupo de ${t.nombre}`}
+                    >
+                      <i
+                        className="fa-solid fa-pen-to-square text-sm text-brand"
+                        aria-hidden="true"
+                      />
+                    </button>
                     <GrupoBadge grupo={t.grupo} />
                   </td>
                   <td className="px-3 py-3">
@@ -521,6 +597,36 @@ export default function EstratificacionContent() {
                   </td>
                   <td className="px-3 py-3 text-xs leading-snug text-brand border-b border-dashed border-border-default/60">
                     {t.actividades}
+                  </td>
+                  <td className="px-3 py-3 text-center border-b border-dashed border-border-default/60">
+                    {t.validado ? (
+                      <button
+                        type="button"
+                        onClick={() => setHistorial(t)}
+                        aria-label={`Ver detalle de ${t.nombre}`}
+                        className="inline-flex items-center gap-1.5 rounded-lg bg-muted px-4 py-1.5 text-[11px] font-bold tracking-wide text-white transition-colors hover:bg-muted-80"
+                      >
+                        <i
+                          className="fa-regular fa-eye text-xs"
+                          aria-hidden="true"
+                        />
+                        VER
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        disabled
+                        title="Clasificación pendiente de validación"
+                        aria-label={`Ver detalle de ${t.nombre} (no disponible)`}
+                        className="inline-flex cursor-not-allowed items-center gap-1.5 rounded-lg bg-muted-30 px-4 py-1.5 text-[11px] font-bold tracking-wide text-white"
+                      >
+                        <i
+                          className="fa-regular fa-eye text-xs"
+                          aria-hidden="true"
+                        />
+                        VER
+                      </button>
+                    )}
                   </td>
                 </tr>
               ))}
@@ -557,6 +663,16 @@ export default function EstratificacionContent() {
           </div>
         </div>
       </section>
+
+      <CambiarGrupoModal
+        trabajador={seleccionado}
+        onClose={() => setSeleccionado(null)}
+      />
+
+      <HistorialCambiosModal
+        trabajador={historial}
+        onClose={() => setHistorial(null)}
+      />
     </div>
   );
 }

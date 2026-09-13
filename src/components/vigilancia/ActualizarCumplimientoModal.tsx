@@ -7,10 +7,10 @@ type Props = {
 };
 
 const fuentes = [
-  "Listado recibido",
   "Declaración del contratista",
-  "Reporte de cumplimiento",
-  "Constancia de EMO",
+  "Listado recibido",
+  "Certificado / reporte",
+  "Verificación documental",
   "Otro",
 ];
 
@@ -72,7 +72,7 @@ export default function ActualizarCumplimientoModal({
           onClick={handleClose}
         >
           <div
-            className="relative flex max-h-[95vh] w-full max-w-2xl flex-col overflow-hidden rounded-2xl bg-surface-default shadow-xl"
+            className="relative flex max-h-[95vh] w-full max-w-xl flex-col overflow-hidden rounded-2xl bg-surface-default shadow-xl"
             onClick={(e) => e.stopPropagation()}
           >
             <button
@@ -137,7 +137,7 @@ export default function ActualizarCumplimientoModal({
 
                 <div>
                   <label htmlFor="fuente" className={labelClass}>
-                    Trabajadores reportados
+                    Fuente de información
                   </label>
                   <div className="form-select-container">
                     <select
