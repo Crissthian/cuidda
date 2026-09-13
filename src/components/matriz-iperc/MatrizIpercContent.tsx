@@ -12,7 +12,7 @@ export default function MatrizIpercContent() {
         <label htmlFor="m-sede" className="sr-only">
           Sede
         </label>
-        <div className="flex h-8 w-48 items-center gap-2 rounded-lg bg-surface-light px-3">
+        <div className="flex h-9 w-48 items-center gap-2 rounded-lg bg-surface-light px-3 uppercase">
           <span
             aria-hidden="true"
             className="pointer-events-none select-none text-xs font-semibold text-muted"
@@ -21,7 +21,7 @@ export default function MatrizIpercContent() {
           </span>
           <select
             id="m-sede"
-            className="h-full flex-1 items-center uppercase cursor-pointer bg-transparent text-xs text-muted outline-none!"
+            className="h-9 flex-1 items-center uppercase cursor-pointer bg-transparent text-xs text-muted outline-none!"
             defaultValue=""
           >
             <option value="" />
@@ -34,7 +34,7 @@ export default function MatrizIpercContent() {
         </div>
         <button
           type="button"
-          className="rounded-lg bg-brand px-8 py-2 text-xs font-bold tracking-wide text-white hover:bg-primary-hover"
+          className="rounded-lg bg-brand px-8 py-2 text-sm font-bold tracking-wide text-white hover:bg-primary-hover"
         >
           BUSCAR
         </button>

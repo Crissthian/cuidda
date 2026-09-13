@@ -107,3 +107,14 @@ export const protocolos = [
     estado: "VIGENTE",
   },
 ] as const;
+
+export const areasProtocolo = [
+  "Administración",
+  "Operaciones",
+  "Logistica",
+  "Transporte",
+  "Mantenimiento",
+  "Producción",
+] as const;
+
+export const estadosProtocolo = ["Vigente", "No vigente"] as const;

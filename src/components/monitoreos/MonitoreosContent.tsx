@@ -12,7 +12,7 @@ export default function MonitoreosContent() {
         <label htmlFor="mon-sede" className="sr-only">
           Periodo
         </label>
-        <div className="flex h-8 items-center w-50 gap-2 rounded-lg bg-surface-light px-3">
+        <div className="flex h-9 items-center w-50 gap-2 rounded-lg bg-surface-light px-3">
           <span
             aria-hidden="true"
             className="pointer-events-none items-center select-none text-xs font-semibold text-muted uppercase"
@@ -22,7 +22,7 @@ export default function MonitoreosContent() {
           <select
             id="mon-periodo"
             defaultValue=""
-            className="h-full flex-1 items-center cursor-pointer bg-transparent text-xs text-muted uppercase outline-none!"
+            className="h-9 flex-1 items-center cursor-pointer bg-transparent text-xs text-muted uppercase outline-none!"
           >
             <option value="" />
             {YEARS.map((periodo) => (
@@ -35,7 +35,7 @@ export default function MonitoreosContent() {
         <label htmlFor="mon-sede" className="sr-only">
           Sede
         </label>
-        <div className="flex h-8 items-center w-50 gap-2 rounded-lg bg-surface-light px-3">
+        <div className="flex h-9 items-center w-50 gap-2 rounded-lg bg-surface-light px-3">
           <span
             aria-hidden="true"
             className="pointer-events-none items-center select-none text-xs font-semibold text-muted uppercase"
@@ -45,7 +45,7 @@ export default function MonitoreosContent() {
           <select
             id="mon-sede"
             defaultValue=""
-            className="h-full flex-1 items-center cursor-pointer bg-transparent text-xs text-muted uppercase outline-none!"
+            className="h-9 flex-1 items-center cursor-pointer bg-transparent text-xs text-muted uppercase outline-none!"
           >
             <option value="" />
             {SEDES.map((sede) => (
@@ -58,7 +58,7 @@ export default function MonitoreosContent() {
 
         <button
           type="button"
-          className="rounded-lg bg-brand px-8 py-2 text-xs font-bold tracking-wide text-white hover:bg-primary-hover"
+          className="rounded-lg bg-brand px-8 py-2 text-sm font-bold tracking-wide text-white hover:bg-primary-hover"
         >
           BUSCAR
         </button>

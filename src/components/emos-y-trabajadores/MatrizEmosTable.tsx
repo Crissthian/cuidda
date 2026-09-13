@@ -45,7 +45,7 @@ export default function MatrizEmosTable() {
         <label htmlFor="f-grupo" className="sr-only">
           Grupo de riesgo
         </label>
-        <div className="flex h-8 w-48 items-center gap-2 rounded-lg bg-surface-light px-3">
+        <div className="flex h-9 w-48 items-center gap-2 rounded-lg bg-surface-light px-3">
           <span
             aria-hidden="true"
             className="pointer-events-none select-none text-xs font-semibold text-muted uppercase"
@@ -69,7 +69,7 @@ export default function MatrizEmosTable() {
         <label htmlFor="f-estado" className="sr-only">
           Estado de lectura
         </label>
-        <div className="flex h-8 w-60 items-center gap-2 rounded-lg bg-surface-light px-3">
+        <div className="flex h-9 w-60 items-center gap-2 rounded-lg bg-surface-light px-3">
           <span
             aria-hidden="true"
             className="pointer-events-none select-none text-xs font-semibold text-muted uppercase"
@@ -88,7 +88,7 @@ export default function MatrizEmosTable() {
         </div>
         <button
           type="button"
-          className="rounded-lg bg-brand px-8 py-2 text-xs font-bold tracking-wide text-white hover:bg-primary-hover"
+          className="rounded-lg bg-brand px-8 py-2 text-sm font-bold tracking-wide text-white hover:bg-primary-hover"
         >
           BUSCAR
         </button>

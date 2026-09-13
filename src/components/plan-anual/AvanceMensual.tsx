@@ -48,7 +48,7 @@ export default function AvanceMensual() {
                 <span className="text-muted">ejec {row.ejec}%</span>
               </span>
             </div>
-            <div className="relative h-2 w-full overflow-hidden rounded-full bg-surface-light">
+            <div className="relative h-3 w-full overflow-hidden rounded-full bg-surface-light">
               <div
                 className="absolute inset-y-0 left-0 rounded-full bg-violet"
                 style={{ width: `${row.plan}%` }}

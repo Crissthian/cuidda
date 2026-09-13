@@ -1,4 +1,8 @@
-import { protocolos } from "@/lib/protocolosData";
+import {
+  areasProtocolo,
+  estadosProtocolo,
+  protocolos,
+} from "@/lib/protocolosData";
 
 export default function BibliotecaProtocolosTable() {
   return (
@@ -13,47 +17,65 @@ export default function BibliotecaProtocolosTable() {
         Biblioteca de protocolos
       </h2>
 
-      <div className="mt-4 flex items-center gap-3 max-w-5/12">
+      <div className="mt-4 flex max-w-5/12 items-center gap-3">
         <label htmlFor="p-area" className="sr-only">
           Área
         </label>
-        <select
-          id="p-area"
-          className="form-select h-8 flex-1 rounded-lg bg-surface-light px-3 text-xs text-muted"
-          defaultValue=""
-        >
-          <option value="">Área</option>
-          <option>Administración</option>
-          <option>Operaciones</option>
-          <option>Logistica</option>
-          <option>Transporte</option>
-          <option>Mantenimiento</option>
-          <option>Producción</option>
-        </select>
+        <div className="flex h-9 flex-1 items-center gap-2 rounded-lg bg-surface-light px-3">
+          <span
+            aria-hidden="true"
+            className="pointer-events-none select-none text-xs font-semibold text-muted uppercase"
+          >
+            Área
+          </span>
+          <select
+            id="p-area"
+            defaultValue=""
+            className="h-9 flex-1 items-center cursor-pointer bg-transparent text-xs text-muted uppercase outline-none!"
+          >
+            <option value="" />
+            {areasProtocolo.map((area) => (
+              <option key={area} value={area}>
+                {area}
+              </option>
+            ))}
+          </select>
+        </div>
 
         <label htmlFor="p-estado" className="sr-only">
           Estado
         </label>
-        <select
-          id="p-estado"
-          className="form-select h-8 flex-1 rounded-lg bg-surface-light px-3 text-xs text-muted"
-          defaultValue=""
-        >
-          <option value="">Estado</option>
-          <option>Vigente</option>
-          <option>No vigente</option>
-        </select>
+        <div className="flex h-9 flex-1 items-center gap-2 rounded-lg bg-surface-light px-3">
+          <span
+            aria-hidden="true"
+            className="pointer-events-none select-none text-xs font-semibold text-muted uppercase"
+          >
+            Estado
+          </span>
+          <select
+            id="p-estado"
+            defaultValue=""
+            className="h-9 flex-1 items-center cursor-pointer bg-transparent text-xs text-muted uppercase outline-none!"
+          >
+            <option value="" />
+            {estadosProtocolo.map((estado) => (
+              <option key={estado} value={estado}>
+                {estado}
+              </option>
+            ))}
+          </select>
+        </div>
 
         <button
           type="button"
-          className="shrink-0 rounded-lg bg-brand px-8 py-2 text-xs font-bold tracking-wide text-white hover:bg-primary-hover"
+          className="shrink-0 rounded-lg bg-brand px-8 py-2 text-sm font-bold tracking-wide text-white hover:bg-primary-hover"
         >
           BUSCAR
         </button>
       </div>
 
       <div className="mt-5 overflow-hidden rounded-lg">
-        <div className="grid grid-cols-[1.2fr_1fr_0.9fr_0.7fr_1.3fr_0.5fr_0.7fr_0.7fr_0.6fr] gap-4 rounded-lg bg-surface-light p-3 text-[10px] font-semibold uppercase tracking-wider text-muted">
+        <div className="grid grid-cols-[1.2fr_1fr_0.9fr_0.7fr_1.3fr_0.5fr_0.7fr_0.7fr_0.6fr] gap-4 rounded-lg bg-surface-light p-3 text-[11px] font-semibold uppercase tracking-wider text-muted">
           <span>Protocolo</span>
           <span>Empresa</span>
           <span>Área</span>
