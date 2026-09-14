@@ -1,9 +1,7 @@
 import MonitoreosKpis from "@/components/monitoreos/MonitoreosKpis";
 import ResultadosMonitoreoTable from "@/components/monitoreos/ResultadosMonitoreoTable";
+import { YEARS } from "@/lib/periodos";
 import { SEDES } from "@/lib/sedes";
-const TODAY = new Date();
-const CURRENT_YEAR = TODAY.getFullYear();
-const YEARS = Array.from({ length: 10 }, (_, i) => CURRENT_YEAR - i);
 
 export default function MonitoreosContent() {
   return (

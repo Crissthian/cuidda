@@ -1,9 +1,7 @@
 import ActividadesTable from "@/components/plan-anual/ActividadesTable";
 import AvanceMensual from "@/components/plan-anual/AvanceMensual";
 import PlanAnualKpis from "@/components/plan-anual/PlanAnualKpis";
-const TODAY = new Date();
-const CURRENT_YEAR = TODAY.getFullYear();
-const YEARS = Array.from({ length: 10 }, (_, i) => CURRENT_YEAR - i);
+import { YEARS } from "@/lib/periodos";
 
 export default function PlanAnualContent() {
   return (

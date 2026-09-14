@@ -6,7 +6,7 @@ export default function InformesRegulatoriosModalHost() {
 
   useEffect(() => {
     const btn = document.querySelector<HTMLButtonElement>(
-      '[data-modal-trigger="generar-documento"]',
+      '[data-modal-trigger="generar-documento-personalizado"]',
     );
     if (!btn) return;
     const handler = () => setIsOpen(true);

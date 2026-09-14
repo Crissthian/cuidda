@@ -58,7 +58,7 @@ const documentos: DocumentoItem[] = [
   {
     nombre: "Generar paquete de presentación",
     formato: null,
-    icono: "fa-box-archive",
+    icono: "fa-solid fa-box",
   },
 ];
 
@@ -77,7 +77,7 @@ export default function GenerarDocumentoInformeModal({
       onClick={onClose}
     >
       <div
-        className="relative flex max-h-[95vh] w-full max-w-4xl flex-col overflow-hidden rounded-2xl bg-surface-default shadow-xl"
+        className="relative flex max-h-[95vh] w-full max-w-5xl flex-col overflow-hidden rounded-2xl bg-surface-default shadow-xl"
         onClick={(e) => e.stopPropagation()}
       >
         <button

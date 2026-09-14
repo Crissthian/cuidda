@@ -1,11 +1,9 @@
 import SuccessModal from "@/components/ui/SuccessModal";
 import { agentesMonitoreo } from "@/lib/monitoreosData";
+import { YEARS } from "@/lib/periodos";
 import { SEDES } from "@/lib/sedes";
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
-const TODAY = new Date();
-const CURRENT_YEAR = TODAY.getFullYear();
-const YEARS = Array.from({ length: 10 }, (_, i) => CURRENT_YEAR - i);
 
 type Props = {
   isOpen: boolean;

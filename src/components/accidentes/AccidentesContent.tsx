@@ -1,9 +1,7 @@
 import AccidentesKpis from "@/components/accidentes/AccidentesKpis";
 import RegistroEventosTable from "@/components/accidentes/RegistroEventosTable";
 import { sedesAccidentes } from "@/lib/accidentesData";
-const TODAY = new Date();
-const CURRENT_YEAR = TODAY.getFullYear();
-const YEARS = Array.from({ length: 10 }, (_, i) => CURRENT_YEAR - i);
+import { YEARS } from "@/lib/periodos";
 
 export default function AccidentesContent() {
   return (

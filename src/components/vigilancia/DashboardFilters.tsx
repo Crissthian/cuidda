@@ -1,11 +1,5 @@
+import { CURRENT_YEAR, TODAY_ISO, YEARS } from "@/lib/periodos";
 import { SEDES } from "@/lib/sedes";
-
-const TODAY = new Date();
-const CURRENT_YEAR = TODAY.getFullYear();
-const YEARS = Array.from({ length: 10 }, (_, i) => CURRENT_YEAR - i);
-const TODAY_ISO = `${CURRENT_YEAR}-${String(TODAY.getMonth() + 1).padStart(2, "0")}-${String(
-  TODAY.getDate(),
-).padStart(2, "0")}`;
 
 export default function DashboardFilters() {
   return (

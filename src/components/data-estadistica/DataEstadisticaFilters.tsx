@@ -10,17 +10,17 @@ export default function DataEstadisticaFilters() {
         </label>
         <select
           id="de-tipo"
-          className="form-select h-8 flex-1 rounded-lg bg-surface-light px-3 text-xs text-muted"
+          className="form-select h-9 flex-1 items-center rounded-lg bg-surface-light px-3 text-xs text-muted"
           defaultValue=""
         >
           <option value="" disabled>
             Tipo de examen
           </option>
-          <option value="emo">EMO</option>
-          <option value="medicina">Medicina</option>
-          <option value="laboratorio">Laboratorio</option>
-          <option value="audiometria">Audiometría</option>
-          <option value="espirometria">Espirometría</option>
+          <option value="anual">Anual</option>
+          <option value="retiro">Retiro</option>
+          <option value="pre-ocupacional">Pre ocupacional</option>
+          <option value="reincorporacion">Reincorporación</option>
+          <option value="temporal">Temporal</option>
         </select>
 
         <label htmlFor="de-sede" className="sr-only">
@@ -28,7 +28,7 @@ export default function DataEstadisticaFilters() {
         </label>
         <select
           id="de-sede"
-          className="form-select h-8 flex-1 rounded-lg bg-surface-light px-3 text-xs text-muted"
+          className="form-select h-9 flex-1 items-center rounded-lg bg-surface-light px-3 text-xs text-muted"
           defaultValue=""
         >
           <option value="" disabled>
@@ -44,7 +44,7 @@ export default function DataEstadisticaFilters() {
         </label>
         <select
           id="de-desde"
-          className="form-select h-8 flex-1 rounded-lg bg-surface-light px-3 text-xs text-muted"
+          className="form-select h-9 flex-1 items-center rounded-lg bg-surface-light px-3 text-xs text-muted"
           defaultValue=""
         >
           <option value="" disabled>
@@ -59,7 +59,7 @@ export default function DataEstadisticaFilters() {
         </label>
         <select
           id="de-hasta"
-          className="form-select h-8 flex-1 rounded-lg bg-surface-light px-3 text-xs text-muted"
+          className="form-select h-9 flex-1 items-center rounded-lg bg-surface-light px-3 text-xs text-muted"
           defaultValue=""
         >
           <option value="" disabled>
@@ -72,7 +72,7 @@ export default function DataEstadisticaFilters() {
 
       <button
         type="button"
-        className="rounded-lg bg-brand px-10 py-2 text-xs font-bold tracking-wide text-white hover:bg-primary-hover"
+        className="rounded-lg bg-brand px-10 py-2 text-sm font-bold tracking-wide text-white hover:bg-primary-hover"
       >
         BUSCAR
       </button>
