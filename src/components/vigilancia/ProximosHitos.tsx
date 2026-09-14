@@ -8,10 +8,7 @@ export default function ProximosHitos() {
     >
       <div className="flex items-center justify-between">
         <div>
-          <h2
-            id="hitos-title"
-            className="text-sm font-bold uppercase text-text-primary"
-          >
+          <h2 id="hitos-title" className="text-sm uppercase text-text-primary">
             Próximos hitos
           </h2>
           <p className="text-xs text-muted">
@@ -20,7 +17,7 @@ export default function ProximosHitos() {
         </div>
         <a
           href="#"
-          className="flex items-center gap-1 text-xs font-medium text-brand hover:text-primary-hover no-print"
+          className="flex items-center gap-2 text-sm text-brand hover:text-primary-hover no-print"
         >
           Ver total de pendientes
           <i

@@ -9,7 +9,7 @@ export default function HallazgosFrecuentes() {
       <div>
         <h2
           id="hallazgos-title"
-          className="text-sm font-bold uppercase text-text-primary"
+          className="text-sm uppercase text-text-primary"
         >
           Hallazgos más frecuentes
         </h2>

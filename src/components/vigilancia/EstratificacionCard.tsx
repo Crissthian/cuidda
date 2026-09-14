@@ -16,7 +16,7 @@ export default function EstratificacionCard() {
           </p>
         </div>
         <a
-          href="#"
+          href="/vigilancia-medica/estratificacion"
           className="flex items-center gap-2 text-sm text-brand hover:text-primary-hover no-print"
         >
           Ver detalle

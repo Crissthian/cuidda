@@ -10,7 +10,7 @@ export default function AvanceProgramas() {
         <div>
           <h2
             id="programas-title"
-            className="text-sm font-bold uppercase text-text-primary"
+            className="text-sm uppercase text-text-primary"
           >
             Avance de programas de salud
           </h2>
@@ -19,8 +19,8 @@ export default function AvanceProgramas() {
           </p>
         </div>
         <a
-          href="#"
-          className="flex items-center gap-1 text-xs font-medium text-brand hover:text-primary-hover no-print"
+          href="/vigilancia-medica/programas-de-salud"
+          className="flex items-center gap-2 text-sm text-brand hover:text-primary-hover no-print"
         >
           Ir a programas
           <i

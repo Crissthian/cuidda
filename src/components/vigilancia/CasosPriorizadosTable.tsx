@@ -8,10 +8,7 @@ export default function CasosPriorizadosTable() {
     >
       <div className="flex items-start justify-between">
         <div>
-          <h2
-            id="casos-title"
-            className="text-sm font-bold uppercase text-text-primary"
-          >
+          <h2 id="casos-title" className="text-sm uppercase text-text-primary">
             Casos priorizados para seguimiento
           </h2>
           <p className="text-xs text-muted">
@@ -19,8 +16,8 @@ export default function CasosPriorizadosTable() {
           </p>
         </div>
         <a
-          href="#"
-          className="flex items-center gap-1.5 text-xs font-medium text-brand hover:text-primary-hover no-print"
+          href="/vigilancia-medica/emos-y-trabajadores"
+          className="flex items-center gap-2 text-sm text-brand hover:text-primary-hover no-print"
         >
           Ver matriz completa
           <i
