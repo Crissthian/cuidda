@@ -23,9 +23,9 @@ export interface Catalogs {
 
 export const catalogsAdmision: Catalogs = {
   sedes: [
-    { num_item: "001", des_item: "SEDE LIMA" },
-    { num_item: "002", des_item: "SEDE CONDORCOCHA" },
-    { num_item: "003", des_item: "SEDE AREQUIPA" },
+    { num_item: "001", des_item: "LIMA" },
+    { num_item: "002", des_item: "CONDORCOCHA" },
+    { num_item: "003", des_item: "AREQUIPA" },
   ],
   procedencias: [
     { num_item: "001", des_item: "PLANILLA" },

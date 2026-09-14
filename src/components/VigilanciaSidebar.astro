@@ -14,12 +14,28 @@ interface Section {
   items: Item[];
 }
 
-const currentPath = Astro.url.pathname;
-const isActive = (path: string, exact?: boolean) =>
-  path !== "#" &&
-  (exact
-    ? currentPath === path
-    : currentPath === path || currentPath.startsWith(`${path}/`));
+const normalizePath = (p: string) => {
+  const clean = decodeURIComponent(p ?? "/")
+    .split("?")[0]
+    .split("#")[0]
+    .replace(/\/index(\.html?)?$/i, "/")
+    .replace(/\.html?$/i, "")
+    .replace(/\/+$/, "");
+  return (clean || "/").toLowerCase();
+};
+const currentPath = normalizePath(Astro.url.pathname);
+const isActive = (path: string, exact?: boolean) => {
+  if (!path || path === "#") return false;
+  const target = normalizePath(path);
+  if (currentPath === target) return true;
+  // Soporta base-path en producción: /base/vigilancia-medica/...
+  const suffix = `/${target.replace(/^\/+/, "")}`;
+  if (exact) return currentPath.endsWith(suffix);
+  if (currentPath.startsWith(`${target}/`)) return true;
+  if (currentPath.endsWith(suffix)) return true;
+  if (currentPath.includes(`${suffix}/`)) return true;
+  return false;
+};
 
 const sections: Section[] = [
   {
@@ -203,14 +219,17 @@ const sections: Section[] = [
             return (
               <a
                 href={item.href}
+                data-nav-href={item.href}
+                data-nav-exact={item.exact ? "true" : "false"}
                 aria-current={active ? "page" : undefined}
-                class={`flex items-center gap-3 rounded-lg px-2 py-1 transition hover:bg-surface-default ${
+                class={`vigilancia-link flex items-center gap-3 rounded-lg px-2 py-1 transition hover:bg-surface-default ${
                   active
                     ? "font-semibold text-brand"
                     : "text-text-secondary hover:text-brand"
                 }`}
               >
                 <i
+                  data-nav-icon
                   class={`fa-solid ${item.icon} w-5 shrink-0 text-center text-sm ${
                     active ? "text-brand" : "text-text-secondary"
                   }`}
