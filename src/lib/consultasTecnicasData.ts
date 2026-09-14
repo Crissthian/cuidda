@@ -1,3 +1,25 @@
+/** Especialidades disponibles para el filtro de consultas técnicas. */
+export const especialidadesConsulta: string[] = [
+  "Cardiología",
+  "Neumología",
+  "Otorrinolaringología",
+  "Radiología",
+  "Laboratorio",
+  "Oftalmología",
+  "Medicina",
+  "Odontología",
+  "Psicología",
+];
+
+/** Estados disponibles para el filtro de consultas técnicas. */
+export const estadosConsulta: string[] = ["Respondido", "Pendiente"];
+
+/** Tipos de documento admitidos al registrar una consulta técnica. */
+export const tiposDocumentoConsulta: string[] = [
+  "DNI",
+  "Carnet de extranjería",
+];
+
 export const consultasTecnicas = [
   {
     id: 1,

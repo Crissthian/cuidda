@@ -1,3 +1,8 @@
+import {
+  especialidadesConsulta,
+  estadosConsulta,
+} from "@/lib/consultasTecnicasData";
+
 const consultas = [
   {
     id: 1,
@@ -80,27 +85,13 @@ export default function ConsultasTecnicasContent() {
                 className="form-select min-w-40 appearance-none rounded-lg border border-transparent bg-surface-light px-3 py-2  text-xs text-muted outline-none focus:border-brand focus:ring-1 focus:ring-brand"
               >
                 <option value="" disabled>
-                  Área
+                  Especialidad
                 </option>
-                <option value="mina">Mina</option>
-                <option value="planta">Planta</option>
-                <option value="administracion">Administración</option>
-              </select>
-            </div>
-          </label>
-
-          <label className="flex flex-col gap-1.5">
-            <div className="relative">
-              <select
-                defaultValue=""
-                className="form-select min-w-40 appearance-none rounded-lg border border-transparent bg-surface-light px-3 py-2  text-xs text-muted outline-none focus:border-brand focus:ring-1 focus:ring-brand"
-              >
-                <option value="" disabled>
-                  Tipo de EMO
-                </option>
-                <option value="ingreso">Ingreso</option>
-                <option value="periodico">Periódico</option>
-                <option value="retiro">Retiro</option>
+                {especialidadesConsulta.map((especialidad) => (
+                  <option key={especialidad} value={especialidad}>
+                    {especialidad}
+                  </option>
+                ))}
               </select>
             </div>
           </label>
@@ -114,8 +105,11 @@ export default function ConsultasTecnicasContent() {
                 <option value="" disabled>
                   Estado
                 </option>
-                <option value="respondido">Respondido</option>
-                <option value="pendiente">Pendiente</option>
+                {estadosConsulta.map((estado) => (
+                  <option key={estado} value={estado}>
+                    {estado}
+                  </option>
+                ))}
               </select>
             </div>
           </label>

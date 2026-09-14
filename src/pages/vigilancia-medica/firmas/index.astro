@@ -1,22 +1,24 @@
 ---
 import FirmasContent from "@/components/vigilancia/FirmasContent";
+import NuevoMedicoModalHost from "@/components/vigilancia/NuevoMedicoModalHost";
 import VigilanciaPagePlaceholder from "@/components/vigilancia/VigilanciaPagePlaceholder.astro";
 import DashboardLayout from "@/layouts/DashboardLayout.astro";
 ---
 
 <DashboardLayout title="Firmas" description="Módulo de firmas">
-    <VigilanciaPagePlaceholder
-        title="Médicos y firma digital"
-        icon="fa-signature"
-        description="Administra identidades, certificados y permisos de firma desde un solo lugar."
-        buttons={[
-            {
-                text: "NUEVO MEDICO",
-                icon: "fa-plus",
-            },
-        ]}
-    />
-    <div class="mx-10">
-        <FirmasContent client:load />
-    </div>
+  <VigilanciaPagePlaceholder
+    title="Médicos y firma digital"
+    icon="fa-signature"
+    description="Administra identidades, certificados y permisos de firma desde un solo lugar."
+    buttons={[
+      {
+        text: "NUEVO MEDICO",
+        icon: "fa-plus",
+      },
+    ]}
+  />
+  <div class="mx-10">
+    <FirmasContent client:load />
+  </div>
+  <NuevoMedicoModalHost client:load />
 </DashboardLayout>

@@ -1,3 +1,7 @@
+import {
+  especialidadesConsulta,
+  tiposDocumentoConsulta,
+} from "@/lib/consultasTecnicasData";
 import { useEffect, useState } from "react";
 
 function NuevaConsultaModal({ onClose }: { onClose: () => void }) {
@@ -94,7 +98,7 @@ function NuevaConsultaModal({ onClose }: { onClose: () => void }) {
             </h3>
             <div className="grid grid-cols-12 gap-4">
               <label className="col-span-12 flex flex-col gap-1.5 sm:col-span-5">
-                <span className="text-[11px] font-medium text-text-secondary">
+                <span className="text-xs font-medium text-text-secondary">
                   Apellidos
                 </span>
                 <input
@@ -103,7 +107,7 @@ function NuevaConsultaModal({ onClose }: { onClose: () => void }) {
                 />
               </label>
               <label className="col-span-6 flex flex-col gap-1.5 sm:col-span-4">
-                <span className="text-[11px] font-medium text-text-secondary">
+                <span className="text-xs font-medium text-text-secondary">
                   Tipo de documento
                 </span>
                 <div className="relative">
@@ -114,14 +118,14 @@ function NuevaConsultaModal({ onClose }: { onClose: () => void }) {
                     <option value="" disabled>
                       Seleccionar
                     </option>
-                    <option>DNI</option>
-                    <option>CE</option>
-                    <option>Pasaporte</option>
+                    {tiposDocumentoConsulta.map((tipo) => (
+                      <option key={tipo}>{tipo}</option>
+                    ))}
                   </select>
                 </div>
               </label>
               <label className="col-span-6 flex flex-col gap-1.5 sm:col-span-3">
-                <span className="text-[11px] font-medium text-text-secondary">
+                <span className="text-xs font-medium text-text-secondary">
                   N° de documento
                 </span>
                 <input
@@ -130,7 +134,7 @@ function NuevaConsultaModal({ onClose }: { onClose: () => void }) {
                 />
               </label>
               <label className="col-span-12 flex flex-col gap-1.5 sm:col-span-6">
-                <span className="text-[11px] font-medium text-text-secondary">
+                <span className="text-xs font-medium text-text-secondary">
                   Empresa
                 </span>
                 <input
@@ -139,7 +143,7 @@ function NuevaConsultaModal({ onClose }: { onClose: () => void }) {
                 />
               </label>
               <label className="col-span-12 flex flex-col gap-1.5 sm:col-span-6">
-                <span className="text-[11px] font-medium text-text-secondary">
+                <span className="text-xs font-medium text-text-secondary">
                   Puesto
                 </span>
                 <input
@@ -157,7 +161,7 @@ function NuevaConsultaModal({ onClose }: { onClose: () => void }) {
             </h3>
             <div className="grid grid-cols-12 gap-4">
               <label className="col-span-12 flex flex-col gap-1.5 sm:col-span-4">
-                <span className="text-[11px] font-medium text-text-secondary">
+                <span className="text-xs font-medium text-text-secondary">
                   Especialidad
                 </span>
                 <div className="relative">
@@ -168,15 +172,14 @@ function NuevaConsultaModal({ onClose }: { onClose: () => void }) {
                     <option value="" disabled>
                       Seleccionar
                     </option>
-                    <option>Neumología</option>
-                    <option>Otorrinolaringología</option>
-                    <option>Cardiología</option>
-                    <option>Dermatología</option>
+                    {especialidadesConsulta.map((especialidad) => (
+                      <option key={especialidad}>{especialidad}</option>
+                    ))}
                   </select>
                 </div>
               </label>
               <label className="col-span-12 flex flex-col gap-1.5 sm:col-span-8">
-                <span className="text-[11px] font-medium text-text-secondary">
+                <span className="text-xs font-medium text-text-secondary">
                   Motivo de consulta
                 </span>
                 <input
@@ -192,7 +195,7 @@ function NuevaConsultaModal({ onClose }: { onClose: () => void }) {
               <p className="text-xs font-semibold text-brand">
                 ¿Qué desea consultar al especialista?
               </p>
-              <p className="mt-0.5 text-[11px] leading-snug text-muted">
+              <p className="mt-0.5 text-xs leading-snug text-muted">
                 Formula tu pregunta con el contexto clínico y ocupacional
                 necesario.
               </p>
@@ -228,7 +231,7 @@ function NuevaConsultaModal({ onClose }: { onClose: () => void }) {
                 className="fa-solid fa-file-circle-plus text-lg text-brand"
                 aria-hidden="true"
               />
-              <span className="max-w-full truncate text-[11px] font-semibold text-text-secondary">
+              <span className="max-w-full truncate text-xs font-semibold text-text-secondary">
                 {fileName ? fileName : "Anexar documento"}
               </span>
               <span className="text-[11px] text-muted/70">

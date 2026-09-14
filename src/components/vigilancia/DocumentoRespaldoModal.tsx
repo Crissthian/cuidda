@@ -161,7 +161,7 @@ export default function DocumentoRespaldoModal({ isOpen, onClose }: Props) {
 
                 <div
                   {...getRootProps()}
-                  className={`mt-4 flex flex-col items-center justify-center rounded-lg border-2 border-dashed p-6 text-center transition border-brand/60 bg-surface-default transition ${
+                  className={`mt-4 flex flex-col items-center justify-center rounded-lg border-2 border-dashed p-6 text-center transition border-brand/60 bg-surface-default ${
                     isDragActive
                       ? "border-brand bg-brand/5"
                       : "border-brand/60 bg-surface-default"
