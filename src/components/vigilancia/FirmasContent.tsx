@@ -213,7 +213,7 @@ export default function FirmasContent() {
                         </button>
                       ) : (
                         <a
-                          href={`/vigilancia-medica/firmas/${row.id}`}
+                          href={`/vigilancia-medica/firmas/${row.cmp}`}
                           aria-label={`Ver detalle de ${row.medico}`}
                           className="inline-flex items-center gap-1.5 rounded-lg bg-muted px-4 py-1.5 text-[11px] font-bold tracking-wide text-white transition-colors hover:bg-muted-80"
                         >

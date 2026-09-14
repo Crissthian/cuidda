@@ -13,7 +13,7 @@ interface Props {
 
 export function getStaticPaths() {
   return contratistas.map((contratista) => ({
-    params: { id: String(contratista.id) },
+    params: { id: contratista.slug },
     props: { contratista },
   }));
 }
@@ -24,7 +24,13 @@ const titulo = contratista
   : "Contratista no encontrado";
 ---
 
-<DashboardLayout title={titulo} description="Detalle del contratista">
+<DashboardLayout
+  title={titulo}
+  description="Detalle del contratista"
+  breadcrumbLabels={contratista
+    ? { [contratista.slug]: { label: contratista.empresa } }
+    : {}}
+>
   <div class="relative flex flex-1 flex-col bg-surface-default">
     <div class="flex items-center gap-4 px-10 pb-4">
       <a

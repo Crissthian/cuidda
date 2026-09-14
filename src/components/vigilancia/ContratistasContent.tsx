@@ -158,7 +158,7 @@ export default function ContratistasContent() {
                   </span>
                   <span role="cell" className="flex justify-center">
                     <a
-                      href={`/vigilancia-medica/contratistas/${row.id}`}
+                      href={`/vigilancia-medica/contratistas/${row.slug}`}
                       className="flex items-center gap-2 rounded-lg bg-muted px-4 py-1 text-[11px] font-bold tracking-wide text-white hover:bg-muted-80"
                     >
                       <i

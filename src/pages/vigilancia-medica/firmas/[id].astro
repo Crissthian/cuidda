@@ -13,7 +13,7 @@ interface Props {
 
 export function getStaticPaths() {
   return medicos.map((medico) => ({
-    params: { id: String(medico.id) },
+    params: { id: medico.cmp },
     props: { medico },
   }));
 }
@@ -24,7 +24,11 @@ const titulo = medico
   : "Médico no encontrado";
 ---
 
-<DashboardLayout title={titulo} description="Ficha del médico">
+<DashboardLayout
+  title={titulo}
+  description="Ficha del médico"
+  breadcrumbLabels={medico ? { [medico.cmp]: { label: medico.cmp } } : {}}
+>
   <div class="flex flex-1 flex-col overflow-y-auto">
     <div class="flex items-center gap-4 px-10 pb-4">
       <a

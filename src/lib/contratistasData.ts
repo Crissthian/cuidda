@@ -1,6 +1,7 @@
 export const contratistas = [
   {
     id: 1,
+    slug: "vigilancia-andina",
     empresa: "Vigilancia Andina",
     ruc: "20605277415",
     servicio: "Seguridad",
@@ -12,6 +13,7 @@ export const contratistas = [
   },
   {
     id: 2,
+    slug: "myh-group",
     empresa: "MyH Group",
     ruc: "20605277415",
     servicio: "Servicios Generales",
@@ -23,6 +25,7 @@ export const contratistas = [
   },
   {
     id: 3,
+    slug: "haug",
     empresa: "HAUG",
     ruc: "20605277415",
     servicio: "Mecánica",
@@ -34,6 +37,7 @@ export const contratistas = [
   },
   {
     id: 4,
+    slug: "san-martin-cgsa",
     empresa: "San Martin CGSA",
     ruc: "20605277415",
     servicio: "Perforación",
@@ -45,6 +49,7 @@ export const contratistas = [
   },
   {
     id: 5,
+    slug: "ecotec",
     empresa: "ECOTEC",
     ruc: "20605277415",
     servicio: "Mantenimiento",
