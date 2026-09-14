@@ -1,78 +1,111 @@
+import { CURRENT_YEAR, TODAY_ISO } from "@/lib/periodos";
+import { SEDES } from "@/lib/sedes";
+
+const tiposExamen = [
+  { id: "anual", label: "Anual" },
+  { id: "retiro", label: "Retiro" },
+  { id: "pre-ocupacional", label: "Pre ocupacional" },
+  { id: "reincorporacion", label: "Reincorporación" },
+  { id: "temporal", label: "Temporal" },
+];
+
 export default function DataEstadisticaFilters() {
   return (
     <section
-      className="flex items-center gap-3"
+      className="flex items-center gap-3 max-w-10/12"
       aria-label="Filtros de data estadística"
     >
-      <div className="flex flex-1 items-center gap-4">
+      <div className="flex flex-1 items-center gap-3">
         <label htmlFor="de-tipo" className="sr-only">
           Tipo de examen
         </label>
-        <select
-          id="de-tipo"
-          className="form-select h-9 flex-1 items-center rounded-lg bg-surface-light px-3 text-xs text-muted"
-          defaultValue=""
-        >
-          <option value="">
+        <div className="flex h-9 flex-1 items-center gap-2 rounded-lg bg-surface-light ps-3">
+          <span
+            aria-hidden="true"
+            className="pointer-events-none select-none text-xs capitalize text-muted"
+          >
             Tipo de examen
-          </option>
-          <option value="anual">Anual</option>
-          <option value="retiro">Retiro</option>
-          <option value="pre-ocupacional">Pre ocupacional</option>
-          <option value="reincorporacion">Reincorporación</option>
-          <option value="temporal">Temporal</option>
-        </select>
+          </span>
+          <select
+            id="de-tipo"
+            defaultValue=""
+            className="h-full flex-1 items-center cursor-pointer rounded-lg bg-transparent pe-3 text-xs capitalize text-muted outline-none!"
+          >
+            <option value="" />
+            {tiposExamen.map((tipo) => (
+              <option key={tipo.id} value={tipo.id}>
+                {tipo.label}
+              </option>
+            ))}
+          </select>
+        </div>
 
         <label htmlFor="de-sede" className="sr-only">
           Sede
         </label>
-        <select
-          id="de-sede"
-          className="form-select h-9 flex-1 items-center rounded-lg bg-surface-light px-3 text-xs text-muted"
-          defaultValue=""
-        >
-          <option value="">
+        <div className="flex h-9 flex-1 items-center gap-2 rounded-lg bg-surface-light ps-3">
+          <span
+            aria-hidden="true"
+            className="pointer-events-none select-none text-xs capitalize text-muted"
+          >
             Sede
-          </option>
-          <option value="lima">Lima</option>
-          <option value="arequipa">Arequipa</option>
-          <option value="condorcocha">Condorcocha</option>
-        </select>
+          </span>
+          <select
+            id="de-sede"
+            defaultValue=""
+            className="h-full flex-1 items-center cursor-pointer rounded-lg bg-transparent pe-3 text-xs capitalize text-muted outline-none!"
+          >
+            <option value="" />
+            {SEDES.map((sede) => (
+              <option key={sede} value={sede}>
+                {sede}
+              </option>
+            ))}
+          </select>
+        </div>
 
         <label htmlFor="de-desde" className="sr-only">
           Desde
         </label>
-        <select
-          id="de-desde"
-          className="form-select h-9 flex-1 items-center rounded-lg bg-surface-light px-3 text-xs text-muted"
-          defaultValue=""
-        >
-          <option value="">
-            Desde: dd/mm/aaaa
-          </option>
-          <option value="2026-01-01">Desde: 01/01/2026</option>
-          <option value="2026-06-01">Desde: 01/06/2026</option>
-        </select>
+        <div className="flex h-9 flex-1 items-center gap-2 rounded-lg bg-surface-light px-3">
+          <span
+            aria-hidden="true"
+            className="pointer-events-none select-none text-xs text-muted"
+          >
+            Desde
+          </span>
+          <input
+            id="de-desde"
+            type="date"
+            defaultValue={`${CURRENT_YEAR}-01-01`}
+            max={TODAY_ISO}
+            className="h-full flex-1 bg-transparent text-xs text-muted outline-none!"
+          />
+        </div>
 
         <label htmlFor="de-hasta" className="sr-only">
           Hasta
         </label>
-        <select
-          id="de-hasta"
-          className="form-select h-9 flex-1 items-center rounded-lg bg-surface-light px-3 text-xs text-muted"
-          defaultValue=""
-        >
-          <option value="">
-            Hasta: dd/mm/aaaa
-          </option>
-          <option value="2026-06-30">Hasta: 30/06/2026</option>
-          <option value="2026-12-31">Hasta: 31/12/2026</option>
-        </select>
+        <div className="flex h-9 flex-1 items-center gap-2 rounded-lg bg-surface-light px-3">
+          <span
+            aria-hidden="true"
+            className="pointer-events-none select-none text-xs text-muted"
+          >
+            Hasta
+          </span>
+          <input
+            id="de-hasta"
+            type="date"
+            defaultValue={TODAY_ISO}
+            max={TODAY_ISO}
+            className="h-full flex-1 bg-transparent text-xs text-muted outline-none!"
+          />
+        </div>
       </div>
 
       <button
         type="button"
-        className="rounded-lg bg-brand px-10 py-2 text-sm font-bold tracking-wide text-white hover:bg-primary-hover"
+        className="rounded-lg bg-brand px-10 py-2 text-xs font-bold tracking-wide text-white hover:bg-primary-hover"
       >
         BUSCAR
       </button>

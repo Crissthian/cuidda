@@ -62,58 +62,82 @@ export default function ConsultasTecnicasContent() {
         </p>
 
         {/* ── Filtros ── */}
-        <div className="mt-5 flex flex-wrap items-end gap-3">
-          <label className="flex flex-col gap-1.5">
-            <div className="relative">
-              <select
-                defaultValue=""
-                className="form-select min-w-40 appearance-none rounded-lg border border-transparent bg-surface-light px-3 py-2  text-xs text-muted outline-none focus:border-brand focus:ring-1 focus:ring-brand"
-              >
-                <option value="">Sede</option>
-                {SEDES.map((sede) => (
-                  <option key={sede} value={sede}>
-                    {sede}
-                  </option>
-                ))}
-              </select>
-            </div>
+        <div className="mt-5 flex max-w-7/12 items-center gap-3">
+          <label htmlFor="ct-sede" className="sr-only">
+            Sede
           </label>
+          <div className="flex h-9 flex-1 items-center gap-2 rounded-lg bg-surface-light ps-3">
+            <span
+              aria-hidden="true"
+              className="pointer-events-none select-none text-xs capitalize text-muted"
+            >
+              Sede
+            </span>
+            <select
+              id="ct-sede"
+              defaultValue=""
+              className="h-full flex-1 items-center cursor-pointer rounded-lg bg-transparent pe-3 text-xs capitalize text-muted outline-none!"
+            >
+              <option value="" />
+              {SEDES.map((sede) => (
+                <option key={sede} value={sede}>
+                  {sede}
+                </option>
+              ))}
+            </select>
+          </div>
 
-          <label className="flex flex-col gap-1.5">
-            <div className="relative">
-              <select
-                defaultValue=""
-                className="form-select min-w-40 w-44 appearance-none rounded-lg border border-transparent bg-surface-light px-3 py-2  text-xs text-muted outline-none focus:border-brand focus:ring-1 focus:ring-brand"
-              >
-                <option value="">Especialidad</option>
-                {especialidadesConsulta.map((especialidad) => (
-                  <option key={especialidad} value={especialidad}>
-                    {especialidad}
-                  </option>
-                ))}
-              </select>
-            </div>
+          <label htmlFor="ct-especialidad" className="sr-only">
+            Especialidad
           </label>
+          <div className="flex h-9 w-65 items-center gap-2 rounded-lg bg-surface-light ps-3">
+            <span
+              aria-hidden="true"
+              className="pointer-events-none select-none text-xs capitalize text-muted"
+            >
+              Especialidad
+            </span>
+            <select
+              id="ct-especialidad"
+              defaultValue=""
+              className="h-full flex-1 items-center cursor-pointer rounded-lg bg-transparent pe-3 text-xs capitalize text-muted outline-none!"
+            >
+              <option value="" />
+              {especialidadesConsulta.map((especialidad) => (
+                <option key={especialidad} value={especialidad}>
+                  {especialidad}
+                </option>
+              ))}
+            </select>
+          </div>
 
-          <label className="flex flex-col gap-1.5">
-            <div className="relative">
-              <select
-                defaultValue=""
-                className="form-select min-w-40 appearance-none rounded-lg border border-transparent bg-surface-light px-3 py-2  text-xs text-muted outline-none focus:border-brand focus:ring-1 focus:ring-brand"
-              >
-                <option value="">Estado</option>
-                {estadosConsulta.map((estado) => (
-                  <option key={estado} value={estado}>
-                    {estado}
-                  </option>
-                ))}
-              </select>
-            </div>
+          <label htmlFor="ct-estado" className="sr-only">
+            Estado
           </label>
+          <div className="flex h-9 flex-1 items-center gap-2 rounded-lg bg-surface-light ps-3">
+            <span
+              aria-hidden="true"
+              className="pointer-events-none select-none text-xs capitalize text-muted"
+            >
+              Estado
+            </span>
+            <select
+              id="ct-estado"
+              defaultValue=""
+              className="h-full flex-1 items-center cursor-pointer rounded-lg bg-transparent pe-3 text-xs capitalize text-muted outline-none!"
+            >
+              <option value="" />
+              {estadosConsulta.map((estado) => (
+                <option key={estado} value={estado}>
+                  {estado}
+                </option>
+              ))}
+            </select>
+          </div>
 
           <button
             type="button"
-            className="inline-flex h-9 items-center justify-center rounded-lg bg-brand px-8 text-xs font-bold uppercase tracking-wide text-white shadow-sm transition-colors hover:bg-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+            className="inline-flex h-9 shrink-0 items-center justify-center rounded-lg bg-brand px-10 text-xs font-bold uppercase tracking-wide text-white shadow-sm transition-colors hover:bg-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
           >
             Buscar
           </button>
