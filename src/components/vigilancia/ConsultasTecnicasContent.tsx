@@ -2,6 +2,7 @@ import {
   especialidadesConsulta,
   estadosConsulta,
 } from "@/lib/consultasTecnicasData";
+import { SEDES } from "@/lib/sedes";
 
 const consultas = [
   {
@@ -68,12 +69,12 @@ export default function ConsultasTecnicasContent() {
                 defaultValue=""
                 className="form-select min-w-40 appearance-none rounded-lg border border-transparent bg-surface-light px-3 py-2  text-xs text-muted outline-none focus:border-brand focus:ring-1 focus:ring-brand"
               >
-                <option value="" disabled>
-                  Sede
-                </option>
-                <option value="lima">Lima</option>
-                <option value="junin">Junín</option>
-                <option value="condorcocha">Condorcocha</option>
+                <option value="">Sede</option>
+                {SEDES.map((sede) => (
+                  <option key={sede} value={sede}>
+                    {sede}
+                  </option>
+                ))}
               </select>
             </div>
           </label>
@@ -84,9 +85,7 @@ export default function ConsultasTecnicasContent() {
                 defaultValue=""
                 className="form-select min-w-40 appearance-none rounded-lg border border-transparent bg-surface-light px-3 py-2  text-xs text-muted outline-none focus:border-brand focus:ring-1 focus:ring-brand"
               >
-                <option value="" disabled>
-                  Especialidad
-                </option>
+                <option value="">Especialidad</option>
                 {especialidadesConsulta.map((especialidad) => (
                   <option key={especialidad} value={especialidad}>
                     {especialidad}
@@ -102,9 +101,7 @@ export default function ConsultasTecnicasContent() {
                 defaultValue=""
                 className="form-select min-w-40 appearance-none rounded-lg border border-transparent bg-surface-light px-3 py-2  text-xs text-muted outline-none focus:border-brand focus:ring-1 focus:ring-brand"
               >
-                <option value="" disabled>
-                  Estado
-                </option>
+                <option value="">Estado</option>
                 {estadosConsulta.map((estado) => (
                   <option key={estado} value={estado}>
                     {estado}

@@ -13,14 +13,14 @@ export default function MonitoreosContent() {
         <div className="flex h-9 items-center w-50 gap-2 rounded-lg bg-surface-light px-3">
           <span
             aria-hidden="true"
-            className="pointer-events-none items-center select-none text-xs font-semibold text-muted uppercase"
+            className="pointer-events-none items-center select-none text-xs text-muted capitalize"
           >
             Periodo
           </span>
           <select
             id="mon-periodo"
             defaultValue=""
-            className="h-9 flex-1 items-center cursor-pointer bg-transparent text-xs text-muted uppercase outline-none!"
+            className="h-9 flex-1 items-center cursor-pointer bg-transparent text-xs text-muted capitalize outline-none!"
           >
             <option value="" />
             {YEARS.map((periodo) => (
@@ -36,14 +36,14 @@ export default function MonitoreosContent() {
         <div className="flex h-9 items-center w-50 gap-2 rounded-lg bg-surface-light px-3">
           <span
             aria-hidden="true"
-            className="pointer-events-none items-center select-none text-xs font-semibold text-muted uppercase"
+            className="pointer-events-none items-center select-none text-xs text-muted capitalize"
           >
             Sede
           </span>
           <select
             id="mon-sede"
             defaultValue=""
-            className="h-9 flex-1 items-center cursor-pointer bg-transparent text-xs text-muted uppercase outline-none!"
+            className="h-9 flex-1 items-center cursor-pointer bg-transparent text-xs text-muted capitalize outline-none!"
           >
             <option value="" />
             {SEDES.map((sede) => (

@@ -433,7 +433,7 @@ export default function EstratificacionContent() {
           <form
             role="search"
             aria-label="Filtros de trabajadores por grupo"
-            className="flex flex-wrap items-center gap-3 w-full max-w-5xl"
+            className="flex flex-wrap items-center gap-3 w-full max-w-6xl"
             onSubmit={(e) => e.preventDefault()}
           >
             <label htmlFor="est-apellidos">Apellidos</label>
@@ -459,14 +459,14 @@ export default function EstratificacionContent() {
             <div className="flex h-9 min-w-0 flex-1 items-center gap-2 rounded-lg bg-surface-light px-3">
               <span
                 aria-hidden="true"
-                className="pointer-events-none select-none text-xs font-semibold uppercase text-muted"
+                className="pointer-events-none select-none text-xs capitalize text-muted"
               >
                 Sede
               </span>
               <select
                 id="est-sede"
                 defaultValue=""
-                className="h-full min-w-0 flex-1 items-center cursor-pointer bg-transparent text-xs uppercase text-muted outline-none!"
+                className="h-full min-w-0 flex-1 items-center cursor-pointer bg-transparent text-xs capitalize text-muted outline-none!"
               >
                 <option value="" />
                 {SEDES.map((sede) => (
@@ -481,7 +481,7 @@ export default function EstratificacionContent() {
             <div className="flex h-9 min-w-0 flex-1 items-center gap-2 rounded-lg bg-surface-light px-3">
               <span
                 aria-hidden="true"
-                className="pointer-events-none select-none text-xs font-semibold uppercase text-muted"
+                className="pointer-events-none select-none text-xs capitalize text-muted"
               >
                 Grupo de riesgo
               </span>

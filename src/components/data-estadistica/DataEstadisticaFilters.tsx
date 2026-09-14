@@ -13,7 +13,7 @@ export default function DataEstadisticaFilters() {
           className="form-select h-9 flex-1 items-center rounded-lg bg-surface-light px-3 text-xs text-muted"
           defaultValue=""
         >
-          <option value="" disabled>
+          <option value="">
             Tipo de examen
           </option>
           <option value="anual">Anual</option>
@@ -31,7 +31,7 @@ export default function DataEstadisticaFilters() {
           className="form-select h-9 flex-1 items-center rounded-lg bg-surface-light px-3 text-xs text-muted"
           defaultValue=""
         >
-          <option value="" disabled>
+          <option value="">
             Sede
           </option>
           <option value="lima">Lima</option>
@@ -47,7 +47,7 @@ export default function DataEstadisticaFilters() {
           className="form-select h-9 flex-1 items-center rounded-lg bg-surface-light px-3 text-xs text-muted"
           defaultValue=""
         >
-          <option value="" disabled>
+          <option value="">
             Desde: dd/mm/aaaa
           </option>
           <option value="2026-01-01">Desde: 01/01/2026</option>
@@ -62,7 +62,7 @@ export default function DataEstadisticaFilters() {
           className="form-select h-9 flex-1 items-center rounded-lg bg-surface-light px-3 text-xs text-muted"
           defaultValue=""
         >
-          <option value="" disabled>
+          <option value="">
             Hasta: dd/mm/aaaa
           </option>
           <option value="2026-06-30">Hasta: 30/06/2026</option>

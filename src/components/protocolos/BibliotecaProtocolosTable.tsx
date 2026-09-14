@@ -24,14 +24,14 @@ export default function BibliotecaProtocolosTable() {
         <div className="flex h-9 flex-1 items-center gap-2 rounded-lg bg-surface-light px-3">
           <span
             aria-hidden="true"
-            className="pointer-events-none select-none text-xs font-semibold text-muted uppercase"
+            className="pointer-events-none select-none text-xs text-muted capitalize"
           >
             Área
           </span>
           <select
             id="p-area"
             defaultValue=""
-            className="h-9 flex-1 items-center cursor-pointer bg-transparent text-xs text-muted uppercase outline-none!"
+            className="h-9 flex-1 items-center cursor-pointer bg-transparent text-xs text-muted capitalize outline-none!"
           >
             <option value="" />
             {areasProtocolo.map((area) => (
@@ -48,14 +48,14 @@ export default function BibliotecaProtocolosTable() {
         <div className="flex h-9 flex-1 items-center gap-2 rounded-lg bg-surface-light px-3">
           <span
             aria-hidden="true"
-            className="pointer-events-none select-none text-xs font-semibold text-muted uppercase"
+            className="pointer-events-none select-none text-xs text-muted capitalize"
           >
             Estado
           </span>
           <select
             id="p-estado"
             defaultValue=""
-            className="h-9 flex-1 items-center cursor-pointer bg-transparent text-xs text-muted uppercase outline-none!"
+            className="h-9 flex-1 items-center cursor-pointer bg-transparent text-xs text-muted capitalize outline-none!"
           >
             <option value="" />
             {estadosProtocolo.map((estado) => (

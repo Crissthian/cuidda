@@ -73,7 +73,7 @@ Esta skill guía al agente en la maquetación y desarrollo de interfaces visuale
 Reglas del patrón:
 
 - El contenedor define toda la apariencia: `flex h-9 items-center gap-2 rounded-lg bg-surface-light px-3` (ajustar `h-*` según el contexto de la pantalla).
-- El `<span>` prefijo lleva `pointer-events-none select-none text-xs font-semibold text-muted` y `aria-hidden="true"`.
+- El `<span>` prefijo lleva `pointer-events-none select-none text-xs text-muted` y `aria-hidden="true"`.
 - Mantener siempre el `<label htmlFor="..." className="sr-only">` para accesibilidad, ya que el prefijo está oculto a lectores de pantalla.
 - El control va sin fondo, borde ni outline propios: `h-full flex-1 bg-transparent text-xs text-muted outline-none!` (+ `cursor-pointer` en `select`).
 - Incluir una `<option value="" />` vacía (o `disabled`) para conservar el estado sin selección.
@@ -86,7 +86,7 @@ Reglas del patrón:
 <div className="flex h-9 flex-1 items-center gap-2 rounded-lg bg-surface-light px-3">
   <span
     aria-hidden="true"
-    className="pointer-events-none select-none text-xs font-semibold text-muted uppercase"
+    className="pointer-events-none select-none text-xs text-muted capitalize"
   >
     Sede
   </span>
@@ -114,7 +114,7 @@ El mismo patrón aplica a `input type="date"`, omitiendo `cursor-pointer` y `upp
 <div className="flex h-9 flex-1 items-center gap-2 rounded-lg bg-surface-light px-3">
   <span
     aria-hidden="true"
-    className="pointer-events-none select-none text-xs font-semibold text-muted"
+    className="pointer-events-none select-none text-xs text-muted"
   >
     Desde
   </span>

@@ -24,13 +24,13 @@ export default function MatrizEmosTable() {
         <div className="flex h-9 w-48 items-center gap-2 rounded-lg bg-surface-light px-3">
           <span
             aria-hidden="true"
-            className="pointer-events-none select-none text-xs font-semibold text-muted uppercase"
+            className="pointer-events-none select-none text-xs text-muted capitalize"
           >
             Sede
           </span>
           <select
             id="f-sede"
-            className="h-full flex-1 items-center cursor-pointer bg-transparent text-xs text-muted uppercase outline-none!"
+            className="h-full flex-1 items-center cursor-pointer bg-transparent text-xs text-muted capitalize outline-none!"
             defaultValue=""
           >
             <option value="" disabled />
@@ -48,13 +48,13 @@ export default function MatrizEmosTable() {
         <div className="flex h-9 w-48 items-center gap-2 rounded-lg bg-surface-light px-3">
           <span
             aria-hidden="true"
-            className="pointer-events-none select-none text-xs font-semibold text-muted uppercase"
+            className="pointer-events-none select-none text-xs text-muted capitalize"
           >
             Grupo de riesgo
           </span>
           <select
             id="f-grupo"
-            className="h-full flex-1 items-center cursor-pointer bg-transparent text-xs text-muted uppercase outline-none!"
+            className="h-full flex-1 items-center cursor-pointer bg-transparent text-xs text-muted capitalize outline-none!"
             defaultValue=""
           >
             <option value="" disabled />
@@ -72,13 +72,13 @@ export default function MatrizEmosTable() {
         <div className="flex h-9 w-60 items-center gap-2 rounded-lg bg-surface-light px-3">
           <span
             aria-hidden="true"
-            className="pointer-events-none select-none text-xs font-semibold text-muted uppercase"
+            className="pointer-events-none select-none text-xs text-muted capitalize"
           >
             Estado de lectura
           </span>
           <select
             id="f-estado"
-            className="h-full flex-1 items-center cursor-pointer bg-transparent text-xs text-muted uppercase outline-none!"
+            className="h-full flex-1 items-center cursor-pointer bg-transparent text-xs text-muted capitalize outline-none!"
             defaultValue=""
           >
             <option value="" disabled />

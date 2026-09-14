@@ -14,14 +14,14 @@ export default function PlanAnualContent() {
           <div className="flex h-8 w-48 items-center gap-2 rounded-lg bg-surface-light px-3">
             <span
               aria-hidden="true"
-              className="pointer-events-none select-none text-xs font-semibold text-muted uppercase"
+              className="pointer-events-none select-none text-xs text-muted capitalize"
             >
               Periodo
             </span>
             <select
               id="pa-periodo"
               defaultValue=""
-              className="h-full flex-1 items-center cursor-pointer bg-transparent text-xs text-muted uppercase outline-none!"
+              className="h-full flex-1 items-center cursor-pointer bg-transparent text-xs text-muted capitalize outline-none!"
             >
               <option value="" />
               {YEARS.map((periodo) => (

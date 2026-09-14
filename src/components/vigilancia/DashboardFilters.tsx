@@ -14,13 +14,13 @@ export default function DashboardFilters() {
         <div className="flex h-9 flex-1 items-center gap-2 rounded-lg bg-surface-light px-3">
           <span
             aria-hidden="true"
-            className="pointer-events-none select-none text-xs font-semibold text-muted uppercase"
+            className="pointer-events-none select-none text-xs text-muted capitalize"
           >
             Periodo
           </span>
           <select
             id="f-periodo"
-            className="h-full flex-1 ps-4 items-center cursor-pointer bg-transparent text-xs text-muted uppercase outline-none!"
+            className="h-full flex-1 ps-4 items-center cursor-pointer bg-transparent text-xs text-muted capitalize outline-none!"
           >
             <option value="" />
             {YEARS.map((year) => (
@@ -37,13 +37,13 @@ export default function DashboardFilters() {
         <div className="flex h-9 flex-1 items-center gap-2 rounded-lg bg-surface-light px-3">
           <span
             aria-hidden="true"
-            className="pointer-events-none select-none text-xs font-semibold text-muted uppercase"
+            className="pointer-events-none select-none text-xs text-muted capitalize"
           >
             Sede
           </span>
           <select
             id="f-sede"
-            className="h-full flex-1 ps-4 items-center cursor-pointer bg-transparent text-xs text-muted uppercase outline-none!"
+            className="h-full flex-1 ps-4 items-center cursor-pointer bg-transparent text-xs text-muted capitalize outline-none!"
             defaultValue=""
           >
             <option value="" />
@@ -61,7 +61,7 @@ export default function DashboardFilters() {
         <div className="flex h-9 flex-1 items-center gap-2 rounded-lg bg-surface-light px-3">
           <span
             aria-hidden="true"
-            className="pointer-events-none select-none text-xs font-semibold text-muted"
+            className="pointer-events-none select-none text-xs text-muted"
           >
             Desde
           </span>
@@ -80,7 +80,7 @@ export default function DashboardFilters() {
         <div className="flex h-9 flex-1 items-center gap-2 rounded-lg bg-surface-light px-3">
           <span
             aria-hidden="true"
-            className="pointer-events-none select-none text-xs font-semibold text-muted"
+            className="pointer-events-none select-none text-xs text-muted"
           >
             Hasta
           </span>

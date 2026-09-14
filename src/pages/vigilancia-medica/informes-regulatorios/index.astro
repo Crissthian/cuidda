@@ -4,6 +4,7 @@ import VigilanciaPagePlaceholder from "@/components/vigilancia/VigilanciaPagePla
 import DashboardLayout from "@/layouts/DashboardLayout.astro";
 import { informesRegulatorios } from "@/lib/informesRegulatoriosData";
 import { YEARS } from "@/lib/periodos";
+import { SEDES } from "@/lib/sedes";
 
 const kpis = [
   {
@@ -77,9 +78,9 @@ const alcancesInforme = [
 ];
 
 const autoridadesSanitarias = [
-  { value: "digesa", label: "DIGESA" },
-  { value: "diresa", label: "DIRESA" },
-  { value: "geresa", label: "GERESA" },
+  { value: "digesa", label: "Digesa" },
+  { value: "diresa", label: "Diresa" },
+  { value: "geresa", label: "Geresa" },
   { value: "otra", label: "Otra" },
 ];
 ---
@@ -176,9 +177,7 @@ const autoridadesSanitarias = [
               class="form-select h-9 w-full items-center appearance-none bg-surface-light pl-3 text-xs text-muted-50 outline-none focus:ring-1 focus:ring-brand"
             >
               <option value="" selected>Sede</option>
-              <option value="condorcocha">Condorcocha</option>
-              <option value="atococongo">Atococongo</option>
-              <option value="conchan">Conchán</option>
+              {SEDES.map((sede) => <option value={sede}>{sede}</option>)}
             </select>
           </span>
           <label for="g-empresa" class="sr-only">Empresa</label>
@@ -223,11 +222,11 @@ const autoridadesSanitarias = [
             </select>
           </span>
           <label for="g-tipo" class="sr-only">Tipo de documento</label>
-          <span class="relative min-w-0 flex-1">
+          <span class="relative min-w-0 flex-2">
             <select
               id="g-tipo"
               aria-label="Tipo de documento"
-              class="form-select h-9 w-full appearance-none bg-surface-light pl-3 pr-8 text-xs text-muted-50 outline-none focus:ring-1 focus:ring-brand"
+              class="form-select h-9 w-full items-center appearance-none bg-surface-light pl-3 text-xs text-muted-50 outline-none focus:ring-1 focus:ring-brand"
             >
               <option value="" selected>Tipo de documento</option>
               {
