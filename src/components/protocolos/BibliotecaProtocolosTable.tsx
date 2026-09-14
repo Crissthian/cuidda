@@ -122,7 +122,7 @@ export default function BibliotecaProtocolosTable() {
               </span>
               <span className="flex justify-center self-center">
                 <a
-                  href={`/vigilancia-medica/protocolos-medicos/${row.id}`}
+                  href={`/vigilancia-medica/protocolos-medicos/${row.slug}`}
                   aria-label={`Ver detalles del protocolo ${row.protocolo}`}
                   className="flex w-18 items-center text-center gap-1 rounded-lg bg-muted px-3 py-1 text-[11px] font-bold text-white hover:bg-muted-80"
                 >

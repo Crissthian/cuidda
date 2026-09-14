@@ -1,4 +1,4 @@
-import GenerarDocumentoModal from "@/components/vigilancia/GenerarDocumentoModal";
+import GenerarDocumentoIaModal from "@/components/programas/GenerarDocumentoIaModal";
 import { useEffect, useState } from "react";
 
 export default function ProgramaDetalleModalHost() {
@@ -6,7 +6,7 @@ export default function ProgramaDetalleModalHost() {
 
   useEffect(() => {
     const btn = document.querySelector<HTMLButtonElement>(
-      '[data-modal-trigger="generar-documento-programa"]',
+      '[data-modal-trigger="generar-documento-ia"]',
     );
     if (!btn) return;
     const handler = () => setIsOpen(true);
@@ -15,6 +15,6 @@ export default function ProgramaDetalleModalHost() {
   }, []);
 
   return (
-    <GenerarDocumentoModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
+    <GenerarDocumentoIaModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
   );
 }

@@ -66,10 +66,7 @@ const titulo = programa
     {
       programa ? (
         <div class="px-10 pb-6">
-          <ProgramaDetalleContent
-            programaId={programa.id}
-            client:load
-          />
+          <ProgramaDetalleContent programaId={programa.id} client:load />
         </div>
       ) : (
         <p class="px-10 pb-6 text-sm text-muted">Programa no encontrado.</p>

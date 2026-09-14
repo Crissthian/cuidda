@@ -38,60 +38,126 @@ function GrupoBadge({ grupo }: { grupo: Grupo }) {
   );
 }
 
+type CambioGrupo = {
+  id: number;
+  grupo: Grupo;
+  realizadoPor: string;
+  fechaHora: string;
+  justificacion: string;
+};
+
+/** Datos de prueba: cada fila es el grupo resultante de un cambio real. */
+const historialPorTrabajador: Record<string, CambioGrupo[]> = {
+  "Luis Quispe Ramos": [
+    {
+      id: 1,
+      grupo: "G3",
+      realizadoPor: "Dr. M. Salcedo",
+      fechaHora: "11/09/2026 01:15",
+      justificacion: "Confirmación de hallazgo alarmante (desde G2)",
+    },
+    {
+      id: 2,
+      grupo: "G2",
+      realizadoPor: "Sistema",
+      fechaHora: "14/03/2016 00:00",
+      justificacion: "Registro inicial",
+    },
+  ],
+  "María Chávez Loayza": [
+    {
+      id: 1,
+      grupo: "G2",
+      realizadoPor: "Dra. L. Peña",
+      fechaHora: "02/08/2026 10:40",
+      justificacion:
+        "Espirometría restrictiva leve en EMO periódico (desde G1)",
+    },
+    {
+      id: 2,
+      grupo: "G1",
+      realizadoPor: "Sistema",
+      fechaHora: "20/01/2026 09:00",
+      justificacion: "Registro inicial",
+    },
+  ],
+  "Ana Ruiz Mendoza": [
+    {
+      id: 1,
+      grupo: "G1",
+      realizadoPor: "Dr. M. Salcedo",
+      fechaHora: "11/09/2026 01:15",
+      justificacion: "Sin hallazgos en reevaluación (desde G2)",
+    },
+    {
+      id: 2,
+      grupo: "G2",
+      realizadoPor: "Sistema",
+      fechaHora: "14/03/2016 00:00",
+      justificacion: "Registro inicial",
+    },
+  ],
+  "Pedro Salas Ninahuanca": [
+    {
+      id: 1,
+      grupo: "G2",
+      realizadoPor: "Dr. J. Núñez",
+      fechaHora: "28/07/2026 16:20",
+      justificacion: "HTA controlada, se retira criterio de alarma (desde G3)",
+    },
+    {
+      id: 2,
+      grupo: "G3",
+      realizadoPor: "Dr. M. Salcedo",
+      fechaHora: "05/05/2026 11:05",
+      justificacion: "Somnolencia diurna severa con riesgo vial (desde G2)",
+    },
+    {
+      id: 3,
+      grupo: "G2",
+      realizadoPor: "Sistema",
+      fechaHora: "10/02/2026 08:30",
+      justificacion: "Registro inicial",
+    },
+  ],
+  "Carlos Bravo Rios": [
+    {
+      id: 1,
+      grupo: "G3",
+      realizadoPor: "Dr. M. Salcedo",
+      fechaHora: "19/08/2026 09:50",
+      justificacion: "Progresión radiológica a neumoconiosis 1/1 (desde G2)",
+    },
+    {
+      id: 2,
+      grupo: "G2",
+      realizadoPor: "Sistema",
+      fechaHora: "03/03/2026 12:00",
+      justificacion: "Registro inicial",
+    },
+  ],
+  "Elena Paredes Vilchez": [
+    {
+      id: 1,
+      grupo: "G1",
+      realizadoPor: "Dra. L. Peña",
+      fechaHora: "30/06/2026 14:10",
+      justificacion: "Hallazgos no relevantes en control anual (desde G2)",
+    },
+    {
+      id: 2,
+      grupo: "G2",
+      realizadoPor: "Sistema",
+      fechaHora: "12/01/2026 10:15",
+      justificacion: "Registro inicial",
+    },
+  ],
+};
+
 export default function HistorialCambiosModal({ trabajador, onClose }: Props) {
   if (!trabajador) return null;
 
-  const historial =
-    trabajador.grupo === "G2"
-      ? [
-          {
-            id: 1,
-            grupo: "G2" as Grupo,
-            realizadoPor: "Dr. M. Salcedo",
-            fechaHora: "11/09/2026 01:15",
-            justificacion: "Recuperación parcial",
-          },
-          {
-            id: 2,
-            grupo: "G3" as Grupo,
-            realizadoPor: "Sistema",
-            fechaHora: "14/03/2016 00:00",
-            justificacion: "Registro inicial",
-          },
-        ]
-      : trabajador.grupo === "G1"
-        ? [
-            {
-              id: 1,
-              grupo: "G1" as Grupo,
-              realizadoPor: "Dr. M. Salcedo",
-              fechaHora: "11/09/2026 01:15",
-              justificacion: "Sin hallazgos en reevaluación",
-            },
-            {
-              id: 2,
-              grupo: "G1" as Grupo,
-              realizadoPor: "Sistema",
-              fechaHora: "14/03/2016 00:00",
-              justificacion: "Registro inicial",
-            },
-          ]
-        : [
-            {
-              id: 1,
-              grupo: "G3" as Grupo,
-              realizadoPor: "Dr. M. Salcedo",
-              fechaHora: "11/09/2026 01:15",
-              justificacion: "Confirmación de hallazgo alarmante",
-            },
-            {
-              id: 2,
-              grupo: "G3" as Grupo,
-              realizadoPor: "Sistema",
-              fechaHora: "14/03/2016 00:00",
-              justificacion: "Registro inicial",
-            },
-          ];
+  const historial = historialPorTrabajador[trabajador.nombre] ?? [];
 
   return (
     <div

@@ -5,9 +5,9 @@ import {
   gruposRiesgoPrograma,
   periodosPrograma,
   responsablesPrograma,
-  sedesPrograma,
   tiposPrograma,
 } from "@/lib/programasData";
+import { SEDES } from "@/lib/sedes";
 import { useState } from "react";
 
 type Props = {
@@ -222,7 +222,7 @@ export default function NuevoProgramaModal({ isOpen, onClose }: Props) {
                         <option value="" disabled hidden>
                           Seleccionar
                         </option>
-                        {sedesPrograma.map((s) => (
+                        {SEDES.map((s) => (
                           <option key={s} value={s}>
                             {s}
                           </option>

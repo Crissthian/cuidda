@@ -115,7 +115,7 @@ const trabajadores = [
     cargo: "Analista de laboratorio",
     tipo: "Interno",
     sede: "Condorcocha",
-    validado: false,
+    validado: true,
     hallazgos: "Espirometría restrictiva leve",
     actividades:
       "Capacitación anual / Examen médico anual / Reevaluación semestral / Ingreso a programa específico",
@@ -162,7 +162,7 @@ const trabajadores = [
     cargo: "Asistente administrativo",
     tipo: "Externo",
     sede: "Condorcocha",
-    validado: false,
+    validado: true,
     hallazgos: "Sin hallazgos relevantes",
     actividades: "Capacitación anual / Examen médico anual",
   },
@@ -196,7 +196,7 @@ const trabajadores = [
     cargo: "Operador de chancado",
     tipo: "Externo",
     sede: "Condorcocha",
-    validado: false,
+    validado: true,
     hallazgos: "Hipoacusia inicial (4 kHz)",
     actividades:
       "Capacitación anual / Examen médico anual / Reevaluación semestral / Ingreso a programa específico",

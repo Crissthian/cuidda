@@ -2,11 +2,13 @@
 interface Props {
   title?: string;
   description?: string;
+  breadcrumbLabels?: Record<string, { label?: string; icon?: string }>;
 }
 
 const {
   title = "Cuidda | Sistema médico",
   description = "Sistema médico Cuidda",
+  breadcrumbLabels = {},
 } = Astro.props;
 
 import "@/styles/global.css";
@@ -458,7 +460,7 @@ const isVigilancia = isActive("/vigilancia-medica");
           id="main-content"
         >
           <div class="flex-1">
-            <Breadcumb />
+            <Breadcumb labels={breadcrumbLabels} />
             <slot />
           </div>
         </main>

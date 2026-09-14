@@ -6,13 +6,6 @@ type Props = {
   onClose: () => void;
 };
 
-const rubros = [
-  "Seguridad",
-  "Servicios Generales",
-  "Mecánica",
-  "Perforación",
-  "Mantenimiento",
-];
 const estados = ["ACTIVO", "OBSERVADO", "INACTIVO"];
 const tiposResponsable = ["Operativo", "Administrativo", "SST", "Legal"];
 const sedesOptions = ["Condorcocha", "Conchán", "Villarán", "Atocongo"];
@@ -193,23 +186,12 @@ export default function RegistrarContratistaModal({ isOpen, onClose }: Props) {
                       <label htmlFor="rubro" className={labelClass}>
                         Rubro
                       </label>
-                      <div className="form-select-container">
-                        <select
-                          id="rubro"
-                          value={rubro}
-                          onChange={(e) => setRubro(e.target.value)}
-                          className={`${selectClass} ${rubro ? "text-text-primary" : "text-muted"}`}
-                        >
-                          <option value="" disabled hidden>
-                            Seleccionar
-                          </option>
-                          {rubros.map((r) => (
-                            <option key={r} value={r}>
-                              {r}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
+                      <input
+                        id="rubro"
+                        value={rubro}
+                        onChange={(e) => setRubro(e.target.value)}
+                        className={inputClass}
+                      />
                     </div>
                     <div>
                       <label htmlFor="actividad" className={labelClass}>
@@ -502,7 +484,7 @@ export default function RegistrarContratistaModal({ isOpen, onClose }: Props) {
                             className="flex items-center gap-2 text-xs text-text-secondary"
                           >
                             <span
-                              className={`flex size-5 items-center justify-center rounded-full border ${
+                              className={`flex size-4 items-center justify-center rounded-full border ${
                                 resp.principal
                                   ? "border-brand bg-brand"
                                   : "border-muted-30 bg-muted-20"

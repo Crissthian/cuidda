@@ -24,8 +24,7 @@ const crumbs = segments.map((slug, idx) => {
   const human =
     labels[slug]?.label ?? slug.charAt(0).toUpperCase() + slug.slice(1);
   const icon = labels[slug]?.icon;
-  const href =
-    homePrefix + "/" + segments.slice(0, idx + 1).join("/");
+  const href = homePrefix + "/" + segments.slice(0, idx + 1).join("/");
   return { slug, human, href, isLast, icon };
 });
 ---

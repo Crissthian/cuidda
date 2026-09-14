@@ -289,8 +289,6 @@ export const responsablesActividad: string[] = [
   "Medicina ocupacional",
 ];
 
-export const sedesPrograma: string[] = ["Condorcocha", "Atocongo", "Conchán"];
-
 export const estadosAvanceActividad: string[] = [
   "Pendiente",
   "En proceso",

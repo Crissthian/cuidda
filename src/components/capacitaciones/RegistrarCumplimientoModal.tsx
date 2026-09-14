@@ -13,6 +13,7 @@ export default function RegistrarCumplimientoModal({ isOpen, onClose }: Props) {
   const [sede, setSede] = useState("");
   const [tema, setTema] = useState("");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [cumplimiento, setCumplimiento] = useState(75);
   const [showSuccess, setShowSuccess] = useState(false);
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
@@ -50,6 +51,7 @@ export default function RegistrarCumplimientoModal({ isOpen, onClose }: Props) {
     setSelectedFile(null);
     setSede("");
     setTema("");
+    setCumplimiento(75);
     onClose();
   };
 
@@ -57,6 +59,7 @@ export default function RegistrarCumplimientoModal({ isOpen, onClose }: Props) {
     setSelectedFile(null);
     setSede("");
     setTema("");
+    setCumplimiento(75);
     onClose();
   };
 
@@ -116,7 +119,7 @@ export default function RegistrarCumplimientoModal({ isOpen, onClose }: Props) {
                   Información de origen
                 </h3>
 
-                <div className="ml-7 mt-4 flex flex-col gap-4">
+                <div className="mx-4 mt-4 flex flex-col gap-4">
                   <div>
                     <label
                       htmlFor="cumplimiento-sede"
@@ -266,6 +269,31 @@ export default function RegistrarCumplimientoModal({ isOpen, onClose }: Props) {
                   </div>
                 )}
               </section>
+
+              {/* Barra de progreso */}
+              {selectedFile && (
+                <div className="mt-5">
+                  <label
+                    htmlFor="cumplimiento-porcentaje"
+                    className="text-sm text-text-secondary"
+                  >
+                    % cumplimiento —{" "}
+                    <span className="font-bold text-brand">
+                      {cumplimiento}%
+                    </span>
+                  </label>
+                  <input
+                    id="cumplimiento-porcentaje"
+                    type="range"
+                    min={0}
+                    max={100}
+                    value={cumplimiento}
+                    onChange={(e) => setCumplimiento(Number(e.target.value))}
+                    className="mt-2 w-full accent-brand"
+                    aria-valuetext={`${cumplimiento} por ciento`}
+                  />
+                </div>
+              )}
 
               {/* Acciones */}
               {selectedFile && (

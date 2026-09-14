@@ -36,9 +36,10 @@ export const kpisProtocolos = [
 export const protocolos = [
   {
     id: 1,
+    slug: "administrativos",
     protocolo: "EMO ADMINISTRATIVOS",
     codigo: "PRT-ADM-01",
-    empresa: "Minera Andes Sur S.A.",
+    empresa: "UNACEM PERU S.A.",
     area: "Administración",
     puestos: "12 puestos",
     tipos: "Ingreso / Periódico / Retiro / Reubicación",
@@ -48,9 +49,10 @@ export const protocolos = [
   },
   {
     id: 2,
+    slug: "operarios",
     protocolo: "EMO OPERARIOS",
     codigo: "PRT-OPE-02",
-    empresa: "Minera Andes Sur S.A.",
+    empresa: "UNACEM PERU S.A.",
     area: "Operaciones",
     puestos: "18 puestos",
     tipos: "Ingreso / Periódico / Retiro / Reubicación / Otros",
@@ -60,9 +62,10 @@ export const protocolos = [
   },
   {
     id: 3,
+    slug: "conductores",
     protocolo: "EMO CONDUCTORES",
     codigo: "PRT-CON-03",
-    empresa: "Transportes Vía Norte S.A.C.",
+    empresa: "TRANSPORTE VIA NORTE S.A.C.",
     area: "Logística / Transporte",
     puestos: "4 puestos",
     tipos: "Ingreso / Periódico / Retiro /Reubicación",
@@ -72,9 +75,10 @@ export const protocolos = [
   },
   {
     id: 4,
+    slug: "soldadores",
     protocolo: "EMO SOLDADORES",
     codigo: "PRT-SOL-04",
-    empresa: "Minera Andes Sur S.A.",
+    empresa: "UNACEM PERU S.A.",
     area: "Operaciones / Mantenimiento",
     puestos: "4 puestos",
     tipos: "Ingreso / Periódico / Retiro /Reubicación / Otros",
@@ -84,9 +88,10 @@ export const protocolos = [
   },
   {
     id: 5,
+    slug: "personal-de-altura",
     protocolo: "EMO PERSONAL DE ALTURA",
     codigo: "PRT-ALT-05",
-    empresa: "Minera Andes Sur S.A.",
+    empresa: "UNACEM PERU S.A.",
     area: "Transversal",
     puestos: "5 puestos",
     tipos: "Ingreso / Periódico / Retiro / Reubicación",
@@ -96,9 +101,10 @@ export const protocolos = [
   },
   {
     id: 6,
+    slug: "personal-expuesto-a-ruido",
     protocolo: "EMO PERSONAL EXPUESTO A RUIDO",
     codigo: "PRT-RUI-06",
-    empresa: "Agroindustrial Valle Verde S.A.",
+    empresa: "UNACEM PERU S.A.",
     area: "Producción",
     puestos: "6 puestos",
     tipos: "Ingreso / Periódico / Retiro / Reubicación",
@@ -107,6 +113,15 @@ export const protocolos = [
     estado: "VIGENTE",
   },
 ] as const;
+
+/** Nombre corto del protocolo sin el prefijo "EMO " inicial, en formato capitalizado. */
+export function nombreCortoProtocolo(protocolo: string): string {
+  const sinPrefijo = protocolo
+    .replace(/^EMO\s+/i, "")
+    .trim()
+    .toLowerCase();
+  return sinPrefijo.replace(/(?:^|\s)\S/g, (c) => c.toUpperCase());
+}
 
 export const areasProtocolo = [
   "Administración",

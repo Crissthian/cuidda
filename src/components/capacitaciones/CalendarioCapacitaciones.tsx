@@ -29,7 +29,7 @@ export default function CalendarioCapacitaciones() {
       <p className="text-xs text-muted">Cumplimiento por tema y grupo</p>
 
       <div className="mt-4 overflow-hidden rounded-lg">
-        <div className="grid grid-cols-[1.4fr_0.7fr_0.9fr_0.7fr_0.7fr_1.2fr_0.6fr] gap-4 rounded-lg bg-surface-light p-3 text-[10px] font-semibold uppercase tracking-wider text-muted">
+        <div className="grid grid-cols-[1.4fr_0.7fr_0.9fr_0.7fr_0.7fr_1.2fr_0.6fr] gap-4 rounded-lg bg-surface-light p-3 text-[11px] font-semibold uppercase tracking-wider text-muted">
           <span>Tema</span>
           <span>Modalidad</span>
           <span>Grupo objetivo</span>
@@ -55,7 +55,7 @@ export default function CalendarioCapacitaciones() {
                 {row.grupo.map((g) => (
                   <span
                     key={g}
-                    className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold ${
+                    className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs ${
                       g === "Todos" || g === "Brigadistas"
                         ? "text-text-primary"
                         : (grupoStyle[g] ?? "bg-muted-20 text-muted")
@@ -94,7 +94,7 @@ export default function CalendarioCapacitaciones() {
               </div>
               <span className="flex justify-center self-center">
                 <span
-                  className={`rounded-full w-full text-center mx-3 px-3 py-1 text-[10px] font-bold ${estadoStyle[row.estado] ?? "bg-muted-20 text-muted"}`}
+                  className={`rounded-full w-full text-center mx-3 px-3 py-1 text-[11px] ${estadoStyle[row.estado] ?? "bg-muted-20 text-muted"}`}
                 >
                   {row.estado}
                 </span>
