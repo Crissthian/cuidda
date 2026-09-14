@@ -21,7 +21,7 @@ export default function BibliotecaProtocolosTable() {
         <label htmlFor="p-area" className="sr-only">
           Área
         </label>
-        <div className="flex h-9 flex-1 items-center gap-2 rounded-lg bg-surface-light px-3">
+        <div className="flex h-9 flex-1 items-center gap-2 rounded-lg bg-surface-light ps-3">
           <span
             aria-hidden="true"
             className="pointer-events-none select-none text-xs text-muted capitalize"
@@ -31,7 +31,7 @@ export default function BibliotecaProtocolosTable() {
           <select
             id="p-area"
             defaultValue=""
-            className="h-9 flex-1 items-center cursor-pointer bg-transparent text-xs text-muted capitalize outline-none!"
+            className="h-9 flex-1 items-center cursor-pointer bg-transparent text-xs text-muted capitalize outline-none! pe-3 rounded-lg"
           >
             <option value="" />
             {areasProtocolo.map((area) => (
@@ -45,7 +45,7 @@ export default function BibliotecaProtocolosTable() {
         <label htmlFor="p-estado" className="sr-only">
           Estado
         </label>
-        <div className="flex h-9 flex-1 items-center gap-2 rounded-lg bg-surface-light px-3">
+        <div className="flex h-9 flex-1 items-center gap-2 rounded-lg bg-surface-light ps-3">
           <span
             aria-hidden="true"
             className="pointer-events-none select-none text-xs text-muted capitalize"
@@ -55,7 +55,7 @@ export default function BibliotecaProtocolosTable() {
           <select
             id="p-estado"
             defaultValue=""
-            className="h-9 flex-1 items-center cursor-pointer bg-transparent text-xs text-muted capitalize outline-none!"
+            className="h-9 flex-1 items-center cursor-pointer bg-transparent text-xs text-muted capitalize outline-none! pe-3 rounded-lg"
           >
             <option value="" />
             {estadosProtocolo.map((estado) => (

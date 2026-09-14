@@ -11,7 +11,7 @@ export default function AccidentesContent() {
           <label htmlFor="acc-periodo" className="sr-only">
             Periodo
           </label>
-          <div className="flex h-8 w-48 items-center gap-2 rounded-lg bg-surface-light px-3">
+          <div className="flex h-8 w-48 items-center gap-2 rounded-lg bg-surface-light ps-3">
             <span
               aria-hidden="true"
               className="pointer-events-none select-none text-xs capitalize text-muted"
@@ -21,7 +21,7 @@ export default function AccidentesContent() {
             <select
               id="acc-periodo"
               defaultValue=""
-              className="h-full flex-1 items-center cursor-pointer bg-transparent text-xs capitalize text-muted outline-none!"
+              className="h-full flex-1 items-center cursor-pointer bg-transparent text-xs capitalize text-muted outline-none! pe-3 rounded-lg"
             >
               <option value="" />
               {YEARS.map((year) => (
@@ -35,7 +35,7 @@ export default function AccidentesContent() {
           <label htmlFor="acc-sede" className="sr-only">
             Sede
           </label>
-          <div className="flex h-8 w-48 items-center gap-2 rounded-lg bg-surface-light px-3">
+          <div className="flex h-8 w-48 items-center gap-2 rounded-lg bg-surface-light ps-3">
             <span
               aria-hidden="true"
               className="pointer-events-none select-none text-xs capitalize text-muted"
@@ -45,7 +45,7 @@ export default function AccidentesContent() {
             <select
               id="acc-sede"
               defaultValue=""
-              className="h-full flex-1 items-center cursor-pointer bg-transparent text-xs capitalize text-muted outline-none!"
+              className="h-full flex-1 items-center cursor-pointer bg-transparent text-xs capitalize text-muted outline-none! pe-3 rounded-lg"
             >
               <option value="" />
               {sedesAccidentes.map((sede) => (

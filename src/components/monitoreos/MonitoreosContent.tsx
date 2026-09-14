@@ -10,7 +10,7 @@ export default function MonitoreosContent() {
         <label htmlFor="mon-sede" className="sr-only">
           Periodo
         </label>
-        <div className="flex h-9 items-center w-50 gap-2 rounded-lg bg-surface-light px-3">
+        <div className="flex h-9 items-center w-50 gap-2 rounded-lg bg-surface-light ps-3">
           <span
             aria-hidden="true"
             className="pointer-events-none items-center select-none text-xs text-muted capitalize"
@@ -20,7 +20,7 @@ export default function MonitoreosContent() {
           <select
             id="mon-periodo"
             defaultValue=""
-            className="h-9 flex-1 items-center cursor-pointer bg-transparent text-xs text-muted capitalize outline-none!"
+            className="h-9 flex-1 items-center cursor-pointer bg-transparent text-xs text-muted capitalize outline-none! pe-3 rounded-lg"
           >
             <option value="" />
             {YEARS.map((periodo) => (

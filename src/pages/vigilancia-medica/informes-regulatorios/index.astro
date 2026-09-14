@@ -50,13 +50,13 @@ const informes = informesRegulatorios;
 const tiposDocumento = [
   {
     value: "tecnico-vigilancia-salud-trabajadores",
-    label: "Informe técnico de Vigilancia de la salud de los trabajadores",
+    label: "Informe técnico de Vigilancia de la\nsalud de los trabajadores",
   },
   { value: "carta-presentacion", label: "Carta de presentación" },
   { value: "epidemiologico", label: "Informe epidemiológico" },
   {
     value: "aptitud-medico-ocupacional-consolidado",
-    label: "Informe de aptitud médico ocupacional consolidado",
+    label: "Informe de aptitud médico\nocupacional consolidado",
   },
   {
     value: "enfermedades-hallazgos",
@@ -192,7 +192,7 @@ const autoridadesSanitarias = [
             </select>
           </span>
           <label for="g-alcance" class="sr-only">Alcance</label>
-          <span class="relative min-w-0 flex-1">
+          <span class="relative min-w-0 w-60">
             <select
               id="g-alcance"
               aria-label="Alcance"
@@ -222,16 +222,18 @@ const autoridadesSanitarias = [
             </select>
           </span>
           <label for="g-tipo" class="sr-only">Tipo de documento</label>
-          <span class="relative min-w-0 flex-2">
+          <span class="relative min-w-0 w-66">
             <select
               id="g-tipo"
               aria-label="Tipo de documento"
-              class="form-select h-9 w-full items-center appearance-none bg-surface-light pl-3 text-xs text-muted-50 outline-none focus:ring-1 focus:ring-brand"
+              class="form-select h-9 w-full items-center appearance-none bg-surface-light pl-3 text-xs text-muted-50 outline-none focus:ring-1 focus:ring-brand whitespace-break-spaces"
             >
               <option value="" selected>Tipo de documento</option>
               {
                 tiposDocumento.map((tipo) => (
-                  <option value={tipo.value}>{tipo.label}</option>
+                  <option value={tipo.value} class="whitespace-break-spaces">
+                    {tipo.label}
+                  </option>
                 ))
               }
             </select>

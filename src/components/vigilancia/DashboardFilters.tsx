@@ -11,7 +11,7 @@ export default function DashboardFilters() {
         <label htmlFor="f-periodo" className="sr-only">
           Periodo
         </label>
-        <div className="flex h-9 flex-1 items-center gap-2 rounded-lg bg-surface-light px-3">
+        <div className="flex h-9 flex-1 items-center gap-2 rounded-lg bg-surface-light ps-3">
           <span
             aria-hidden="true"
             className="pointer-events-none select-none text-xs text-muted capitalize"
@@ -20,7 +20,7 @@ export default function DashboardFilters() {
           </span>
           <select
             id="f-periodo"
-            className="h-full flex-1 ps-4 items-center cursor-pointer bg-transparent text-xs text-muted capitalize outline-none!"
+            className="h-full flex-1 ps-4 items-center cursor-pointer bg-transparent text-xs text-muted capitalize outline-none! pe-3 rounded-lg"
           >
             <option value="" />
             {YEARS.map((year) => (
@@ -34,7 +34,7 @@ export default function DashboardFilters() {
         <label htmlFor="f-sede" className="sr-only">
           Sede
         </label>
-        <div className="flex h-9 flex-1 items-center gap-2 rounded-lg bg-surface-light px-3">
+        <div className="flex h-9 flex-1 items-center gap-2 rounded-lg bg-surface-light ps-3">
           <span
             aria-hidden="true"
             className="pointer-events-none select-none text-xs text-muted capitalize"
@@ -43,7 +43,7 @@ export default function DashboardFilters() {
           </span>
           <select
             id="f-sede"
-            className="h-full flex-1 ps-4 items-center cursor-pointer bg-transparent text-xs text-muted capitalize outline-none!"
+            className="h-full flex-1 ps-4 items-center cursor-pointer bg-transparent text-xs text-muted capitalize outline-none! pe-3 rounded-lg"
             defaultValue=""
           >
             <option value="" />

@@ -21,7 +21,7 @@ export default function MatrizEmosTable() {
         <label htmlFor="f-sede" className="sr-only">
           Sede
         </label>
-        <div className="flex h-9 w-48 items-center gap-2 rounded-lg bg-surface-light px-3">
+        <div className="flex h-9 w-48 items-center gap-2 rounded-lg bg-surface-light ps-3">
           <span
             aria-hidden="true"
             className="pointer-events-none select-none text-xs text-muted capitalize"
@@ -30,7 +30,7 @@ export default function MatrizEmosTable() {
           </span>
           <select
             id="f-sede"
-            className="h-full flex-1 items-center cursor-pointer bg-transparent text-xs text-muted capitalize outline-none!"
+            className="h-full flex-1 items-center cursor-pointer bg-transparent text-xs text-muted capitalize outline-none! pe-3 rounded-lg"
             defaultValue=""
           >
             <option value="" disabled />
@@ -45,7 +45,7 @@ export default function MatrizEmosTable() {
         <label htmlFor="f-grupo" className="sr-only">
           Grupo de riesgo
         </label>
-        <div className="flex h-9 w-48 items-center gap-2 rounded-lg bg-surface-light px-3">
+        <div className="flex h-9 w-48 items-center gap-2 rounded-lg bg-surface-light ps-3">
           <span
             aria-hidden="true"
             className="pointer-events-none select-none text-xs text-muted capitalize"
@@ -54,7 +54,7 @@ export default function MatrizEmosTable() {
           </span>
           <select
             id="f-grupo"
-            className="h-full flex-1 items-center cursor-pointer bg-transparent text-xs text-muted capitalize outline-none!"
+            className="h-full flex-1 items-center cursor-pointer bg-transparent text-xs text-muted capitalize outline-none! pe-3 rounded-lg"
             defaultValue=""
           >
             <option value="" disabled />

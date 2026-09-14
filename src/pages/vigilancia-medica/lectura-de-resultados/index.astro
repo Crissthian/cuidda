@@ -3,6 +3,7 @@ import EnviarResultadosModalHost from "@/components/vigilancia/EnviarResultadosM
 import VigilanciaPagePlaceholder from "@/components/vigilancia/VigilanciaPagePlaceholder.astro";
 import DashboardLayout from "@/layouts/DashboardLayout.astro";
 import { lecturasResultados } from "@/lib/lecturaResultadosData";
+import { YEARS } from "@/lib/periodos";
 
 const kpis = [
   {
@@ -197,8 +198,7 @@ const trabajadores = lecturasResultados.map((l) => ({
               class="form-select h-9 w-full items-center appearance-none bg-surface-light pl-3 text-xs text-muted-50 outline-none focus:ring-1 focus:ring-brand"
             >
               <option value="" selected>Periodo</option>
-              <option value="2026">Periódico 2026</option>
-              <option value="2025">Periódico 2025</option>
+              {YEARS.map((year) => <option value={year}>{year}</option>)}
             </select>
           </span>
           <label for="f-modalidad" class="sr-only">Modalidad</label>
@@ -214,7 +214,7 @@ const trabajadores = lecturasResultados.map((l) => ({
             </select>
           </span>
           <label for="f-estado" class="sr-only">Estado</label>
-          <span class="relative min-w-0 flex-1">
+          <span class="relative min-w-0 w-56">
             <select
               id="f-estado"
               aria-label="Estado"

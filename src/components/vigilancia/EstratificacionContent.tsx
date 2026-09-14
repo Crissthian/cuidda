@@ -433,10 +433,12 @@ export default function EstratificacionContent() {
           <form
             role="search"
             aria-label="Filtros de trabajadores por grupo"
-            className="flex flex-wrap items-center gap-3 w-full max-w-6xl"
+            className="flex w-11/12 items-center gap-3"
             onSubmit={(e) => e.preventDefault()}
           >
-            <label htmlFor="est-apellidos">Apellidos</label>
+            <label htmlFor="est-apellidos" className="hidden">
+              Apellidos
+            </label>
             <input
               id="est-apellidos"
               type="text"
@@ -445,7 +447,9 @@ export default function EstratificacionContent() {
               className="form-input h-9 min-w-0 flex-1 bg-surface-light px-3 text-xs text-text-primary placeholder:text-muted-50 focus:ring-1 focus:ring-brand"
             />
 
-            <label htmlFor="est-dni">DNI</label>
+            <label htmlFor="est-dni" className="hidden">
+              DNI
+            </label>
             <input
               id="est-dni"
               type="text"
@@ -455,8 +459,10 @@ export default function EstratificacionContent() {
               className="form-input h-9 min-w-0 flex-1 bg-surface-light px-3 text-xs text-text-primary placeholder:text-muted-50 focus:ring-1 focus:ring-brand"
             />
 
-            <label htmlFor="est-sede">Sede</label>
-            <div className="flex h-9 min-w-0 flex-1 items-center gap-2 rounded-lg bg-surface-light px-3">
+            <label htmlFor="est-sede" className="hidden">
+              Sede
+            </label>
+            <div className="flex h-9 min-w-0 flex-1 items-center gap-2 rounded-lg bg-surface-light ps-3">
               <span
                 aria-hidden="true"
                 className="pointer-events-none select-none text-xs capitalize text-muted"
@@ -466,7 +472,7 @@ export default function EstratificacionContent() {
               <select
                 id="est-sede"
                 defaultValue=""
-                className="h-full min-w-0 flex-1 items-center cursor-pointer bg-transparent text-xs capitalize text-muted outline-none!"
+                className="h-full min-w-0 flex-1 items-center cursor-pointer rounded-lg bg-transparent pe-3 text-xs capitalize text-muted outline-none!"
               >
                 <option value="" />
                 {SEDES.map((sede) => (
@@ -477,8 +483,10 @@ export default function EstratificacionContent() {
               </select>
             </div>
 
-            <label htmlFor="est-grupo">Grupo de riesgo</label>
-            <div className="flex h-9 min-w-0 flex-1 items-center gap-2 rounded-lg bg-surface-light px-3">
+            <label htmlFor="est-grupo" className="hidden">
+              Grupo de riesgo
+            </label>
+            <div className="flex h-9 min-w-0 flex-1 items-center gap-2 rounded-lg bg-surface-light ps-3">
               <span
                 aria-hidden="true"
                 className="pointer-events-none select-none text-xs capitalize text-muted"
@@ -488,7 +496,7 @@ export default function EstratificacionContent() {
               <select
                 id="est-grupo"
                 defaultValue=""
-                className="h-full min-w-0 flex-1 items-center cursor-pointer bg-transparent text-xs uppercase text-muted outline-none!"
+                className="h-full min-w-0 flex-1 items-center cursor-pointer rounded-lg bg-transparent pe-3 text-xs capitalize text-muted outline-none!"
               >
                 <option value="" />
                 {GRUPOS.map((grupo) => (

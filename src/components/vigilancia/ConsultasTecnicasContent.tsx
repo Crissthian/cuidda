@@ -83,7 +83,7 @@ export default function ConsultasTecnicasContent() {
             <div className="relative">
               <select
                 defaultValue=""
-                className="form-select min-w-40 appearance-none rounded-lg border border-transparent bg-surface-light px-3 py-2  text-xs text-muted outline-none focus:border-brand focus:ring-1 focus:ring-brand"
+                className="form-select min-w-40 w-44 appearance-none rounded-lg border border-transparent bg-surface-light px-3 py-2  text-xs text-muted outline-none focus:border-brand focus:ring-1 focus:ring-brand"
               >
                 <option value="">Especialidad</option>
                 {especialidadesConsulta.map((especialidad) => (

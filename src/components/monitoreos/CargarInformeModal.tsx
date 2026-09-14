@@ -141,10 +141,6 @@ export default function CargarInformeModal({ isOpen, onClose }: Props) {
                           </option>
                         ))}
                       </select>
-                      <i
-                        className="fa-solid fa-chevron-down form-select-icon text-xs"
-                        aria-hidden="true"
-                      />
                     </div>
                   </div>
                   <div>
@@ -168,10 +164,6 @@ export default function CargarInformeModal({ isOpen, onClose }: Props) {
                           </option>
                         ))}
                       </select>
-                      <i
-                        className="fa-solid fa-chevron-down form-select-icon text-xs"
-                        aria-hidden="true"
-                      />
                     </div>
                   </div>
                 </div>
@@ -209,10 +201,6 @@ export default function CargarInformeModal({ isOpen, onClose }: Props) {
                       </option>
                     ))}
                   </select>
-                  <i
-                    className="fa-solid fa-chevron-down form-select-icon text-xs"
-                    aria-hidden="true"
-                  />
                 </div>
               </section>
 
