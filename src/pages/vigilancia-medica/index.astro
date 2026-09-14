@@ -8,17 +8,46 @@ import DashboardLayout from "@/layouts/DashboardLayout.astro";
   title="Vigilancia Médica"
   description="Módulo de vigilancia médica"
 >
-  <VigilanciaPagePlaceholder
-    title="Dashboard General"
-    icon="fa-stethoscope"
-    description="Estado consolidado del sistema de vigilancia: población, aptitud, grupos de riesgo, cumplimiento de programas y hallazgos priorizados."
-    buttons={[
-      {
-        state: true,
-        icon: "fa-download",
-        text: "EXPORTAR INFORME",
-      },
-    ]}
-  />
+  <div class="no-print">
+    <VigilanciaPagePlaceholder
+      title="Dashboard General"
+      icon="fa-stethoscope"
+      description="Estado consolidado del sistema de vigilancia: población, aptitud, grupos de riesgo, cumplimiento de programas y hallazgos priorizados."
+      buttons={[
+        {
+          state: true,
+          icon: "fa-download",
+          text: "EXPORTAR INFORME",
+          id: "btn-exportar-informe",
+        },
+      ]}
+    />
+  </div>
   <DashboardGeneral client:load />
+
+  <script>
+    function initExportarInforme() {
+      const btn =
+        document.getElementById("btn-exportar-informe") ||
+        document.querySelector<HTMLButtonElement>(
+          '[data-modal-trigger="exportar-informe"]',
+        ) ||
+        Array.from(document.querySelectorAll<HTMLButtonElement>("button")).find(
+          (b) => b.textContent?.trim().includes("EXPORTAR INFORME"),
+        );
+
+      if (!btn || btn.dataset.hasPrintHandler === "true") return;
+      btn.dataset.hasPrintHandler = "true";
+
+      btn.addEventListener("click", () => {
+        window.dispatchEvent(new Event("resize"));
+        setTimeout(() => {
+          window.print();
+        }, 100);
+      });
+    }
+
+    initExportarInforme();
+    document.addEventListener("astro:page-load", initExportarInforme);
+  </script>
 </DashboardLayout>

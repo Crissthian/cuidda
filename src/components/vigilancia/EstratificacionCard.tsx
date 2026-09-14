@@ -17,7 +17,7 @@ export default function EstratificacionCard() {
         </div>
         <a
           href="#"
-          className="flex items-center gap-2 text-sm text-brand hover:text-primary-hover"
+          className="flex items-center gap-2 text-sm text-brand hover:text-primary-hover no-print"
         >
           Ver detalle
           <i

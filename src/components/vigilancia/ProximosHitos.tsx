@@ -20,7 +20,7 @@ export default function ProximosHitos() {
         </div>
         <a
           href="#"
-          className="flex items-center gap-1 text-xs font-medium text-brand hover:text-primary-hover"
+          className="flex items-center gap-1 text-xs font-medium text-brand hover:text-primary-hover no-print"
         >
           Ver total de pendientes
           <i

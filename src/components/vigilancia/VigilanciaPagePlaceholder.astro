@@ -10,6 +10,7 @@ interface ButtonProps {
   state?: boolean;
   icon: string;
   text: string;
+  id?: string;
   classes?: string[];
 }
 
@@ -20,6 +21,7 @@ const {
 } = Astro.props;
 
 const modalTriggers: Record<string, string> = {
+  "EXPORTAR INFORME": "exportar-informe",
   "CARGAR DOCUMENTO": "cargar-documento",
   "IMPORTAR PLANILLA": "importar-planilla",
   "NUEVA MATRIZ": "nueva-matriz",
@@ -65,11 +67,12 @@ const modalTriggers: Record<string, string> = {
   </div>
   {
     buttons.length > 0 && (
-      <div class="flex flex-row gap-2">
+      <div class="flex flex-row gap-2 no-print">
         {buttons.map(
-          ({ state, icon, text, classes = ["bg-muted-20 text-muted"] }) =>
+          ({ state, icon, text, id, classes = ["bg-muted-20 text-muted"] }) =>
             state !== false && (
               <button
+                id={id}
                 type="button"
                 data-modal-trigger={modalTriggers[text]}
                 class={`flex h-10 items-center gap-2 rounded-lg px-4 text-xs font-semibold shadow-sm hover:bg-muted-30 ${classes.join(" ")}`}

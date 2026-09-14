@@ -20,7 +20,7 @@ export default function CasosPriorizadosTable() {
         </div>
         <a
           href="#"
-          className="flex items-center gap-1.5 text-xs font-medium text-brand hover:text-primary-hover"
+          className="flex items-center gap-1.5 text-xs font-medium text-brand hover:text-primary-hover no-print"
         >
           Ver matriz completa
           <i
