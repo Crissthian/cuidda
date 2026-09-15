@@ -1,22 +1,35 @@
 import NuevaActividadModal from "@/components/programas/NuevaActividadModal";
 import RegistrarAvanceActividadModal from "@/components/programas/RegistrarAvanceActividadModal";
 import { programaDetalle } from "@/lib/programasData";
+import {
+  ACTIVIDADES_VACIAS,
+  useActividadesProgramaStore,
+  type ActividadPrograma,
+} from "@/lib/programasStore";
 import { useState } from "react";
 
 type Props = { programaId: number };
 
-export default function ProgramaDetalleContent({
-  programaId: _programaId,
-}: Props) {
+export default function ProgramaDetalleContent({ programaId }: Props) {
   const detalle = programaDetalle;
   const [isActividadOpen, setIsActividadOpen] = useState(false);
-  const [actividadSeleccionada, setActividadSeleccionada] = useState<
-    string | null
-  >(null);
-  const [actividades, setActividades] = useState([...detalle.planActividades]);
+  const [actividadSeleccionada, setActividadSeleccionada] =
+    useState<ActividadPrograma | null>(null);
+  const actividades = useActividadesProgramaStore(
+    (state) => state.actividades[programaId] ?? ACTIVIDADES_VACIAS,
+  );
+  const agregarActividad = useActividadesProgramaStore(
+    (state) => state.agregarActividad,
+  );
+  const actualizarActividad = useActividadesProgramaStore(
+    (state) => state.actualizarActividad,
+  );
+  const eliminarActividadStore = useActividadesProgramaStore(
+    (state) => state.eliminarActividad,
+  );
 
   const eliminarActividad = (id: number) => {
-    setActividades((prev) => prev.filter((row) => row.id !== id));
+    eliminarActividadStore(programaId, id);
   };
 
   return (
@@ -112,7 +125,7 @@ export default function ProgramaDetalleContent({
                     />
                     {g.id}
                   </span>
-                  <span className="flex-1 text-text-secondary text-sm">
+                  <span className="flex-1 text-text-secondary text-xs">
                     {g.descripcion}
                   </span>
                   <span className="text-xs font-bold text-text-primary">
@@ -213,9 +226,9 @@ export default function ProgramaDetalleContent({
                 <span className="flex w-28 items-center justify-end gap-2">
                   <button
                     type="button"
-                    onClick={() => setActividadSeleccionada(row.actividad)}
+                    onClick={() => setActividadSeleccionada(row)}
                     aria-label={`Actualizar ${row.actividad}`}
-                    className="flex items-center gap-1 rounded-md bg-muted px-2.5 py-1.5 text-[9px] font-bold text-white transition hover:bg-muted-80"
+                    className="flex items-center gap-1 rounded-md bg-muted px-2.5 py-1 text-[11px] font-bold text-white transition hover:bg-muted-80"
                   >
                     <i
                       className="fa-solid fa-pen-to-square"
@@ -244,11 +257,20 @@ export default function ProgramaDetalleContent({
       <NuevaActividadModal
         isOpen={isActividadOpen}
         onClose={() => setIsActividadOpen(false)}
+        onAgregar={(data) => agregarActividad({ programaId, ...data })}
       />
 
       <RegistrarAvanceActividadModal
         isOpen={actividadSeleccionada !== null}
-        actividad={actividadSeleccionada ?? undefined}
+        actividad={actividadSeleccionada}
+        onActualizar={(data) => {
+          if (!actividadSeleccionada) return;
+          actualizarActividad({
+            programaId,
+            actividadId: actividadSeleccionada.id,
+            ...data,
+          });
+        }}
         onClose={() => setActividadSeleccionada(null)}
       />
     </div>

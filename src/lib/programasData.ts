@@ -290,10 +290,10 @@ export const responsablesActividad: string[] = [
 ];
 
 export const estadosAvanceActividad: string[] = [
-  "Pendiente",
-  "En proceso",
-  "Completada",
-  "No ejecutada",
+  "PENDIENTE",
+  "EN PROCESO",
+  "COMPLETADA",
+  "NO EJECUTADA",
 ];
 
 export const periodosPrograma: string[] = ["2026", "2025", "2024"];

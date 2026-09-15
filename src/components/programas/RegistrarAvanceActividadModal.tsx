@@ -1,17 +1,32 @@
 import SuccessModal from "@/components/ui/SuccessModal";
 import { estadosAvanceActividad } from "@/lib/programasData";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
+
+export type ActividadParaAvance = {
+  actividad: string;
+  estado: string;
+  fecha: string;
+  cumplimiento: number;
+};
+
+export type AvanceActividadData = {
+  estado: string;
+  fecha: string;
+  cumplimiento: number;
+};
 
 type Props = {
   isOpen: boolean;
   onClose: () => void;
-  actividad?: string;
+  actividad?: ActividadParaAvance | null;
+  onActualizar?: (data: AvanceActividadData) => void;
 };
 
 const labelClass = "mb-1 block text-sm text-text-secondary";
 const inputClass = "form-input py-2.5 text-sm";
 const selectClass = "form-select appearance-none py-2.5 text-sm";
+const CUMPLIMIENTO_DEFAULT = 75;
 const MAX_SIZE_MB = 15;
 const MAX_SIZE_BYTES = MAX_SIZE_MB * 1024 * 1024;
 
@@ -19,15 +34,28 @@ export default function RegistrarAvanceActividadModal({
   isOpen,
   onClose,
   actividad,
+  onActualizar,
 }: Props) {
   const [estado, setEstado] = useState("");
   const [fecha, setFecha] = useState("");
-  const [cumplimiento, setCumplimiento] = useState(75);
+  const [cumplimiento, setCumplimiento] = useState(CUMPLIMIENTO_DEFAULT);
   const [observacion, setObservacion] = useState("");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [fileError, setFileError] = useState("");
   const [estadoError, setEstadoError] = useState("");
   const [showSuccess, setShowSuccess] = useState(false);
+
+  // Precarga los valores del registro a actualizar al abrir el modal.
+  useEffect(() => {
+    if (!isOpen) return;
+    setEstado(actividad?.estado ?? "");
+    setFecha(actividad?.fecha ?? "");
+    setCumplimiento(actividad?.cumplimiento ?? CUMPLIMIENTO_DEFAULT);
+    setObservacion("");
+    setSelectedFile(null);
+    setFileError("");
+    setEstadoError("");
+  }, [isOpen, actividad]);
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     if (acceptedFiles.length > 0) {
@@ -57,9 +85,9 @@ export default function RegistrarAvanceActividadModal({
   });
 
   const resetForm = () => {
-    setEstado("");
-    setFecha("");
-    setCumplimiento(75);
+    setEstado(actividad?.estado ?? "");
+    setFecha(actividad?.fecha ?? "");
+    setCumplimiento(actividad?.cumplimiento ?? CUMPLIMIENTO_DEFAULT);
     setObservacion("");
     setSelectedFile(null);
     setFileError("");
@@ -83,6 +111,7 @@ export default function RegistrarAvanceActividadModal({
       setEstadoError("Selecciona un estado para continuar.");
       return;
     }
+    onActualizar?.({ estado, fecha, cumplimiento });
     setShowSuccess(true);
   };
 
@@ -129,7 +158,7 @@ export default function RegistrarAvanceActividadModal({
               </h2>
               {actividad && (
                 <p className="mt-1 text-center text-sm text-text-secondary">
-                  {actividad}
+                  {actividad.actividad}
                 </p>
               )}
 

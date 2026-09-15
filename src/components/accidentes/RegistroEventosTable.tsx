@@ -1,6 +1,7 @@
-import { registroEventos } from "@/lib/accidentesData";
+import { useAccidentesStore } from "@/lib/accidentesStore";
 
 export default function RegistroEventosTable() {
+  const eventos = useAccidentesStore((state) => state.eventos);
   return (
     <section
       className="flex flex-col rounded-xl bg-surface-default p-5 shadow-sm shadow-border-subtle"
@@ -29,7 +30,7 @@ export default function RegistroEventosTable() {
           <span className="text-center">Estado</span>
         </div>
         <div className="divide-y divide-dashed divide-border-subtle">
-          {registroEventos.map((row) => (
+          {eventos.map((row) => (
             <div
               key={row.id}
               className="grid grid-cols-[0.7fr_0.9fr_0.7fr_0.9fr_0.8fr_0.8fr_0.7fr_1.1fr_0.7fr] gap-4 p-3 text-xs"

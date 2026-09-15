@@ -1,5 +1,7 @@
 import CambiarGrupoModal from "@/components/vigilancia/CambiarGrupoModal";
 import HistorialCambiosModal from "@/components/vigilancia/HistorialCambiosModal";
+import type { Grupo } from "@/lib/estratificacionData";
+import { useEstratificacionStore } from "@/lib/estratificacionStore";
 import { GRUPOS } from "@/lib/grupos";
 import { SEDES } from "@/lib/sedes";
 import { useState } from "react";
@@ -95,126 +97,7 @@ const reglas = [
   },
 ] as const;
 
-const trabajadores = [
-  {
-    id: 1,
-    grupo: "G3" as const,
-    nombre: "Luis Quispe Ramos",
-    cargo: "Operador de perforadora",
-    tipo: "Interno",
-    sede: "Condorcocha",
-    validado: true,
-    hallazgos: "Hipoacusia neurosensorial bilateral · IMC 33.1",
-    actividades:
-      "Capacitación anual / Examen médico anual / Reevaluación semestral / Consulta con especialista / Determinación de origen ocupacional / Comité de reubicación laboral",
-  },
-  {
-    id: 2,
-    grupo: "G2" as const,
-    nombre: "María Chávez Loayza",
-    cargo: "Analista de laboratorio",
-    tipo: "Interno",
-    sede: "Condorcocha",
-    validado: true,
-    hallazgos: "Espirometría restrictiva leve",
-    actividades:
-      "Capacitación anual / Examen médico anual / Reevaluación semestral / Ingreso a programa específico",
-  },
-  {
-    id: 3,
-    grupo: "G3" as const,
-    nombre: "Jorge Tito Ayala",
-    cargo: "Soldador",
-    tipo: "Interno",
-    sede: "Condorcocha",
-    validado: false,
-    hallazgos: "Pterigión OD · Dermatitis de contacto",
-    actividades:
-      "Capacitación anual / Examen médico anual / Reevaluación semestral / Consulta con especialista / Determinación de origen ocupacional / Comité de reubicación laboral",
-  },
-  {
-    id: 4,
-    grupo: "G1" as const,
-    nombre: "Ana Ruiz Mendoza",
-    cargo: "Supervisora de planta",
-    tipo: "Interno",
-    sede: "Condorcocha",
-    validado: true,
-    hallazgos: "Sin hallazgos relevantes",
-    actividades: "Capacitación anual / Examen médico anual",
-  },
-  {
-    id: 5,
-    grupo: "G2" as const,
-    nombre: "Pedro Salas Ninahuanca",
-    cargo: "Conductor de volquete",
-    tipo: "Externo",
-    sede: "Condorcocha",
-    validado: true,
-    hallazgos: "HTA estadio 1 · Somnolencia diurna",
-    actividades:
-      "Capacitación anual / Examen médico anual / Reevaluación semestral / Ingreso a programa específico",
-  },
-  {
-    id: 6,
-    grupo: "G1" as const,
-    nombre: "Rosa Huamán Ccapa",
-    cargo: "Asistente administrativo",
-    tipo: "Externo",
-    sede: "Condorcocha",
-    validado: true,
-    hallazgos: "Sin hallazgos relevantes",
-    actividades: "Capacitación anual / Examen médico anual",
-  },
-  {
-    id: 7,
-    grupo: "G3" as const,
-    nombre: "Carlos Bravo Rios",
-    cargo: "Mecánico de mina",
-    tipo: "Interno",
-    sede: "Condorcocha",
-    validado: true,
-    hallazgos: "Neumoconiosis 0/1 1/1 · Lumbalgia crónica",
-    actividades:
-      "Capacitación anual / Examen médico anual / Reevaluación semestral / Consulta con especialista / Determinación de origen ocupacional / Comité de reubicación laboral",
-  },
-  {
-    id: 8,
-    grupo: "G1" as const,
-    nombre: "Elena Paredes Vilchez",
-    cargo: "Enfermera ocupacional",
-    tipo: "Interno",
-    sede: "Condorcocha",
-    validado: true,
-    hallazgos: "Sin hallazgos relevantes",
-    actividades: "Capacitación anual / Examen médico anual",
-  },
-  {
-    id: 9,
-    grupo: "G2" as const,
-    nombre: "Victor Anco Flores",
-    cargo: "Operador de chancado",
-    tipo: "Externo",
-    sede: "Condorcocha",
-    validado: true,
-    hallazgos: "Hipoacusia inicial (4 kHz)",
-    actividades:
-      "Capacitación anual / Examen médico anual / Reevaluación semestral / Ingreso a programa específico",
-  },
-  {
-    id: 10,
-    grupo: "G1" as const,
-    nombre: "Diana Ocampo Sifuentes",
-    cargo: "Practicante de SST",
-    tipo: "Externo",
-    sede: "Condorcocha",
-    validado: true,
-    hallazgos: "Sin hallazgos relevantes",
-    actividades: "Capacitación anual / Examen médico anual",
-  },
-] as const;
-
-function GrupoBadge({ grupo }: { grupo: "G1" | "G2" | "G3" }) {
+function GrupoBadge({ grupo }: { grupo: Grupo }) {
   const map = {
     G1: "bg-success/15 text-success-dark",
     G2: "bg-risk-salmon/15 text-risk-salmon",
@@ -239,12 +122,13 @@ function GrupoBadge({ grupo }: { grupo: "G1" | "G2" | "G3" }) {
 }
 
 export default function EstratificacionContent() {
-  const [seleccionado, setSeleccionado] = useState<
-    (typeof trabajadores)[number] | null
-  >(null);
-  const [historial, setHistorial] = useState<
-    (typeof trabajadores)[number] | null
-  >(null);
+  const trabajadores = useEstratificacionStore((state) => state.trabajadores);
+  const [seleccionadoId, setSeleccionadoId] = useState<number | null>(null);
+  const [historialId, setHistorialId] = useState<number | null>(null);
+
+  const seleccionado =
+    trabajadores.find((t) => t.id === seleccionadoId) ?? null;
+  const historial = trabajadores.find((t) => t.id === historialId) ?? null;
 
   return (
     <div className="flex flex-col gap-5 px-10">
@@ -573,7 +457,7 @@ export default function EstratificacionContent() {
                   <td className="px-3 py-3 flex items-center justify-evenly">
                     <button
                       type="button"
-                      onClick={() => setSeleccionado(t)}
+                      onClick={() => setSeleccionadoId(t.id)}
                       className="flex items-center justify-center rounded-md p-1 text-brand hover:bg-surface-light"
                       aria-label={`Cambiar grupo de ${t.nombre}`}
                     >
@@ -610,7 +494,7 @@ export default function EstratificacionContent() {
                     {t.validado ? (
                       <button
                         type="button"
-                        onClick={() => setHistorial(t)}
+                        onClick={() => setHistorialId(t.id)}
                         aria-label={`Ver detalle de ${t.nombre}`}
                         className="inline-flex items-center gap-1.5 rounded-lg bg-muted px-4 py-1.5 text-[11px] font-bold tracking-wide text-white transition-colors hover:bg-muted-80"
                       >
@@ -674,12 +558,12 @@ export default function EstratificacionContent() {
 
       <CambiarGrupoModal
         trabajador={seleccionado}
-        onClose={() => setSeleccionado(null)}
+        onClose={() => setSeleccionadoId(null)}
       />
 
       <HistorialCambiosModal
         trabajador={historial}
-        onClose={() => setHistorial(null)}
+        onClose={() => setHistorialId(null)}
       />
     </div>
   );

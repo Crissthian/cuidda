@@ -1,17 +1,29 @@
 import SuccessModal from "@/components/ui/SuccessModal";
 import { responsablesActividad } from "@/lib/programasData";
 import { useState } from "react";
+import { toast } from "sonner";
+
+type NuevaActividadData = {
+  actividad: string;
+  responsable: string;
+  fecha: string;
+};
 
 type Props = {
   isOpen: boolean;
   onClose: () => void;
+  onAgregar?: (data: NuevaActividadData) => void;
 };
 
 const labelClass = "mb-1 block text-sm text-text-secondary";
 const inputClass = "form-input py-2.5 text-sm";
 const selectClass = "form-select appearance-none py-2.5 text-sm";
 
-export default function NuevaActividadModal({ isOpen, onClose }: Props) {
+export default function NuevaActividadModal({
+  isOpen,
+  onClose,
+  onAgregar,
+}: Props) {
   const [actividad, setActividad] = useState("");
   const [responsable, setResponsable] = useState("");
   const [fecha, setFecha] = useState("");
@@ -26,6 +38,24 @@ export default function NuevaActividadModal({ isOpen, onClose }: Props) {
   const handleClose = () => {
     resetForm();
     onClose();
+  };
+
+  const handleAgregar = () => {
+    if (!actividad.trim()) {
+      toast.error("Ingrese el nombre de la actividad.");
+      return;
+    }
+    if (!responsable) {
+      toast.error("Seleccione un responsable.");
+      return;
+    }
+    if (!fecha) {
+      toast.error("Seleccione la fecha programada.");
+      return;
+    }
+
+    onAgregar?.({ actividad: actividad.trim(), responsable, fecha });
+    setShowSuccess(true);
   };
 
   const handleCloseSuccess = () => {
@@ -74,7 +104,7 @@ export default function NuevaActividadModal({ isOpen, onClose }: Props) {
                 className="mt-6 flex flex-col gap-5"
                 onSubmit={(e) => {
                   e.preventDefault();
-                  setShowSuccess(true);
+                  handleAgregar();
                 }}
               >
                 <div>

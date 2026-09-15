@@ -1,20 +1,21 @@
 import {
   kpisProgramas,
   planProgramas,
-  programasCards,
   tabsProgramas,
 } from "@/lib/programasData";
+import { useProgramasStore } from "@/lib/programasStore";
 import { useState } from "react";
 
 type Tab = (typeof tabsProgramas)[number];
 
 export default function ProgramasContent() {
   const [activeTab, setActiveTab] = useState<Tab>("TODOS");
+  const programas = useProgramasStore((state) => state.programas);
 
   const filtered =
     activeTab === "TODOS"
-      ? programasCards
-      : programasCards.filter((p) => p.categoria === activeTab);
+      ? programas
+      : programas.filter((p) => p.categoria === activeTab);
 
   return (
     <div className="flex flex-col gap-5 text-xs">

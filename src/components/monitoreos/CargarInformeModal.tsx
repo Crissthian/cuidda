@@ -1,9 +1,11 @@
 import SuccessModal from "@/components/ui/SuccessModal";
 import { agentesMonitoreo } from "@/lib/monitoreosData";
+import { inferirTipoAgente, useMonitoreosStore } from "@/lib/monitoreosStore";
 import { YEARS } from "@/lib/periodos";
 import { SEDES } from "@/lib/sedes";
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
+import { toast } from "sonner";
 
 type Props = {
   isOpen: boolean;
@@ -16,6 +18,9 @@ export default function CargarInformeModal({ isOpen, onClose }: Props) {
   const [agente, setAgente] = useState("");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [showSuccess, setShowSuccess] = useState(false);
+  const agregarResultado = useMonitoreosStore(
+    (state) => state.agregarResultado,
+  );
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     if (acceptedFiles.length > 0) {
@@ -40,6 +45,23 @@ export default function CargarInformeModal({ isOpen, onClose }: Props) {
   };
 
   const handleCargarDocumento = () => {
+    if (!periodo || !sede || !agente) {
+      toast.error("Seleccione periodo, sede y agente antes de cargar.");
+      return;
+    }
+    if (!selectedFile) {
+      toast.error("Seleccione el informe PDF a cargar.");
+      return;
+    }
+    agregarResultado({
+      agente,
+      tipo: inferirTipoAgente(agente),
+      area: sede,
+      fecha: new Date().toISOString().split("T")[0],
+      resultado: selectedFile.name,
+      lmp: `Periodo ${periodo}`,
+      estado: "CARGADO",
+    });
     setShowSuccess(true);
   };
 

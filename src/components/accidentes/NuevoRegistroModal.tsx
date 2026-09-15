@@ -1,5 +1,7 @@
 import SuccessModal from "@/components/ui/SuccessModal";
+import { useAccidentesStore } from "@/lib/accidentesStore";
 import { useState } from "react";
+import { toast } from "sonner";
 
 type Props = {
   isOpen: boolean;
@@ -14,15 +16,10 @@ export default function NuevoRegistroModal({ isOpen, onClose }: Props) {
   const [trabajador, setTrabajador] = useState("");
   const [area, setArea] = useState("");
   const [showSuccess, setShowSuccess] = useState(false);
+  const siguienteCodigo = useAccidentesStore((state) => state.siguienteCodigo);
+  const agregarEvento = useAccidentesStore((state) => state.agregarEvento);
 
-  const codigoAsignado =
-    tipo === "Accidente"
-      ? "ACC-2026-014"
-      : tipo === "Incidente"
-        ? "INC-2026-058"
-        : tipo === "Enf. ocupacional"
-          ? "EO-2026-003"
-          : "ACC-2026-014";
+  const codigoAsignado = siguienteCodigo(tipo || "Accidente");
 
   const resetForm = () => {
     setTipo("");
@@ -37,6 +34,29 @@ export default function NuevoRegistroModal({ isOpen, onClose }: Props) {
   };
 
   const handleRegistrar = () => {
+    if (!tipo) {
+      toast.error("Seleccione el tipo de registro.");
+      return;
+    }
+    if (!fecha) {
+      toast.error("Seleccione la fecha del evento.");
+      return;
+    }
+    if (!trabajador.trim()) {
+      toast.error("Ingrese el nombre del trabajador.");
+      return;
+    }
+    if (!area.trim()) {
+      toast.error("Ingrese el área del evento.");
+      return;
+    }
+
+    agregarEvento({
+      tipo,
+      fecha,
+      trabajador: trabajador.trim(),
+      area: area.trim(),
+    });
     setShowSuccess(true);
   };
 
@@ -109,7 +129,7 @@ export default function NuevoRegistroModal({ isOpen, onClose }: Props) {
                         onChange={(e) => setTipo(e.target.value)}
                         className="form-select appearance-none"
                       >
-                        <option>Seleccionar</option>
+                        <option value="">Seleccionar</option>
                         {tiposRegistro.map((t) => (
                           <option key={t} value={t}>
                             {t}

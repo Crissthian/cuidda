@@ -1,9 +1,10 @@
 import SuccessModal from "@/components/ui/SuccessModal";
+import type { Grupo } from "@/lib/estratificacionData";
+import { useEstratificacionStore } from "@/lib/estratificacionStore";
 import { useEffect, useState, type FormEvent } from "react";
 
-type Grupo = "G1" | "G2" | "G3";
-
 type Trabajador = {
+  id: number;
   nombre: string;
   cargo: string;
   sede: string;
@@ -33,6 +34,7 @@ export default function CambiarGrupoModal({ trabajador, onClose }: Props) {
   const [nuevoGrupo, setNuevoGrupo] = useState("");
   const [justificacion, setJustificacion] = useState("");
   const [showSuccess, setShowSuccess] = useState(false);
+  const cambiarGrupo = useEstratificacionStore((state) => state.cambiarGrupo);
 
   const isOpen = trabajador !== null;
 
@@ -58,6 +60,13 @@ export default function CambiarGrupoModal({ trabajador, onClose }: Props) {
 
   const handleGuardar = (e: FormEvent) => {
     e.preventDefault();
+    if (!trabajador || isInvalid) return;
+
+    cambiarGrupo({
+      trabajadorId: trabajador.id,
+      nuevoGrupo: nuevoGrupo as Grupo,
+      justificacion,
+    });
     setShowSuccess(true);
   };
 

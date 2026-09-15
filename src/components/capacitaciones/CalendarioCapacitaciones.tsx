@@ -1,4 +1,4 @@
-import { calendarioCapacitaciones } from "@/lib/capacitacionesData";
+import { useCapacitacionesStore } from "@/lib/capacitacionesStore";
 
 const grupoStyle: Record<string, string> = {
   G3: "bg-risk-red/15 text-risk-red",
@@ -15,6 +15,7 @@ const estadoStyle: Record<string, string> = {
 };
 
 export default function CalendarioCapacitaciones() {
+  const calendario = useCapacitacionesStore((state) => state.calendario);
   return (
     <section
       className="flex flex-col rounded-xl bg-surface-default p-5 shadow-sm shadow-border-subtle"
@@ -40,7 +41,7 @@ export default function CalendarioCapacitaciones() {
         </div>
 
         <div className="divide-y divide-dashed divide-border-subtle">
-          {calendarioCapacitaciones.map((row) => (
+          {calendario.map((row) => (
             <div
               key={row.id}
               className="grid grid-cols-[1.4fr_0.7fr_0.9fr_0.7fr_0.7fr_1.2fr_0.6fr] gap-4 p-3 text-xs"

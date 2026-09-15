@@ -1,5 +1,7 @@
 import SuccessModal from "@/components/ui/SuccessModal";
+import { useCapacitacionesStore } from "@/lib/capacitacionesStore";
 import { useState } from "react";
+import { toast } from "sonner";
 
 type Props = {
   isOpen: boolean;
@@ -22,13 +24,18 @@ export default function ProgramarCapacitacionModal({ isOpen, onClose }: Props) {
   const [modalidad, setModalidad] = useState("");
   const [grupo, setGrupo] = useState("");
   const [fecha, setFecha] = useState("");
+  const [referencial, setReferencial] = useState("");
   const [showSuccess, setShowSuccess] = useState(false);
+  const agregarCapacitacion = useCapacitacionesStore(
+    (state) => state.agregarCapacitacion,
+  );
 
   const resetForm = () => {
     setTema("");
     setModalidad("");
     setGrupo("");
     setFecha("");
+    setReferencial("");
   };
 
   const handleClose = () => {
@@ -37,6 +44,30 @@ export default function ProgramarCapacitacionModal({ isOpen, onClose }: Props) {
   };
 
   const handleProgramar = () => {
+    if (!tema.trim()) {
+      toast.error("Ingrese el tema de la capacitación.");
+      return;
+    }
+    if (!modalidad) {
+      toast.error("Seleccione la modalidad.");
+      return;
+    }
+    if (!grupo) {
+      toast.error("Seleccione el grupo objetivo.");
+      return;
+    }
+    if (!fecha) {
+      toast.error("Seleccione la fecha de la capacitación.");
+      return;
+    }
+
+    agregarCapacitacion({
+      tema: tema.trim(),
+      modalidad,
+      grupo,
+      fecha,
+      referencial,
+    });
     setShowSuccess(true);
   };
 
@@ -47,10 +78,6 @@ export default function ProgramarCapacitacionModal({ isOpen, onClose }: Props) {
   };
 
   if (!isOpen && !showSuccess) return null;
-
-  function setReferencial(value: string): void {
-    throw new Error("Function not implemented.");
-  }
 
   return (
     <>
@@ -192,7 +219,8 @@ export default function ProgramarCapacitacionModal({ isOpen, onClose }: Props) {
                       <input
                         id="referencial"
                         type="number"
-                        value={""}
+                        min={0}
+                        value={referencial}
                         onChange={(e) => setReferencial(e.target.value)}
                         placeholder="0000"
                         className="form-input w-10/12"

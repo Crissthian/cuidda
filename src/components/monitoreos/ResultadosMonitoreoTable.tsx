@@ -1,6 +1,7 @@
-import { resultadosMonitoreo } from "@/lib/monitoreosData";
+import { useMonitoreosStore } from "@/lib/monitoreosStore";
 
 export default function ResultadosMonitoreoTable() {
+  const resultados = useMonitoreosStore((state) => state.resultados);
   return (
     <section
       className="flex flex-col rounded-xl bg-surface-default p-5 shadow-sm shadow-border-default"
@@ -30,7 +31,7 @@ export default function ResultadosMonitoreoTable() {
         </div>
 
         <div className="divide-y divide-dashed divide-border-subtle">
-          {resultadosMonitoreo.map((row) => (
+          {resultados.map((row) => (
             <div
               key={row.id}
               className="grid grid-cols-[1.2fr_0.8fr_1.1fr_0.8fr_0.9fr_0.7fr_0.7fr] gap-4 px-3 py-3 text-xs"
@@ -49,7 +50,7 @@ export default function ResultadosMonitoreoTable() {
               <span className="text-text-secondary">{row.lmp}</span>
               <span className="flex justify-center self-center">
                 <span
-                  className={`rounded-full w-full h-5 mx-8 text-center px-3 py-1 text-[11px] font-bold ${row.estadoClass}`}
+                  className={`rounded-full w-full h-5 mx-8 text-center p-1 text-[11px] font-bold ${row.estadoClass}`}
                 >
                   {row.estado}
                 </span>

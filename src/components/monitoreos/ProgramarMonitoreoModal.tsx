@@ -1,5 +1,7 @@
 import SuccessModal from "@/components/ui/SuccessModal";
+import { inferirTipoAgente, useMonitoreosStore } from "@/lib/monitoreosStore";
 import { useState } from "react";
+import { toast } from "sonner";
 
 type Props = {
   isOpen: boolean;
@@ -14,6 +16,9 @@ export default function ProgramarMonitoreoModal({ isOpen, onClose }: Props) {
   const [area, setArea] = useState("");
   const [fecha, setFecha] = useState("");
   const [showSuccess, setShowSuccess] = useState(false);
+  const agregarResultado = useMonitoreosStore(
+    (state) => state.agregarResultado,
+  );
 
   const resetForm = () => {
     setAgente("");
@@ -28,6 +33,19 @@ export default function ProgramarMonitoreoModal({ isOpen, onClose }: Props) {
   };
 
   const handleProgramar = () => {
+    if (!agente.trim() || !tipo || !area.trim() || !fecha) {
+      toast.error("Complete agente, tipo, área y fecha para programar.");
+      return;
+    }
+    agregarResultado({
+      agente: agente.trim(),
+      tipo: tipo || inferirTipoAgente(agente),
+      area: area.trim(),
+      fecha,
+      resultado: "Pendiente",
+      lmp: "—",
+      estado: "PROGRAMADO",
+    });
     setShowSuccess(true);
   };
 

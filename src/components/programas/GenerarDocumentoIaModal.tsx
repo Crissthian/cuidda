@@ -4,28 +4,47 @@ import {
   tiposDocumentoIa,
   type TipoDocumentoIaId,
 } from "@/lib/documentoIaData";
-import { useState } from "react";
+import { useDocumentoIaStore } from "@/lib/documentoIaStore";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 type Props = {
   isOpen: boolean;
   onClose: () => void;
 };
 
+const NOMBRE_TIPO: Record<TipoDocumentoIaId, string> = {
+  programa: "Programa",
+  avance: "Avance",
+  final: "Final",
+};
+
 export default function GenerarDocumentoIaModal({ isOpen, onClose }: Props) {
-  const [tipo, setTipo] = useState<TipoDocumentoIaId>("programa");
-  const [contenido, setContenido] = useState(
-    documentoIaContenido.programa.cuerpo,
+  const documentos = useDocumentoIaStore((state) => state.documentos);
+  const guardarDocumento = useDocumentoIaStore(
+    (state) => state.guardarDocumento,
   );
+
+  const [tipo, setTipo] = useState<TipoDocumentoIaId>("programa");
+  const [contenido, setContenido] = useState(documentos.programa);
   const [showSuccess, setShowSuccess] = useState(false);
+
+  // Al abrir, se recupera el texto guardado en memoria de cada tipo de documento.
+  useEffect(() => {
+    if (!isOpen) return;
+    const guardados = useDocumentoIaStore.getState().documentos;
+    setTipo("programa");
+    setContenido(guardados.programa);
+  }, [isOpen]);
 
   const seleccionarTipo = (id: TipoDocumentoIaId) => {
     setTipo(id);
-    setContenido(documentoIaContenido[id].cuerpo);
+    setContenido(documentos[id]);
   };
 
   const resetForm = () => {
     setTipo("programa");
-    setContenido(documentoIaContenido.programa.cuerpo);
+    setContenido(useDocumentoIaStore.getState().documentos.programa);
   };
 
   const handleClose = () => {
@@ -34,7 +53,41 @@ export default function GenerarDocumentoIaModal({ isOpen, onClose }: Props) {
   };
 
   const handleGuardar = () => {
+    if (!contenido.trim()) {
+      toast.error("No hay contenido para guardar.");
+      return;
+    }
+    guardarDocumento(tipo, contenido);
     setShowSuccess(true);
+  };
+
+  /**
+   * Descarga el documento en formato de texto plano (.txt) usando el
+   * contenido editable de la vista previa.
+   */
+  const handleDescargar = () => {
+    const cuerpo = contenido.trim();
+    if (!cuerpo) {
+      toast.error("No hay contenido para descargar.");
+      return;
+    }
+
+    const documento = `${documentoIaContenido[tipo].titulo}\n\n${cuerpo}\n`;
+    // El BOM permite que Windows detecte UTF-8 y muestre bien las tildes.
+    const blob = new Blob(["\uFEFF", documento], {
+      type: "text/plain;charset=utf-8",
+    });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `Documento_IA_${NOMBRE_TIPO[tipo]}_${
+      new Date().toISOString().split("T")[0]
+    }.txt`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    toast.success("Documento descargado.");
   };
 
   const handleCloseSuccess = () => {
@@ -146,6 +199,7 @@ export default function GenerarDocumentoIaModal({ isOpen, onClose }: Props) {
                 </button>
                 <button
                   type="button"
+                  onClick={handleDescargar}
                   className="flex items-center gap-2 rounded-lg bg-muted px-6 py-2.5 text-xs font-bold text-white hover:bg-muted-80"
                 >
                   <i

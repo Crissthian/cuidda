@@ -7,8 +7,10 @@ import {
   responsablesPrograma,
   tiposPrograma,
 } from "@/lib/programasData";
+import { useProgramasStore } from "@/lib/programasStore";
 import { SEDES } from "@/lib/sedes";
 import { useState } from "react";
+import { toast } from "sonner";
 
 type Props = {
   isOpen: boolean;
@@ -17,7 +19,7 @@ type Props = {
 
 const MAX_ACTIVIDADES = 10;
 
-const labelClass = "mb-1 block text-[11px] text-text-secondary";
+const labelClass = "mb-1 block text-xs text-text-secondary";
 const inputClass = "form-input py-2 text-xs";
 const selectClass = "form-select appearance-none py-2 text-xs";
 
@@ -35,6 +37,7 @@ export default function NuevoProgramaModal({ isOpen, onClose }: Props) {
   ]);
   const [nuevaActividad, setNuevaActividad] = useState("");
   const [showSuccess, setShowSuccess] = useState(false);
+  const agregarPrograma = useProgramasStore((state) => state.agregarPrograma);
 
   const toggleGrupo = (id: string) => {
     setGrupos((prev) =>
@@ -78,6 +81,45 @@ export default function NuevoProgramaModal({ isOpen, onClose }: Props) {
   const handleClose = () => {
     resetForm();
     onClose();
+  };
+
+  const handleCrear = () => {
+    if (!nombre.trim()) {
+      toast.error("Ingrese el nombre del programa.");
+      return;
+    }
+    if (!tipo) {
+      toast.error("Seleccione el tipo de programa.");
+      return;
+    }
+    if (!responsable) {
+      toast.error("Seleccione un responsable.");
+      return;
+    }
+    if (!sede || !periodo) {
+      toast.error("Seleccione sede y periodo.");
+      return;
+    }
+    if (grupos.length === 0) {
+      toast.error("Seleccione al menos un grupo de riesgo.");
+      return;
+    }
+
+    agregarPrograma({
+      titulo: nombre.trim(),
+      categoria: tipo,
+      especialidad,
+      responsable,
+      sede,
+      periodo,
+      objetivo: objetivo.trim(),
+      grupos: [...grupos],
+      poblacion: poblacionTotal,
+      totalActividades: actividades.length,
+      listaActividades: [...actividades],
+    });
+
+    setShowSuccess(true);
   };
 
   const handleCloseSuccess = () => {
@@ -126,7 +168,7 @@ export default function NuevoProgramaModal({ isOpen, onClose }: Props) {
                 className="mt-4 flex flex-col gap-4"
                 onSubmit={(e) => {
                   e.preventDefault();
-                  setShowSuccess(true);
+                  handleCrear();
                 }}
               >
                 <div className="grid grid-cols-12 gap-4">
