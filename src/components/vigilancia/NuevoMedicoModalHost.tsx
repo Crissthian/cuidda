@@ -1,6 +1,8 @@
 import SuccessModal from "@/components/ui/SuccessModal";
+import { useMedicosStore } from "@/lib/medicosStore";
 import { SEDES } from "@/lib/sedes";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 function NuevoMedicoModal({ onClose }: { onClose: () => void }) {
   const [nombres, setNombres] = useState("");
@@ -9,6 +11,9 @@ function NuevoMedicoModal({ onClose }: { onClose: () => void }) {
   const [especialidad, setEspecialidad] = useState("");
   const [sede, setSede] = useState("");
   const [created, setCreated] = useState(false);
+  const [rne, setRne] = useState("");
+  const agregarMedico = useMedicosStore((state) => state.agregarMedico);
+  const medicos = useMedicosStore((state) => state.medicos);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -17,6 +22,43 @@ function NuevoMedicoModal({ onClose }: { onClose: () => void }) {
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [onClose]);
+
+  const handleGuardar = () => {
+    if (!nombres.trim()) {
+      toast.error("Ingrese los nombres y apellidos del médico.");
+      return;
+    }
+    if (!dni.trim()) {
+      toast.error("Ingrese el DNI del médico.");
+      return;
+    }
+    if (!cmp.trim()) {
+      toast.error("Ingrese el CMP del médico.");
+      return;
+    }
+    if (medicos.some((medico) => medico.cmp === cmp.trim())) {
+      toast.error(`El CMP ${cmp.trim()} ya está registrado.`);
+      return;
+    }
+    if (!especialidad.trim()) {
+      toast.error("Ingrese la especialidad del médico.");
+      return;
+    }
+    if (!sede) {
+      toast.error("Seleccione la sede del médico.");
+      return;
+    }
+
+    agregarMedico({
+      medico: nombres.trim(),
+      dni: dni.trim(),
+      cmp: cmp.trim(),
+      rne: rne.trim() || undefined,
+      especialidad: especialidad.trim(),
+      sede,
+    });
+    setCreated(true);
+  };
 
   if (created) {
     return (
@@ -66,7 +108,7 @@ function NuevoMedicoModal({ onClose }: { onClose: () => void }) {
           className="flex flex-col gap-5 overflow-y-auto px-8 pb-8"
           onSubmit={(event) => {
             event.preventDefault();
-            setCreated(true);
+            handleGuardar();
           }}
         >
           <div>
@@ -104,22 +146,41 @@ function NuevoMedicoModal({ onClose }: { onClose: () => void }) {
                 className="form-input h-10 text-xs"
               />
             </div>
-            <div>
-              <label
-                htmlFor="med-cmp"
-                className="form-label text-sm font-normal text-text-primary"
-              >
-                CMP
-              </label>
-              <input
-                id="med-cmp"
-                type="text"
-                value={cmp}
-                onChange={(event) => setCmp(event.target.value)}
-                autoComplete="off"
-                inputMode="numeric"
-                className="form-input h-10 text-xs"
-              />
+            <div className="flex gap-4">
+              <div>
+                <label
+                  htmlFor="med-cmp"
+                  className="form-label text-sm font-normal text-text-primary"
+                >
+                  CMP
+                </label>
+                <input
+                  id="med-cmp"
+                  type="text"
+                  value={cmp}
+                  onChange={(event) => setCmp(event.target.value)}
+                  autoComplete="off"
+                  inputMode="numeric"
+                  className="form-input h-10 text-xs"
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="med-rne"
+                  className="form-label text-sm font-normal text-text-primary"
+                >
+                  RNE
+                </label>
+                <input
+                  id="med-rne"
+                  type="text"
+                  value={rne}
+                  onChange={(event) => setRne(event.target.value)}
+                  autoComplete="off"
+                  inputMode="numeric"
+                  className="form-input h-10 text-xs"
+                />
+              </div>
             </div>
           </div>
 

@@ -1,0 +1,37 @@
+---
+import GuardarCambiosModalHost from "@/components/vigilancia/GuardarCambiosModalHost";
+import MedicoDetalleContent from "@/components/vigilancia/MedicoDetalleContent";
+import VigilanciaPagePlaceholder from "@/components/vigilancia/VigilanciaPagePlaceholder.astro";
+import DashboardLayout from "@/layouts/DashboardLayout.astro";
+---
+
+<DashboardLayout
+  title="Ficha del médico"
+  description="Ficha del médico"
+  breadcrumbLabels={{ "ficha-medica": { label: "Ficha médica" } }}
+>
+  <div class="flex flex-1 flex-col overflow-y-auto">
+    <div class="flex items-center gap-4 px-10 pb-4">
+      <a
+        href="/vigilancia-medica/firmas"
+        class="flex items-center gap-2 text-xs font-medium text-brand hover:text-primary-hover"
+      >
+        <i class="fa-solid fa-arrow-left text-xs" aria-hidden="true"></i>
+        Volver a firmas
+      </a>
+    </div>
+    <VigilanciaPagePlaceholder
+      title="Ficha del médico"
+      icon="fa-user-doctor"
+      description="Identidad profesional, certificado y documentos autorizados."
+      buttons={[
+        {
+          icon: "fa-floppy-disk",
+          text: "GUARDAR CAMBIOS",
+        },
+      ]}
+    />
+    <MedicoDetalleContent client:load />
+    <GuardarCambiosModalHost client:load />
+  </div>
+</DashboardLayout>

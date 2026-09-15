@@ -5,6 +5,7 @@ export interface Medico {
   medico: string;
   dni: string;
   cmp: string;
+  rne?: string;
   sede: string;
   especialidad: string;
   correo: string;
@@ -91,3 +92,6 @@ export const documentosFirmables = [
   "Interconsultas",
   "Resultados de laboratorio",
 ] as const;
+
+/** Clave de sesión donde la lista de firmas recuerda el médico elegido. */
+export const MEDICO_SELECCIONADO_KEY = "firmas:medico-cmp";

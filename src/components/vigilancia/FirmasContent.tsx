@@ -1,4 +1,8 @@
-import { medicos, type EstadoCertificado } from "@/lib/medicosData";
+import {
+  MEDICO_SELECCIONADO_KEY,
+  type EstadoCertificado,
+} from "@/lib/medicosData";
+import { useMedicosStore } from "@/lib/medicosStore";
 
 const kpis = [
   {
@@ -42,6 +46,8 @@ const badge: Record<EstadoCertificado, string> = {
 };
 
 export default function FirmasContent() {
+  const medicos = useMedicosStore((state) => state.medicos);
+
   return (
     <div className="flex flex-col gap-6 pb-6">
       {/* KPIs */}
@@ -213,7 +219,13 @@ export default function FirmasContent() {
                         </button>
                       ) : (
                         <a
-                          href={`/vigilancia-medica/firmas/${row.cmp}`}
+                          href="/vigilancia-medica/firmas/ficha-medica"
+                          onClick={() =>
+                            window.sessionStorage.setItem(
+                              MEDICO_SELECCIONADO_KEY,
+                              row.cmp,
+                            )
+                          }
                           aria-label={`Ver detalle de ${row.medico}`}
                           className="inline-flex items-center gap-1.5 rounded-lg bg-muted px-4 py-1.5 text-[11px] font-bold tracking-wide text-white transition-colors hover:bg-muted-80"
                         >

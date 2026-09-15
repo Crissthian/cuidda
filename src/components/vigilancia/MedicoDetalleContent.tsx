@@ -1,5 +1,10 @@
-import { documentosFirmables, type Medico } from "@/lib/medicosData";
-import { useState } from "react";
+import {
+  documentosFirmables,
+  MEDICO_SELECCIONADO_KEY,
+  type Medico,
+} from "@/lib/medicosData";
+import { useMedicosStore } from "@/lib/medicosStore";
+import { useEffect, useState } from "react";
 
 function Campo({ label, value }: { label: string; value: string }) {
   return (
@@ -47,9 +52,21 @@ function Interruptor({
   );
 }
 
-export default function MedicoDetalleContent({ medico }: { medico: Medico }) {
+export default function MedicoDetalleContent({ medico }: { medico?: Medico }) {
+  const medicos = useMedicosStore((state) => state.medicos);
+  const obtenerPorCmp = useMedicosStore((state) => state.obtenerPorCmp);
   const [autorizados, setAutorizados] = useState<Record<string, boolean>>({});
-  const vigente = medico.certificado === "VIGENTE";
+  const [actual, setActual] = useState<Medico>(medico ?? medicos[0]);
+
+  // La ruta es estática (/firmas/ficha-medica), así que el médico elegido en la
+  // lista se recupera de sessionStorage; sin selección previa usa el primero.
+  useEffect(() => {
+    if (medico) return;
+    const cmp = window.sessionStorage.getItem(MEDICO_SELECCIONADO_KEY);
+    setActual(obtenerPorCmp(cmp));
+  }, [medico, obtenerPorCmp]);
+
+  const vigente = actual.certificado === "VIGENTE";
 
   const toggle = (doc: string) =>
     setAutorizados((prev) => ({ ...prev, [doc]: !prev[doc] }));
@@ -71,12 +88,12 @@ export default function MedicoDetalleContent({ medico }: { medico: Medico }) {
           <p className="mt-1 text-sm text-accent-muted">Del médico</p>
 
           <div className="mt-5 grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-2">
-            <Campo label="Nombres y apellidos" value={medico.medico} />
-            <Campo label="Especialidad" value={medico.especialidad} />
-            <Campo label="DNI" value={medico.dni} />
-            <Campo label="CMP" value={medico.cmp} />
-            <Campo label="Correo" value={medico.correo} />
-            <Campo label="Sede principal" value={medico.sede} />
+            <Campo label="Nombres y apellidos" value={actual.medico} />
+            <Campo label="Especialidad" value={actual.especialidad} />
+            <Campo label="DNI" value={actual.dni} />
+            <Campo label="CMP" value={actual.cmp} />
+            <Campo label="Correo" value={actual.correo} />
+            <Campo label="Sede principal" value={actual.sede} />
           </div>
         </section>
 
@@ -125,16 +142,16 @@ export default function MedicoDetalleContent({ medico }: { medico: Medico }) {
               className={`${vigente ? " fa-regular fa-circle-check" : "fa-solid fa-triangle-exclamation"} text-xl`}
               aria-hidden="true"
             />
-            {medico.certificado}
+            {actual.certificado}
           </p>
         </div>
 
         <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-2">
-          <Campo label="Titular" value={medico.medico} />
-          <Campo label="Proveedor" value={medico.proveedor} />
-          <Campo label="Número de serie" value={medico.serie} />
-          <Campo label="Fecha de inicio" value={medico.inicio} />
-          <Campo label="Vencimiento" value={medico.vencimiento} />
+          <Campo label="Titular" value={actual.medico} />
+          <Campo label="Proveedor" value={actual.proveedor} />
+          <Campo label="Número de serie" value={actual.serie} />
+          <Campo label="Fecha de inicio" value={actual.inicio} />
+          <Campo label="Vencimiento" value={actual.vencimiento} />
         </div>
 
         <div className="mt-6 flex flex-col gap-4">
