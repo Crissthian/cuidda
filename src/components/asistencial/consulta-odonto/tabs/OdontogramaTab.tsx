@@ -1,4 +1,4 @@
-import React, {
+import {
   forwardRef,
   useEffect,
   useImperativeHandle,
@@ -6,10 +6,10 @@ import React, {
   useState,
 } from "react";
 import { createPortal } from "react-dom";
+import { toast } from "sonner";
 import { ListaHallazgos } from "../odontograma/ListaHallazgos";
 import Odontograma from "../odontograma/Odontograma";
 import type { HallazgoClinico } from "../odontograma/types";
-import { toast } from "sonner";
 
 export interface FilaPlan {
   id: number;
@@ -27,6 +27,47 @@ const crearFilasInicialesSesiones = (): FilaPlan[] =>
     fecha: new Date().toISOString().split("T")[0],
     estado: "pendiente",
   }));
+
+const crearHallazgosIniciales = (): HallazgoClinico[] => {
+  const fecha = new Date().toLocaleDateString("es-PE");
+  return [
+    {
+      id: "hallazgo-inicial-protesis-fija-24-21",
+      diente: 24,
+      dienteFinal: 21,
+      hallazgo: "PROTESIS_FIJA",
+      estado: "bueno",
+      especificacion: "Prótesis Dental Parcial Fija",
+      fecha,
+    },
+    {
+      id: "hallazgo-inicial-aparato-removible-43-41",
+      diente: 43,
+      dienteFinal: 41,
+      hallazgo: "APARATO_REMOVIBLE",
+      estado: "bueno",
+      especificacion: "Aparato Removible",
+      fecha,
+    },
+    {
+      id: "hallazgo-inicial-pieza-ausente-34",
+      diente: 34,
+      hallazgo: "PIEZA_AUSENTE",
+      estado: "bueno",
+      siglas: "DNE",
+      especificacion: "Pieza Ausente: DNE",
+      fecha,
+    },
+    {
+      id: "hallazgo-inicial-fractura-raiz-15",
+      diente: 15,
+      hallazgo: "FRACTURA_RAIZ",
+      estado: "malo",
+      especificacion: "Fractura Raíz",
+      fecha,
+    },
+  ];
+};
 
 interface OdontogramaTabProps {
   cdgAtencion?: string;
@@ -80,7 +121,9 @@ export const OdontogramaTab = forwardRef<
       setModalContainer(document.body);
     }, []);
 
-    const [hallazgos, setHallazgos] = useState<HallazgoClinico[]>([]);
+    const [hallazgos, setHallazgos] = useState<HallazgoClinico[]>(
+      crearHallazgosIniciales,
+    );
 
     useEffect(() => {
       // Carga inicial simulada
@@ -89,7 +132,7 @@ export const OdontogramaTab = forwardRef<
         return;
       }
 
-      setHallazgos([]);
+      setHallazgos(crearHallazgosIniciales());
       setFilasPlan(crearFilasInicialesSesiones());
       onLoadComplete?.(true);
     }, [estadoAtencion, onLoadComplete]);
