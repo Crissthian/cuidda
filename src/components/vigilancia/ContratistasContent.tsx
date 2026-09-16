@@ -1,4 +1,7 @@
-import { contratistas } from "@/lib/contratistasData";
+import {
+  type EstadoContratista,
+  useContratistasStore,
+} from "@/lib/contratistasStore";
 
 const kpis = [
   {
@@ -35,15 +38,25 @@ const kpis = [
   },
 ] as const;
 
-function EstadoBadge({ estado }: { estado: "ACTIVO" }) {
+const estadoBadgeClass: Record<EstadoContratista, string> = {
+  ACTIVO: "bg-[#dcfce7] text-[#16a34a]",
+  OBSERVADO: "bg-risk-salmon/15 text-risk-salmon",
+  INACTIVO: "bg-muted-20 text-muted-80",
+};
+
+function EstadoBadge({ estado }: { estado: EstadoContratista }) {
   return (
-    <span className="inline-flex min-w-20 items-center justify-center rounded-lg bg-[#dcfce7] px-4 py-1 text-[10px] font-bold leading-none tracking-wide text-[#16a34a]">
+    <span
+      className={`inline-flex min-w-20 items-center justify-center rounded-lg px-4 py-1 text-[10px] font-bold leading-none tracking-wide ${estadoBadgeClass[estado]}`}
+    >
       {estado}
     </span>
   );
 }
 
 export default function ContratistasContent() {
+  const contratistas = useContratistasStore((state) => state.contratistas);
+
   return (
     <div className="flex flex-col gap-5">
       {/* ── KPIs ── */}
@@ -116,7 +129,7 @@ export default function ContratistasContent() {
             <div className="flex flex-col">
               {contratistas.map((row) => (
                 <div
-                  key={row.empresa}
+                  key={row.id}
                   role="row"
                   className="grid grid-cols-[1.3fr_1fr_1.3fr_1fr_0.8fr_0.7fr_1fr_0.9fr_0.9fr] items-center gap-0 border-b border-dashed border-border-default px-4 py-4 transition-colors hover:bg-surface-light/50 last:border-b-0"
                 >

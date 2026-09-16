@@ -2,33 +2,13 @@ import {
   especialidadesConsulta,
   estadosConsulta,
 } from "@/lib/consultasTecnicasData";
+import {
+  type EstadoConsulta,
+  useConsultasTecnicasStore,
+} from "@/lib/consultasTecnicasStore";
 import { SEDES } from "@/lib/sedes";
 
-const consultas = [
-  {
-    id: 1,
-    fechaHora: "2026-08-18 09:24",
-    sede: "Lima",
-    trabajador: "Carlos Aliaga Ríos",
-    cargo: "Supervisor de mina",
-    especialidad: "Neumología",
-    motivo: "Patrón restrictivo en espirometría de EMO periódico.",
-    estado: "RESPONDIDO" as const,
-  },
-  {
-    id: 2,
-    fechaHora: "2026-08-20 11:40",
-    sede: "Junín",
-    trabajador: "Rosa Quispe Mamani",
-    cargo: "Operario de planta",
-    especialidad: "Otorrinolaringología",
-    motivo:
-      "Hipoacusia neurosensorial bilateral en trabajadora con GES de ruido.",
-    estado: "PENDIENTE" as const,
-  },
-] as const;
-
-function EstadoBadge({ estado }: { estado: "RESPONDIDO" | "PENDIENTE" }) {
+function EstadoBadge({ estado }: { estado: EstadoConsulta }) {
   const isRespondido = estado === "RESPONDIDO";
   return (
     <span
@@ -44,6 +24,8 @@ function EstadoBadge({ estado }: { estado: "RESPONDIDO" | "PENDIENTE" }) {
 }
 
 export default function ConsultasTecnicasContent() {
+  const consultas = useConsultasTecnicasStore((state) => state.consultas);
+
   return (
     <div className="flex flex-col gap-5 p-0.5">
       <section

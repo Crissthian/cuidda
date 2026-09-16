@@ -2,11 +2,24 @@ import {
   especialidadesConsulta,
   tiposDocumentoConsulta,
 } from "@/lib/consultasTecnicasData";
+import { useConsultasTecnicasStore } from "@/lib/consultasTecnicasStore";
 import { useEffect, useState } from "react";
 
 function NuevaConsultaModal({ onClose }: { onClose: () => void }) {
   const [sent, setSent] = useState(false);
   const [fileName, setFileName] = useState<string | null>(null);
+  const [apellidos, setApellidos] = useState("");
+  const [tipoDocumento, setTipoDocumento] = useState("");
+  const [numeroDocumento, setNumeroDocumento] = useState("");
+  const [empresa, setEmpresa] = useState("");
+  const [puesto, setPuesto] = useState("");
+  const [especialidad, setEspecialidad] = useState("");
+  const [motivo, setMotivo] = useState("");
+  const [pregunta, setPregunta] = useState("");
+  const [codigoAsignado, setCodigoAsignado] = useState("");
+  const agregarConsulta = useConsultasTecnicasStore(
+    (state) => state.agregarConsulta,
+  );
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -43,7 +56,7 @@ function NuevaConsultaModal({ onClose }: { onClose: () => void }) {
             Consulta enviada correctamente
           </h2>
           <p className="text-center text-xs leading-snug text-muted">
-            La consulta CT-2026-008 quedó en estado de Pendiente.
+            La consulta {codigoAsignado} quedó en estado de Pendiente.
           </p>
         </div>
       </div>
@@ -60,14 +73,14 @@ function NuevaConsultaModal({ onClose }: { onClose: () => void }) {
     >
       <div
         id="modalContainer"
-        className="my-4 flex w-full max-w-180 flex-col h-10/12 overflow-hidden rounded-2xl bg-surface-default shadow-xl px-4"
+        className="my-4 flex w-full max-w-170 flex-col h-10/12 overflow-hidden rounded-2xl bg-surface-default shadow-xl"
         onClick={(event) => event.stopPropagation()}
       >
         {/* Header — fijo, no scrollea */}
         <div className="flex shrink-0 items-center justify-between gap-4 px-8 py-4">
           <h2
             id="nueva-consulta-title"
-            className="text-sm font-bold tracking-tight text-brand"
+            className="text-base font-bold tracking-tight text-brand"
           >
             Nueva consulta técnica
           </h2>
@@ -88,12 +101,23 @@ function NuevaConsultaModal({ onClose }: { onClose: () => void }) {
           className="flex flex-1 flex-col gap-6 overflow-y-auto px-8"
           onSubmit={(event) => {
             event.preventDefault();
+            const consulta = agregarConsulta({
+              apellidos,
+              tipoDocumento,
+              numeroDocumento,
+              empresa,
+              puesto,
+              especialidad,
+              motivo,
+              pregunta,
+            });
+            setCodigoAsignado(consulta.codigo);
             setSent(true);
           }}
         >
           {/* Datos personales */}
           <section className="flex flex-col gap-3">
-            <h3 className="text-xs font-bold tracking-wide text-text-primary">
+            <h3 className="text-sm font-bold tracking-wide text-text-primary">
               Datos personales
             </h3>
             <div className="grid grid-cols-12 gap-4">
@@ -104,6 +128,8 @@ function NuevaConsultaModal({ onClose }: { onClose: () => void }) {
                 <input
                   className="h-8 rounded-lg border-0 bg-surface-light px-3.5 text-xs text-text-primary outline-none placeholder:text-muted/60 focus:ring-1 focus:ring-brand"
                   placeholder=""
+                  value={apellidos}
+                  onChange={(e) => setApellidos(e.target.value)}
                 />
               </label>
               <label className="col-span-6 flex flex-col gap-1.5 sm:col-span-4">
@@ -112,8 +138,9 @@ function NuevaConsultaModal({ onClose }: { onClose: () => void }) {
                 </span>
                 <div className="relative">
                   <select
-                    defaultValue=""
-                    className="flex h-8 w-full items-center rounded-lg border-0 bg-surface-light px-3.5 text-xs text-muted outline-none focus:ring-1 focus:ring-brand"
+                    value={tipoDocumento}
+                    onChange={(e) => setTipoDocumento(e.target.value)}
+                    className={`flex h-8 w-full items-center rounded-lg border-0 bg-surface-light px-3.5 text-xs outline-none focus:ring-1 focus:ring-brand ${tipoDocumento ? "text-text-primary" : "text-muted"}`}
                   >
                     <option value="" disabled>
                       Seleccionar
@@ -131,6 +158,8 @@ function NuevaConsultaModal({ onClose }: { onClose: () => void }) {
                 <input
                   className="h-8 rounded-lg border-0 bg-surface-light px-3.5 text-xs text-text-primary outline-none placeholder:text-muted/60 focus:ring-1 focus:ring-brand"
                   placeholder=""
+                  value={numeroDocumento}
+                  onChange={(e) => setNumeroDocumento(e.target.value)}
                 />
               </label>
               <label className="col-span-12 flex flex-col gap-1.5 sm:col-span-6">
@@ -140,6 +169,8 @@ function NuevaConsultaModal({ onClose }: { onClose: () => void }) {
                 <input
                   className="h-8 rounded-lg border-0 bg-surface-light px-3.5 text-xs text-text-primary outline-none placeholder:text-muted/60 focus:ring-1 focus:ring-brand"
                   placeholder=""
+                  value={empresa}
+                  onChange={(e) => setEmpresa(e.target.value)}
                 />
               </label>
               <label className="col-span-12 flex flex-col gap-1.5 sm:col-span-6">
@@ -149,6 +180,8 @@ function NuevaConsultaModal({ onClose }: { onClose: () => void }) {
                 <input
                   className="h-8 rounded-lg border-0 bg-surface-light px-3.5 text-xs text-text-primary outline-none placeholder:text-muted/60 focus:ring-1 focus:ring-brand"
                   placeholder=""
+                  value={puesto}
+                  onChange={(e) => setPuesto(e.target.value)}
                 />
               </label>
             </div>
@@ -156,7 +189,7 @@ function NuevaConsultaModal({ onClose }: { onClose: () => void }) {
 
           {/* Datos de la consulta */}
           <section className="flex flex-col gap-3">
-            <h3 className="text-xs font-bold tracking-wide text-text-primary">
+            <h3 className="text-sm font-bold tracking-wide text-text-primary">
               Datos de la consulta
             </h3>
             <div className="grid grid-cols-12 gap-4">
@@ -166,8 +199,9 @@ function NuevaConsultaModal({ onClose }: { onClose: () => void }) {
                 </span>
                 <div className="relative">
                   <select
-                    defaultValue=""
-                    className="flex h-8 w-full items-center appearance-none rounded-lg border-0 bg-surface-light px-3.5 text-xs text-muted outline-none focus:ring-1 focus:ring-brand"
+                    value={especialidad}
+                    onChange={(e) => setEspecialidad(e.target.value)}
+                    className={`flex h-8 w-full items-center appearance-none rounded-lg border-0 bg-surface-light px-3.5 text-xs outline-none focus:ring-1 focus:ring-brand ${especialidad ? "text-text-primary" : "text-muted"}`}
                   >
                     <option value="" disabled>
                       Seleccionar
@@ -185,6 +219,8 @@ function NuevaConsultaModal({ onClose }: { onClose: () => void }) {
                 <input
                   className="h-8 rounded-lg border-0 bg-surface-light px-3.5 text-xs text-text-primary outline-none placeholder:text-muted/60 focus:ring-1 focus:ring-brand"
                   placeholder=""
+                  value={motivo}
+                  onChange={(e) => setMotivo(e.target.value)}
                 />
               </label>
             </div>
@@ -204,13 +240,15 @@ function NuevaConsultaModal({ onClose }: { onClose: () => void }) {
               rows={6}
               className="max-h-26 w-full resize-none rounded-lg border-0 bg-surface-light p-3.5 text-xs leading-relaxed text-text-primary outline-none placeholder:text-muted/60 focus:ring-1 focus:ring-brand"
               placeholder=""
+              value={pregunta}
+              onChange={(e) => setPregunta(e.target.value)}
             />
           </section>
 
           {/* Documentos */}
           <section className="flex flex-col gap-2">
             <div>
-              <h3 className="text-xs font-bold tracking-wide text-text-primary">
+              <h3 className="text-sm font-bold tracking-wide text-text-primary">
                 Documentos
               </h3>
               <p className="mt-0.5 text-[11px] text-muted">

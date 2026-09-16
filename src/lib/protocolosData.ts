@@ -123,13 +123,13 @@ export function nombreCortoProtocolo(protocolo: string): string {
   return sinPrefijo.replace(/(?:^|\s)\S/g, (c) => c.toUpperCase());
 }
 
-export const areasProtocolo = [
-  "Administración",
-  "Operaciones",
-  "Logistica",
-  "Transporte",
-  "Mantenimiento",
-  "Producción",
-] as const;
+/**
+ * Áreas disponibles para el filtro, derivadas de los propios protocolos:
+ * un registro puede cubrir varias áreas separadas por "/"
+ * (p. ej. "Operaciones / Mantenimiento").
+ */
+export const areasProtocolo: string[] = Array.from(
+  new Set(protocolos.flatMap((p) => p.area.split("/").map((a) => a.trim()))),
+).sort((a, b) => a.localeCompare(b, "es"));
 
 export const estadosProtocolo = ["Vigente", "No vigente"] as const;

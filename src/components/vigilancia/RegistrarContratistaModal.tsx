@@ -1,5 +1,7 @@
 import SuccessModal from "@/components/ui/SuccessModal";
+import { useContratistasStore } from "@/lib/contratistasStore";
 import { useState } from "react";
+import { toast } from "sonner";
 
 type Props = {
   isOpen: boolean;
@@ -28,7 +30,7 @@ const emptyResponsable: Responsable = {
   principal: false,
 };
 
-const labelClass = "mb-1 block text-[11px] text-text-secondary";
+const labelClass = "mb-1 block text-xs text-text-secondary";
 const inputClass = "form-input !py-2 text-xs";
 const selectClass = "form-select appearance-none !py-2 text-xs";
 
@@ -53,6 +55,9 @@ export default function RegistrarContratistaModal({ isOpen, onClose }: Props) {
     { ...emptyResponsable },
   ]);
   const [showSuccess, setShowSuccess] = useState(false);
+  const agregarContratista = useContratistasStore(
+    (state) => state.agregarContratista,
+  );
 
   const toggleSede = (sede: string) => {
     setSedes((prev) =>
@@ -97,6 +102,29 @@ export default function RegistrarContratistaModal({ isOpen, onClose }: Props) {
     onClose();
   };
 
+  const handleGuardar = () => {
+    if (!razonSocial.trim()) {
+      toast.error("Ingrese la razón social del contratista.");
+      return;
+    }
+    if (!ruc.trim()) {
+      toast.error("Ingrese el R.U.C. del contratista.");
+      return;
+    }
+
+    agregarContratista({
+      ruc,
+      razonSocial,
+      rubro,
+      actividad,
+      tipoServicio,
+      trabajadores,
+      sedes,
+      estado,
+    });
+    setShowSuccess(true);
+  };
+
   if (!isOpen && !showSuccess) return null;
 
   return (
@@ -136,7 +164,7 @@ export default function RegistrarContratistaModal({ isOpen, onClose }: Props) {
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
-                  setShowSuccess(true);
+                  handleGuardar();
                 }}
                 className="mt-4 flex flex-col gap-6"
               >
@@ -144,7 +172,7 @@ export default function RegistrarContratistaModal({ isOpen, onClose }: Props) {
                 <section aria-labelledby="info-general-title">
                   <h3
                     id="info-general-title"
-                    className="text-xs font-bold text-text-primary"
+                    className="text-sm font-bold text-text-primary"
                   >
                     Información general
                   </h3>
@@ -256,12 +284,12 @@ export default function RegistrarContratistaModal({ isOpen, onClose }: Props) {
                 <section aria-labelledby="relacion-title">
                   <h3
                     id="relacion-title"
-                    className="text-xs font-bold text-text-primary"
+                    className="text-sm font-bold text-text-primary"
                   >
                     Relación con la empresa
                   </h3>
 
-                  <p className="mt-3 text-[11px] text-text-secondary">
+                  <p className="mt-3 text-xs text-text-secondary">
                     Sedes donde realiza actividades
                   </p>
                   <div className="mt-2 flex flex-wrap gap-2">
@@ -377,7 +405,7 @@ export default function RegistrarContratistaModal({ isOpen, onClose }: Props) {
                   <div className="flex items-center justify-between">
                     <h3
                       id="resp-title"
-                      className="text-xs font-bold text-text-primary"
+                      className="text-sm font-bold text-text-primary"
                     >
                       Responsables del contratista
                     </h3>

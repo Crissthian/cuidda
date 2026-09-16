@@ -1,0 +1,22 @@
+---
+import LecturaResultadoDetallePage from "@/components/vigilancia/LecturaResultadoDetallePage";
+import DashboardLayout from "@/layouts/DashboardLayout.astro";
+---
+
+<DashboardLayout
+  title="Lectura de resultados · UNACEM"
+  description="Detalle de lectura de resultados"
+>
+  <div class="flex flex-1 flex-col overflow-y-auto">
+    <div class="flex items-center gap-4 px-10 pb-4">
+      <a
+        href="/vigilancia-medica/lectura-de-resultados"
+        class="flex items-center gap-2 text-xs font-medium text-brand hover:text-primary-hover"
+      >
+        <i class="fa-solid fa-arrow-left text-xs" aria-hidden="true"></i>
+        Volver a lectura de resultados
+      </a>
+    </div>
+    <LecturaResultadoDetallePage client:load />
+  </div>
+</DashboardLayout>

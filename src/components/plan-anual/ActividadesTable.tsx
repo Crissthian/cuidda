@@ -26,7 +26,7 @@ export default function ActividadesTable() {
           {actividadesPlan.map((row) => (
             <div
               key={row.id}
-              className="grid grid-cols-[1.6fr_0.9fr_0.6fr_0.7fr_0.7fr] gap-4 p-3 text-xs"
+              className="grid grid-cols-[1.6fr_0.9fr_0.6fr_0.7fr_0.7fr] gap-4 p-3 text-xs items-center"
             >
               <span className="leading-tight text-text-primary">
                 {row.actividad}

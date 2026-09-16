@@ -1,4 +1,7 @@
-import { lecturasResultados } from "@/lib/lecturaResultadosData";
+import {
+  LECTURA_SELECCIONADA_KEY,
+  lecturasResultados,
+} from "@/lib/lecturaResultadosData";
 import { YEARS } from "@/lib/periodos";
 import { useMemo, useState } from "react";
 
@@ -45,6 +48,11 @@ const MODALIDADES_DISPONIBLES = ["Presencial", "Remota"];
 export default function LecturaResultadosContent() {
   const [filtros, setFiltros] = useState<Filtros>(FILTROS_VACIOS);
   const [aplicados, setAplicados] = useState<Filtros>(FILTROS_VACIOS);
+
+  // El detalle vive en una ruta estática, así que el trabajador seleccionado
+  // viaja en sessionStorage antes de navegar.
+  const seleccionar = (id: number) =>
+    window.sessionStorage.setItem(LECTURA_SELECCIONADA_KEY, String(id));
 
   const actualizar = (campo: keyof Filtros, valor: string) =>
     setFiltros((prev) => ({ ...prev, [campo]: valor }));
@@ -348,7 +356,8 @@ export default function LecturaResultadosContent() {
                             ENVIAR
                           </button>
                           <a
-                            href={`/vigilancia-medica/lectura-de-resultados/${row.id}`}
+                            href="/vigilancia-medica/lectura-de-resultados/unacem"
+                            onClick={() => seleccionar(row.id)}
                             className="inline-flex min-w-16 items-center justify-center rounded-lg bg-muted px-4 py-1.5 text-[11px] font-bold tracking-wide text-white transition-colors hover:bg-muted-80"
                             aria-label={`Ver lectura de ${row.nombre}`}
                           >
@@ -357,7 +366,8 @@ export default function LecturaResultadosContent() {
                         </>
                       ) : (
                         <a
-                          href={`/vigilancia-medica/lectura-de-resultados/${row.id}`}
+                          href="/vigilancia-medica/lectura-de-resultados/unacem"
+                          onClick={() => seleccionar(row.id)}
                           className="inline-flex min-w-24 items-center justify-center rounded-lg bg-muted px-4 py-1.5 text-[11px] font-bold tracking-wide text-white transition-colors hover:bg-muted-80"
                           aria-label={`${accion === "VER" ? "Ver lectura de" : "Registrar lectura de"} ${row.nombre}`}
                         >

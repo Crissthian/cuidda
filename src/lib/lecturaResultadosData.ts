@@ -229,3 +229,18 @@ export const lecturasResultados: LecturaResultado[] = [
     },
   },
 ];
+
+/**
+ * Las páginas de Astro son navegaciones reales y el detalle vive en la ruta
+ * estática `/vigilancia-medica/lectura-de-resultados/unacem`, por lo que la
+ * tabla guarda la lectura seleccionada en sessionStorage antes de navegar.
+ */
+export const LECTURA_SELECCIONADA_KEY = "lectura-resultados:seleccionada";
+
+/** Busca una lectura por id (el guardado en sessionStorage es string). */
+export function obtenerLecturaPorId(
+  id: string | null | undefined,
+): LecturaResultado | undefined {
+  if (!id) return undefined;
+  return lecturasResultados.find((lectura) => String(lectura.id) === id);
+}
