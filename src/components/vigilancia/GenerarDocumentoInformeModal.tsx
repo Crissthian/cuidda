@@ -1,3 +1,6 @@
+import CartaPresentacionModal from "@/components/vigilancia/CartaPresentacionModal";
+import { useState } from "react";
+
 type Props = {
   isOpen: boolean;
   onClose: () => void;
@@ -66,79 +69,99 @@ export default function GenerarDocumentoInformeModal({
   isOpen,
   onClose,
 }: Props) {
-  if (!isOpen) return null;
+  const [showCarta, setShowCarta] = useState(false);
+
+  if (!isOpen && !showCarta) return null;
+
+  const handleDocClick = (nombre: string) => {
+    if (nombre === "Carta de presentación") {
+      setShowCarta(true);
+      return;
+    }
+    onClose();
+  };
+
+  const handleCloseCarta = () => {
+    setShowCarta(false);
+  };
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 backdrop-blur-[2px]"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="modal-generar-documento-informe-title"
-      onClick={onClose}
-    >
-      <div
-        className="relative flex max-h-[95vh] w-full max-w-5xl flex-col overflow-hidden rounded-2xl bg-surface-default shadow-xl"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <button
-          type="button"
+    <>
+      {isOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 backdrop-blur-[2px]"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="modal-generar-documento-informe-title"
           onClick={onClose}
-          className="absolute right-6 top-5 flex size-8 items-center justify-center rounded-full text-brand hover:bg-surface-light"
-          aria-label="Cerrar modal"
         >
-          <i
-            className="fa-solid fa-right-from-bracket text-lg"
-            aria-hidden="true"
-          />
-        </button>
-
-        <div className="overflow-y-auto px-8 py-6">
-          <h2
-            id="modal-generar-documento-informe-title"
-            className="text-lg font-bold text-brand"
-          >
-            Generar documento
-          </h2>
-          <p className="mt-1 text-sm text-accent-muted">
-            Todos los documentos se generan desde la misma información
-            consolidada.
-          </p>
-
           <div
-            className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2"
-            role="list"
-            aria-label="Documentos disponibles"
+            className="relative flex max-h-[95vh] w-full max-w-5xl flex-col overflow-hidden rounded-2xl bg-surface-default shadow-xl"
+            onClick={(e) => e.stopPropagation()}
           >
-            {documentos.map((doc) => (
-              <button
-                key={doc.nombre}
-                type="button"
-                role="listitem"
-                aria-label={`Generar ${doc.nombre}`}
-                onClick={onClose}
-                className="flex items-center gap-3 rounded-xl bg-surface-light px-4 py-3.5 text-left shadow-sm shadow-border-subtle/30 transition-colors hover:bg-muted-20"
-              >
-                <i
-                  className={`fa-regular ${doc.icono} shrink-0 text-lg text-muted`}
-                  aria-hidden="true"
-                />
-                <span className="text-sm leading-snug text-text-secondary">
-                  {doc.nombre}{" "}
-                  {doc.formato && (
-                    <span className="text-brand">{doc.formato}</span>
-                  )}
-                </span>
-              </button>
-            ))}
-          </div>
+            <button
+              type="button"
+              onClick={onClose}
+              className="absolute right-6 top-5 flex size-8 items-center justify-center rounded-full text-brand hover:bg-surface-light"
+              aria-label="Cerrar modal"
+            >
+              <i
+                className="fa-solid fa-right-from-bracket text-lg"
+                aria-hidden="true"
+              />
+            </button>
 
-          <p className="mt-6 text-xs leading-relaxed text-risk-salmon">
-            El paquete reúne el Excel oficial, la carta de presentación y el
-            informe ejecutivo. No se realiza envío automático a la autoridad
-            sanitaria.
-          </p>
+            <div className="overflow-y-auto px-8 py-6">
+              <h2
+                id="modal-generar-documento-informe-title"
+                className="text-lg font-bold text-brand"
+              >
+                Generar documento
+              </h2>
+              <p className="mt-1 text-sm text-accent-muted">
+                Todos los documentos se generan desde la misma información
+                consolidada.
+              </p>
+
+              <div
+                className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2"
+                role="list"
+                aria-label="Documentos disponibles"
+              >
+                {documentos.map((doc) => (
+                  <button
+                    key={doc.nombre}
+                    type="button"
+                    role="listitem"
+                    aria-label={`Generar ${doc.nombre}`}
+                    onClick={() => handleDocClick(doc.nombre)}
+                    className="flex items-center gap-3 rounded-xl bg-surface-light px-4 py-3.5 text-left shadow-sm shadow-border-subtle/30 transition-colors hover:bg-muted-20"
+                  >
+                    <i
+                      className={`fa-regular ${doc.icono} shrink-0 text-lg text-muted`}
+                      aria-hidden="true"
+                    />
+                    <span className="text-sm leading-snug text-text-secondary">
+                      {doc.nombre}{" "}
+                      {doc.formato && (
+                        <span className="text-brand">{doc.formato}</span>
+                      )}
+                    </span>
+                  </button>
+                ))}
+              </div>
+
+              <p className="mt-6 text-xs leading-relaxed text-risk-salmon">
+                El paquete reúne el Excel oficial, la carta de presentación y el
+                informe ejecutivo. No se realiza envío automático a la autoridad
+                sanitaria.
+              </p>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      )}
+
+      <CartaPresentacionModal isOpen={showCarta} onClose={handleCloseCarta} />
+    </>
   );
 }
