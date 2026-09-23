@@ -1,0 +1,17 @@
+<html xmlns:w="urn:schemas-microsoft-com:office:word"><head><meta charset="utf-8"><title>Carta de presentación</title>
+<style>body{font-family:Arial,sans-serif;font-size:11pt;line-height:1.5;color:#111}h1{font-size:14pt}h2{font-size:12pt}
+table{border-collapse:collapse;width:100%}td,th{border:1px solid #999;padding:4px 6px;font-size:10pt}
+.firma{margin-top:48px;display:flex;gap:48px}.firma div{flex:1;border-top:1px solid #333;padding-top:6px;font-size:10pt}</style>
+</head><body>
+  <p style="text-align:right">Huancayo, 2026-09-15</p>
+  <p><b>Señor(a)</b><br>Director(a) de DIGESA<br>Dirección de Salud Ocupacional<br>DIGESA - MINSA<br>Sede institucional Junín</p>
+  <p><b>Asunto:</b> Presentación del Informe Técnico Anual de Vigilancia de la Salud de los Trabajadores 2026</p>
+  <p>De mi mayor consideración:</p>
+  <p>Por medio de la presente, la empresa <b>Andina Industrial S.A.C.</b>, con RUC N.º 20512347781, con domicilio en Av. Ferrocarril 1420, distrito de El Tambo, provincia de Huancayo, departamento de Junín, sede <b>Consolidado</b>, remite el Informe Técnico Anual de Vigilancia de la Salud de los Trabajadores correspondiente al año <b>2026</b>, conforme a la normativa vigente en salud ocupacional.</p>
+  <p>El médico responsable de la Vigilancia de la Salud de los Trabajadores, <b>Dr. M. Salcedo Quiroz</b> (CMP 48231), da conformidad a los datos reportados en el Informe Técnico adjunto.</p>
+  <p>Sin otro particular, quedamos atentos a sus observaciones.</p>
+  <p>Atentamente,</p>
+  <div class="firma">
+    <div>Elena Vargas Ríos<br>DNI 09887654<br>Representante autorizado de la empresa<br><i>Pendiente de firma</i></div>
+    <div>Dr. M. Salcedo Quiroz<br>CMP 48231<br>Médico responsable de Vigilancia de la Salud<br><i>Pendiente de firma</i></div>
+  </div></body></html>

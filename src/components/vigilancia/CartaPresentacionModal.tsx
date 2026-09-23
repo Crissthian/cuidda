@@ -10,6 +10,24 @@ type Props = {
 const labelClass = "mb-1.5 block text-[15px] text-text-primary";
 const inputClass = "form-input rounded-lg! bg-surface-light! py-3! text-sm";
 
+const CARTA_DOCX = "Carta de Presentacion 2026.doc";
+const CARTA_PDF = "Carta de presentación.pdf";
+
+async function descargarCarta(nombreArchivo: string) {
+  const url = `/docs/${encodeURIComponent(nombreArchivo)}`;
+  const response = await fetch(url);
+  if (!response.ok) throw new Error(`No se encontró ${nombreArchivo}`);
+  const blob = await response.blob();
+  const blobUrl = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = blobUrl;
+  link.download = nombreArchivo;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(blobUrl);
+}
+
 export default function CartaPresentacionModal({ isOpen, onClose }: Props) {
   const [sede, setSede] = useState("");
   const [vencimiento, setVencimiento] = useState("");
@@ -18,6 +36,7 @@ export default function CartaPresentacionModal({ isOpen, onClose }: Props) {
   const [entidad, setEntidad] = useState("");
   const [direccion, setDireccion] = useState("");
   const [asunto, setAsunto] = useState("");
+  const [descargando, setDescargando] = useState<"docx" | "pdf" | null>(null);
 
   if (!isOpen) return null;
 
@@ -36,14 +55,34 @@ export default function CartaPresentacionModal({ isOpen, onClose }: Props) {
     onClose();
   };
 
-  const handleDescargarDocx = () => {
-    toast.success("Carta de presentación DOCX generada.");
-    handleClose();
+  const handleDescargarDocx = async () => {
+    if (descargando) return;
+    setDescargando("docx");
+    try {
+      await descargarCarta(CARTA_DOCX);
+      toast.success(`"${CARTA_DOCX}" descargado.`);
+    } catch {
+      toast.error(
+        `No se pudo descargar "${CARTA_DOCX}". Verifique que el archivo exista en /docs.`,
+      );
+    } finally {
+      setDescargando(null);
+    }
   };
 
-  const handleGenerarPdf = () => {
-    toast.success("Carta de presentación PDF generada.");
-    handleClose();
+  const handleGenerarPdf = async () => {
+    if (descargando) return;
+    setDescargando("pdf");
+    try {
+      await descargarCarta(CARTA_PDF);
+      toast.success(`"${CARTA_PDF}" descargado.`);
+    } catch {
+      toast.error(
+        `No se pudo descargar "${CARTA_PDF}". Verifique que el archivo exista en /docs.`,
+      );
+    } finally {
+      setDescargando(null);
+    }
   };
 
   return (
@@ -203,23 +242,25 @@ export default function CartaPresentacionModal({ isOpen, onClose }: Props) {
               <button
                 type="button"
                 onClick={handleDescargarDocx}
-                className="flex items-center justify-center gap-2 rounded-lg bg-muted px-6 py-3 text-xs font-bold text-white transition hover:bg-muted-80"
+                disabled={descargando !== null}
+                className="flex items-center justify-center gap-2 rounded-lg bg-muted px-6 py-3 text-xs font-bold text-white transition hover:bg-muted-80 disabled:cursor-wait disabled:opacity-70"
               >
                 <i
-                  className="fa-solid fa-file-word text-sm"
+                  className={`text-sm ${descargando === "docx" ? "fa-solid fa-spinner fa-spin" : "fa-solid fa-file-word"}`}
                   aria-hidden="true"
                 />
-                DESCARGAR DOCX
+                {descargando === "docx" ? "DESCARGANDO..." : "DESCARGAR DOCX"}
               </button>
               <button
                 type="submit"
-                className="flex items-center justify-center gap-2 rounded-lg bg-brand px-6 py-3 text-xs font-bold text-white transition hover:bg-primary-hover"
+                disabled={descargando !== null}
+                className="flex items-center justify-center gap-2 rounded-lg bg-brand px-6 py-3 text-xs font-bold text-white transition hover:bg-primary-hover disabled:cursor-wait disabled:opacity-70"
               >
                 <i
-                  className="fa-solid fa-file-pdf text-sm"
+                  className={`text-sm ${descargando === "pdf" ? "fa-solid fa-spinner fa-spin" : "fa-solid fa-file-pdf"}`}
                   aria-hidden="true"
                 />
-                GENERAR PDF
+                {descargando === "pdf" ? "DESCARGANDO..." : "GENERAR PDF"}
               </button>
             </div>
           </form>

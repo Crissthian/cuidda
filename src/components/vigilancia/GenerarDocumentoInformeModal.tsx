@@ -1,5 +1,7 @@
 import CartaPresentacionModal from "@/components/vigilancia/CartaPresentacionModal";
+import JSZip from "jszip";
 import { useState } from "react";
+import { toast } from "sonner";
 
 type Props = {
   isOpen: boolean;
@@ -10,58 +12,79 @@ interface DocumentoItem {
   nombre: string;
   formato: string | null;
   icono: string;
+  /** Nombre(s) de archivo en `public/docs`. Proviene del comentario original. */
+  archivo: string | string[];
+  modal?: "carta";
+  /** Si es true, los archivos se comprimen en un ZIP. */
+  zip?: boolean;
 }
 
 const documentos: DocumentoItem[] = [
   {
     nombre: "Excel oficial DIGESA / DIRESA",
-    formato: "(xlxs)",
-    icono: "fa-file-excel",
+    formato: "(xls)",
+    icono: "fa-regular fa-file-excel",
+    archivo: "Informe Tecnico DIGESA 2026.xls",
   },
   {
     nombre: "Carta de presentación",
-    formato: "(docx / pdf)",
-    icono: "fa-file-word",
+    formato: "(doc / pdf)",
+    icono: "fa-regular fa-file-word",
+    archivo: ["Carta de Presentacion 2026.doc", "Carta de presentación.pdf"],
+    modal: "carta",
   },
   {
     nombre: "Informe ejecutivo anual",
     formato: "(pdf)",
-    icono: "fa-file-pdf",
+    icono: "fa-regular fa-file-pdf",
+    archivo: "Informe ejecutivo anual.pdf",
   },
   {
     nombre: "Informe epidemiológico",
     formato: "(pdf)",
-    icono: "fa-file-pdf",
+    icono: "fa-regular fa-file-pdf",
+    archivo: "Informe epidemiológico.pdf",
   },
   {
-    nombre: "Informe de aptitud medico ocupacional compilado",
+    nombre: "Informe de aptitud medico ocupacional consolidado",
     formato: "(pdf)",
-    icono: "fa-file-pdf",
+    icono: "fa-regular fa-file-pdf",
+    archivo: "Informe de aptitud médico ocupacional consolidado.pdf",
   },
   {
     nombre: "Informe de enfermedades y hallazgos",
     formato: "(pdf)",
-    icono: "fa-file-pdf",
+    icono: "fa-regular fa-file-pdf",
+    archivo: "Informe de enfermedades y hallazgos.pdf",
   },
   {
     nombre: "Informe de programas de vigilancia",
     formato: "(pdf)",
-    icono: "fa-file-pdf",
+    icono: "fa-regular fa-file-pdf",
+    archivo: "Informe de programas de vigilancia.pdf",
   },
   {
     nombre: "Informe de población G1/G2/G3",
     formato: "(pdf)",
-    icono: "fa-file-pdf",
+    icono: "fa-regular fa-file-pdf",
+    archivo: "Informe de población G1_G2_G3.pdf",
   },
   {
     nombre: "Documento personalizado",
     formato: "(pdf)",
-    icono: "fa-file-pdf",
+    icono: "fa-regular fa-file-pdf",
+    archivo: "Documento personalizado.pdf",
   },
   {
     nombre: "Generar paquete de presentación",
-    formato: null,
+    formato: "(zip)",
     icono: "fa-solid fa-box",
+    archivo: [
+      "Informe Tecnico DIGESA 2026.xls",
+      "Carta de presentación.pdf",
+      "Informe ejecutivo anual.pdf",
+    ],
+    zip: true,
   },
 ];
 
@@ -69,20 +92,80 @@ export default function GenerarDocumentoInformeModal({
   isOpen,
   onClose,
 }: Props) {
+  const [descargando, setDescargando] = useState<string | null>(null);
   const [showCarta, setShowCarta] = useState(false);
 
   if (!isOpen && !showCarta) return null;
 
-  const handleDocClick = (nombre: string) => {
-    if (nombre === "Carta de presentación") {
+  const descargarArchivo = async (nombreArchivo: string) => {
+    const url = `/docs/${encodeURIComponent(nombreArchivo)}`;
+    const response = await fetch(url);
+    if (!response.ok) throw new Error(`No se encontró ${nombreArchivo}`);
+    const blob = await response.blob();
+    const blobUrl = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = blobUrl;
+    link.download = nombreArchivo;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(blobUrl);
+  };
+
+  const descargarZip = async (doc: DocumentoItem, archivos: string[]) => {
+    const zip = new JSZip();
+    for (const archivo of archivos) {
+      const url = `/docs/${encodeURIComponent(archivo)}`;
+      const response = await fetch(url);
+      if (!response.ok) throw new Error(`No se encontró ${archivo}`);
+      const blob = await response.blob();
+      zip.file(archivo, blob);
+    }
+    const contenido = await zip.generateAsync({ type: "blob" });
+    const blobUrl = URL.createObjectURL(contenido);
+    const link = document.createElement("a");
+    link.href = blobUrl;
+    link.download = "Paquete de presentación.zip";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(blobUrl);
+  };
+
+  const handleDescargar = async (doc: DocumentoItem) => {
+    if (descargando) return;
+    // La carta se configura y descarga desde su propio modal.
+    if (doc.modal === "carta") {
       setShowCarta(true);
       return;
     }
-    onClose();
-  };
-
-  const handleCloseCarta = () => {
-    setShowCarta(false);
+    setDescargando(doc.nombre);
+    try {
+      const archivos = Array.isArray(doc.archivo) ? doc.archivo : [doc.archivo];
+      if (doc.zip) {
+        await descargarZip(doc, archivos);
+        toast.success(
+          `Paquete "${doc.nombre}" descargado (${archivos.length} archivos en ZIP).`,
+        );
+        return;
+      }
+      for (const archivo of archivos) {
+        await descargarArchivo(archivo);
+        // Pausa para que el navegador procese descargas múltiples.
+        await new Promise((resolve) => setTimeout(resolve, 400));
+      }
+      toast.success(
+        archivos.length > 1
+          ? `Paquete "${doc.nombre}" descargado (${archivos.length} archivos).`
+          : `"${doc.nombre}" descargado.`,
+      );
+    } catch {
+      toast.error(
+        `No se pudo descargar "${doc.nombre}". Verifique que el archivo exista en /docs.`,
+      );
+    } finally {
+      setDescargando(null);
+    }
   };
 
   return (
@@ -128,27 +211,36 @@ export default function GenerarDocumentoInformeModal({
                 role="list"
                 aria-label="Documentos disponibles"
               >
-                {documentos.map((doc) => (
-                  <button
-                    key={doc.nombre}
-                    type="button"
-                    role="listitem"
-                    aria-label={`Generar ${doc.nombre}`}
-                    onClick={() => handleDocClick(doc.nombre)}
-                    className="flex items-center gap-3 rounded-xl bg-surface-light px-4 py-3.5 text-left shadow-sm shadow-border-subtle/30 transition-colors hover:bg-muted-20"
-                  >
-                    <i
-                      className={`fa-regular ${doc.icono} shrink-0 text-lg text-muted`}
-                      aria-hidden="true"
-                    />
-                    <span className="text-sm leading-snug text-text-secondary">
-                      {doc.nombre}{" "}
-                      {doc.formato && (
-                        <span className="text-brand">{doc.formato}</span>
-                      )}
-                    </span>
-                  </button>
-                ))}
+                {documentos.map((doc) => {
+                  const enCurso = descargando === doc.nombre;
+                  return (
+                    <button
+                      key={doc.nombre}
+                      type="button"
+                      role="listitem"
+                      aria-label={`Descargar ${doc.nombre}`}
+                      title={
+                        Array.isArray(doc.archivo)
+                          ? doc.archivo.join(", ")
+                          : doc.archivo
+                      }
+                      onClick={() => handleDescargar(doc)}
+                      disabled={descargando !== null}
+                      className="flex items-center gap-3 rounded-xl bg-surface-light px-4 py-3.5 text-left shadow-sm shadow-border-subtle/30 transition-colors hover:bg-muted-20 disabled:cursor-wait disabled:opacity-70"
+                    >
+                      <i
+                        className={`shrink-0 text-lg text-muted ${enCurso ? "fa-solid fa-spinner fa-spin" : doc.icono}`}
+                        aria-hidden="true"
+                      />
+                      <span className="text-sm leading-snug text-text-secondary">
+                        {enCurso ? "Descargando..." : doc.nombre}{" "}
+                        {doc.formato && (
+                          <span className="text-brand">{doc.formato}</span>
+                        )}
+                      </span>
+                    </button>
+                  );
+                })}
               </div>
 
               <p className="mt-6 text-xs leading-relaxed text-risk-salmon">
@@ -160,8 +252,10 @@ export default function GenerarDocumentoInformeModal({
           </div>
         </div>
       )}
-
-      <CartaPresentacionModal isOpen={showCarta} onClose={handleCloseCarta} />
+      <CartaPresentacionModal
+        isOpen={showCarta}
+        onClose={() => setShowCarta(false)}
+      />
     </>
   );
 }
