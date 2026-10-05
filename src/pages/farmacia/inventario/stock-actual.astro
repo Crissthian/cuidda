@@ -1,0 +1,12 @@
+---
+import DashboardLayout from "@/layouts/DashboardLayout.astro";
+import StockActual from "@/components/farmacia/inventario/StockActual";
+---
+
+<DashboardLayout title="Stock Actual">
+  <section class="p-4 mx-6">
+    <div class="mx-auto">
+      <StockActual client:load />
+    </div>
+  </section>
+</DashboardLayout>

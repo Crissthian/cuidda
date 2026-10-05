@@ -1,0 +1,12 @@
+---
+import DashboardLayout from "@/layouts/DashboardLayout.astro";
+import ResumenVentas from "@/components/farmacia/informes/ResumenVentas";
+---
+
+<DashboardLayout title="Resumen de ventas">
+  <section class="p-6 mx-6" aria-labelledby="resumen-ventas-heading">
+    <div class="mx-auto flex flex-col gap-8">
+      <ResumenVentas client:load />
+    </div>
+  </section>
+</DashboardLayout>

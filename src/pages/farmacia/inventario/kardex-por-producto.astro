@@ -1,0 +1,12 @@
+---
+import DashboardLayout from "@/layouts/DashboardLayout.astro";
+import KardexPorProducto from "@/components/farmacia/inventario/KardexPorProducto";
+---
+
+<DashboardLayout title="Kardex por Producto">
+  <section class="p-4 mx-6">
+    <div class="mx-auto">
+      <KardexPorProducto client:load />
+    </div>
+  </section>
+</DashboardLayout>

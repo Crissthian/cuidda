@@ -189,8 +189,46 @@ const menu: MenuNode[] = [
         id: "inventario",
         label: "Inventario",
         href: "/farmacia/inventario",
+        children: [
+          {
+            id: "stock-actual",
+            label: "Stock Actual",
+            href: "/farmacia/inventario/stock-actual",
+          },
+          {
+            id: "kardex-por-producto",
+            label: "Kardex por Producto",
+            href: "/farmacia/inventario/kardex-por-producto",
+          },
+          {
+            id: "semaforo-de-vencimientos",
+            label: "Semáforo de Vencimientos",
+            href: "/farmacia/inventario/semaforo-de-vencimientos",
+          },
+        ],
       },
-      { id: "informes", label: "Informes", href: "/farmacia/informes" },
+      {
+        id: "informes",
+        label: "Informes",
+        href: "/farmacia/informes",
+        children: [
+          {
+            id: "resumen-compras",
+            label: "Resumen de Compras",
+            href: "/farmacia/informes/resumen-compras",
+          },
+          {
+            id: "resumen-medicamentos",
+            label: "Resumen de Medicamentos",
+            href: "/farmacia/informes/resumen-medicamentos",
+          },
+          {
+            id: "resumen-ventas",
+            label: "Resumen de Ventas",
+            href: "/farmacia/informes/resumen-ventas",
+          },
+        ],
+      },
     ],
   },
   {
@@ -441,7 +479,7 @@ const isVigilancia = isActive("/vigilancia-medica");
                                 {sub.children.map((leaf) => (
                                   <a
                                     href={leaf.href}
-                                    class={`block rounded py-1.5 pl-12 pr-2 text-[11px] transition hover:bg-white ${linkClass(leaf.href)}`}
+                                    class={`block rounded py-1.5 pl-12 pr-2 text-xs transition hover:bg-white ${linkClass(leaf.href)}`}
                                   >
                                     {leaf.label}
                                   </a>

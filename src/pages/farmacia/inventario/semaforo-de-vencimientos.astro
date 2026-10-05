@@ -1,0 +1,12 @@
+---
+import DashboardLayout from "@/layouts/DashboardLayout.astro";
+import SemaforoVencimientos from "@/components/farmacia/inventario/SemaforoVencimientos";
+---
+
+<DashboardLayout title="Semáforo de Vencimientos">
+  <section class="p-4 mx-6">
+    <div class="mx-auto">
+      <SemaforoVencimientos client:load />
+    </div>
+  </section>
+</DashboardLayout>

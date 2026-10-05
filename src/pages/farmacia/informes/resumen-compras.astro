@@ -1,0 +1,12 @@
+---
+import DashboardLayout from "@/layouts/DashboardLayout.astro";
+import ResumenCompras from "@/components/farmacia/informes/ResumenCompras";
+---
+
+<DashboardLayout title="Resumen de Compras">
+  <section class="px-6 py-2 mx-6" aria-labelledby="resumen-compras-heading">
+    <div class="mx-auto flex flex-col gap-8">
+      <ResumenCompras client:load />
+    </div>
+  </section>
+</DashboardLayout>
