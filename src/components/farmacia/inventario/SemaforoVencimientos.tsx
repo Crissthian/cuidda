@@ -3,6 +3,8 @@ import {
   type SemaforoVencimientoRow,
 } from "@/lib/farmaciaData";
 import { SEDES } from "@/lib/sedes";
+import ExcelJS from "exceljs";
+import FileSaver from "file-saver";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
 
@@ -49,8 +51,101 @@ export const SemaforoVencimientos = () => {
     }, 600);
   };
 
-  const handleExport = () => {
-    toast.success("Excel exportado correctamente");
+  const handleExport = async () => {
+    if (!hasSelectedAlmacen) {
+      toast.error(
+        "Debe seleccionar una sede para exportar el semáforo de vencimientos",
+      );
+      return;
+    }
+
+    if (data.length === 0) {
+      toast.error("No hay datos para exportar");
+      return;
+    }
+
+    try {
+      const workbook = new ExcelJS.Workbook();
+      const worksheet = workbook.addWorksheet("Vencimientos");
+
+      worksheet.columns = [
+        { header: "ITEM", key: "item", width: 8 },
+        { header: "CÓDIGO", key: "codigo", width: 15 },
+        { header: "PRODUCTO", key: "producto", width: 50 },
+        { header: "LOTE", key: "lote", width: 15 },
+        { header: "CANTIDAD", key: "cantidad", width: 12 },
+        { header: "FECHA DE VENC.", key: "fechaVenc", width: 18 },
+        { header: "DÍAS", key: "dias", width: 10 },
+        { header: "ESTADO", key: "estado", width: 15 },
+      ];
+
+      const headerRow = worksheet.getRow(1);
+      headerRow.height = 25;
+      headerRow.eachCell((cell) => {
+        cell.font = { bold: true, color: { argb: "FFFFFF" }, size: 11 };
+        cell.fill = {
+          type: "pattern",
+          pattern: "solid",
+          fgColor: { argb: "0070C0" },
+        };
+        cell.alignment = { vertical: "middle", horizontal: "center" };
+        cell.border = {
+          top: { style: "thin" },
+          left: { style: "thin" },
+          bottom: { style: "thin" },
+          right: { style: "thin" },
+        };
+      });
+
+      data.forEach((item, index) => {
+        worksheet.addRow({
+          item: index + 1,
+          codigo: item.codigo,
+          producto: item.producto,
+          lote: item.numeroLote,
+          cantidad: item.cantidad,
+          fechaVenc: item.fechaVencimiento,
+          dias: item.diasRestantes,
+          estado: item.estado,
+        });
+      });
+
+      worksheet.eachRow((row, rowNumber) => {
+        if (rowNumber > 1) {
+          row.eachCell((cell) => {
+            cell.border = {
+              top: { style: "thin" },
+              left: { style: "thin" },
+              bottom: { style: "thin" },
+              right: { style: "thin" },
+            };
+            cell.alignment = {
+              vertical: "middle",
+              wrapText: true,
+              horizontal: "left",
+            };
+
+            const colIndex = Number(cell.col);
+            if ([1, 2, 4, 5, 6, 7, 8].includes(colIndex)) {
+              cell.alignment = { ...cell.alignment, horizontal: "center" };
+            }
+          });
+        }
+      });
+
+      const buffer = await workbook.xlsx.writeBuffer();
+      const blob = new Blob([buffer], {
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      });
+      FileSaver.saveAs(
+        blob,
+        `Semaforo_Vencimientos_${new Date().toISOString().split("T")[0]}.xlsx`,
+      );
+
+      toast.success("Excel exportado correctamente");
+    } catch {
+      toast.error("Hubo un error al exportar el archivo");
+    }
   };
 
   return (
@@ -222,7 +317,7 @@ export const SemaforoVencimientos = () => {
           </div>
 
           {totalRegistros > 0 && (
-            <div className="flex flex-col sm:flex-row justify-between items-center gap-3 pt-4 text-sm mb-4 border-t border-border-default">
+            <div className="flex flex-col sm:flex-row justify-between items-center gap-3 pt-4 text-sm border-t border-border-default">
               <div className="text-sm text-text-primary-80">
                 Mostrando{" "}
                 <span className="font-semibold text-text-primary">

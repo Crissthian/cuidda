@@ -1,5 +1,7 @@
 import { resumenVentasData } from "@/lib/farmaciaData";
 import { SEDES } from "@/lib/sedes";
+import ExcelJS from "exceljs";
+import FileSaver from "file-saver";
 import { Search } from "lucide-react";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
@@ -47,8 +49,101 @@ export const ResumenVentas = () => {
     toast.success("Búsqueda de ventas actualizada.");
   };
 
-  const handleExport = () => {
-    toast.success("Excel exportado correctamente");
+  const handleExport = async () => {
+    if (!sede) {
+      toast.error(
+        "Debe seleccionar una sede para exportar el resumen de ventas",
+      );
+      return;
+    }
+
+    if (currentRows.length === 0) {
+      toast.error("No hay datos para exportar");
+      return;
+    }
+
+    try {
+      const workbook = new ExcelJS.Workbook();
+      const worksheet = workbook.addWorksheet("Resumen de Ventas");
+
+      worksheet.columns = [
+        { header: "N° COMPROBANTE", key: "numeroComprobante", width: 20 },
+        { header: "FECHA DE VENTA", key: "fechaVenta", width: 20 },
+        { header: "CLIENTE", key: "cliente", width: 40 },
+        { header: "SUB TOTAL", key: "subTotal", width: 15 },
+        { header: "I.G.V.", key: "igv", width: 15 },
+        { header: "TOTAL", key: "total", width: 15 },
+      ];
+
+      currentRows.forEach((item) => {
+        worksheet.addRow({
+          numeroComprobante: item.numeroComprobante,
+          fechaVenta: item.fechaVenta,
+          cliente: renderCliente(item.cliente),
+          subTotal: item.subTotal,
+          igv: item.igv,
+          total: item.total,
+        });
+      });
+
+      const headerRow = worksheet.getRow(1);
+      headerRow.height = 25;
+      headerRow.eachCell((cell) => {
+        cell.font = { bold: true, color: { argb: "FFFFFF" }, size: 11 };
+        cell.fill = {
+          type: "pattern",
+          pattern: "solid",
+          fgColor: { argb: "0070C0" },
+        };
+        cell.alignment = {
+          vertical: "middle",
+          horizontal: "center",
+          wrapText: true,
+        };
+        cell.border = {
+          top: { style: "thin" },
+          left: { style: "thin" },
+          bottom: { style: "thin" },
+          right: { style: "thin" },
+        };
+      });
+
+      worksheet.eachRow((row, rowNumber) => {
+        if (rowNumber > 1) {
+          row.eachCell((cell) => {
+            cell.border = {
+              top: { style: "thin" },
+              left: { style: "thin" },
+              bottom: { style: "thin" },
+              right: { style: "thin" },
+            };
+            cell.alignment = {
+              vertical: "middle",
+              wrapText: true,
+              horizontal: "left",
+            };
+
+            const colIndex = Number(cell.col);
+            if ([1, 2, 4, 5, 6].includes(colIndex)) {
+              cell.alignment = { ...cell.alignment, horizontal: "center" };
+            }
+          });
+        }
+      });
+
+      const buffer = await workbook.xlsx.writeBuffer();
+      const blob = new Blob([buffer], {
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      });
+      FileSaver.saveAs(
+        blob,
+        `Resumen_Ventas_${new Date().toISOString().split("T")[0]}.xlsx`,
+      );
+
+      toast.success("Excel exportado correctamente");
+    } catch {
+      toast.error("Hubo un error al exportar el archivo");
+    }
   };
 
   return (

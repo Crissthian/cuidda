@@ -1,6 +1,8 @@
-import { useState, useMemo } from "react";
-import { Search } from "lucide-react";
 import { resumenMedicamentosData } from "@/lib/farmaciaData";
+import ExcelJS from "exceljs";
+import FileSaver from "file-saver";
+import { Search } from "lucide-react";
+import { useMemo, useState } from "react";
 import { toast } from "sonner";
 
 export const ResumenMedicamentos = () => {
@@ -14,7 +16,7 @@ export const ResumenMedicamentos = () => {
       (m) =>
         m.producto.toLowerCase().includes(textProducto.toLowerCase()) ||
         m.codigoInterno.toLowerCase().includes(textProducto.toLowerCase()) ||
-        m.codigoDigemid.toLowerCase().includes(textProducto.toLowerCase())
+        m.codigoDigemid.toLowerCase().includes(textProducto.toLowerCase()),
     );
   }, [textProducto]);
 
@@ -27,15 +29,110 @@ export const ResumenMedicamentos = () => {
   }, [filteredData, globalOffset, pageSize]);
 
   const handlePreviousPage = () => setCurrentPage((p) => Math.max(1, p - 1));
-  const handleNextPage = () => setCurrentPage((p) => Math.min(totalPages, p + 1));
+  const handleNextPage = () =>
+    setCurrentPage((p) => Math.min(totalPages, p + 1));
 
   const handleSearch = () => {
     setCurrentPage(1);
     toast.success("Búsqueda de medicamentos actualizada.");
   };
 
-  const handleExport = () => {
-    toast.success("Excel exportado correctamente");
+  const handleExport = async () => {
+    if (currentRows.length === 0) {
+      toast.error("No hay datos para exportar");
+      return;
+    }
+
+    try {
+      const workbook = new ExcelJS.Workbook();
+      const worksheet = workbook.addWorksheet("Resumen de Medicamentos");
+
+      worksheet.columns = [
+        { header: "CÓDIGO INTERNO", key: "codigoInterno", width: 15 },
+        { header: "CÓDIGO DIGEMID", key: "codigoDigemid", width: 15 },
+        { header: "PRODUCTO", key: "producto", width: 40 },
+        { header: "PRINCIPIO ACTIVO", key: "principioActivo", width: 25 },
+        { header: "PRESENTACIÓN", key: "presentacion", width: 20 },
+        { header: "TIPO DE MEDICAMENTO", key: "tipoMedicamento", width: 20 },
+        { header: "REQUIERE RECETA", key: "requiereReceta", width: 20 },
+        { header: "PRECIO UNIT", key: "precioUnit", width: 15 },
+        { header: "PRECIO BLISTER", key: "precioBlister", width: 15 },
+        { header: "PRECIO CAJA", key: "precioCaja", width: 15 },
+      ];
+
+      currentRows.forEach((item) => {
+        worksheet.addRow({
+          codigoInterno: item.codigoInterno,
+          codigoDigemid: item.codigoDigemid,
+          producto: item.producto,
+          principioActivo: item.principioActivo,
+          presentacion: item.presentacion,
+          tipoMedicamento: item.tipoMedicamento,
+          requiereReceta: item.requiereReceta,
+          precioUnit: item.precioUnit,
+          precioBlister: item.precioBlister,
+          precioCaja: item.precioCaja,
+        });
+      });
+
+      const headerRow = worksheet.getRow(1);
+      headerRow.height = 25;
+      headerRow.eachCell((cell) => {
+        cell.font = { bold: true, color: { argb: "FFFFFF" }, size: 11 };
+        cell.fill = {
+          type: "pattern",
+          pattern: "solid",
+          fgColor: { argb: "0070C0" },
+        };
+        cell.alignment = {
+          vertical: "middle",
+          horizontal: "center",
+          wrapText: true,
+        };
+        cell.border = {
+          top: { style: "thin" },
+          left: { style: "thin" },
+          bottom: { style: "thin" },
+          right: { style: "thin" },
+        };
+      });
+
+      worksheet.eachRow((row, rowNumber) => {
+        if (rowNumber > 1) {
+          row.eachCell((cell) => {
+            cell.border = {
+              top: { style: "thin" },
+              left: { style: "thin" },
+              bottom: { style: "thin" },
+              right: { style: "thin" },
+            };
+            cell.alignment = {
+              vertical: "middle",
+              wrapText: true,
+              horizontal: "left",
+            };
+
+            const colIndex = Number(cell.col);
+            if ([1, 2, 8, 9, 10].includes(colIndex)) {
+              cell.alignment = { ...cell.alignment, horizontal: "center" };
+            }
+          });
+        }
+      });
+
+      const buffer = await workbook.xlsx.writeBuffer();
+      const blob = new Blob([buffer], {
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      });
+      FileSaver.saveAs(
+        blob,
+        `Resumen_Medicamentos_${new Date().toISOString().split("T")[0]}.xlsx`,
+      );
+
+      toast.success("Excel exportado correctamente");
+    } catch {
+      toast.error("Hubo un error al exportar el archivo");
+    }
   };
 
   return (
@@ -144,13 +241,21 @@ export const ResumenMedicamentos = () => {
                 </tr>
               ) : (
                 currentRows.map((row) => (
-                  <tr key={row.id} className="hover:bg-surface-light text-xs transition-colors">
+                  <tr
+                    key={row.id}
+                    className="hover:bg-surface-light text-xs transition-colors"
+                  >
                     <td className="py-3 px-2">
-                      <button type="button" className="text-brand hover:text-primary-hover">
+                      <button
+                        type="button"
+                        className="text-brand hover:text-primary-hover"
+                      >
                         <Search size={18} strokeWidth={2.5} />
                       </button>
                     </td>
-                    <td className="py-3 px-2 font-medium">{row.codigoInterno}</td>
+                    <td className="py-3 px-2 font-medium">
+                      {row.codigoInterno}
+                    </td>
                     <td className="py-3 px-2">{row.codigoDigemid}</td>
                     <td className="py-3 px-2 truncate font-semibold text-text-primary">
                       {row.producto}
@@ -173,8 +278,15 @@ export const ResumenMedicamentos = () => {
       {totalRegistros > 0 && (
         <div className="flex flex-col sm:flex-row justify-between items-center gap-3 pt-4 text-sm border-t border-border-default">
           <div className="text-sm text-text-primary-80">
-            Mostrando <span className="font-semibold text-text-primary">{currentRows.length}</span> de{" "}
-            <span className="font-semibold text-text-primary">{totalRegistros}</span> registros
+            Mostrando{" "}
+            <span className="font-semibold text-text-primary">
+              {currentRows.length}
+            </span>{" "}
+            de{" "}
+            <span className="font-semibold text-text-primary">
+              {totalRegistros}
+            </span>{" "}
+            registros
           </div>
 
           <div className="flex items-center gap-2">
