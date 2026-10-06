@@ -4,6 +4,8 @@ export interface ModuloAcceso {
   href: string;
   icon: string;
   ariaLabel: string;
+  /** true cuando el enlace apunta a un sitio externo (se abre en otra pestaña) */
+  external?: boolean;
 }
 
 export const modulosAsistencial: ModuloAcceso[] = [
@@ -48,5 +50,13 @@ export const modulosAsistencial: ModuloAcceso[] = [
     href: "/asistencial/pacientes",
     icon: "fa-users",
     ariaLabel: "Ir a Pacientes",
+  },
+  {
+    id: 7,
+    label: "Dashboard",
+    href: "https://atencionesempresaslucemedic.vercel.app/",
+    icon: "fa-chart-line",
+    ariaLabel: "Ir al Dashboard de Atenciones a Empresas",
+    external: true,
   },
 ];

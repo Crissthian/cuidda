@@ -700,6 +700,7 @@ export const viasAplicacionMock: { num_item: string; des_item: string }[] = [
   { num_item: "6", des_item: "OFTÁLMICA" },
   { num_item: "7", des_item: "INHALATORIA" },
   { num_item: "8", des_item: "RECTAL" },
+  { num_item: "9", des_item: "NASAL" },
 ];
 
 export const frecuenciasMedicacionMock: {
@@ -713,6 +714,69 @@ export const frecuenciasMedicacionMock: {
   { num_item: "5", des_item: "CADA 24 HORAS (UNA VEZ AL DÍA)" },
   { num_item: "6", des_item: "CONDICIONAL AL DOLOR" },
   { num_item: "7", des_item: "DOSIS ÚNICA" },
+];
+
+export interface RecetaPorDefecto {
+  producto: string;
+  cantidad: string;
+  via: string;
+  frecuencia: string;
+  duracion: string;
+  comentarios: string;
+  cdg_medicamento: string;
+}
+
+/**
+ * Medicamentos hardcodeados que se precargan por defecto en la sección Receta.
+ * `via` y `frecuencia` referencian `num_item` de `viasAplicacionMock` y
+ * `frecuenciasMedicacionMock` respectivamente.
+ */
+export const recetasRecetaPorDefecto: RecetaPorDefecto[] = [
+  {
+    producto: "AMOXICILINA + ACIDO CLAVULANICO 500/125 MG TABLETA",
+    cantidad: "14",
+    via: "1",
+    frecuencia: "3",
+    duracion: "7",
+    comentarios: "TOMAR DESPUÉS DE LOS ALIMENTOS",
+    cdg_medicamento: "",
+  },
+  {
+    producto: "IBUPROFENO 400 MG TABLETA RECUBIERTA",
+    cantidad: "10",
+    via: "1",
+    frecuencia: "3",
+    duracion: "3",
+    comentarios: "CONDICIONAL AL DOLOR",
+    cdg_medicamento: "",
+  },
+  {
+    producto: "PARACETAMOL 500 MG TABLETA",
+    cantidad: "10",
+    via: "1",
+    frecuencia: "3",
+    duracion: "3",
+    comentarios: "EN CASO DE FIEBRE MAYOR A 38°C",
+    cdg_medicamento: "",
+  },
+  {
+    producto: "CETIRIZINA 10 MG TABLETA",
+    cantidad: "5",
+    via: "1",
+    frecuencia: "5",
+    duracion: "5",
+    comentarios: "TOMAR ANTES DE DORMIR",
+    cdg_medicamento: "",
+  },
+  {
+    producto: "CLORURO DE SODIO 0.9% SOLUCION NASAL",
+    cantidad: "1",
+    via: "9",
+    frecuencia: "4",
+    duracion: "7",
+    comentarios: "2 APLICACIONES EN CADA FOSA NASAL",
+    cdg_medicamento: "",
+  },
 ];
 
 export const sistemasMock: { num_item: string; des_item: string }[] = [

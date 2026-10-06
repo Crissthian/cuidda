@@ -1,14 +1,23 @@
-import React, { Fragment, useEffect, useRef, useState } from "react";
-import { useFieldArray, useFormContext } from "react-hook-form";
 import {
   catalogoCIE10Mock,
+  frecuenciasMedicacionMock,
   medicamentosMock,
   sistemasMock,
   viasAplicacionMock,
-  frecuenciasMedicacionMock,
   type CIE10Item,
   type MedicamentoItem,
 } from "@/lib/consultaMedicaData";
+import React, {
+  Fragment,
+  lazy,
+  Suspense,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import { useFieldArray, useFormContext } from "react-hook-form";
+
+const PDFReceta = lazy(() => import("./PDFReceta"));
 
 interface RecetaTabProps {
   codigo?: string;
@@ -18,7 +27,10 @@ interface RecetaTabProps {
   readOnly?: boolean;
 }
 
-export default function RecetaTab({ readOnly = false }: RecetaTabProps) {
+export default function RecetaTab({
+  codigo,
+  readOnly = false,
+}: RecetaTabProps) {
   const [modalBusquedaAbierto, setModalBusquedaAbierto] = useState(false);
   const [diagnosticoSeleccionadoIndex, setDiagnosticoSeleccionadoIndex] =
     useState<number | null>(null);
@@ -288,6 +300,16 @@ export default function RecetaTab({ readOnly = false }: RecetaTabProps) {
     }
     return false;
   };
+
+  // Diagnósticos capturados en el formulario para el PDF de receta
+  const diagnosticosReceta = (
+    (watch("diagnosticos") ?? []) as Array<{
+      cie10?: string;
+      diagnostico?: string;
+    }>
+  )
+    .filter((d) => d?.diagnostico?.trim())
+    .map((d) => ({ cod_dag: d.cie10, des_dag: d.diagnostico ?? "" }));
 
   return (
     <div className="space-y-8 text-start">
@@ -699,6 +721,32 @@ export default function RecetaTab({ readOnly = false }: RecetaTabProps) {
                 {...registerField("recomendaciones")}
               ></textarea>
             </div>
+          </div>
+
+          {/* Botón Imprimir receta */}
+          <div className="flex justify-end pt-4">
+            <Suspense
+              fallback={
+                <button
+                  type="button"
+                  className="flex items-center gap-2 px-6 py-2 bg-brand text-white rounded-lg font-semibold opacity-50 cursor-not-allowed"
+                  disabled
+                >
+                  <i className="fa-solid fa-spinner fa-spin"></i>
+                  Cargando...
+                </button>
+              }
+            >
+              <PDFReceta
+                codigoAtencion={codigo}
+                pacienteNombre={watch("nombresApellidos")}
+                pacienteDni={watch("dni")}
+                edad={Number(watch("edad")) || undefined}
+                especialidad={watch("especialidad")}
+                recomendaciones={watch("recomendaciones")}
+                diagnosticos={diagnosticosReceta}
+              />
+            </Suspense>
           </div>
         </section>
       </fieldset>

@@ -1,3 +1,10 @@
+import FechaHora from "@/components/FechaHora";
+import Modal from "@/components/ui/Modal";
+import {
+  pacientesConsultaMock,
+  recetasRecetaPorDefecto,
+  sedesMock,
+} from "@/lib/consultaMedicaData";
 import React, {
   useCallback,
   useEffect,
@@ -6,15 +13,12 @@ import React, {
 } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { toast } from "sonner";
+import ArchivosTab from "./tabs/ArchivosTab";
 import DatosGeneralesTab from "./tabs/DatosGeneralesTab";
 import ExamenesAuxiliaresTab from "./tabs/ExamenesAuxiliaresTab";
 import ExamenMedicoTab from "./tabs/ExamenMedicoTab";
 import RecetaTab from "./tabs/RecetaTab";
 import Referencia from "./tabs/ReferenciaTab";
-import ArchivosTab from "./tabs/ArchivosTab";
-import { sedesMock, pacientesConsultaMock } from "@/lib/consultaMedicaData";
-import FechaHora from "@/components/FechaHora";
-import Modal from "@/components/ui/Modal";
 
 const preventSubmitOnEnter = (e: React.KeyboardEvent) => {
   if (e.key === "Enter") e.preventDefault();
@@ -40,17 +44,8 @@ const createDefaultValues = () => ({
   hermanos_cual: "",
   esposa_cual: "",
   diagnosticos: [{ cie10: "", diagnostico: "", tipo: "", sistema: "" }],
-  recetas: [
-    {
-      producto: "",
-      cantidad: "",
-      via: "",
-      frecuencia: "",
-      duracion: "",
-      comentarios: "",
-      cdg_medicamento: "",
-    },
-  ],
+  // Medicamentos hardcodeados que se muestran por defecto en la sección Receta
+  recetas: recetasRecetaPorDefecto.map((receta) => ({ ...receta })),
   indicaciones: "",
   alergias: "",
   nombresApellidos: "",
