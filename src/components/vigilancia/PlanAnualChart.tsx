@@ -1,12 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import {
-  Bar,
-  BarChart,
-  CartesianGrid,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "recharts";
+import { Bar, BarChart, CartesianGrid, Tooltip, XAxis, YAxis } from "recharts";
 import { planData } from "@/lib/vigilanciaData";
 
 export default function PlanAnualChart() {
