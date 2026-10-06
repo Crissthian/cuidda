@@ -1,11 +1,20 @@
-import { useState, useMemo } from "react";
-import { sedesFarmacia, semaforoVencimientosRows, type SemaforoVencimientoRow } from "@/lib/farmaciaData";
+import {
+  semaforoVencimientosRows,
+  type SemaforoVencimientoRow,
+} from "@/lib/farmaciaData";
+import { SEDES } from "@/lib/sedes";
+import { useMemo, useState } from "react";
 import { toast } from "sonner";
 
 export const SemaforoVencimientos = () => {
-  const [selectedAlmacen, setSelectedAlmacen] = useState<string>("1");
-  const [selectedEstado, setSelectedEstado] = useState<"APTO" | "NO APTO" | "">("");
-  const [selectedItem, setSelectedItem] = useState<SemaforoVencimientoRow | null>(null);
+  const [selectedAlmacen, setSelectedAlmacen] = useState<string>(
+    SEDES[0] ?? "",
+  );
+  const [selectedEstado, setSelectedEstado] = useState<"APTO" | "NO APTO" | "">(
+    "",
+  );
+  const [selectedItem, setSelectedItem] =
+    useState<SemaforoVencimientoRow | null>(null);
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const pageSize = 100;
@@ -14,7 +23,9 @@ export const SemaforoVencimientos = () => {
 
   const data = useMemo(() => {
     if (!selectedEstado) return semaforoVencimientosRows;
-    return semaforoVencimientosRows.filter((item) => item.estado === selectedEstado);
+    return semaforoVencimientosRows.filter(
+      (item) => item.estado === selectedEstado,
+    );
   }, [selectedEstado]);
 
   const totalRegistros = data.length;
@@ -22,7 +33,8 @@ export const SemaforoVencimientos = () => {
   const globalOffset = (currentPage - 1) * 100;
 
   const handlePreviousPage = () => setCurrentPage((p) => Math.max(1, p - 1));
-  const handleNextPage = () => setCurrentPage((p) => Math.min(totalPages, p + 1));
+  const handleNextPage = () =>
+    setCurrentPage((p) => Math.min(totalPages, p + 1));
 
   const handleDarBajaLote = () => {
     if (!selectedItem || selectedItem.estado !== "NO APTO") return;
@@ -31,7 +43,7 @@ export const SemaforoVencimientos = () => {
     setTimeout(() => {
       setIsProcessing(false);
       toast.success(
-        `Lote ${selectedItem.numeroLote} del medicamento ${selectedItem.producto} dado de baja correctamente.`
+        `Lote ${selectedItem.numeroLote} del medicamento ${selectedItem.producto} dado de baja correctamente.`,
       );
       setSelectedItem(null);
     }, 600);
@@ -61,9 +73,9 @@ export const SemaforoVencimientos = () => {
               <option value="" disabled>
                 SELECCIONE
               </option>
-              {sedesFarmacia.map((sede) => (
-                <option key={sede.num_item} value={sede.num_item}>
-                  {sede.des_item}
+              {SEDES.map((sede) => (
+                <option key={sede} value={sede}>
+                  {sede}
                 </option>
               ))}
             </select>
@@ -94,15 +106,33 @@ export const SemaforoVencimientos = () => {
         <div className="w-full">
           {/* Cabecera de Tabla */}
           <div className="flex w-full rounded-md bg-muted-20 list-none py-2 text-xs font-semibold text-brand uppercase">
-            <div className="flex h-8 items-center w-16 justify-center divisor">ITEM</div>
-            <div className="flex h-8 items-center w-28 justify-center divisor">CÓDIGO</div>
-            <div className="flex h-8 items-center flex-1 justify-center divisor">PRODUCTO</div>
-            <div className="flex h-8 items-center w-32 justify-center divisor">LOTE</div>
-            <div className="flex h-8 items-center w-32 justify-center divisor">CANTIDAD</div>
-            <div className="flex h-8 items-center w-40 justify-center divisor">FECHA DE VENC.</div>
-            <div className="flex h-8 items-center w-32 justify-center divisor">DÍAS</div>
-            <div className="flex h-8 items-center w-40 justify-center divisor">ESTADO</div>
-            <div className="flex h-8 items-center w-36 justify-center">ACCIONES</div>
+            <div className="flex h-8 items-center w-16 justify-center divisor">
+              ITEM
+            </div>
+            <div className="flex h-8 items-center w-28 justify-center divisor">
+              CÓDIGO
+            </div>
+            <div className="flex h-8 items-center flex-1 justify-center divisor">
+              PRODUCTO
+            </div>
+            <div className="flex h-8 items-center w-32 justify-center divisor">
+              LOTE
+            </div>
+            <div className="flex h-8 items-center w-32 justify-center divisor">
+              CANTIDAD
+            </div>
+            <div className="flex h-8 items-center w-40 justify-center divisor">
+              FECHA DE VENC.
+            </div>
+            <div className="flex h-8 items-center w-32 justify-center divisor">
+              DÍAS
+            </div>
+            <div className="flex h-8 items-center w-40 justify-center divisor">
+              ESTADO
+            </div>
+            <div className="flex h-8 items-center w-36 justify-center">
+              ACCIONES
+            </div>
           </div>
 
           {/* Cuerpo de Tabla */}
@@ -129,19 +159,36 @@ export const SemaforoVencimientos = () => {
                       : "hover:bg-surface-light/50"
                   }`}
                 >
-                  <div className="flex w-16 justify-center">{globalOffset + index + 1}.-</div>
-                  <div className="flex w-28 justify-center px-2">{item.codigo}</div>
-                  <div className="flex flex-1 justify-center px-2 truncate" title={item.producto}>
+                  <div className="flex w-16 justify-center">
+                    {globalOffset + index + 1}.-
+                  </div>
+                  <div className="flex w-28 justify-center px-2">
+                    {item.codigo}
+                  </div>
+                  <div
+                    className="flex flex-1 justify-center px-2 truncate"
+                    title={item.producto}
+                  >
                     {item.producto}
                   </div>
-                  <div className="flex w-32 justify-center">{item.numeroLote}</div>
-                  <div className="flex w-32 justify-center">{item.cantidad}</div>
-                  <div className="flex w-40 justify-center">{item.fechaVencimiento}</div>
-                  <div className="flex w-32 justify-center">{item.diasRestantes}</div>
+                  <div className="flex w-32 justify-center">
+                    {item.numeroLote}
+                  </div>
+                  <div className="flex w-32 justify-center">
+                    {item.cantidad}
+                  </div>
+                  <div className="flex w-40 justify-center">
+                    {item.fechaVencimiento}
+                  </div>
+                  <div className="flex w-32 justify-center">
+                    {item.diasRestantes}
+                  </div>
                   <div className="flex w-40 justify-center">
                     <div
                       className={`px-6 py-2 rounded-md text-white font-medium text-xs w-28 text-center ${
-                        item.estado === "APTO" ? "bg-[#1DA906]" : "bg-[#FF5B45]"
+                        item.estado === "APTO"
+                          ? "bg-success-dark"
+                          : "bg-warning"
                       }`}
                     >
                       {item.estado}
@@ -151,7 +198,9 @@ export const SemaforoVencimientos = () => {
                     <button
                       type="button"
                       onClick={() =>
-                        setSelectedItem(selectedItem?.id === item.id ? null : item)
+                        setSelectedItem(
+                          selectedItem?.id === item.id ? null : item,
+                        )
                       }
                       disabled={item.estado !== "NO APTO"}
                       className={`rounded-md w-28 px-4 py-2 text-xs font-semibold transition-all duration-200 outline-none ${
@@ -162,7 +211,9 @@ export const SemaforoVencimientos = () => {
                           : "border border-border-default text-text-muted opacity-40 cursor-not-allowed"
                       }`}
                     >
-                      {selectedItem?.id === item.id ? "Seleccionado" : "Seleccionar"}
+                      {selectedItem?.id === item.id
+                        ? "Seleccionado"
+                        : "Seleccionar"}
                     </button>
                   </div>
                 </div>
@@ -173,8 +224,15 @@ export const SemaforoVencimientos = () => {
           {totalRegistros > 0 && (
             <div className="flex flex-col sm:flex-row justify-between items-center gap-3 pt-4 text-sm mb-4 border-t border-border-default">
               <div className="text-sm text-text-primary-80">
-                Mostrando <span className="font-semibold text-text-primary">{data.length}</span> de{" "}
-                <span className="font-semibold text-text-primary">{totalRegistros}</span> registros
+                Mostrando{" "}
+                <span className="font-semibold text-text-primary">
+                  {data.length}
+                </span>{" "}
+                de{" "}
+                <span className="font-semibold text-text-primary">
+                  {totalRegistros}
+                </span>{" "}
+                registros
               </div>
 
               <div className="flex items-center gap-2">
@@ -229,8 +287,9 @@ export const SemaforoVencimientos = () => {
               Gestión de lotes vencidos
             </h2>
             <p className="mt-1.5 text-sm text-text-secondary max-w-2xl">
-              SELECCIONE un lote NO APTO de la tabla para ver sus detalles y registrar la baja. Las
-              unidades retiradas se descontarán del almacén y quedarán registradas en kardex.
+              SELECCIONE un lote NO APTO de la tabla para ver sus detalles y
+              registrar la baja. Las unidades retiradas se descontarán del
+              almacén y quedarán registradas en kardex.
             </p>
           </div>
           {selectedItem && selectedItem.estado === "NO APTO" ? (
@@ -248,28 +307,44 @@ export const SemaforoVencimientos = () => {
         {selectedItem && selectedItem.estado === "NO APTO" ? (
           <div className="mt-5 grid grid-cols-1 md:grid-cols-5 gap-4 rounded-lg border border-red-200 bg-red-50 p-4 text-sm">
             <div>
-              <p className="text-red-400 uppercase text-xs font-medium tracking-wide">Código</p>
-              <p className="font-semibold text-text-primary mt-0.5">{selectedItem.codigo}</p>
+              <p className="text-red-400 uppercase text-xs font-medium tracking-wide">
+                Código
+              </p>
+              <p className="font-semibold text-text-primary mt-0.5">
+                {selectedItem.codigo}
+              </p>
             </div>
             <div>
-              <p className="text-red-400 uppercase text-xs font-medium tracking-wide">Producto</p>
-              <p className="font-semibold text-text-primary mt-0.5">{selectedItem.producto}</p>
+              <p className="text-red-400 uppercase text-xs font-medium tracking-wide">
+                Producto
+              </p>
+              <p className="font-semibold text-text-primary mt-0.5">
+                {selectedItem.producto}
+              </p>
             </div>
             <div>
-              <p className="text-red-400 uppercase text-xs font-medium tracking-wide">Lote</p>
-              <p className="font-semibold text-text-primary mt-0.5">{selectedItem.numeroLote}</p>
+              <p className="text-red-400 uppercase text-xs font-medium tracking-wide">
+                Lote
+              </p>
+              <p className="font-semibold text-text-primary mt-0.5">
+                {selectedItem.numeroLote}
+              </p>
             </div>
             <div>
               <p className="text-red-400 uppercase text-xs font-medium tracking-wide">
                 Unidades a retirar
               </p>
-              <p className="font-semibold text-red-600 mt-0.5 text-base">{selectedItem.cantidad}</p>
+              <p className="font-semibold text-red-600 mt-0.5 text-base">
+                {selectedItem.cantidad}
+              </p>
             </div>
             <div>
               <p className="text-red-400 uppercase text-xs font-medium tracking-wide">
                 Fecha de vencimiento
               </p>
-              <p className="font-semibold text-text-primary mt-0.5">{selectedItem.fechaVencimiento}</p>
+              <p className="font-semibold text-text-primary mt-0.5">
+                {selectedItem.fechaVencimiento}
+              </p>
             </div>
           </div>
         ) : (
@@ -277,8 +352,8 @@ export const SemaforoVencimientos = () => {
             <i className="fa-regular fa-hand-pointer text-text-muted text-base" />
             <span>
               SELECCIONE en la tabla un lote con estado{" "}
-              <strong className="text-text-primary">NO APTO</strong> para revisar sus datos y registrar la
-              baja.
+              <strong className="text-text-primary">NO APTO</strong> para
+              revisar sus datos y registrar la baja.
             </span>
           </div>
         )}

@@ -1,60 +1,102 @@
-import { useState, useMemo } from "react";
-import { Search } from "lucide-react";
+import PDFKardexPorProducto from "@/components/farmacia/inventario/PDFKardexPorProducto";
 import {
-  sedesFarmacia,
   kardexRowsData,
   medicamentosBusquedaData,
+  type KardexProductoRow,
   type MedicamentoBusquedaOption,
 } from "@/lib/farmaciaData";
+import { SEDES } from "@/lib/sedes";
+import { Loader2, Search } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { toast } from "sonner";
+
+/** Normaliza texto para búsquedas: sin acentos y en minúsculas. */
+const normalizar = (valor: string) =>
+  valor
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
+
+/** Convierte una fecha "DD/MM/YYYY" a "YYYY-MM-DD" para compararla con los inputs date. */
+const aFechaIso = (fecha: string) => {
+  const [dia, mes, anio] = fecha.split("/");
+  return `${anio}-${mes}-${dia}`;
+};
 
 export const KardexPorProducto = () => {
   const [productoFiltro, setProductoFiltro] = useState<"todos" | "seleccionar">(
-    "todos"
+    "todos",
   );
-  const [almacenFiltro, setAlmacenFiltro] = useState<string>("1");
+  const [almacenFiltro, setAlmacenFiltro] = useState<string>("");
   const [fechaDesde, setFechaDesde] = useState<string>("2026-09-01");
   const [fechaHasta, setFechaHasta] = useState<string>("2026-09-30");
+
+  const [kardexRows, setKardexRows] = useState<KardexProductoRow[]>([]);
+  const [totalRegistros, setTotalRegistros] = useState<number>(0);
+  const [isLoadingKardex, setIsLoadingKardex] = useState<boolean>(false);
+  const [hasSearched, setHasSearched] = useState<boolean>(false);
 
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [selectedMedicamento, setSelectedMedicamento] =
     useState<MedicamentoBusquedaOption | null>(null);
+  const [searchResults, setSearchResults] = useState<
+    MedicamentoBusquedaOption[]
+  >([]);
+  const [isSearchingName, setIsSearchingName] = useState<boolean>(false);
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
+  const lastSelectedNameRef = useRef<string>("");
 
   const [currentPage, setCurrentPage] = useState<number>(1);
   const pageSize = 100;
 
-  const searchResults = useMemo(() => {
-    if (!searchTerm.trim()) return medicamentosBusquedaData;
-    return medicamentosBusquedaData.filter(
-      (m) =>
-        m.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        m.codigo.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-  }, [searchTerm]);
-
-  const filteredRows = useMemo(() => {
-    if (productoFiltro === "seleccionar" && selectedMedicamento) {
-      return kardexRowsData.filter(
-        (r) => r.codigo === selectedMedicamento.codigo
-      );
-    }
-    return kardexRowsData;
-  }, [productoFiltro, selectedMedicamento]);
-
-  const totalRegistros = filteredRows.length;
   const totalPages = Math.max(1, Math.ceil(totalRegistros / pageSize));
   const globalOffset = (currentPage - 1) * pageSize;
 
+  // Autocompletado de productos (debounce 300ms, mínimo 3 caracteres)
+  useEffect(() => {
+    if (searchTerm.trim().length < 3) {
+      setSearchResults([]);
+      setIsSearchingName(false);
+      setShowDropdown(false);
+      return;
+    }
+
+    if (searchTerm.toUpperCase() === lastSelectedNameRef.current) {
+      setIsSearchingName(false);
+      setShowDropdown(false);
+      return;
+    }
+
+    setShowDropdown(true);
+    setIsSearchingName(true);
+
+    const timer = setTimeout(() => {
+      const term = normalizar(searchTerm.trim());
+      const results = medicamentosBusquedaData.filter(
+        (m) =>
+          normalizar(m.nombre).includes(term) ||
+          normalizar(m.codigo).includes(term),
+      );
+      setSearchResults(results);
+      setIsSearchingName(false);
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [searchTerm]);
+
   const currentRows = useMemo(() => {
-    return filteredRows.slice(globalOffset, globalOffset + pageSize);
-  }, [filteredRows, globalOffset, pageSize]);
+    return kardexRows.slice(globalOffset, globalOffset + pageSize);
+  }, [kardexRows, globalOffset, pageSize]);
 
   const totals = useMemo(() => {
     let ingresos = 0;
     let salidas = 0;
-    const stockAnterior = currentRows.length > 0 ? currentRows[0].stockAnterior : 0;
-    const stockActual = currentRows.length > 0 ? currentRows[currentRows.length - 1].stockActual : 0;
+    const stockAnterior =
+      currentRows.length > 0 ? currentRows[0].stockAnterior : 0;
+    const stockActual =
+      currentRows.length > 0
+        ? currentRows[currentRows.length - 1].stockActual
+        : 0;
 
     currentRows.forEach((r) => {
       if (typeof r.ingresos === "number") ingresos += r.ingresos;
@@ -65,20 +107,70 @@ export const KardexPorProducto = () => {
   }, [currentRows]);
 
   const handleSelectMedicamento = (med: MedicamentoBusquedaOption) => {
+    lastSelectedNameRef.current = med.nombre.toUpperCase();
     setSelectedMedicamento(med);
     setSearchTerm(med.nombre);
     setShowDropdown(false);
+    setKardexRows([]);
+    setTotalRegistros(0);
     setCurrentPage(1);
+    setHasSearched(false);
   };
 
-  const handleBuscar = () => {
+  const handleBuscarKardex = (forceMode?: "todos" | "seleccionar") => {
+    const currentMode = forceMode ?? productoFiltro;
+
+    if (!almacenFiltro) {
+      toast.error("Debe seleccionar una sede para consultar el kardex");
+      return;
+    }
+
+    if (currentMode === "seleccionar" && !selectedMedicamento) {
+      toast.error("Debe seleccionar un producto para consultar el kardex");
+      return;
+    }
+
+    if (fechaDesde && fechaHasta && fechaDesde > fechaHasta) {
+      toast.error("La fecha desde no puede ser mayor que la fecha hasta");
+      return;
+    }
+
+    setIsLoadingKardex(true);
     setCurrentPage(1);
-    toast.success("Búsqueda de kardex actualizada.");
+
+    setTimeout(() => {
+      const rows = kardexRowsData.filter((row) => {
+        if (
+          currentMode === "seleccionar" &&
+          selectedMedicamento &&
+          row.codigo !== selectedMedicamento.codigo
+        ) {
+          return false;
+        }
+
+        const fechaIso = aFechaIso(row.fecha);
+        if (fechaDesde && fechaIso < fechaDesde) return false;
+        if (fechaHasta && fechaIso > fechaHasta) return false;
+
+        return true;
+      });
+
+      setKardexRows(rows);
+      setTotalRegistros(rows.length);
+      setHasSearched(true);
+      setIsLoadingKardex(false);
+    }, 300);
   };
 
-  const handleImprimir = () => {
-    toast.success("Generando reporte de Kardex por Producto en PDF...");
+  const handlePreviousPage = () => {
+    setCurrentPage((prev) => Math.max(1, prev - 1));
   };
+
+  const handleNextPage = () => {
+    setCurrentPage((prev) => Math.min(totalPages, prev + 1));
+  };
+
+  const almacenNombre = almacenFiltro || "Seleccione una sede";
 
   return (
     <div className="w-full pb-8 space-y-5">
@@ -102,7 +194,11 @@ export const KardexPorProducto = () => {
                   setProductoFiltro("todos");
                   setSearchTerm("");
                   setSelectedMedicamento(null);
+                  setKardexRows([]);
+                  setTotalRegistros(0);
                   setCurrentPage(1);
+                  setHasSearched(false);
+                  if (almacenFiltro) handleBuscarKardex("todos");
                 }}
                 className="radio size-6 align-middle text-surface-light checked:accent-brand checked:text-brand bg-muted-30"
               />
@@ -117,7 +213,10 @@ export const KardexPorProducto = () => {
                 checked={productoFiltro === "seleccionar"}
                 onChange={() => {
                   setProductoFiltro("seleccionar");
+                  setKardexRows([]);
+                  setTotalRegistros(0);
                   setCurrentPage(1);
+                  setHasSearched(false);
                 }}
                 className="radio size-6 align-middle text-surface-light checked:accent-brand checked:text-brand bg-muted-30"
               />
@@ -139,47 +238,61 @@ export const KardexPorProducto = () => {
                 onChange={(e) => {
                   setSearchTerm(e.target.value);
                   setSelectedMedicamento(null);
-                  setShowDropdown(true);
+                  setKardexRows([]);
+                  setTotalRegistros(0);
+                  setCurrentPage(1);
+                  setHasSearched(false);
                 }}
                 onFocus={() => {
-                  if (productoFiltro === "seleccionar") setShowDropdown(true);
+                  if (
+                    searchTerm.trim().length >= 3 &&
+                    searchTerm.toUpperCase() !== lastSelectedNameRef.current
+                  ) {
+                    setShowDropdown(true);
+                  }
                 }}
                 onBlur={() => setTimeout(() => setShowDropdown(false), 200)}
                 className="w-full form-input rounded-md py-2 bg-surface-light px-4 text-text-primary outline-none disabled:opacity-50 transition-colors uppercase pl-4 pr-10 disabled:cursor-not-allowed"
               />
               <div className="absolute right-3 text-text-secondary disabled:opacity-50">
-                <Search
-                  className={`size-5 ${
-                    productoFiltro === "todos" ? "opacity-50" : ""
-                  }`}
-                />
+                {isSearchingName ? (
+                  <Loader2 className="size-5 animate-spin text-brand" />
+                ) : (
+                  <Search
+                    className={`size-5 ${
+                      productoFiltro === "todos" ? "opacity-50" : ""
+                    }`}
+                  />
+                )}
               </div>
             </div>
 
             {/* Dropdown de Autocompletado */}
-            {showDropdown && searchResults.length > 0 && productoFiltro === "seleccionar" && (
-              <div className="absolute z-50 top-full mt-2 w-full bg-white border border-border-default rounded-lg shadow-lg overflow-hidden max-h-80 overflow-y-auto">
-                <ul className="flex flex-col">
-                  {searchResults.map((item, index) => (
-                    <li
-                      key={`${item.codigo}-${index}`}
-                      onMouseDown={(e) => {
-                        e.preventDefault();
-                        handleSelectMedicamento(item);
-                      }}
-                      className="p-2 hover:bg-brand/10 cursor-pointer border-b border-border-default last:border-b-0 transition-colors"
-                    >
-                      <div className="font-bold text-brand truncate uppercase">
-                        {item.nombre}
-                        <span className="px-2 py-0.5 rounded text-text-secondary">
-                          - {item.codigo}
-                        </span>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
+            {showDropdown &&
+              searchResults.length > 0 &&
+              productoFiltro === "seleccionar" && (
+                <div className="absolute z-50 top-full mt-2 w-full bg-white border border-border-default rounded-lg shadow-lg overflow-hidden max-h-80 overflow-y-auto">
+                  <ul className="flex flex-col">
+                    {searchResults.map((item, index) => (
+                      <li
+                        key={`${item.codigo}-${index}`}
+                        onMouseDown={(e) => {
+                          e.preventDefault();
+                          handleSelectMedicamento(item);
+                        }}
+                        className="p-2 hover:bg-brand/10 cursor-pointer border-b border-border-default last:border-b-0 transition-colors"
+                      >
+                        <div className="font-bold text-brand truncate uppercase">
+                          {item.nombre}
+                          <span className="px-2 py-0.5 rounded text-text-secondary">
+                            - {item.codigo}
+                          </span>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
           </div>
         </div>
 
@@ -194,15 +307,18 @@ export const KardexPorProducto = () => {
               value={almacenFiltro}
               onChange={(e) => {
                 setAlmacenFiltro(e.target.value);
+                setKardexRows([]);
+                setTotalRegistros(0);
                 setCurrentPage(1);
+                setHasSearched(false);
               }}
             >
               <option value="" disabled>
                 SELECCIONE
               </option>
-              {sedesFarmacia.map((sede) => (
-                <option key={sede.num_item} value={sede.num_item}>
-                  {sede.des_item}
+              {SEDES.map((sede) => (
+                <option key={sede} value={sede}>
+                  {sede}
                 </option>
               ))}
             </select>
@@ -215,7 +331,13 @@ export const KardexPorProducto = () => {
             <input
               type="date"
               value={fechaDesde}
-              onChange={(e) => setFechaDesde(e.target.value)}
+              onChange={(e) => {
+                setFechaDesde(e.target.value);
+                setKardexRows([]);
+                setTotalRegistros(0);
+                setCurrentPage(1);
+                setHasSearched(false);
+              }}
               className="w-full py-2 rounded-md bg-surface-light px-2 text-text-secondary outline-none"
             />
           </div>
@@ -227,7 +349,13 @@ export const KardexPorProducto = () => {
             <input
               type="date"
               value={fechaHasta}
-              onChange={(e) => setFechaHasta(e.target.value)}
+              onChange={(e) => {
+                setFechaHasta(e.target.value);
+                setKardexRows([]);
+                setTotalRegistros(0);
+                setCurrentPage(1);
+                setHasSearched(false);
+              }}
               className="w-full py-2 rounded-md bg-surface-light px-2 text-text-secondary outline-none"
             />
           </div>
@@ -235,8 +363,12 @@ export const KardexPorProducto = () => {
           <div className="ml-auto">
             <button
               type="button"
-              onClick={handleBuscar}
-              disabled={!almacenFiltro}
+              onClick={() => handleBuscarKardex()}
+              disabled={
+                isLoadingKardex ||
+                !almacenFiltro ||
+                (productoFiltro === "seleccionar" && !selectedMedicamento)
+              }
               className="px-8 py-2 rounded-md text-sm bg-brand hover:bg-brand/90 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold transition-colors"
             >
               BUSCAR
@@ -249,9 +381,15 @@ export const KardexPorProducto = () => {
       <div className="bg-surface-default border border-border-subtle/30 rounded-lg shadow-sm p-6 mx-6">
         {/* Header */}
         <div className="grid grid-cols-[50px_0.5fr_0.5fr_0.6fr_1.5fr_150px_80px_80px_100px_100px] bg-muted-20 rounded-md text-brand text-xs text-center font-bold uppercase">
-          <div className="divisor py-2 flex items-center justify-center">ITEM</div>
-          <div className="divisor py-2 flex items-center justify-center">CÓDIGO</div>
-          <div className="divisor py-2 flex items-center justify-center">FECHA</div>
+          <div className="divisor py-2 flex items-center justify-center">
+            ITEM
+          </div>
+          <div className="divisor py-2 flex items-center justify-center">
+            CÓDIGO
+          </div>
+          <div className="divisor py-2 flex items-center justify-center">
+            FECHA
+          </div>
           <div className="divisor py-2 flex items-center justify-center">
             TIPO DE MOVIMIENTO
           </div>
@@ -277,9 +415,28 @@ export const KardexPorProducto = () => {
 
         {/* Rows */}
         <div className="flex flex-col text-text-secondary font-medium min-h-auto">
-          {currentRows.length === 0 ? (
+          {isLoadingKardex ? (
             <div className="flex items-center justify-center flex-1 py-12">
-              <p>No se encontraron movimientos para los filtros seleccionados.</p>
+              <Loader2 className="size-7 animate-spin text-brand mr-2" />
+              <p>Cargando movimientos de kardex...</p>
+            </div>
+          ) : !almacenFiltro ? (
+            <div className="flex items-center justify-center flex-1 py-12">
+              <p>Seleccione una sede para consultar el kardex.</p>
+            </div>
+          ) : productoFiltro === "seleccionar" && !selectedMedicamento ? (
+            <div className="flex items-center justify-center flex-1 py-12">
+              <p>Seleccione un producto para listar su kardex.</p>
+            </div>
+          ) : !hasSearched ? (
+            <div className="flex items-center justify-center flex-1 py-12">
+              <p>Presione BUSCAR para consultar el kardex.</p>
+            </div>
+          ) : currentRows.length === 0 ? (
+            <div className="flex items-center justify-center flex-1 py-12">
+              <p>
+                No se encontraron movimientos para los filtros seleccionados.
+              </p>
             </div>
           ) : (
             currentRows.map((row, index) => (
@@ -295,25 +452,39 @@ export const KardexPorProducto = () => {
                 <span className="flex items-center px-2 font-semibold text-text-primary">
                   {row.tipoMovimiento}
                 </span>
-                <span className="flex items-center px-2 truncate" title={row.clienteProveedor}>
+                <span
+                  className="flex items-center px-2 truncate"
+                  title={row.clienteProveedor}
+                >
                   {row.clienteProveedor}
                 </span>
                 <span className="flex items-center px-2">{row.docRef}</span>
                 <span className="flex items-center px-2">{row.ingresos}</span>
                 <span className="flex items-center px-2">{row.salidas}</span>
-                <span className="flex items-center px-2">{row.stockAnterior}</span>
-                <span className="flex items-center px-2">{row.stockActual}</span>
+                <span className="flex items-center px-2">
+                  {row.stockAnterior}
+                </span>
+                <span className="flex items-center px-2">
+                  {row.stockActual}
+                </span>
               </div>
             ))
           )}
         </div>
 
         {/* Paginación */}
-        {totalRegistros > 0 && (
+        {!isLoadingKardex && totalRegistros > 0 && (
           <div className="flex flex-col sm:flex-row justify-between items-center gap-3 pt-4 text-sm mb-4 border-t border-border-default">
             <div className="text-sm text-text-primary-80">
-              Mostrando <span className="font-semibold text-text-primary">{currentRows.length}</span> de{" "}
-              <span className="font-semibold text-text-primary">{totalRegistros}</span> registros
+              Mostrando{" "}
+              <span className="font-semibold text-text-primary">
+                {currentRows.length}
+              </span>{" "}
+              de{" "}
+              <span className="font-semibold text-text-primary">
+                {totalRegistros}
+              </span>{" "}
+              registros
             </div>
 
             <div className="flex items-center gap-2">
@@ -322,10 +493,10 @@ export const KardexPorProducto = () => {
                   type="button"
                   aria-label="Página anterior"
                   title="Anterior"
-                  onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-                  disabled={currentPage === 1}
+                  onClick={handlePreviousPage}
+                  disabled={currentPage === 1 || isLoadingKardex}
                   className={`inline-flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors border focus:ring-2 focus:ring-offset-1 focus:ring-brand ${
-                    currentPage === 1
+                    currentPage === 1 || isLoadingKardex
                       ? "bg-card-bg text-accent-content cursor-not-allowed opacity-60 border-border-default"
                       : "bg-card-bg border-border-default text-accent-content"
                   }`}
@@ -342,10 +513,10 @@ export const KardexPorProducto = () => {
                   type="button"
                   aria-label="Página siguiente"
                   title="Siguiente"
-                  onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-                  disabled={currentPage === totalPages}
+                  onClick={handleNextPage}
+                  disabled={currentPage === totalPages || isLoadingKardex}
                   className={`inline-flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors border focus:ring-2 focus:ring-offset-1 focus:ring-brand ${
-                    currentPage === totalPages
+                    currentPage === totalPages || isLoadingKardex
                       ? "bg-card-bg text-accent-content cursor-not-allowed opacity-60 border-border-default"
                       : "bg-card-bg border-border-default text-accent-content"
                   }`}
@@ -364,26 +535,36 @@ export const KardexPorProducto = () => {
             <span className="col-span-6 text-right pr-6 font-bold tracking-widest uppercase text-lg">
               TOTALES (PAGINA)
             </span>
-            <span className="flex items-center justify-center font-bold text-lg">{totals.ingresos}</span>
-            <span className="flex items-center justify-center font-bold text-lg">{totals.salidas}</span>
+            <span className="flex items-center justify-center font-bold text-lg">
+              {totals.ingresos}
+            </span>
+            <span className="flex items-center justify-center font-bold text-lg">
+              {totals.salidas}
+            </span>
             <span className="flex items-center justify-center font-bold text-lg">
               {totals.stockAnterior}
             </span>
-            <span className="flex items-center justify-center font-bold text-lg">{totals.stockActual}</span>
+            <span className="flex items-center justify-center font-bold text-lg">
+              {totals.stockActual}
+            </span>
           </div>
         </div>
       </div>
 
       {/* ── Imprimir ── */}
       <div className="flex justify-end pr-2">
-        <button
-          type="button"
-          onClick={handleImprimir}
-          className="px-8 py-2 rounded-lg font-semibold transition-all inline-flex items-center justify-center gap-2 bg-brand hover:bg-brand/80 text-white"
-        >
-          <i className="fa-solid fa-file-pdf" />
-          <span>IMPRIMIR</span>
-        </button>
+        <PDFKardexPorProducto
+          data={kardexRows}
+          almacenNombre={almacenNombre}
+          fechaDesde={fechaDesde || undefined}
+          fechaHasta={fechaHasta || undefined}
+          productoNombre={
+            productoFiltro === "seleccionar" ? searchTerm : undefined
+          }
+          disabled={
+            isLoadingKardex || !almacenFiltro || kardexRows.length === 0
+          }
+        />
       </div>
     </div>
   );

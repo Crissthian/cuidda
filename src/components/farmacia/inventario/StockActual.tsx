@@ -1,13 +1,12 @@
-import { useState, useMemo } from "react";
-import {
-  sedesFarmacia,
-  stockActualRows,
-  type StockActualRow,
-} from "@/lib/farmaciaData";
-import { toast } from "sonner";
+import PDFStockActual from "@/components/farmacia/inventario/PDFStockActual";
+import { stockActualRows, type StockActualRow } from "@/lib/farmaciaData";
+import { SEDES } from "@/lib/sedes";
+import { useMemo, useState } from "react";
 
 export const StockActual = () => {
-  const [selectedAlmacen, setSelectedAlmacen] = useState<string>("1");
+  const [selectedAlmacen, setSelectedAlmacen] = useState<string>(
+    SEDES[0] ?? "",
+  );
   const [useFechaCorte, setUseFechaCorte] = useState<boolean>(false);
   const [selectedFechaCorte, setSelectedFechaCorte] = useState<string>(
     new Date().toISOString().split("T")[0],
@@ -37,16 +36,16 @@ export const StockActual = () => {
     maximumFractionDigits: 2,
   });
 
+  const almacenNombre = selectedAlmacen || "Seleccione una sede";
+  const fechaCorteLabel =
+    useFechaCorte && selectedFechaCorte ? selectedFechaCorte : undefined;
+
   const handlePreviousPage = () => {
     setCurrentPage((prev) => Math.max(1, prev - 1));
   };
 
   const handleNextPage = () => {
     setCurrentPage((prev) => Math.min(totalPages, prev + 1));
-  };
-
-  const handleImprimir = () => {
-    toast.success("Generando reporte de Stock Actual en PDF...");
   };
 
   return (
@@ -59,16 +58,16 @@ export const StockActual = () => {
           <div className="relative w-60">
             <select
               className="w-full uppercase bg-surface-light rounded-md py-2 px-4 appearance-none outline-none disabled:opacity-50 transition-colors cursor-pointer text-text-primary disabled:cursor-not-allowed"
-              disabled={sedesFarmacia.length === 0}
+              disabled={SEDES.length === 0}
               value={selectedAlmacen}
               onChange={(e) => setSelectedAlmacen(e.target.value)}
             >
               <option value="" disabled>
                 SELECCIONE
               </option>
-              {sedesFarmacia.map((sede) => (
-                <option key={sede.num_item} value={sede.num_item}>
-                  {sede.des_item}
+              {SEDES.map((sede) => (
+                <option key={sede} value={sede}>
+                  {sede}
                 </option>
               ))}
             </select>
@@ -252,14 +251,13 @@ export const StockActual = () => {
 
       {/* Primary Action Button */}
       <div className="flex justify-end pr-2">
-        <button
-          type="button"
-          onClick={handleImprimir}
-          className="px-8 py-2 rounded-lg font-semibold transition-all inline-flex items-center justify-center gap-2 bg-brand hover:bg-brand/80 text-white"
-        >
-          <i className="fa-solid fa-file-pdf" />
-          <span>IMPRIMIR</span>
-        </button>
+        <PDFStockActual
+          data={data}
+          costoTotalStr={costoTotalStr}
+          almacenNombre={almacenNombre}
+          fechaCorte={fechaCorteLabel}
+          disabled={!hasSelectedAlmacen || data.length === 0}
+        />
       </div>
     </div>
   );

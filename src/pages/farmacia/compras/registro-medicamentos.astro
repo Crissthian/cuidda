@@ -1,0 +1,12 @@
+---
+import RegistroMedicamentosForm from "@/components/farmacia/compras/registro-medicamentos/RegistroMedicamentosForm";
+import DashboardLayout from "@/layouts/DashboardLayout.astro";
+---
+
+<DashboardLayout title="Registro de medicamentos">
+  <section class="p-6 mx-6" aria-labelledby="registro-medicamentos-heading">
+    <div class="mx-auto flex flex-col gap-8">
+      <RegistroMedicamentosForm client:load />
+    </div>
+  </section>
+</DashboardLayout>

@@ -1,14 +1,17 @@
-import { useState, useMemo } from "react";
-import { Search } from "lucide-react";
 import {
-  sedesFarmacia,
-  resumenComprasProveedorData,
   resumenComprasProductoData,
+  resumenComprasProveedorData,
 } from "@/lib/farmaciaData";
+import { SEDES } from "@/lib/sedes";
+import ExcelJS from "exceljs";
+import FileSaver from "file-saver";
+import { Search } from "lucide-react";
+import { useMemo, useState } from "react";
 import { toast } from "sonner";
 
 const gridTemplateColumnsProveedor = "40px repeat(3, 1fr) 2fr repeat(3, 1fr)";
-const gridTemplateColumnsProducto = "40px repeat(3, 1fr) 2fr 2fr repeat(2, 1fr)";
+const gridTemplateColumnsProducto =
+  "40px repeat(3, 1fr) 2fr 2fr repeat(2, 1fr)";
 
 const COLUMNS_PROVEEDOR = [
   { label: "", key: "action" },
@@ -33,9 +36,11 @@ const COLUMNS_PRODUCTO = [
 ];
 
 export const ResumenCompras = () => {
-  const [activeTab, setActiveTab] = useState<"proveedor" | "producto">("proveedor");
-  const [almacenProv, setAlmacenProv] = useState<string>("1");
-  const [almacenProd, setAlmacenProd] = useState<string>("1");
+  const [activeTab, setActiveTab] = useState<"proveedor" | "producto">(
+    "proveedor",
+  );
+  const [almacenProv, setAlmacenProv] = useState<string>(SEDES[0] ?? "");
+  const [almacenProd, setAlmacenProd] = useState<string>(SEDES[0] ?? "");
   const [fechaDesdeProv, setFechaDesdeProv] = useState<string>("2026-09-01");
   const [fechaHastaProv, setFechaHastaProv] = useState<string>("2026-09-30");
   const [proveedorVal, setProveedorVal] = useState<string>("");
@@ -60,24 +65,160 @@ export const ResumenCompras = () => {
     });
   }, [productoVal]);
 
-  const TABLE_DATA = activeTab === "proveedor" ? filteredProveedor : filteredProducto;
-  const COLUMNS = activeTab === "proveedor" ? COLUMNS_PROVEEDOR : COLUMNS_PRODUCTO;
+  const TABLE_DATA =
+    activeTab === "proveedor" ? filteredProveedor : filteredProducto;
+  const COLUMNS =
+    activeTab === "proveedor" ? COLUMNS_PROVEEDOR : COLUMNS_PRODUCTO;
   const gridTemplateColumns =
-    activeTab === "proveedor" ? gridTemplateColumnsProveedor : gridTemplateColumnsProducto;
+    activeTab === "proveedor"
+      ? gridTemplateColumnsProveedor
+      : gridTemplateColumnsProducto;
 
   const totalRegistros = TABLE_DATA.length;
   const totalPages = Math.max(1, Math.ceil(totalRegistros / pageSize));
 
   const handlePreviousPage = () => setCurrentPage((p) => Math.max(1, p - 1));
-  const handleNextPage = () => setCurrentPage((p) => Math.min(totalPages, p + 1));
+  const handleNextPage = () =>
+    setCurrentPage((p) => Math.min(totalPages, p + 1));
 
   const handleSearch = () => {
     setCurrentPage(1);
     toast.success("Búsqueda de compras actualizada.");
   };
 
-  const handleExport = () => {
-    toast.success("Excel exportado correctamente");
+  const handleExport = async () => {
+    if (!currentAlmacen) {
+      toast.error(
+        "Debe seleccionar una sede para exportar el resumen de compras",
+      );
+      return;
+    }
+
+    if (TABLE_DATA.length === 0) {
+      toast.error("No hay datos para exportar");
+      return;
+    }
+
+    try {
+      const workbook = new ExcelJS.Workbook();
+      const sheetName =
+        activeTab === "proveedor"
+          ? "Resumen por Proveedor"
+          : "Resumen por Producto";
+      const worksheet = workbook.addWorksheet(sheetName);
+
+      if (activeTab === "proveedor") {
+        worksheet.columns = [
+          { header: "N° DE INGRESO", key: "ingreso", width: 15 },
+          { header: "N° DE FACTURA", key: "factura", width: 15 },
+          { header: "FECHA DE INGRESO", key: "fecha", width: 20 },
+          { header: "PROVEEDOR", key: "proveedor", width: 40 },
+          { header: "SUB TOTAL", key: "subtotal", width: 15 },
+          { header: "I.G.V.", key: "igv", width: 15 },
+          { header: "TOTAL", key: "total", width: 15 },
+        ];
+
+        filteredProveedor.forEach((item) => {
+          worksheet.addRow({
+            ingreso: item.ingreso,
+            factura: item.factura,
+            fecha: item.fecha,
+            proveedor: item.proveedor,
+            subtotal: item.subtotal,
+            igv: item.igv,
+            total: item.total,
+          });
+        });
+      } else {
+        worksheet.columns = [
+          { header: "N° DE INGRESO", key: "ingreso", width: 15 },
+          { header: "N° DE FACTURA", key: "factura", width: 15 },
+          { header: "FECHA DE INGRESO", key: "fecha", width: 20 },
+          { header: "PROVEEDOR", key: "proveedor", width: 40 },
+          { header: "PRODUCTO", key: "producto", width: 40 },
+          { header: "CANTIDAD", key: "cantidad", width: 15 },
+          { header: "COSTO", key: "costo", width: 15 },
+        ];
+
+        filteredProducto.forEach((item) => {
+          worksheet.addRow({
+            ingreso: item.ingreso,
+            factura: item.factura,
+            fecha: item.fecha,
+            proveedor: item.proveedor,
+            producto: item.producto,
+            cantidad: item.cantidad,
+            costo: item.costo,
+          });
+        });
+      }
+
+      const headerRow = worksheet.getRow(1);
+      headerRow.height = 25;
+      headerRow.eachCell((cell) => {
+        cell.font = { bold: true, color: { argb: "FFFFFF" }, size: 11 };
+        cell.fill = {
+          type: "pattern",
+          pattern: "solid",
+          fgColor: { argb: "0070C0" },
+        };
+        cell.alignment = { vertical: "middle", horizontal: "center" };
+        cell.border = {
+          top: { style: "thin" },
+          left: { style: "thin" },
+          bottom: { style: "thin" },
+          right: { style: "thin" },
+        };
+      });
+
+      worksheet.eachRow((row, rowNumber) => {
+        if (rowNumber > 1) {
+          row.eachCell((cell) => {
+            cell.border = {
+              top: { style: "thin" },
+              left: { style: "thin" },
+              bottom: { style: "thin" },
+              right: { style: "thin" },
+            };
+            cell.alignment = {
+              vertical: "middle",
+              wrapText: true,
+              horizontal: "left",
+            };
+
+            const colIndex = Number(cell.col);
+            if (
+              activeTab === "proveedor" &&
+              [1, 2, 3, 5, 6, 7].includes(colIndex)
+            ) {
+              cell.alignment = { ...cell.alignment, horizontal: "center" };
+            } else if (
+              activeTab === "producto" &&
+              [1, 2, 3, 6, 7].includes(colIndex)
+            ) {
+              cell.alignment = { ...cell.alignment, horizontal: "center" };
+            }
+          });
+        }
+      });
+
+      const buffer = await workbook.xlsx.writeBuffer();
+      const blob = new Blob([buffer], {
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      });
+      const title =
+        activeTab === "proveedor"
+          ? "Resumen_Compras_Proveedor"
+          : "Resumen_Compras_Producto";
+      FileSaver.saveAs(
+        blob,
+        `${title}_${new Date().toISOString().split("T")[0]}.xlsx`,
+      );
+
+      toast.success("Excel exportado correctamente");
+    } catch {
+      toast.error("Hubo un error al exportar el archivo");
+    }
   };
 
   return (
@@ -134,9 +275,9 @@ export const ResumenCompras = () => {
                     <option value="" disabled>
                       SELECCIONE
                     </option>
-                    {sedesFarmacia.map((sede) => (
-                      <option key={sede.num_item} value={sede.num_item}>
-                        {sede.des_item}
+                    {SEDES.map((sede) => (
+                      <option key={sede} value={sede}>
+                        {sede}
                       </option>
                     ))}
                   </select>
@@ -228,9 +369,9 @@ export const ResumenCompras = () => {
                     <option value="" disabled>
                       SELECCIONE
                     </option>
-                    {sedesFarmacia.map((sede) => (
-                      <option key={sede.num_item} value={sede.num_item}>
-                        {sede.des_item}
+                    {SEDES.map((sede) => (
+                      <option key={sede} value={sede}>
+                        {sede}
                       </option>
                     ))}
                   </select>
@@ -274,7 +415,10 @@ export const ResumenCompras = () => {
           style={{ gridTemplateColumns }}
         >
           {COLUMNS.map((col) => (
-            <div key={col.key} className="relative px-4 py-3.5 text-center divisor">
+            <div
+              key={col.key}
+              className="relative px-4 py-3.5 text-center divisor"
+            >
               {col.label}
             </div>
           ))}
@@ -352,8 +496,15 @@ export const ResumenCompras = () => {
       {totalRegistros > 0 && (
         <div className="flex flex-col sm:flex-row justify-between items-center gap-3 pt-4 text-sm mt-4 border-t border-border-default">
           <div className="text-sm text-text-primary-80">
-            Mostrando <span className="font-semibold text-text-primary">{TABLE_DATA.length}</span> de{" "}
-            <span className="font-semibold text-text-primary">{totalRegistros}</span> registros
+            Mostrando{" "}
+            <span className="font-semibold text-text-primary">
+              {TABLE_DATA.length}
+            </span>{" "}
+            de{" "}
+            <span className="font-semibold text-text-primary">
+              {totalRegistros}
+            </span>{" "}
+            registros
           </div>
 
           <div className="flex items-center gap-2">

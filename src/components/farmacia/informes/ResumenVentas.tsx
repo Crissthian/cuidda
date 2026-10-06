@@ -1,13 +1,14 @@
-import { useState, useMemo } from "react";
+import { resumenVentasData } from "@/lib/farmaciaData";
+import { SEDES } from "@/lib/sedes";
 import { Search } from "lucide-react";
-import { sedesFarmacia, resumenVentasData } from "@/lib/farmaciaData";
+import { useMemo, useState } from "react";
 import { toast } from "sonner";
 
 export const ResumenVentas = () => {
   const [cliente, setCliente] = useState<string>("");
   const [fechaDesde, setFechaDesde] = useState<string>("2026-09-01");
   const [fechaHasta, setFechaHasta] = useState<string>("2026-09-30");
-  const [sede, setSede] = useState<string>("1");
+  const [sede, setSede] = useState<string>(SEDES[0] ?? "");
   const [currentPage, setCurrentPage] = useState<number>(1);
   const pageSize = 100;
 
@@ -38,7 +39,8 @@ export const ResumenVentas = () => {
   }, [filteredData, globalOffset, pageSize]);
 
   const handlePreviousPage = () => setCurrentPage((p) => Math.max(1, p - 1));
-  const handleNextPage = () => setCurrentPage((p) => Math.min(totalPages, p + 1));
+  const handleNextPage = () =>
+    setCurrentPage((p) => Math.min(totalPages, p + 1));
 
   const handleSearch = () => {
     setCurrentPage(1);
@@ -111,9 +113,9 @@ export const ResumenVentas = () => {
               <option value="" disabled>
                 SELECCIONE
               </option>
-              {sedesFarmacia.map((item) => (
-                <option key={item.num_item} value={item.num_item}>
-                  {item.des_item}
+              {SEDES.map((item) => (
+                <option key={item} value={item}>
+                  {item}
                 </option>
               ))}
             </select>
@@ -172,23 +174,37 @@ export const ResumenVentas = () => {
                 </tr>
               ) : (
                 currentRows.map((row) => (
-                  <tr key={row.id} className="hover:bg-surface-light/50 transition-colors">
+                  <tr
+                    key={row.id}
+                    className="hover:bg-surface-light/50 transition-colors"
+                  >
                     <td className="py-3 px-2">
-                      <button type="button" className="text-brand hover:text-primary-hover">
+                      <button
+                        type="button"
+                        className="text-brand hover:text-primary-hover"
+                      >
                         <Search size={18} strokeWidth={2.5} />
                       </button>
                     </td>
-                    <td className="py-3 px-4 font-medium">{row.numeroComprobante}</td>
+                    <td className="py-3 px-4 font-medium">
+                      {row.numeroComprobante}
+                    </td>
                     <td className="py-3 px-4">{row.fechaVenta}</td>
                     <td className="py-3 px-4">{renderCliente(row.cliente)}</td>
                     <td className="py-3 px-4">
-                      {typeof row.subTotal === "number" ? row.subTotal.toFixed(2) : row.subTotal}
+                      {typeof row.subTotal === "number"
+                        ? row.subTotal.toFixed(2)
+                        : row.subTotal}
                     </td>
                     <td className="py-3 px-4">
-                      {typeof row.igv === "number" ? row.igv.toFixed(2) : row.igv}
+                      {typeof row.igv === "number"
+                        ? row.igv.toFixed(2)
+                        : row.igv}
                     </td>
                     <td className="py-3 px-4 font-bold text-text-primary">
-                      {typeof row.total === "number" ? row.total.toFixed(2) : row.total}
+                      {typeof row.total === "number"
+                        ? row.total.toFixed(2)
+                        : row.total}
                     </td>
                   </tr>
                 ))
@@ -201,8 +217,15 @@ export const ResumenVentas = () => {
       {totalRegistros > 0 && (
         <div className="flex flex-col sm:flex-row justify-between items-center gap-3 pt-4 text-sm border-t border-border-default">
           <div className="text-sm text-text-primary-80">
-            Mostrando <span className="font-semibold text-text-primary">{currentRows.length}</span> de{" "}
-            <span className="font-semibold text-text-primary">{totalRegistros}</span> registros
+            Mostrando{" "}
+            <span className="font-semibold text-text-primary">
+              {currentRows.length}
+            </span>{" "}
+            de{" "}
+            <span className="font-semibold text-text-primary">
+              {totalRegistros}
+            </span>{" "}
+            registros
           </div>
 
           <div className="flex items-center gap-2">
