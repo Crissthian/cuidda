@@ -1,8 +1,8 @@
-import ExcelJS from "exceljs";
 import {
   parteDiarioEmpresasMock,
   type ParteDiarioEmpresaRow,
 } from "@/lib/parteDiarioData";
+import ExcelJS from "exceljs";
 import { useCallback, useState } from "react";
 import OtrosTabla from "./OtrosTabla";
 import TablaEmpresas from "./TablaEmpresas";
@@ -15,6 +15,43 @@ type ParteDiarioFilters = {
 };
 
 const PAGE_SIZE = 20;
+
+/** PDF de ejemplo servido desde `public/docs` (nombre de archivo hardcodeado). */
+const PARTE_DIARIO_PDF = "CUIDDA - Parte diario de atenciones 2026-10-06.pdf";
+
+/** URL codificada del PDF estático. */
+const PARTE_DIARIO_PDF_URL = `/docs/${encodeURIComponent(PARTE_DIARIO_PDF)}`;
+
+/**
+ * Abre el PDF del parte diario en una nueva pestaña del navegador.
+ * Es síncrono (dentro del gesto del usuario), por lo que no lo bloquea el
+ * bloqueador de popups.
+ */
+function abrirParteDiarioPdf() {
+  window.open(PARTE_DIARIO_PDF_URL, "_blank", "noopener,noreferrer");
+}
+
+/**
+ * Aplica los filtros activos sobre los datos mock del parte diario.
+ */
+const filtrarParteDiario = (
+  filters: Partial<ParteDiarioFilters>,
+): ParteDiarioEmpresaRow[] =>
+  parteDiarioEmpresasMock.filter((row) => {
+    const matchSede =
+      !filters.sede ||
+      (filters.sede === "001" && ["UNACEM S.A.A."].includes(row.empresa));
+    const matchEmpresa =
+      !filters.empresa ||
+      row.empresa.toLowerCase().includes(filters.empresa.toLowerCase());
+    const matchFechaInicio =
+      !filters.fechaInicio ||
+      row.fechaAtencion.split("/").reverse().join("-") >= filters.fechaInicio;
+    const matchFechaFin =
+      !filters.fechaFin ||
+      row.fechaAtencion.split("/").reverse().join("-") <= filters.fechaFin;
+    return matchSede && matchEmpresa && matchFechaInicio && matchFechaFin;
+  });
 
 /**
  * Vista principal del parte diario: controla pestañas, filtros y exportación (mock).
@@ -43,23 +80,7 @@ export default function ParteDiarioTabla() {
       setErrorEmpresas(null);
 
       window.setTimeout(() => {
-        const filtered = parteDiarioEmpresasMock.filter((row) => {
-          const matchSede =
-            !filters.sede ||
-            (filters.sede === "001" && ["UNACEM S.A.A."].includes(row.empresa));
-          const matchEmpresa =
-            !filters.empresa ||
-            row.empresa.toLowerCase().includes(filters.empresa.toLowerCase());
-          const matchFechaInicio =
-            !filters.fechaInicio ||
-            row.fechaAtencion.split("/").reverse().join("-") >=
-              filters.fechaInicio;
-          const matchFechaFin =
-            !filters.fechaFin ||
-            row.fechaAtencion.split("/").reverse().join("-") <=
-              filters.fechaFin;
-          return matchSede && matchEmpresa && matchFechaInicio && matchFechaFin;
-        });
+        const filtered = filtrarParteDiario(filters);
 
         const total = filtered.length;
         const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
@@ -96,24 +117,7 @@ export default function ParteDiarioTabla() {
    * Construye y descarga el Excel del parte diario con los filtros activos.
    */
   const handleDownloadExcel = async () => {
-    const filtered = parteDiarioEmpresasMock.filter((row) => {
-      const matchSede =
-        !activeFilters.sede ||
-        (activeFilters.sede === "001" &&
-          ["UNACEM S.A.A."].includes(row.empresa));
-      const matchEmpresa =
-        !activeFilters.empresa ||
-        row.empresa.toLowerCase().includes(activeFilters.empresa.toLowerCase());
-      const matchFechaInicio =
-        !activeFilters.fechaInicio ||
-        row.fechaAtencion.split("/").reverse().join("-") >=
-          activeFilters.fechaInicio;
-      const matchFechaFin =
-        !activeFilters.fechaFin ||
-        row.fechaAtencion.split("/").reverse().join("-") <=
-          activeFilters.fechaFin;
-      return matchSede && matchEmpresa && matchFechaInicio && matchFechaFin;
-    });
+    const filtered = filtrarParteDiario(activeFilters);
 
     if (!filtered.length) return;
 
@@ -234,14 +238,24 @@ export default function ParteDiarioTabla() {
           </button>
         </div>
 
-        <button
-          type="button"
-          className="rounded-xl flex items-center justify-center text-xl text-brand px-3 py-2 cursor-pointer hover:bg-muted-50 transition-all"
-          title="Descargar parte diario"
-          onClick={handleDownloadExcel}
-        >
-          <i className="fas fa-download text-2xl"></i>
-        </button>
+        <div className="flex items-center gap-1">
+          <button
+            type="button"
+            className="rounded-xl flex items-center justify-center text-xl text-brand px-3 py-2 cursor-pointer hover:bg-muted-50 transition-all"
+            title="Descargar parte diario en Excel"
+            onClick={handleDownloadExcel}
+          >
+            <i className="fas fa-file-excel text-2xl"></i>
+          </button>
+          <button
+            type="button"
+            className="rounded-xl flex items-center justify-center text-xl text-brand px-3 py-2 cursor-pointer hover:bg-muted-50 transition-all"
+            title="Ver parte diario en PDF (nueva pestaña)"
+            onClick={abrirParteDiarioPdf}
+          >
+            <i className="fas fa-file-pdf text-2xl"></i>
+          </button>
+        </div>
       </div>
 
       {/* Card principal */}

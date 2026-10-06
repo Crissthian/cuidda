@@ -5,6 +5,22 @@ import {
 import { useEffect, useState } from "react";
 import ListaAtencionesHistorial from "./ListaAtencionesHistorial";
 
+/** PDF de ejemplo servido desde `public/docs` (nombre de archivo hardcodeado). */
+const HISTORIA_CLINICA_PDF =
+  "CUIDDA - Historia clinica asistencial (ejemplo con datos ficticios).pdf";
+
+/** URL codificada del PDF estático. */
+const HISTORIA_CLINICA_PDF_URL = `/docs/${encodeURIComponent(HISTORIA_CLINICA_PDF)}`;
+
+/**
+ * Abre el PDF de la historia clínica en una nueva pestaña del navegador.
+ * Es síncrono (dentro del gesto del usuario), por lo que no lo bloquea el
+ * bloqueador de popups.
+ */
+function abrirHistoriaClinicaPdf() {
+  window.open(HISTORIA_CLINICA_PDF_URL, "_blank", "noopener,noreferrer");
+}
+
 /**
  * Contenedor de historia clínica: lee ?historia= en el cliente
  * (la página es estática, Astro.url.searchParams no está disponible en build).
@@ -48,6 +64,16 @@ export default function HistoriaClinicaContainer() {
           <h1 className="text-2xl font-bold text-text-primary">
             Datos del paciente
           </h1>
+          <button
+            type="button"
+            onClick={abrirHistoriaClinicaPdf}
+            disabled={!paciente}
+            title="Ver historia clínica en PDF (nueva pestaña)"
+            className="ml-auto flex items-center gap-2 px-6 py-2 rounded-lg bg-brand text-white font-bold text-sm tracking-wide hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+          >
+            <i className="fas fa-file-pdf"></i>
+            VER HISTORIA CLÍNICA
+          </button>
         </div>
 
         {paciente ? (

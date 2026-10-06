@@ -21,6 +21,8 @@ interface MenuNode {
   label: string;
   href: string;
   icon?: string;
+  /** true cuando el enlace apunta a un sitio externo (se abre en otra pestaña) */
+  external?: boolean;
   children?: MenuNode[];
 }
 
@@ -56,6 +58,12 @@ const menu: MenuNode[] = [
         id: "pacientes",
         label: "Pacientes",
         href: "/asistencial/pacientes",
+      },
+      {
+        id: "dashboard-asistencial",
+        label: "Dashboard Asistencial",
+        href: "https://atencionesempresaslucemedic.vercel.app/",
+        external: true,
       },
     ],
   },
@@ -444,6 +452,12 @@ const isVigilancia = isActive("/vigilancia-medica");
                               <div class="flex w-full items-center rounded pl-8 pr-2 py-1.5 hover:bg-white">
                                 <a
                                   href={sub.href}
+                                  target={sub.external ? "_blank" : undefined}
+                                  rel={
+                                    sub.external
+                                      ? "noopener noreferrer"
+                                      : undefined
+                                  }
                                   class={`flex-1 ${linkClass(sub.href)}`}
                                 >
                                   {sub.label}
@@ -465,6 +479,12 @@ const isVigilancia = isActive("/vigilancia-medica");
                             ) : (
                               <a
                                 href={sub.href}
+                                target={sub.external ? "_blank" : undefined}
+                                rel={
+                                  sub.external
+                                    ? "noopener noreferrer"
+                                    : undefined
+                                }
                                 class={`block rounded py-1.5 pl-8 pr-2 transition hover:bg-white ${linkClass(sub.href)}`}
                               >
                                 {sub.label}
@@ -479,6 +499,14 @@ const isVigilancia = isActive("/vigilancia-medica");
                                 {sub.children.map((leaf) => (
                                   <a
                                     href={leaf.href}
+                                    target={
+                                      leaf.external ? "_blank" : undefined
+                                    }
+                                    rel={
+                                      leaf.external
+                                        ? "noopener noreferrer"
+                                        : undefined
+                                    }
                                     class={`block rounded py-1.5 pl-12 pr-2 text-xs transition hover:bg-white ${linkClass(leaf.href)}`}
                                   >
                                     {leaf.label}

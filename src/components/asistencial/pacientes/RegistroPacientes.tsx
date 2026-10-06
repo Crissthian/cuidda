@@ -53,16 +53,16 @@ export default function RegistroPacientes() {
   return (
     <div className="space-y-6">
       {/* Título */}
-      <h2 className="text-lg font-semibold text-text-primary">
+      <h2 className="text-lg font-semibold text-text-primary ps-6">
         Registro de pacientes
       </h2>
 
       {/* Barra de búsqueda */}
-      <div className="flex gap-4 items-center">
+      <div className="flex gap-4 items-center ps-6">
         <input
           type="text"
           placeholder="APELLIDOS"
-          className="form-input max-w-xs"
+          className="form-input max-w-xs uppercase"
           value={apellido}
           onChange={(e) => setApellido(e.target.value)}
           onKeyDown={handleKeyDown}

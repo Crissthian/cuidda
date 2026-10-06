@@ -53,10 +53,10 @@ export const modulosAsistencial: ModuloAcceso[] = [
   },
   {
     id: 7,
-    label: "Dashboard",
+    label: "Dashboard Asistencial",
     href: "https://atencionesempresaslucemedic.vercel.app/",
     icon: "fa-chart-line",
-    ariaLabel: "Ir al Dashboard de Atenciones a Empresas",
+    ariaLabel: "Ir al Dashboard Asistencial",
     external: true,
   },
 ];
